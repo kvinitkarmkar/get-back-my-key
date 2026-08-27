@@ -9,7 +9,10 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <meta name="theme-color" content="#09090b">
+  <meta
+    name="theme-color"
+    content="#09090b"
+  >
 
   <title>Get Back My Key</title>
 
@@ -34,7 +37,6 @@
       --blue: #3b82f6;
       --green: #22c55e;
       --red: #ef4444;
-      --yellow: #eab308;
     }
 
     html {
@@ -74,9 +76,9 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* =========================
+    /* =====================================
        ICONS
-    ========================= */
+    ===================================== */
 
     .icon {
       width: 18px;
@@ -98,13 +100,14 @@
     }
 
     .icon-lg {
-      width: 24px;
-      height: 24px;
+      width: 25px;
+      height: 25px;
     }
 
-    /* =========================
-       CONTAINER
-    ========================= */
+
+    /* =====================================
+       MAIN CONTAINER
+    ===================================== */
 
     .container {
       width: min(760px, 100%);
@@ -117,9 +120,10 @@
         45px;
     }
 
-    /* =========================
+
+    /* =====================================
        HEADER
-    ========================= */
+    ===================================== */
 
     .header {
       text-align: center;
@@ -152,7 +156,8 @@
       border-radius: 16px;
 
       box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.28);
+        0 12px 35px
+        rgba(0, 0, 0, 0.28);
     }
 
     h1 {
@@ -180,9 +185,10 @@
       line-height: 1.55;
     }
 
-    /* =========================
-       ADD
-    ========================= */
+
+    /* =====================================
+       ADD CARD
+    ===================================== */
 
     .add-card {
       display: flex;
@@ -291,9 +297,10 @@
         scale(0.97);
     }
 
-    /* =========================
+
+    /* =====================================
        STATS
-    ========================= */
+    ===================================== */
 
     .stats {
       display: grid;
@@ -348,15 +355,67 @@
       letter-spacing: 0.6px;
     }
 
-    /* =========================
-       TOOLBAR
-    ========================= */
 
-    .toolbar {
+    /* =====================================
+       PROGRESS
+    ===================================== */
+
+    .progress-wrap {
+      margin:
+        4px
+        0
+        14px;
+    }
+
+    .progress-info {
       display: flex;
 
-      gap: 8px;
+      justify-content: space-between;
 
+      margin-bottom:
+        6px;
+
+      color:
+        var(--muted-2);
+
+      font-size: 10px;
+    }
+
+    .progress {
+      width: 100%;
+      height: 4px;
+
+      overflow:
+        hidden;
+
+      background:
+        var(--surface-3);
+
+      border-radius:
+        999px;
+    }
+
+    .progress-bar {
+      height: 100%;
+
+      width: 0%;
+
+      background:
+        var(--green);
+
+      border-radius:
+        inherit;
+
+      transition:
+        width 0.25s ease;
+    }
+
+
+    /* =====================================
+       SEARCH
+    ===================================== */
+
+    .toolbar {
       margin:
         12px
         0;
@@ -364,11 +423,9 @@
 
     .search-box {
       position: relative;
-
-      flex: 1;
     }
 
-    .search-box .search-icon {
+    .search-icon {
       position: absolute;
 
       left: 13px;
@@ -380,12 +437,13 @@
       color:
         var(--muted-2);
 
-      pointer-events: none;
+      pointer-events:
+        none;
     }
 
     .search-box input {
       width: 100%;
-      height: 42px;
+      height: 44px;
 
       padding:
         0
@@ -402,7 +460,7 @@
       border:
         1px solid var(--border);
 
-      border-radius: 11px;
+      border-radius: 12px;
 
       outline: none;
 
@@ -414,46 +472,10 @@
         rgba(59, 130, 246, 0.55);
     }
 
-    .filter-btn {
-      height: 42px;
 
-      padding:
-        0
-        13px;
-
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 6px;
-
-      background:
-        var(--surface);
-
-      color:
-        var(--muted);
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 11px;
-
-      cursor: pointer;
-
-      font-size: 12px;
-    }
-
-    .filter-btn:hover {
-      color:
-        var(--text);
-
-      background:
-        var(--surface-2);
-    }
-
-    /* =========================
+    /* =====================================
        FILTERS
-    ========================= */
+    ===================================== */
 
     .filters {
       display: flex;
@@ -465,7 +487,8 @@
       margin-bottom:
         12px;
 
-      scrollbar-width: none;
+      scrollbar-width:
+        none;
     }
 
     .filters::-webkit-scrollbar {
@@ -491,15 +514,14 @@
       border-radius:
         999px;
 
-      cursor: pointer;
+      cursor:
+        pointer;
 
-      font-size: 11px;
-      font-weight: 600;
-    }
+      font-size:
+        11px;
 
-    .filter:hover {
-      color:
-        var(--text);
+      font-weight:
+        600;
     }
 
     .filter.active {
@@ -513,9 +535,10 @@
         var(--border);
     }
 
-    /* =========================
-       LIST
-    ========================= */
+
+    /* =====================================
+       PASSWORD LIST
+    ===================================== */
 
     #list {
       display: flex;
@@ -524,6 +547,11 @@
 
       gap: 9px;
     }
+
+
+    /* =====================================
+       PASSWORD CARD
+    ===================================== */
 
     .item {
       display: flex;
@@ -534,7 +562,8 @@
 
       min-width: 0;
 
-      padding: 12px;
+      padding:
+        12px;
 
       background:
         var(--surface);
@@ -576,9 +605,10 @@
         var(--red);
     }
 
-    /* =========================
-       PASSWORD
-    ========================= */
+
+    /* =====================================
+       PASSWORD CONTENT
+    ===================================== */
 
     .password-content {
       flex: 1;
@@ -591,18 +621,19 @@
 
       align-items: center;
 
-      gap: 7px;
-
       margin-bottom:
-        5px;
+        4px;
     }
 
     .attempt-number {
       color:
         var(--muted-2);
 
-      font-size: 10px;
-      font-weight: 700;
+      font-size:
+        10px;
+
+      font-weight:
+        700;
 
       letter-spacing:
         0.3px;
@@ -620,34 +651,39 @@
         "Liberation Mono",
         monospace;
 
-      font-size: 14px;
+      font-size:
+        14px;
 
       line-height:
-        1.5;
+        1.4;
 
       /*
         IMPORTANT:
-        Preserve exactly what user entered,
-        including spaces and line breaks.
+        Preserve exactly what the user entered.
       */
-      white-space: pre-wrap;
 
-      word-break: break-word;
+      white-space:
+        pre-wrap;
+
+      word-break:
+        break-word;
     }
 
     .date {
       margin-top:
-        6px;
+        4px;
 
       color:
         var(--muted-2);
 
-      font-size: 10px;
+      font-size:
+        10px;
     }
 
-    /* =========================
+
+    /* =====================================
        STATUS
-    ========================= */
+    ===================================== */
 
     .status {
       display: inline-flex;
@@ -657,7 +693,7 @@
       gap: 4px;
 
       margin-top:
-        6px;
+        5px;
 
       padding:
         3px
@@ -666,8 +702,11 @@
       border-radius:
         999px;
 
-      font-size: 9px;
-      font-weight: 700;
+      font-size:
+        9px;
+
+      font-weight:
+        700;
 
       text-transform:
         uppercase;
@@ -700,9 +739,10 @@
         rgba(239, 68, 68, 0.12);
     }
 
-    /* =========================
+
+    /* =====================================
        ACTIONS
-    ========================= */
+    ===================================== */
 
     .actions {
       display: flex;
@@ -737,7 +777,8 @@
       border-radius:
         10px;
 
-      cursor: pointer;
+      cursor:
+        pointer;
 
       transition:
         background 0.15s ease,
@@ -800,16 +841,18 @@
         rgba(239, 68, 68, 0.35);
     }
 
-    /* =========================
-       EMPTY
-    ========================= */
+
+    /* =====================================
+       EMPTY STATE
+    ===================================== */
 
     .empty {
       padding:
         50px
         20px;
 
-      text-align: center;
+      text-align:
+        center;
 
       background:
         var(--surface);
@@ -875,9 +918,10 @@
         1.5;
     }
 
-    /* =========================
+
+    /* =====================================
        BACKUP
-    ========================= */
+    ===================================== */
 
     .backup {
       display: flex;
@@ -912,7 +956,8 @@
       border-radius:
         10px;
 
-      cursor: pointer;
+      cursor:
+        pointer;
 
       font-size:
         11px;
@@ -929,9 +974,10 @@
         var(--surface-2);
     }
 
-    /* =========================
+
+    /* =====================================
        STORAGE
-    ========================= */
+    ===================================== */
 
     .storage-status {
       display: flex;
@@ -966,64 +1012,10 @@
         rgba(34, 197, 94, 0.5);
     }
 
-    /* =========================
-       PROGRESS
-    ========================= */
 
-    .progress-wrap {
-      margin:
-        4px
-        0
-        14px;
-    }
-
-    .progress-info {
-      display: flex;
-
-      justify-content: space-between;
-
-      margin-bottom:
-        6px;
-
-      color:
-        var(--muted-2);
-
-      font-size:
-        10px;
-    }
-
-    .progress {
-      width: 100%;
-      height: 4px;
-
-      overflow:
-        hidden;
-
-      background:
-        var(--surface-3);
-
-      border-radius:
-        999px;
-    }
-
-    .progress-bar {
-      height: 100%;
-
-      width: 0%;
-
-      background:
-        var(--green);
-
-      border-radius:
-        inherit;
-
-      transition:
-        width 0.25s ease;
-    }
-
-    /* =========================
+    /* =====================================
        TOAST
-    ========================= */
+    ===================================== */
 
     #toastContainer {
       position: fixed;
@@ -1037,7 +1029,10 @@
         translateX(-50%);
 
       width:
-        min(420px, calc(100% - 24px));
+        min(
+          420px,
+          calc(100% - 24px)
+        );
 
       pointer-events:
         none;
@@ -1136,30 +1131,40 @@
     @keyframes toastIn {
 
       from {
-        opacity: 0;
+        opacity:
+          0;
+
         transform:
           translateY(8px);
       }
 
       to {
-        opacity: 1;
+        opacity:
+          1;
+
         transform:
           translateY(0);
       }
 
     }
 
-    /* =========================
+
+    /* =====================================
        MOBILE
-    ========================= */
+    ===================================== */
 
     @media (max-width: 560px) {
 
       .container {
         padding:
-          22px
+          20px
           12px
-          35px;
+          32px;
+      }
+
+      .header {
+        margin-bottom:
+          20px;
       }
 
       .logo {
@@ -1168,6 +1173,9 @@
 
         height:
           50px;
+
+        margin-bottom:
+          11px;
       }
 
       h1 {
@@ -1178,11 +1186,20 @@
       .subtitle {
         font-size:
           12px;
+
+        margin-top:
+          6px;
       }
+
+
+      /* Add */
 
       .add-card {
         padding:
           9px;
+
+        gap:
+          8px;
       }
 
       .add-card input,
@@ -1191,21 +1208,39 @@
           45px;
       }
 
+      .add-card input {
+        font-size:
+          13px;
+
+        padding:
+          0
+          12px;
+      }
+
       .add-btn {
         padding:
           0
           15px;
       }
 
+
+      /* Stats */
+
       .stats {
         gap:
           7px;
+
+        margin-top:
+          14px;
       }
 
       .stat {
         padding:
-          11px
+          10px
           6px;
+
+        border-radius:
+          13px;
       }
 
       .stat-number {
@@ -1213,74 +1248,209 @@
           17px;
       }
 
-      .item {
-        align-items:
-          flex-start;
-
-        padding:
-          11px;
+      .stat-label {
+        font-size:
+          9px;
       }
 
+
+      /* Search */
+
+      .search-box input {
+        height:
+          42px;
+      }
+
+
+      /* =================================
+         COMPACT MOBILE PASSWORD CARD
+      ================================= */
+
+      .item {
+
+        /*
+          Two-column layout:
+          left  = password information
+          right = actions
+        */
+
+        display:
+          grid;
+
+        grid-template-columns:
+          minmax(0, 1fr)
+          auto;
+
+        align-items:
+          start;
+
+        gap:
+          4px
+          8px;
+
+        padding:
+          9px
+          10px;
+
+        border-radius:
+          14px;
+
+        min-height:
+          0;
+      }
+
+
+      .password-content {
+        min-width:
+          0;
+      }
+
+
+      .attempt-line {
+        margin-bottom:
+          2px;
+      }
+
+
+      .attempt-number {
+        font-size:
+          9px;
+      }
+
+
+      .pw-text {
+        font-size:
+          13px;
+
+        line-height:
+          1.3;
+      }
+
+
+      .status {
+        margin-top:
+          4px;
+
+        padding:
+          2px
+          7px;
+
+        font-size:
+          8px;
+
+        line-height:
+          1.4;
+      }
+
+
+      .date {
+        margin-top:
+          3px;
+
+        font-size:
+          9px;
+      }
+
+
+      /* Actions stay compact */
+
       .actions {
+        grid-column:
+          2;
+
+        grid-row:
+          1 / span 4;
+
+        align-self:
+          start;
+
         gap:
           4px;
       }
 
+
       .action-btn {
         width:
-          33px;
+          32px;
 
         height:
-          33px;
+          32px;
 
         border-radius:
           9px;
       }
 
-      .pw-text {
-        font-size:
-          13px;
+
+      .action-btn .icon {
+        width:
+          15px;
+
+        height:
+          15px;
       }
+
+
+      /* Backup */
+
+      .backup {
+        margin-top:
+          14px;
+      }
+
+      .backup-btn {
+        height:
+          38px;
+
+        font-size:
+          10px;
+      }
+
     }
 
-    /* =========================
+
+    /* =====================================
        SMALL PHONES
-    ========================= */
+    ===================================== */
 
     @media (max-width: 380px) {
+
+      .container {
+        padding-left:
+          10px;
+
+        padding-right:
+          10px;
+      }
+
 
       .add-card {
         flex-direction:
           column;
       }
 
+
       .add-btn {
         width:
           100%;
       }
 
-      .toolbar {
-        flex-direction:
-          column;
-      }
-
-      .filter-btn {
-        width:
-          100%;
-
-        justify-content:
-          center;
-      }
 
       .item {
+        padding:
+          8px
+          9px;
+
         gap:
-          7px;
+          4px
+          6px;
       }
 
-      .actions {
-        gap:
-          3px;
+
+      .pw-text {
+        font-size:
+          12px;
       }
+
 
       .action-btn {
         width:
@@ -1288,6 +1458,12 @@
 
         height:
           30px;
+      }
+
+
+      .backup-btn {
+        font-size:
+          9px;
       }
 
     }
@@ -1301,7 +1477,10 @@
 
   <main class="container">
 
-    <!-- HEADER -->
+
+    <!-- =================================
+         HEADER
+    ================================= -->
 
     <header class="header">
 
@@ -1335,9 +1514,11 @@
 
       </div>
 
+
       <h1>
         Get Back My Key
       </h1>
+
 
       <p class="subtitle">
         Keep track of password combinations and your recovery attempts.
@@ -1346,7 +1527,9 @@
     </header>
 
 
-    <!-- ADD PASSWORD -->
+    <!-- =================================
+         ADD PASSWORD
+    ================================= -->
 
     <section class="add-card">
 
@@ -1362,6 +1545,7 @@
 
       </div>
 
+
       <button
         class="add-btn"
         id="addBtn"
@@ -1375,6 +1559,7 @@
         >
 
           <path d="M12 5v14"></path>
+
           <path d="M5 12h14"></path>
 
         </svg>
@@ -1388,7 +1573,9 @@
     </section>
 
 
-    <!-- STATS -->
+    <!-- =================================
+         STATS
+    ================================= -->
 
     <section class="stats">
 
@@ -1442,7 +1629,9 @@
     </section>
 
 
-    <!-- PROGRESS -->
+    <!-- =================================
+         PROGRESS
+    ================================= -->
 
     <div
       class="progress-wrap"
@@ -1462,6 +1651,7 @@
 
       </div>
 
+
       <div class="progress">
 
         <div
@@ -1474,7 +1664,9 @@
     </div>
 
 
-    <!-- SEARCH -->
+    <!-- =================================
+         SEARCH
+    ================================= -->
 
     <div class="toolbar">
 
@@ -1498,6 +1690,7 @@
 
         </svg>
 
+
         <input
           type="search"
           id="searchInput"
@@ -1510,7 +1703,9 @@
     </div>
 
 
-    <!-- FILTERS -->
+    <!-- =================================
+         FILTERS
+    ================================= -->
 
     <div class="filters">
 
@@ -1522,6 +1717,7 @@
         All
       </button>
 
+
       <button
         class="filter"
         data-filter="pending"
@@ -1530,6 +1726,7 @@
         Pending
       </button>
 
+
       <button
         class="filter"
         data-filter="no"
@@ -1537,6 +1734,7 @@
       >
         Failed
       </button>
+
 
       <button
         class="filter"
@@ -1549,12 +1747,16 @@
     </div>
 
 
-    <!-- PASSWORD LIST -->
+    <!-- =================================
+         LIST
+    ================================= -->
 
     <section id="list"></section>
 
 
-    <!-- EMPTY STATE -->
+    <!-- =================================
+         EMPTY STATE
+    ================================= -->
 
     <div
       class="empty"
@@ -1585,9 +1787,11 @@
 
       </div>
 
+
       <div class="empty-title">
         No password attempts yet
       </div>
+
 
       <div class="empty-text">
         Add your first combination above to start tracking.
@@ -1596,7 +1800,9 @@
     </div>
 
 
-    <!-- BACKUP -->
+    <!-- =================================
+         BACKUP
+    ================================= -->
 
     <div class="backup">
 
@@ -1612,9 +1818,13 @@
           aria-hidden="true"
         >
 
-          <path d="M12 3v12"></path>
+          <path
+            d="M12 3v12"
+          ></path>
 
-          <path d="m7 10 5 5 5-5"></path>
+          <path
+            d="m7 10 5 5 5-5"
+          ></path>
 
           <path
             d="M5 21h14"
@@ -1639,9 +1849,13 @@
           aria-hidden="true"
         >
 
-          <path d="M12 15V3"></path>
+          <path
+            d="M12 15V3"
+          ></path>
 
-          <path d="m7 8 5-5 5 5"></path>
+          <path
+            d="m7 8 5-5 5 5"
+          ></path>
 
           <path
             d="M5 21h14"
@@ -1664,7 +1878,9 @@
     >
 
 
-    <!-- STORAGE -->
+    <!-- =================================
+         STORAGE STATUS
+    ================================= -->
 
     <div class="storage-status">
 
@@ -1679,7 +1895,9 @@
   </main>
 
 
-  <!-- TOAST -->
+  <!-- =================================
+       TOAST
+  ================================= -->
 
   <div id="toastContainer"></div>
 
@@ -1687,11 +1905,11 @@
   <script>
 
     /* =========================================
-       CONFIG
+       STORAGE
     ========================================= */
 
     const STORAGE_KEY =
-      "get_back_my_key_passwords_v3";
+      "get_back_my_key_passwords_v4";
 
 
     /* =========================================
@@ -1715,7 +1933,7 @@
 
 
     /* =========================================
-       LOAD STORAGE
+       LOAD PASSWORDS
     ========================================= */
 
     function loadPasswords() {
@@ -1745,7 +1963,8 @@
         return parsed.filter(
           item =>
             item &&
-            typeof item.text === "string"
+            typeof item.text ===
+              "string"
         );
 
       } catch (error) {
@@ -1761,7 +1980,7 @@
 
 
     /* =========================================
-       SAVE STORAGE
+       SAVE PASSWORDS
     ========================================= */
 
     function savePasswords() {
@@ -1821,11 +2040,12 @@
 
 
     /* =========================================
-       ADD
+       ADD PASSWORD
        
        IMPORTANT:
-       NO trim().
-       The exact input is preserved.
+       No trim().
+       
+       User input is stored exactly.
     ========================================= */
 
     function addPassword() {
@@ -1836,29 +2056,20 @@
         );
 
 
-      /*
-        DO NOT trim this.
-
-        If user enters:
-
-          "  my pass  "
-
-        those spaces are intentionally
-        preserved.
-      */
-
       const value =
         input.value;
 
 
       /*
-        Only reject a completely empty input.
+        Only reject a completely empty
+        input.
 
-        Spaces-only input is technically valid
-        and will therefore be preserved.
+        Spaces are preserved exactly.
       */
 
-      if (value.length === 0) {
+      if (
+        value.length === 0
+      ) {
 
         input.focus();
 
@@ -1869,30 +2080,30 @@
       /* =====================================
          EXACT DUPLICATE CHECK
          
-         No trim.
-         No lowercase.
-         No normalization.
-         
-         "Pass"
-         "pass"
-         "Pass "
-         " Pass"
-         
-         are all different.
+         No trim
+         No lowercase
+         No normalization
       ===================================== */
 
       const duplicate =
         passwords.find(
           password =>
-            password.text === value
+            password.text ===
+            value
         );
 
 
       if (duplicate) {
 
+        const attemptNumber =
+          passwords.indexOf(
+            duplicate
+          ) + 1;
+
+
         showToast(
           "Already exists",
-          "This exact combination is already in your list.",
+          `This combination is already attempt #${attemptNumber}.`,
           "error"
         );
 
@@ -1901,15 +2112,14 @@
 
         input.select();
 
-
         return;
       }
 
 
       /* =====================================
-         NEW ENTRY
+         NEW PASSWORD
          
-         unshift = TOP
+         unshift() = TOP
       ===================================== */
 
       const newPassword = {
@@ -1953,7 +2163,7 @@
 
       showToast(
         "Added",
-        "New combination added to the top of your list.",
+        "New combination added to the top.",
         "success"
       );
     }
@@ -2000,7 +2210,7 @@
 
 
     /* =========================================
-       STATUS
+       MARK STATUS
     ========================================= */
 
     function markStatus(
@@ -2013,19 +2223,11 @@
       }
 
 
-      if (
+      passwords[index].status =
         passwords[index].status ===
-        status
-      ) {
-
-        passwords[index].status =
-          "pending";
-
-      } else {
-
-        passwords[index].status =
-          status;
-      }
+          status
+          ? "pending"
+          : status;
 
 
       savePasswords();
@@ -2047,10 +2249,6 @@
       }
 
 
-      const item =
-        passwords[index];
-
-
       const confirmed =
         confirm(
           "Delete this password attempt?"
@@ -2065,7 +2263,7 @@
       deletedBackup = {
 
         item:
-          item,
+          passwords[index],
 
         index:
           index
@@ -2086,7 +2284,7 @@
 
       showUndoToast(
         "Deleted",
-        "The password attempt was removed."
+        "Password attempt removed."
       );
     }
 
@@ -2131,7 +2329,7 @@
 
       showToast(
         "Restored",
-        "The deleted attempt was restored.",
+        "Password attempt restored.",
         "success"
       );
     }
@@ -2139,6 +2337,9 @@
 
     /* =========================================
        COPY
+       
+       Uses Clipboard API first,
+       then fallback for mobile browsers.
     ========================================= */
 
     async function copyText(
@@ -2150,7 +2351,7 @@
         false;
 
 
-      /* Modern API */
+      /* Modern Clipboard API */
 
       try {
 
@@ -2219,7 +2420,6 @@
 
           textarea.select();
 
-
           textarea.setSelectionRange(
             0,
             textarea.value.length
@@ -2232,9 +2432,7 @@
             );
 
 
-          document.body.removeChild(
-            textarea
-          );
+          textarea.remove();
 
         } catch (error) {
 
@@ -2245,6 +2443,8 @@
         }
       }
 
+
+      /* Success */
 
       if (copied) {
 
@@ -2402,7 +2602,7 @@
           "Get Back My Key",
 
         version:
-          3,
+          4,
 
         exportedAt:
           new Date().toISOString(),
@@ -2467,7 +2667,6 @@
 
       link.click();
 
-
       link.remove();
 
 
@@ -2478,7 +2677,7 @@
 
       showToast(
         "Backup exported",
-        "Your local backup file has been created.",
+        "Your local backup has been created.",
         "success"
       );
     }
@@ -2547,17 +2746,6 @@
             let imported;
 
 
-            /*
-              Support both:
-
-              {
-                passwords: [...]
-              }
-
-              and directly:
-              [...]
-            */
-
             if (
               Array.isArray(data)
             ) {
@@ -2577,14 +2765,10 @@
             } else {
 
               throw new Error(
-                "Invalid backup format"
+                "Invalid backup"
               );
             }
 
-
-            /*
-              Only accept valid entries.
-            */
 
             imported =
               imported.filter(
@@ -2600,15 +2784,10 @@
             ) {
 
               throw new Error(
-                "No valid entries found"
+                "No entries"
               );
             }
 
-
-            /*
-              Merge while preserving exact
-              password strings.
-            */
 
             let added =
               0;
@@ -2616,6 +2795,10 @@
 
             imported.forEach(
               function(item) {
+
+                /*
+                  Exact duplicate check.
+                */
 
                 const exists =
                   passwords.some(
@@ -2641,14 +2824,17 @@
                       item.text,
 
                     status:
-                      item.status === "yes" ||
-                      item.status === "no"
+                      item.status ===
+                        "yes" ||
+                      item.status ===
+                        "no"
                         ? item.status
                         : "pending",
 
                     createdAt:
                       item.createdAt ||
-                      new Date().toISOString()
+                      new Date()
+                        .toISOString()
 
                   });
 
@@ -2727,8 +2913,7 @@
 
 
       toast.className =
-        "toast " +
-        type;
+        `toast ${type}`;
 
 
       toast.innerHTML = `
@@ -2807,6 +2992,7 @@
 
         </div>
 
+
         <button
           class="undo-btn"
           type="button"
@@ -2848,7 +3034,7 @@
 
 
     /* =========================================
-       FORMAT DATE
+       DATE
     ========================================= */
 
     function formatDate(
@@ -2965,7 +3151,9 @@
         );
 
 
-      if (total > 0) {
+      if (
+        total > 0
+      ) {
 
         progressWrap.style.display =
           "block";
@@ -3001,7 +3189,7 @@
       }
 
 
-      /* Filter */
+      /* Filter + Search */
 
       const filtered =
         passwords.filter(
@@ -3079,16 +3267,12 @@
       }
 
 
-      /* Render cards */
+      /* =====================================
+         CREATE CARDS
+      ===================================== */
 
       filtered.forEach(
         function(password) {
-
-          /*
-            Find original index.
-            This is important because filtered
-            arrays have different indexes.
-          */
 
           const originalIndex =
             passwords.indexOf(
@@ -3125,9 +3309,6 @@
           let statusText =
             "Pending";
 
-          let statusIcon =
-            "";
-
 
           if (
             password.status ===
@@ -3140,27 +3321,6 @@
             statusText =
               "Success";
 
-
-            statusIcon = `
-
-              <svg
-                class="icon"
-                style="
-                  width:11px;
-                  height:11px;
-                "
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-
-                <path
-                  d="m5 12 4 4L19 6"
-                ></path>
-
-              </svg>
-
-            `;
-
           } else if (
             password.status ===
             "no"
@@ -3171,33 +3331,12 @@
 
             statusText =
               "Failed";
-
-
-            statusIcon = `
-
-              <svg
-                class="icon"
-                style="
-                  width:11px;
-                  height:11px;
-                "
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-
-                <path
-                  d="M6 6l12 12"
-                ></path>
-
-                <path
-                  d="m18 6-12 12"
-                ></path>
-
-              </svg>
-
-            `;
           }
 
+
+          /* =================================
+             CARD HTML
+          ================================= */
 
           item.innerHTML = `
 
@@ -3211,11 +3350,13 @@
 
               </div>
 
+
               <span class="pw-text">
                 ${escapeHtml(
                   password.text
                 )}
               </span>
+
 
               <span
                 class="
@@ -3224,24 +3365,82 @@
                 "
               >
 
-                ${statusIcon}
+                ${
+
+                  password.status ===
+                  "yes"
+
+                    ? `
+
+                      <svg
+                        class="icon"
+                        style="
+                          width:11px;
+                          height:11px;
+                        "
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+
+                        <path
+                          d="m5 12 4 4L19 6"
+                        ></path>
+
+                      </svg>
+
+                    `
+
+                    : password.status ===
+                      "no"
+
+                      ? `
+
+                        <svg
+                          class="icon"
+                          style="
+                            width:11px;
+                            height:11px;
+                          "
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+
+                          <path
+                            d="M6 6l12 12"
+                          ></path>
+
+                          <path
+                            d="m18 6-12 12"
+                          ></path>
+
+                        </svg>
+
+                      `
+
+                      : ""
+
+                }
 
                 ${statusText}
 
               </span>
 
+
               <div class="date">
+
                 ${escapeHtml(
                   formatDate(
                     password.createdAt
                   )
                 )}
+
               </div>
 
             </div>
 
 
             <div class="actions">
+
 
               <!-- COPY -->
 
@@ -3396,7 +3595,9 @@
           `;
 
 
-          /* Copy */
+          /* =================================
+             COPY
+          ================================= */
 
           item
             .querySelector(
@@ -3415,7 +3616,9 @@
             );
 
 
-          /* Success */
+          /* =================================
+             SUCCESS
+          ================================= */
 
           item
             .querySelector(
@@ -3434,7 +3637,9 @@
             );
 
 
-          /* Failed */
+          /* =================================
+             FAILED
+          ================================= */
 
           item
             .querySelector(
@@ -3453,7 +3658,9 @@
             );
 
 
-          /* Delete */
+          /* =================================
+             DELETE
+          ================================= */
 
           item
             .querySelector(
@@ -3504,27 +3711,3 @@
           />/g,
           "&gt;"
         )
-
-        .replace(
-          /"/g,
-          "&quot;"
-        )
-
-        .replace(
-          /'/g,
-          "&#039;"
-        );
-    }
-
-
-    /* =========================================
-       INITIAL RENDER
-    ========================================= */
-
-    render();
-
-  </script>
-
-</body>
-
-</html>
