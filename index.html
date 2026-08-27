@@ -4,857 +4,953 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#08090c">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 
-<title>Password Recovery Tracker</title>
+<title>Get Back My Key</title>
 
 <style>
-    :root {
-        --bg: #08090c;
-        --surface: #101114;
-        --surface-2: #15161a;
-        --border: #25262b;
-        --border-hover: #33343a;
+:root {
+    --bg: #08090c;
+    --surface: #101114;
+    --surface-2: #17181c;
+    --border: #25262b;
+    --border-hover: #35363d;
 
-        --text: #f5f5f7;
-        --muted: #92939b;
-        --muted-2: #6e7078;
+    --text: #f5f5f7;
+    --muted: #92939b;
+    --muted-2: #686a72;
 
-        --blue: #3b82f6;
-        --green: #22c55e;
-        --red: #ef4444;
+    --blue: #3b82f6;
+    --green: #22c55e;
+    --red: #ef4444;
+}
 
-        --radius-lg: 18px;
-        --radius-md: 14px;
-        --radius-sm: 10px;
-    }
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
 
-    * {
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-    }
+html {
+    scroll-behavior: smooth;
+}
 
-    html {
-        scroll-behavior: smooth;
-    }
+body {
+    margin: 0;
+    min-height: 100vh;
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        background:
-            radial-gradient(
-                circle at 50% -10%,
-                rgba(59, 130, 246, 0.08),
-                transparent 32%
-            ),
-            var(--bg);
-        color: var(--text);
-        font-family:
-            Inter,
-            -apple-system,
-            BlinkMacSystemFont,
-            "Segoe UI",
-            Roboto,
-            Arial,
-            sans-serif;
-    }
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(59, 130, 246, 0.08),
+            transparent 32%
+        ),
+        var(--bg);
 
-    button,
-    input {
-        font: inherit;
-    }
+    color: var(--text);
 
-    button {
-        -webkit-user-select: none;
-        user-select: none;
-    }
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+}
 
-    /* =========================
-       APP
-    ========================= */
+button,
+input {
+    font: inherit;
+}
+
+button {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+
+/* =========================================
+   APP
+========================================= */
+
+.app {
+    width: min(100% - 24px, 700px);
+    margin: 0 auto;
+    padding: 32px 0 28px;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.logo {
+    width: 58px;
+    height: 58px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #151619;
+    border: 1px solid #292a2f;
+    border-radius: 18px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.logo svg {
+    width: 28px;
+    height: 28px;
+    color: #d8d9de;
+}
+
+.header h1 {
+    margin: 0;
+
+    font-size: clamp(24px, 5vw, 32px);
+    line-height: 1.15;
+
+    letter-spacing: -0.8px;
+    font-weight: 750;
+}
+
+.header p {
+    max-width: 500px;
+
+    margin: 9px auto 0;
+
+    color: var(--muted);
+
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   ADD BOX
+========================================= */
+
+.add-box {
+    padding: 11px;
+    margin-bottom: 15px;
+
+    background: rgba(16, 17, 20, 0.9);
+
+    border: 1px solid var(--border);
+    border-radius: 16px;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+.password-input {
+    width: 100%;
+    height: 50px;
+
+    padding: 0 14px;
+
+    background: var(--surface-2);
+    color: var(--text);
+
+    border: 1px solid #292a2f;
+    border-radius: 12px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    transition:
+        border-color .2s,
+        box-shadow .2s;
+}
+
+.password-input::placeholder {
+    color: #686a73;
+}
+
+.password-input:focus {
+    border-color: rgba(59,130,246,.65);
+
+    box-shadow:
+        0 0 0 3px rgba(59,130,246,.10);
+}
+
+.add-button {
+    width: 100%;
+    height: 50px;
+
+    margin-top: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    background: var(--blue);
+    color: #fff;
+
+    border: 0;
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background .2s,
+        transform .1s;
+}
+
+.add-button:hover {
+    background: #3275df;
+}
+
+.add-button:active {
+    transform: scale(.985);
+}
+
+.add-button svg {
+    width: 19px;
+    height: 19px;
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 8px;
+
+    margin-bottom: 16px;
+}
+
+.stat {
+    padding: 12px 7px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+
+    font-size: 22px;
+    line-height: 1;
+
+    font-weight: 750;
+}
+
+.stat-label {
+    display: block;
+
+    margin-top: 6px;
+
+    color: var(--muted);
+
+    font-size: 9px;
+    font-weight: 750;
+
+    letter-spacing: .7px;
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.search-box {
+    position: relative;
+
+    margin-bottom: 10px;
+}
+
+.search-box svg {
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 18px;
+    height: 18px;
+
+    color: #777983;
+
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    height: 46px;
+
+    padding: 0 14px 0 43px;
+
+    background: var(--surface);
+    color: var(--text);
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+.search-input:focus {
+    border-color: var(--border-hover);
+}
+
+.search-input::placeholder {
+    color: #686a73;
+}
+
+
+/* =========================================
+   FILTERS
+========================================= */
+
+.filters {
+    display: flex;
+    gap: 4px;
+
+    overflow-x: auto;
+
+    margin-bottom: 11px;
+    padding-bottom: 2px;
+
+    scrollbar-width: none;
+}
+
+.filters::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-btn {
+    flex: 0 0 auto;
+
+    padding: 7px 13px;
+
+    background: transparent;
+    color: var(--muted);
+
+    border: 1px solid transparent;
+    border-radius: 99px;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    cursor: pointer;
+}
+
+.filter-btn.active {
+    background: #191a1e;
+
+    color: #f1f1f3;
+
+    border-color: #292a2f;
+}
+
+
+/* =========================================
+   LIST
+========================================= */
+
+#list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+/* =========================================
+   PASSWORD CARD
+========================================= */
+
+.item {
+    position: relative;
+
+    padding: 10px 10px 10px 12px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-left: 3px solid #414249;
+
+    border-radius: 14px;
+
+    transition:
+        border-color .2s,
+        transform .1s;
+}
+
+.item:hover {
+    border-color: var(--border-hover);
+}
+
+.item.success {
+    border-left-color: var(--green);
+}
+
+.item.failed {
+    border-left-color: var(--red);
+}
+
+
+/* =========================================
+   CARD TOP
+========================================= */
+
+.item-top {
+    min-height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.attempt-number {
+    color: #70727b;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.actions {
+    display: flex;
+    gap: 3px;
+}
+
+.icon-btn {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--surface-2);
+    color: #8f9199;
+
+    border: 1px solid #292a2f;
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    transition:
+        background .15s,
+        color .15s,
+        border-color .15s,
+        transform .1s;
+}
+
+.icon-btn:hover {
+    background: #1d1e22;
+    color: #e4e5e8;
+    border-color: #37383f;
+}
+
+.icon-btn:active {
+    transform: scale(.93);
+}
+
+.icon-btn svg {
+    width: 17px;
+    height: 17px;
+
+    stroke-width: 1.8;
+}
+
+.icon-btn.success-active {
+    color: #86efac;
+
+    border-color: rgba(34,197,94,.35);
+
+    background: rgba(34,197,94,.09);
+}
+
+.icon-btn.failed-active {
+    color: #fca5a5;
+
+    border-color: rgba(239,68,68,.35);
+
+    background: rgba(239,68,68,.09);
+}
+
+
+/* =========================================
+   PASSWORD
+========================================= */
+
+.password-text {
+    margin-top: 9px;
+
+    color: #f1f1f3;
+
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        Menlo,
+        monospace;
+
+    font-size: 15px;
+    line-height: 1.35;
+
+    word-break: break-word;
+    overflow-wrap: anywhere;
+
+    /*
+       IMPORTANT:
+       User ke spaces exactly preserve honge.
+    */
+
+    white-space: pre-wrap;
+}
+
+
+/* =========================================
+   CARD BOTTOM
+========================================= */
+
+.item-bottom {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 8px;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 4px 9px;
+
+    border-radius: 99px;
+
+    background: #24252a;
+    color: #a7a8af;
+
+    font-size: 10px;
+    font-weight: 750;
+
+    letter-spacing: .4px;
+}
+
+.status.success {
+    background: rgba(34,197,94,.12);
+    color: #86efac;
+}
+
+.status.failed {
+    background: rgba(239,68,68,.12);
+    color: #fca5a5;
+}
+
+.date {
+    color: #62646c;
+    font-size: 10px;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty {
+    padding: 40px 20px;
+
+    text-align: center;
+
+    color: var(--muted-2);
+
+    border: 1px dashed #292a2f;
+    border-radius: 15px;
+}
+
+.empty svg {
+    width: 30px;
+    height: 30px;
+
+    margin-bottom: 9px;
+
+    color: #55575f;
+}
+
+.empty-title {
+    color: #999ba3;
+
+    font-size: 14px;
+    font-weight: 650;
+}
+
+.empty-subtitle {
+    margin-top: 5px;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   BACKUP
+========================================= */
+
+.backup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 7px;
+
+    margin-top: 16px;
+}
+
+.backup-btn {
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    background: #151619;
+    color: #d2d3d7;
+
+    border: 1px solid #292a2f;
+    border-radius: 11px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.backup-btn:hover {
+    background: #1b1c20;
+}
+
+.backup-btn svg {
+    width: 17px;
+    height: 17px;
+}
+
+.backup-btn input {
+    display: none;
+}
+
+
+/* =========================================
+   LOCAL STORAGE NOTICE
+========================================= */
+
+.local-notice {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 17px;
+
+    color: #62646c;
+
+    font-size: 11px;
+}
+
+.local-dot {
+    width: 7px;
+    height: 7px;
+
+    background: var(--green);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 8px rgba(34,197,94,.55);
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 20px;
+
+    transform: translate(-50%, 20px);
+
+    max-width: calc(100% - 30px);
+
+    padding: 10px 14px;
+
+    background: #1b1c20;
+    color: #f0f0f2;
+
+    border: 1px solid #303137;
+    border-radius: 10px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.35);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity .2s,
+        transform .2s;
+
+    z-index: 100;
+
+    text-align: center;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform:
+        translate(-50%, 0);
+}
+
+.toast.error {
+    border-color: rgba(239,68,68,.35);
+}
+
+.toast.success {
+    border-color: rgba(34,197,94,.35);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
 
     .app {
-        width: min(100% - 32px, 760px);
-        margin: 0 auto;
-        padding: 48px 0 36px;
+        width: calc(100% - 18px);
+
+        padding-top: 22px;
+        padding-bottom: 22px;
     }
 
-    /* =========================
-       HEADER
-    ========================= */
-
     .header {
-        text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 18px;
     }
 
     .logo {
-        width: 72px;
-        height: 72px;
-        margin: 0 auto 22px;
+        width: 52px;
+        height: 52px;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        margin-bottom: 13px;
 
-        background: #151619;
-        border: 1px solid #292a2f;
-        border-radius: 22px;
-
-        box-shadow:
-            0 12px 40px rgba(0, 0, 0, 0.35),
-            inset 0 1px 0 rgba(255,255,255,0.04);
+        border-radius: 16px;
     }
 
     .logo svg {
-        width: 34px;
-        height: 34px;
-        color: #d8d9de;
+        width: 25px;
+        height: 25px;
     }
 
     .header h1 {
-        margin: 0;
-        font-size: clamp(28px, 5vw, 38px);
-        line-height: 1.15;
-        letter-spacing: -1.2px;
-        font-weight: 750;
+        font-size: 25px;
     }
 
     .header p {
-        max-width: 560px;
-        margin: 14px auto 0;
-        color: var(--muted);
-        font-size: 16px;
-        line-height: 1.55;
+        font-size: 13px;
+        line-height: 1.4;
     }
-
-    /* =========================
-       ADD BOX
-    ========================= */
 
     .add-box {
-        padding: 16px;
-        margin-bottom: 20px;
-
-        background: rgba(16, 17, 20, 0.88);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-
-        box-shadow:
-            0 15px 40px rgba(0,0,0,0.18),
-            inset 0 1px 0 rgba(255,255,255,0.02);
-    }
-
-    .input-wrap {
-        position: relative;
+        padding: 9px;
+        margin-bottom: 13px;
     }
 
     .password-input {
-        width: 100%;
-        height: 58px;
-
-        padding: 0 17px;
-
-        background: #17181c;
-        color: var(--text);
-
-        border: 1px solid #292a2f;
-        border-radius: 15px;
-
-        outline: none;
-        font-size: 17px;
-
-        transition: border-color .2s, box-shadow .2s;
-    }
-
-    .password-input::placeholder {
-        color: #686a73;
-    }
-
-    .password-input:focus {
-        border-color: rgba(59,130,246,.65);
-        box-shadow: 0 0 0 3px rgba(59,130,246,.10);
+        height: 47px;
+        font-size: 14px;
     }
 
     .add-button {
-        width: 100%;
-        height: 56px;
-        margin-top: 10px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-
-        background: var(--blue);
-        color: white;
-
-        border: 0;
-        border-radius: 15px;
-
-        font-size: 17px;
-        font-weight: 700;
-
-        cursor: pointer;
-
-        transition:
-            transform .15s,
-            background .2s;
+        height: 47px;
+        margin-top: 7px;
     }
-
-    .add-button:hover {
-        background: #3275df;
-    }
-
-    .add-button:active {
-        transform: scale(.985);
-    }
-
-    .add-button svg {
-        width: 22px;
-        height: 22px;
-    }
-
-    /* =========================
-       STATS
-    ========================= */
 
     .stats {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        margin-bottom: 22px;
-    }
-
-    .stat {
-        min-width: 0;
-        padding: 16px 10px;
-
-        background: #101114;
-        border: 1px solid var(--border);
-        border-radius: 17px;
-
-        text-align: center;
-    }
-
-    .stat-value {
-        display: block;
-        font-size: 27px;
-        line-height: 1;
-        font-weight: 750;
-    }
-
-    .stat-label {
-        display: block;
-        margin-top: 8px;
-
-        color: var(--muted);
-        font-size: 11px;
-        font-weight: 750;
-        letter-spacing: .7px;
-    }
-
-    /* =========================
-       PROGRESS
-    ========================= */
-
-    .progress-section {
-        margin-bottom: 22px;
-    }
-
-    .progress-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        margin-bottom: 9px;
-
-        color: var(--muted);
-        font-size: 13px;
-    }
-
-    .progress-track {
-        height: 7px;
-        overflow: hidden;
-
-        background: #202126;
-        border-radius: 99px;
-    }
-
-    .progress-bar {
-        height: 100%;
-        width: 0%;
-
-        background: var(--blue);
-        border-radius: inherit;
-
-        transition: width .3s ease;
-    }
-
-    /* =========================
-       SEARCH
-    ========================= */
-
-    .search-box {
-        position: relative;
+        gap: 6px;
         margin-bottom: 14px;
     }
 
-    .search-box svg {
-        position: absolute;
-        left: 16px;
-        top: 50%;
-        transform: translateY(-50%);
+    .stat {
+        padding: 11px 5px;
+        border-radius: 13px;
+    }
 
-        width: 21px;
-        height: 21px;
+    .stat-value {
+        font-size: 21px;
+    }
 
-        color: #777983;
-        pointer-events: none;
+    .stat-label {
+        font-size: 9px;
+        margin-top: 5px;
     }
 
     .search-input {
-        width: 100%;
-        height: 52px;
-
-        padding: 0 16px 0 48px;
-
-        background: #101114;
-        color: var(--text);
-
-        border: 1px solid var(--border);
-        border-radius: 14px;
-
-        outline: none;
-        font-size: 15px;
+        height: 44px;
     }
-
-    .search-input:focus {
-        border-color: #34363d;
-    }
-
-    /* =========================
-       FILTERS
-    ========================= */
 
     .filters {
-        display: flex;
-        gap: 7px;
-
-        overflow-x: auto;
-        padding-bottom: 3px;
-        margin-bottom: 16px;
-
-        scrollbar-width: none;
-    }
-
-    .filters::-webkit-scrollbar {
-        display: none;
+        margin-bottom: 9px;
     }
 
     .filter-btn {
-        flex: 0 0 auto;
-
-        padding: 9px 16px;
-
-        background: transparent;
-        color: var(--muted);
-
-        border: 1px solid transparent;
-        border-radius: 99px;
-
-        font-size: 14px;
-        font-weight: 650;
-
-        cursor: pointer;
+        padding: 6px 12px;
+        font-size: 12px;
     }
-
-    .filter-btn.active {
-        background: #191a1e;
-        color: #f1f1f3;
-        border-color: #292a2f;
-    }
-
-    /* =========================
-       LIST
-    ========================= */
 
     #list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+        gap: 7px;
     }
-
-    /* =========================
-       PASSWORD CARD
-    ========================= */
 
     .item {
-        position: relative;
-
-        padding: 14px 14px 13px 16px;
-
-        background: #101114;
-        border: 1px solid var(--border);
-        border-left: 4px solid #414249;
-
-        border-radius: 17px;
-
-        transition:
-            border-color .2s,
-            transform .15s;
-    }
-
-    .item:hover {
-        border-color: var(--border-hover);
-    }
-
-    .item.success {
-        border-left-color: var(--green);
-    }
-
-    .item.failed {
-        border-left-color: var(--red);
-    }
-
-    /* Top row */
-
-    .item-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        min-height: 36px;
-    }
-
-    .attempt-number {
-        color: #70727b;
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-    .actions {
-        display: flex;
-        gap: 5px;
+        padding: 9px 9px 9px 11px;
+        border-radius: 13px;
     }
 
     .icon-btn {
-        width: 38px;
-        height: 38px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        background: #17181c;
-        color: #8f9199;
-
-        border: 1px solid #292a2f;
-        border-radius: 11px;
-
-        cursor: pointer;
-
-        transition:
-            background .15s,
-            color .15s,
-            border-color .15s,
-            transform .1s;
-    }
-
-    .icon-btn:hover {
-        background: #1d1e22;
-        color: #e4e5e8;
-        border-color: #37383f;
-    }
-
-    .icon-btn:active {
-        transform: scale(.94);
+        width: 31px;
+        height: 31px;
     }
 
     .icon-btn svg {
-        width: 20px;
-        height: 20px;
-        stroke-width: 1.8;
+        width: 16px;
+        height: 16px;
     }
-
-    .icon-btn.success-active {
-        color: #86efac;
-        border-color: rgba(34,197,94,.35);
-        background: rgba(34,197,94,.09);
-    }
-
-    .icon-btn.failed-active {
-        color: #fca5a5;
-        border-color: rgba(239,68,68,.35);
-        background: rgba(239,68,68,.09);
-    }
-
-    /* Password */
 
     .password-text {
-        margin-top: 14px;
-
-        color: #f1f1f3;
-
-        font-family:
-            "SFMono-Regular",
-            Consolas,
-            "Liberation Mono",
-            Menlo,
-            monospace;
-
-        font-size: 17px;
-        line-height: 1.45;
-
-        word-break: break-word;
-        overflow-wrap: anywhere;
-
-        white-space: pre-wrap;
+        margin-top: 8px;
+        font-size: 15px;
     }
-
-    /* Status */
 
     .item-bottom {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        margin-top: 12px;
+        margin-top: 7px;
     }
-
-    .status {
-        display: inline-flex;
-        align-items: center;
-
-        padding: 5px 11px;
-
-        border-radius: 99px;
-
-        background: #24252a;
-        color: #a7a8af;
-
-        font-size: 11px;
-        font-weight: 750;
-        letter-spacing: .4px;
-    }
-
-    .status.success {
-        background: rgba(34,197,94,.12);
-        color: #86efac;
-    }
-
-    .status.failed {
-        background: rgba(239,68,68,.12);
-        color: #fca5a5;
-    }
-
-    .date {
-        color: #62646c;
-        font-size: 11px;
-    }
-
-    /* =========================
-       EMPTY
-    ========================= */
-
-    .empty {
-        padding: 45px 20px;
-
-        text-align: center;
-        color: var(--muted-2);
-
-        border: 1px dashed #292a2f;
-        border-radius: 17px;
-    }
-
-    .empty svg {
-        width: 32px;
-        height: 32px;
-        margin-bottom: 10px;
-        color: #55575f;
-    }
-
-    .empty-title {
-        color: #999ba3;
-        font-size: 15px;
-        font-weight: 650;
-    }
-
-    .empty-subtitle {
-        margin-top: 5px;
-        font-size: 13px;
-    }
-
-    /* =========================
-       BACKUP
-    ========================= */
 
     .backup {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-
-        margin-top: 22px;
+        margin-top: 14px;
     }
 
     .backup-btn {
-        height: 52px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
-
-        background: #151619;
-        color: #d2d3d7;
-
-        border: 1px solid #292a2f;
-        border-radius: 14px;
-
-        font-size: 14px;
-        font-weight: 700;
-
-        cursor: pointer;
+        height: 42px;
+        font-size: 11px;
     }
-
-    .backup-btn:hover {
-        background: #1b1c20;
-    }
-
-    .backup-btn svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    .backup-btn input {
-        display: none;
-    }
-
-    /* =========================
-       LOCAL STORAGE NOTICE
-    ========================= */
 
     .local-notice {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 7px;
+        margin-top: 14px;
+        font-size: 10px;
+    }
+}
 
-        margin-top: 24px;
 
-        color: #62646c;
+/* =========================================
+   VERY SMALL PHONES
+========================================= */
+
+@media (max-width: 380px) {
+
+    .app {
+        width: calc(100% - 14px);
+    }
+
+    .header h1 {
+        font-size: 23px;
+    }
+
+    .header p {
         font-size: 12px;
     }
 
-    .local-dot {
-        width: 7px;
-        height: 7px;
-
-        background: var(--green);
-        border-radius: 50%;
-
-        box-shadow: 0 0 8px rgba(34,197,94,.55);
+    .icon-btn {
+        width: 29px;
+        height: 29px;
     }
 
-    /* =========================
-       TOAST
-    ========================= */
-
-    .toast {
-        position: fixed;
-        left: 50%;
-        bottom: 22px;
-
-        transform: translate(-50%, 20px);
-
-        max-width: calc(100% - 32px);
-
-        padding: 11px 15px;
-
-        background: #1b1c20;
-        color: #f0f0f2;
-
-        border: 1px solid #303137;
-        border-radius: 11px;
-
-        box-shadow: 0 10px 30px rgba(0,0,0,.35);
-
-        font-size: 13px;
-        font-weight: 600;
-
-        opacity: 0;
-        pointer-events: none;
-
-        transition:
-            opacity .2s,
-            transform .2s;
-
-        z-index: 100;
-        text-align: center;
+    .icon-btn svg {
+        width: 15px;
+        height: 15px;
     }
 
-    .toast.show {
-        opacity: 1;
-        transform: translate(-50%, 0);
+    .password-text {
+        font-size: 14px;
     }
 
-    .toast.error {
-        border-color: rgba(239,68,68,.35);
+    .status {
+        padding: 3px 8px;
+        font-size: 9px;
     }
 
-    .toast.success {
-        border-color: rgba(34,197,94,.35);
+    .date {
+        font-size: 9px;
     }
-
-    /* =========================
-       RESPONSIVE
-    ========================= */
-
-    @media (max-width: 600px) {
-        .app {
-            width: calc(100% - 24px);
-            padding-top: 28px;
-            padding-bottom: 28px;
-        }
-
-        .header {
-            margin-bottom: 23px;
-        }
-
-        .logo {
-            width: 62px;
-            height: 62px;
-            border-radius: 19px;
-            margin-bottom: 18px;
-        }
-
-        .logo svg {
-            width: 29px;
-            height: 29px;
-        }
-
-        .header h1 {
-            font-size: 28px;
-            letter-spacing: -.8px;
-        }
-
-        .header p {
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        .add-box {
-            padding: 12px;
-            border-radius: 17px;
-        }
-
-        .password-input {
-            height: 54px;
-            font-size: 16px;
-        }
-
-        .add-button {
-            height: 54px;
-        }
-
-        .stats {
-            gap: 8px;
-        }
-
-        .stat {
-            padding: 14px 7px;
-            border-radius: 15px;
-        }
-
-        .stat-value {
-            font-size: 24px;
-        }
-
-        .stat-label {
-            font-size: 10px;
-        }
-
-        .item {
-            padding: 12px 11px 12px 13px;
-            border-radius: 15px;
-        }
-
-        .icon-btn {
-            width: 35px;
-            height: 35px;
-            border-radius: 10px;
-        }
-
-        .icon-btn svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .actions {
-            gap: 4px;
-        }
-
-        .password-text {
-            margin-top: 11px;
-            font-size: 16px;
-        }
-
-        .item-bottom {
-            margin-top: 10px;
-        }
-
-        .backup {
-            gap: 8px;
-        }
-
-        .backup-btn {
-            height: 48px;
-            font-size: 13px;
-        }
-    }
-
-    @media (max-width: 380px) {
-        .app {
-            width: calc(100% - 18px);
-        }
-
-        .header h1 {
-            font-size: 25px;
-        }
-
-        .icon-btn {
-            width: 33px;
-            height: 33px;
-        }
-
-        .password-text {
-            font-size: 15px;
-        }
-
-        .backup-btn {
-            font-size: 12px;
-        }
-    }
+}
 </style>
 </head>
+
 
 <body>
 
 <div class="app">
 
-    <!-- HEADER -->
+    <!-- =================================
+         HEADER
+    ================================== -->
+
     <header class="header">
 
         <div class="logo">
-            <!-- Key icon -->
-            <svg viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor"
-                 stroke-linecap="round"
-                 stroke-linejoin="round">
+
+            <!-- Key -->
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
                 <circle cx="8" cy="15" r="4"></circle>
                 <path d="M11 12l9-9"></path>
                 <path d="M17 5l2 2"></path>
                 <path d="M15 7l2 2"></path>
             </svg>
+
         </div>
 
         <h1>Password Recovery Tracker</h1>
@@ -867,87 +963,113 @@
     </header>
 
 
-    <!-- ADD -->
+    <!-- =================================
+         ADD PASSWORD
+    ================================== -->
+
     <section class="add-box">
 
-        <div class="input-wrap">
-            <input
-                id="pwInput"
-                class="password-input"
-                type="text"
-                autocomplete="off"
-                placeholder="Enter password combination..."
-                aria-label="Password combination"
-            >
-        </div>
+        <input
+            id="pwInput"
+            class="password-input"
+            type="text"
+            autocomplete="off"
+            placeholder="Enter password combination..."
+            aria-label="Password combination"
+        >
 
         <button
             id="addButton"
             class="add-button"
             type="button"
         >
-            <!-- Plus icon -->
-            <svg viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor"
-                 stroke-width="2"
-                 stroke-linecap="round">
+
+            <!-- Plus -->
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+            >
                 <path d="M12 5v14"></path>
                 <path d="M5 12h14"></path>
             </svg>
 
             Add
+
         </button>
 
     </section>
 
 
-    <!-- STATS -->
+    <!-- =================================
+         STATS
+    ================================== -->
+
     <section class="stats">
 
         <div class="stat">
-            <span id="totalCount" class="stat-value">0</span>
-            <span class="stat-label">TOTAL</span>
+            <span
+                id="totalCount"
+                class="stat-value"
+            >0</span>
+
+            <span class="stat-label">
+                TOTAL
+            </span>
         </div>
 
-        <div class="stat">
-            <span id="triedCount" class="stat-value">0</span>
-            <span class="stat-label">TRIED</span>
-        </div>
 
         <div class="stat">
-            <span id="successCount" class="stat-value">0</span>
-            <span class="stat-label">SUCCESS</span>
+            <span
+                id="triedCount"
+                class="stat-value"
+            >0</span>
+
+            <span class="stat-label">
+                TRIED
+            </span>
+        </div>
+
+
+        <div class="stat">
+            <span
+                id="successCount"
+                class="stat-value"
+            >0</span>
+
+            <span class="stat-label">
+                SUCCESS
+            </span>
         </div>
 
     </section>
 
 
-    <!-- PROGRESS -->
-    <section class="progress-section">
+    <!-- =================================
+         SEARCH
+    ================================== -->
 
-        <div class="progress-top">
-            <span>Recovery progress</span>
-            <span id="progressText">0%</span>
-        </div>
-
-        <div class="progress-track">
-            <div id="progressBar" class="progress-bar"></div>
-        </div>
-
-    </section>
-
-
-    <!-- SEARCH -->
     <div class="search-box">
 
-        <!-- Search icon -->
-        <svg viewBox="0 0 24 24" fill="none"
-             stroke="currentColor"
-             stroke-width="2"
-             stroke-linecap="round">
-            <circle cx="11" cy="11" r="7"></circle>
+        <!-- Search -->
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+        >
+            <circle
+                cx="11"
+                cy="11"
+                r="7"
+            ></circle>
+
             <path d="M20 20l-4-4"></path>
         </svg>
+
 
         <input
             id="searchInput"
@@ -960,60 +1082,96 @@
     </div>
 
 
-    <!-- FILTERS -->
+    <!-- =================================
+         FILTERS
+    ================================== -->
+
     <div class="filters">
 
-        <button class="filter-btn active" data-filter="all">
+        <button
+            class="filter-btn active"
+            data-filter="all"
+            type="button"
+        >
             All
         </button>
 
-        <button class="filter-btn" data-filter="pending">
+        <button
+            class="filter-btn"
+            data-filter="pending"
+            type="button"
+        >
             Pending
         </button>
 
-        <button class="filter-btn" data-filter="failed">
+        <button
+            class="filter-btn"
+            data-filter="failed"
+            type="button"
+        >
             Failed
         </button>
 
-        <button class="filter-btn" data-filter="success">
+        <button
+            class="filter-btn"
+            data-filter="success"
+            type="button"
+        >
             Success
         </button>
 
     </div>
 
 
-    <!-- LIST -->
+    <!-- =================================
+         PASSWORD LIST
+    ================================== -->
+
     <div id="list"></div>
 
 
-    <!-- BACKUP -->
+    <!-- =================================
+         BACKUP
+    ================================== -->
+
     <section class="backup">
 
-        <button id="exportButton" class="backup-btn" type="button">
+        <button
+            id="exportButton"
+            class="backup-btn"
+            type="button"
+        >
 
-            <!-- Download icon -->
-            <svg viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor"
-                 stroke-width="2"
-                 stroke-linecap="round"
-                 stroke-linejoin="round">
+            <!-- Download -->
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
                 <path d="M12 3v12"></path>
                 <path d="M7 10l5 5 5-5"></path>
                 <path d="M4 21h16"></path>
             </svg>
 
             Export Backup
+
         </button>
 
 
         <label class="backup-btn">
 
-            <!-- Upload icon -->
-            <svg viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor"
-                 stroke-width="2"
-                 stroke-linecap="round"
-                 stroke-linejoin="round">
+            <!-- Upload -->
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
                 <path d="M12 16V4"></path>
                 <path d="M7 9l5-5 5 5"></path>
                 <path d="M4 20h16"></path>
@@ -1032,27 +1190,41 @@
     </section>
 
 
-    <!-- LOCAL STORAGE -->
+    <!-- =================================
+         LOCAL STORAGE
+    ================================== -->
+
     <div class="local-notice">
+
         <span class="local-dot"></span>
-        <span>Saved locally in this browser</span>
+
+        <span>
+            Saved locally in this browser
+        </span>
+
     </div>
 
 </div>
 
 
 <!-- TOAST -->
-<div id="toast" class="toast"></div>
+
+<div
+    id="toast"
+    class="toast"
+></div>
 
 
 <script>
 "use strict";
 
+
 /* =========================================
    STORAGE
 ========================================= */
 
-const STORAGE_KEY = "get_back_my_key_attempts_v1";
+const STORAGE_KEY =
+    "get_back_my_key_attempts_v1";
 
 
 /* =========================================
@@ -1060,7 +1232,9 @@ const STORAGE_KEY = "get_back_my_key_attempts_v1";
 ========================================= */
 
 let passwords = [];
+
 let currentFilter = "all";
+
 let searchQuery = "";
 
 
@@ -1068,52 +1242,77 @@ let searchQuery = "";
    DOM
 ========================================= */
 
-const pwInput = document.getElementById("pwInput");
-const addButton = document.getElementById("addButton");
+const pwInput =
+    document.getElementById("pwInput");
 
-const list = document.getElementById("list");
+const addButton =
+    document.getElementById("addButton");
 
-const totalCount = document.getElementById("totalCount");
-const triedCount = document.getElementById("triedCount");
-const successCount = document.getElementById("successCount");
+const list =
+    document.getElementById("list");
 
-const progressBar = document.getElementById("progressBar");
-const progressText = document.getElementById("progressText");
+const totalCount =
+    document.getElementById("totalCount");
 
-const searchInput = document.getElementById("searchInput");
+const triedCount =
+    document.getElementById("triedCount");
 
-const toast = document.getElementById("toast");
+const successCount =
+    document.getElementById("successCount");
 
-const exportButton = document.getElementById("exportButton");
-const importInput = document.getElementById("importInput");
+const searchInput =
+    document.getElementById("searchInput");
+
+const toast =
+    document.getElementById("toast");
+
+const exportButton =
+    document.getElementById("exportButton");
+
+const importInput =
+    document.getElementById("importInput");
 
 
 /* =========================================
-   LOAD DATA
+   LOAD LOCAL DATA
 ========================================= */
 
 function loadData() {
 
     try {
 
-        const saved = localStorage.getItem(STORAGE_KEY);
+        const saved =
+            localStorage.getItem(STORAGE_KEY);
+
 
         if (!saved) {
+
             passwords = [];
+
             return;
         }
 
-        const parsed = JSON.parse(saved);
+
+        const parsed =
+            JSON.parse(saved);
+
 
         if (Array.isArray(parsed)) {
+
             passwords = parsed;
+
         } else {
+
             passwords = [];
         }
 
+
     } catch (error) {
 
-        console.error("Failed to load local data:", error);
+        console.error(
+            "Failed to load data:",
+            error
+        );
 
         passwords = [];
     }
@@ -1121,7 +1320,7 @@ function loadData() {
 
 
 /* =========================================
-   SAVE DATA
+   SAVE LOCAL DATA
 ========================================= */
 
 function saveData() {
@@ -1135,13 +1334,40 @@ function saveData() {
 
     } catch (error) {
 
-        console.error("Failed to save data:", error);
+        console.error(
+            "Failed to save data:",
+            error
+        );
 
         showToast(
-            "Could not save data to this browser.",
+            "Could not save data locally.",
             "error"
         );
     }
+}
+
+
+/* =========================================
+   CREATE UNIQUE ID
+========================================= */
+
+function createId() {
+
+    if (
+        window.crypto &&
+        typeof crypto.randomUUID === "function"
+    ) {
+
+        return crypto.randomUUID();
+    }
+
+
+    return (
+        Date.now().toString(36) +
+        Math.random()
+            .toString(36)
+            .slice(2)
+    );
 }
 
 
@@ -1151,25 +1377,40 @@ function saveData() {
 
 let toastTimer = null;
 
-function showToast(message, type = "") {
+
+function showToast(
+    message,
+    type = ""
+) {
 
     clearTimeout(toastTimer);
 
+
     toast.textContent = message;
+
 
     toast.className = "toast";
 
+
     if (type) {
+
         toast.classList.add(type);
     }
 
+
     requestAnimationFrame(() => {
+
         toast.classList.add("show");
+
     });
 
-    toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-    }, 2200);
+
+    toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 2200);
 }
 
 
@@ -1182,18 +1423,18 @@ function addPassword() {
     /*
      * IMPORTANT:
      *
-     * We use trim ONLY to check whether
-     * the input is empty.
+     * value itself is NOT trimmed.
      *
-     * We DO NOT modify the actual value.
+     * trim() is used ONLY to check
+     * whether the input is empty.
      *
-     * Therefore:
-     * " My Password "
-     * stays exactly:
-     * " My Password "
+     * So user input remains EXACTLY
+     * as entered.
      */
 
-    const value = pwInput.value;
+    const value =
+        pwInput.value;
+
 
     if (!value.trim()) {
 
@@ -1212,34 +1453,33 @@ function addPassword() {
      * Exact duplicate check.
      *
      * Case-sensitive.
-     * Spaces-sensitive.
-     *
-     * Example:
+     * Space-sensitive.
      *
      * "Password"
      * "password"
      * "Password "
      *
-     * are treated as different entries.
+     * are all different.
      */
 
-    const existingIndex = passwords.findIndex(
-        item => item.text === value
-    );
+    const existingIndex =
+        passwords.findIndex(
+            item =>
+                item.text === value
+        );
 
 
     if (existingIndex !== -1) {
 
-        /*
-         * Array index + 1 is the original attempt number.
-         */
+        const attemptNumber =
+            existingIndex + 1;
 
-        const attemptNumber = existingIndex + 1;
 
         showToast(
             `This combination already exists as attempt #${attemptNumber}.`,
             "error"
         );
+
 
         pwInput.select();
 
@@ -1248,8 +1488,10 @@ function addPassword() {
 
 
     /*
-     * unshift() puts the new item
-     * at the TOP of the list.
+     * unshift()
+     *
+     * New password always goes
+     * to the TOP of the list.
      */
 
     passwords.unshift({
@@ -1260,43 +1502,28 @@ function addPassword() {
 
         status: "pending",
 
-        createdAt: new Date().toISOString()
+        createdAt:
+            new Date().toISOString()
 
     });
 
 
     saveData();
 
+
     pwInput.value = "";
 
+
     render();
+
 
     showToast(
         "Password combination added.",
         "success"
     );
 
+
     pwInput.focus();
-}
-
-
-/* =========================================
-   CREATE ID
-========================================= */
-
-function createId() {
-
-    if (
-        window.crypto &&
-        typeof crypto.randomUUID === "function"
-    ) {
-        return crypto.randomUUID();
-    }
-
-    return (
-        Date.now().toString(36) +
-        Math.random().toString(36).slice(2)
-    );
 }
 
 
@@ -1304,9 +1531,14 @@ function createId() {
    MARK STATUS
 ========================================= */
 
-function markStatus(index, status) {
+function markStatus(
+    index,
+    status
+) {
 
-    const item = passwords[index];
+    const item =
+        passwords[index];
+
 
     if (!item) {
         return;
@@ -1314,8 +1546,8 @@ function markStatus(index, status) {
 
 
     /*
-     * Clicking the same status again
-     * returns it to pending.
+     * Clicking active status again
+     * changes it back to pending.
      */
 
     if (item.status === status) {
@@ -1340,16 +1572,19 @@ function markStatus(index, status) {
 
 function deleteItem(index) {
 
-    const item = passwords[index];
+    const item =
+        passwords[index];
+
 
     if (!item) {
         return;
     }
 
 
-    const confirmed = confirm(
-        "Delete this password attempt?"
-    );
+    const confirmed =
+        confirm(
+            "Delete this password attempt?"
+        );
 
 
     if (!confirmed) {
@@ -1357,11 +1592,16 @@ function deleteItem(index) {
     }
 
 
-    passwords.splice(index, 1);
+    passwords.splice(
+        index,
+        1
+    );
+
 
     saveData();
 
     render();
+
 
     showToast(
         "Attempt deleted.",
@@ -1371,7 +1611,7 @@ function deleteItem(index) {
 
 
 /* =========================================
-   COPY
+   COPY PASSWORD
 ========================================= */
 
 async function copyText(text) {
@@ -1379,7 +1619,7 @@ async function copyText(text) {
     try {
 
         /*
-         * Modern clipboard API
+         * Primary method.
          */
 
         if (
@@ -1387,14 +1627,11 @@ async function copyText(text) {
             window.isSecureContext
         ) {
 
-            await navigator.clipboard.writeText(text);
+            await navigator.clipboard.writeText(
+                text
+            );
 
         } else {
-
-            /*
-             * Fallback for browsers where
-             * Clipboard API isn't available.
-             */
 
             fallbackCopy(text);
         }
@@ -1408,22 +1645,30 @@ async function copyText(text) {
 
     } catch (error) {
 
-        console.error("Copy failed:", error);
+        console.error(
+            "Copy failed:",
+            error
+        );
 
-        /*
-         * Try fallback once more.
-         */
 
         try {
 
             fallbackCopy(text);
+
 
             showToast(
                 "Password copied to clipboard.",
                 "success"
             );
 
+
         } catch (fallbackError) {
+
+            console.error(
+                "Fallback copy failed:",
+                fallbackError
+            );
+
 
             showToast(
                 "Could not copy password.",
@@ -1440,25 +1685,45 @@ async function copyText(text) {
 
 function fallbackCopy(text) {
 
-    const textarea = document.createElement("textarea");
+    const textarea =
+        document.createElement("textarea");
+
 
     textarea.value = text;
 
-    textarea.style.position = "fixed";
-    textarea.style.left = "-9999px";
-    textarea.style.top = "0";
 
-    document.body.appendChild(textarea);
+    textarea.style.position =
+        "fixed";
+
+    textarea.style.left =
+        "-9999px";
+
+    textarea.style.top =
+        "0";
+
+
+    document.body.appendChild(
+        textarea
+    );
+
 
     textarea.focus();
+
     textarea.select();
 
-    const successful = document.execCommand("copy");
 
-    document.body.removeChild(textarea);
+    const successful =
+        document.execCommand("copy");
+
+
+    textarea.remove();
+
 
     if (!successful) {
-        throw new Error("Fallback copy failed.");
+
+        throw new Error(
+            "Fallback copy failed."
+        );
     }
 }
 
@@ -1467,71 +1732,113 @@ function fallbackCopy(text) {
    SEARCH
 ========================================= */
 
-function handleSearch() {
+searchInput.addEventListener(
+    "input",
+    function() {
 
-    searchQuery = searchInput.value;
+        searchQuery =
+            this.value;
 
-    render();
-}
+        render();
+    }
+);
 
 
 /* =========================================
    FILTER
 ========================================= */
 
-function setFilter(filter) {
+document
+    .querySelectorAll(".filter-btn")
+    .forEach(button => {
 
-    currentFilter = filter;
+        button.addEventListener(
+            "click",
+            function() {
 
-
-    document
-        .querySelectorAll(".filter-btn")
-        .forEach(button => {
-
-            button.classList.toggle(
-                "active",
-                button.dataset.filter === filter
-            );
-
-        });
+                currentFilter =
+                    this.dataset.filter;
 
 
-    render();
-}
+                document
+                    .querySelectorAll(".filter-btn")
+                    .forEach(btn => {
+
+                        btn.classList.toggle(
+                            "active",
+                            btn.dataset.filter ===
+                                currentFilter
+                        );
+
+                    });
+
+
+                render();
+            }
+        );
+
+    });
 
 
 /* =========================================
-   GET FILTERED ITEMS
+   GET VISIBLE ITEMS
 ========================================= */
 
 function getVisibleItems() {
 
-    return passwords.filter(item => {
+    return passwords.filter(
+        item => {
 
-        const matchesSearch =
-            item.text
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase());
+            const matchesSearch =
+                item.text
+                    .toLowerCase()
+                    .includes(
+                        searchQuery.toLowerCase()
+                    );
 
 
-        let matchesFilter = true;
+            let matchesFilter = true;
 
 
-        if (currentFilter === "pending") {
-            matchesFilter = item.status === "pending";
+            if (
+                currentFilter ===
+                "pending"
+            ) {
+
+                matchesFilter =
+                    item.status ===
+                    "pending";
+            }
+
+
+            if (
+                currentFilter ===
+                "failed"
+            ) {
+
+                matchesFilter =
+                    item.status ===
+                    "no";
+            }
+
+
+            if (
+                currentFilter ===
+                "success"
+            ) {
+
+                matchesFilter =
+                    item.status ===
+                    "yes";
+            }
+
+
+            return (
+                matchesSearch &&
+                matchesFilter
+            );
         }
-
-        if (currentFilter === "failed") {
-            matchesFilter = item.status === "no";
-        }
-
-        if (currentFilter === "success") {
-            matchesFilter = item.status === "yes";
-        }
-
-
-        return matchesSearch && matchesFilter;
-    });
+    );
 }
 
 
@@ -1542,11 +1849,26 @@ function getVisibleItems() {
 function escapeHtml(value) {
 
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 }
 
 
@@ -1557,55 +1879,76 @@ function escapeHtml(value) {
 const icons = {
 
     copy: `
-        <svg viewBox="0 0 24 24" fill="none"
-             stroke="currentColor"
-             stroke-linecap="round"
-             stroke-linejoin="round">
-            <rect x="9" y="9" width="11" height="11" rx="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <rect
+                x="9"
+                y="9"
+                width="11"
+                height="11"
+                rx="2"
+            ></rect>
+
+            <path
+                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+            ></path>
         </svg>
     `,
 
+
     check: `
-        <svg viewBox="0 0 24 24" fill="none"
-             stroke="currentColor"
-             stroke-linecap="round"
-             stroke-linejoin="round">
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
             <path d="M5 12l4 4L19 6"></path>
         </svg>
     `,
 
+
     close: `
-        <svg viewBox="0 0 24 24" fill="none"
-             stroke="currentColor"
-             stroke-linecap="round"
-             stroke-linejoin="round">
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
             <path d="M6 6l12 12"></path>
             <path d="M18 6L6 18"></path>
         </svg>
     `,
 
-    trash: `
-        <svg viewBox="0 0 24 24" fill="none"
-             stroke="currentColor"
-             stroke-linecap="round"
-             stroke-linejoin="round">
-            <path d="M4 7h16"></path>
-            <path d="M10 11v6"></path>
-            <path d="M14 11v6"></path>
-            <path d="M6 7l1 14h10l1-14"></path>
-            <path d="M9 7V4h6v3"></path>
-        </svg>
-    `,
 
-    database: `
-        <svg viewBox="0 0 24 24" fill="none"
-             stroke="currentColor"
-             stroke-linecap="round"
-             stroke-linejoin="round">
-            <ellipse cx="12" cy="5" rx="8" ry="3"></ellipse>
-            <path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path>
-            <path d="M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7"></path>
+    trash: `
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path d="M4 7h16"></path>
+
+            <path d="M10 11v6"></path>
+
+            <path d="M14 11v6"></path>
+
+            <path
+                d="M6 7l1 14h10l1-14"
+            ></path>
+
+            <path
+                d="M9 7V4h6v3"
+            ></path>
         </svg>
     `
 };
@@ -1619,93 +1962,108 @@ function render() {
 
     updateStats();
 
-    const visibleItems = getVisibleItems();
+
+    const visibleItems =
+        getVisibleItems();
+
 
     list.innerHTML = "";
 
 
-    if (visibleItems.length === 0) {
+    if (
+        visibleItems.length === 0
+    ) {
 
-        const message =
-            passwords.length === 0
-                ? "No password attempts yet."
-                : "No matching attempts found.";
-
-        const subtitle =
-            passwords.length === 0
-                ? "Add your first password combination above."
-                : "Try another search or filter.";
+        const noData =
+            passwords.length === 0;
 
 
         list.innerHTML = `
 
             <div class="empty">
 
-                <svg viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="currentColor"
-                     stroke-width="1.7"
-                     stroke-linecap="round"
-                     stroke-linejoin="round">
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
 
-                    <path d="M12 3v2"></path>
-                    <path d="M12 19v2"></path>
-                    <path d="M4.2 4.2l1.4 1.4"></path>
-                    <path d="M18.4 18.4l1.4 1.4"></path>
-                    <path d="M3 12h2"></path>
-                    <path d="M19 12h2"></path>
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="8"
+                    ></circle>
 
-                    <circle cx="12" cy="12" r="5"></circle>
+                    <path
+                        d="M8 12h8"
+                    ></path>
 
                 </svg>
 
+
                 <div class="empty-title">
-                    ${escapeHtml(message)}
+
+                    ${
+                        noData
+                            ? "No password attempts yet."
+                            : "No matching attempts found."
+                    }
+
                 </div>
 
+
                 <div class="empty-subtitle">
-                    ${escapeHtml(subtitle)}
+
+                    ${
+                        noData
+                            ? "Add your first password combination above."
+                            : "Try another search or filter."
+                    }
+
                 </div>
 
             </div>
+
         `;
 
         return;
     }
 
 
-    /*
-     * Because passwords are stored newest-first,
-     * the visible order is also newest-first.
-     *
-     * The original attempt number is based on
-     * its current position in the master array.
-     */
-
     visibleItems.forEach(item => {
 
         const originalIndex =
             passwords.indexOf(item);
 
+
         const attemptNumber =
             originalIndex + 1;
 
+
         const isSuccess =
             item.status === "yes";
+
 
         const isFailed =
             item.status === "no";
 
 
-        const card = document.createElement("article");
+        const card =
+            document.createElement("article");
+
 
         card.className =
             "item " +
-            (isSuccess
-                ? "success"
-                : isFailed
-                    ? "failed"
-                    : "");
+            (
+                isSuccess
+                    ? "success"
+                    : isFailed
+                        ? "failed"
+                        : ""
+            );
 
 
         card.innerHTML = `
@@ -1715,6 +2073,7 @@ function render() {
                 <span class="attempt-number">
                     #${attemptNumber}
                 </span>
+
 
                 <div class="actions">
 
@@ -1733,7 +2092,9 @@ function render() {
                     <button
                         type="button"
                         class="icon-btn ${
-                            isSuccess ? "success-active" : ""
+                            isSuccess
+                                ? "success-active"
+                                : ""
                         }"
                         data-action="success"
                         data-index="${originalIndex}"
@@ -1747,7 +2108,9 @@ function render() {
                     <button
                         type="button"
                         class="icon-btn ${
-                            isFailed ? "failed-active" : ""
+                            isFailed
+                                ? "failed-active"
+                                : ""
                         }"
                         data-action="failed"
                         data-index="${originalIndex}"
@@ -1788,6 +2151,7 @@ function render() {
                             ? "failed"
                             : ""
                 }">
+
                     ${
                         isSuccess
                             ? "SUCCESS"
@@ -1795,6 +2159,7 @@ function render() {
                                 ? "FAILED"
                                 : "PENDING"
                     }
+
                 </span>
 
 
@@ -1808,6 +2173,7 @@ function render() {
 
 
         list.appendChild(card);
+
     });
 }
 
@@ -1818,50 +2184,62 @@ function render() {
 
 function updateStats() {
 
-    const total = passwords.length;
+    const total =
+        passwords.length;
+
 
     const tried =
         passwords.filter(
-            item => item.status !== "pending"
+            item =>
+                item.status !==
+                "pending"
         ).length;
+
 
     const success =
         passwords.filter(
-            item => item.status === "yes"
+            item =>
+                item.status ===
+                "yes"
         ).length;
 
 
-    totalCount.textContent = total;
-    triedCount.textContent = tried;
-    successCount.textContent = success;
+    totalCount.textContent =
+        total;
 
 
-    const progress =
-        total === 0
-            ? 0
-            : Math.round((tried / total) * 100);
+    triedCount.textContent =
+        tried;
 
 
-    progressBar.style.width = `${progress}%`;
-
-    progressText.textContent =
-        `${progress}%`;
+    successCount.textContent =
+        success;
 }
 
 
 /* =========================================
-   DATE FORMAT
+   DATE
 ========================================= */
 
-function formatDate(dateString) {
+function formatDate(
+    dateString
+) {
 
     if (!dateString) {
         return "";
     }
 
-    const date = new Date(dateString);
 
-    if (Number.isNaN(date.getTime())) {
+    const date =
+        new Date(dateString);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
         return "";
     }
 
@@ -1882,61 +2260,89 @@ function formatDate(dateString) {
    CARD ACTIONS
 ========================================= */
 
-list.addEventListener("click", function(event) {
+list.addEventListener(
+    "click",
+    function(event) {
 
-    const button =
-        event.target.closest("[data-action]");
-
-
-    if (!button) {
-        return;
-    }
-
-
-    const index =
-        Number(button.dataset.index);
-
-    const action =
-        button.dataset.action;
+        const button =
+            event.target.closest(
+                "[data-action]"
+            );
 
 
-    if (!Number.isInteger(index)) {
-        return;
-    }
+        if (!button) {
+            return;
+        }
 
 
-    if (action === "copy") {
+        const index =
+            Number(
+                button.dataset.index
+            );
 
-        const item = passwords[index];
 
-        if (item) {
-            copyText(item.text);
+        const action =
+            button.dataset.action;
+
+
+        if (
+            !Number.isInteger(index)
+        ) {
+
+            return;
+        }
+
+
+        if (action === "copy") {
+
+            const item =
+                passwords[index];
+
+
+            if (item) {
+
+                copyText(
+                    item.text
+                );
+            }
+
+        }
+
+
+        else if (
+            action === "success"
+        ) {
+
+            markStatus(
+                index,
+                "yes"
+            );
+
+        }
+
+
+        else if (
+            action === "failed"
+        ) {
+
+            markStatus(
+                index,
+                "no"
+            );
+
+        }
+
+
+        else if (
+            action === "delete"
+        ) {
+
+            deleteItem(index);
+
         }
 
     }
-
-
-    else if (action === "success") {
-
-        markStatus(index, "yes");
-
-    }
-
-
-    else if (action === "failed") {
-
-        markStatus(index, "no");
-
-    }
-
-
-    else if (action === "delete") {
-
-        deleteItem(index);
-
-    }
-
-});
+);
 
 
 /* =========================================
@@ -1953,46 +2359,18 @@ pwInput.addEventListener(
     "keydown",
     function(event) {
 
-        if (event.key === "Enter") {
+        if (
+            event.key ===
+            "Enter"
+        ) {
 
             event.preventDefault();
 
             addPassword();
         }
+
     }
 );
-
-
-/* =========================================
-   SEARCH EVENT
-========================================= */
-
-searchInput.addEventListener(
-    "input",
-    handleSearch
-);
-
-
-/* =========================================
-   FILTER EVENTS
-========================================= */
-
-document
-    .querySelectorAll(".filter-btn")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            function() {
-
-                setFilter(
-                    this.dataset.filter
-                );
-
-            }
-        );
-
-    });
 
 
 /* =========================================
@@ -2003,7 +2381,9 @@ exportButton.addEventListener(
     "click",
     function() {
 
-        if (passwords.length === 0) {
+        if (
+            passwords.length === 0
+        ) {
 
             showToast(
                 "There is no data to export.",
@@ -2016,59 +2396,76 @@ exportButton.addEventListener(
 
         const backup = {
 
-            app: "Get Back My Key",
+            app:
+                "Get Back My Key",
 
-            version: 1,
+            version:
+                1,
 
             exportedAt:
                 new Date().toISOString(),
 
-            attempts: passwords
-
+            attempts:
+                passwords
         };
 
 
-        const blob = new Blob(
-            [
-                JSON.stringify(
-                    backup,
-                    null,
-                    2
-                )
-            ],
-            {
-                type: "application/json"
-            }
-        );
+        const blob =
+            new Blob(
+                [
+                    JSON.stringify(
+                        backup,
+                        null,
+                        2
+                    )
+                ],
+                {
+                    type:
+                        "application/json"
+                }
+            );
 
 
         const url =
-            URL.createObjectURL(blob);
+            URL.createObjectURL(
+                blob
+            );
 
 
         const link =
-            document.createElement("a");
+            document.createElement(
+                "a"
+            );
+
 
         link.href = url;
+
 
         link.download =
             `get-back-my-key-backup-${formatFileDate()}.json`;
 
 
-        document.body.appendChild(link);
+        document.body.appendChild(
+            link
+        );
+
 
         link.click();
+
 
         link.remove();
 
 
-        URL.revokeObjectURL(url);
+        URL.revokeObjectURL(
+            url
+        );
 
 
         showToast(
             "Backup exported successfully.",
             "success"
         );
+
     }
 );
 
@@ -2094,188 +2491,210 @@ importInput.addEventListener(
             new FileReader();
 
 
-        reader.onload = function() {
+        reader.onload =
+            function() {
 
-            try {
+                try {
 
-                const data =
-                    JSON.parse(reader.result);
-
-
-                let importedAttempts = null;
-
-
-                /*
-                 * Supports our backup format.
-                 */
-
-                if (
-                    data &&
-                    Array.isArray(data.attempts)
-                ) {
-
-                    importedAttempts =
-                        data.attempts;
-
-                }
-
-                /*
-                 * Also supports importing
-                 * a plain array.
-                 */
-
-                else if (
-                    Array.isArray(data)
-                ) {
-
-                    importedAttempts =
-                        data;
-
-                }
+                    const data =
+                        JSON.parse(
+                            reader.result
+                        );
 
 
-                if (!importedAttempts) {
+                    let importedAttempts =
+                        null;
 
-                    throw new Error(
-                        "Invalid backup format."
-                    );
-                }
-
-
-                const cleaned =
-                    importedAttempts
-                        .filter(
-                            item =>
-                                item &&
-                                typeof item.text === "string"
-                        )
-                        .map(item => ({
-
-                            id:
-                                item.id ||
-                                createId(),
-
-                            text:
-                                item.text,
-
-                            status:
-                                ["pending", "yes", "no"]
-                                    .includes(item.status)
-                                    ? item.status
-                                    : "pending",
-
-                            createdAt:
-                                item.createdAt ||
-                                new Date().toISOString()
-
-                        }));
-
-
-                /*
-                 * Remove exact duplicates
-                 * while preserving order.
-                 */
-
-                const seen =
-                    new Set();
-
-
-                const unique =
-                    cleaned.filter(item => {
-
-                        if (
-                            seen.has(item.text)
-                        ) {
-                            return false;
-                        }
-
-                        seen.add(item.text);
-
-                        return true;
-                    });
-
-
-                const replace =
-                    confirm(
-                        `Import ${unique.length} attempts?\n\n` +
-                        "OK = Replace current data\n" +
-                        "Cancel = Merge with current data"
-                    );
-
-
-                if (replace) {
-
-                    passwords = unique;
-
-                } else {
 
                     /*
-                     * Merge imported data with
-                     * existing data.
-                     *
-                     * Existing data remains first,
-                     * imported unique items are added after.
+                     * Our backup format.
                      */
 
-                    const existingTexts =
-                        new Set(
-                            passwords.map(
-                                item => item.text
+                    if (
+                        data &&
+                        Array.isArray(
+                            data.attempts
+                        )
+                    ) {
+
+                        importedAttempts =
+                            data.attempts;
+
+                    }
+
+
+                    /*
+                     * Also accept plain arrays.
+                     */
+
+                    else if (
+                        Array.isArray(data)
+                    ) {
+
+                        importedAttempts =
+                            data;
+
+                    }
+
+
+                    if (
+                        !importedAttempts
+                    ) {
+
+                        throw new Error(
+                            "Invalid backup."
+                        );
+                    }
+
+
+                    const cleaned =
+                        importedAttempts
+                            .filter(
+                                item =>
+                                    item &&
+                                    typeof item.text ===
+                                        "string"
                             )
-                        );
+                            .map(
+                                item => ({
+
+                                    id:
+                                        item.id ||
+                                        createId(),
+
+                                    text:
+                                        item.text,
+
+                                    status:
+                                        [
+                                            "pending",
+                                            "yes",
+                                            "no"
+                                        ].includes(
+                                            item.status
+                                        )
+                                            ? item.status
+                                            : "pending",
+
+                                    createdAt:
+                                        item.createdAt ||
+                                        new Date()
+                                            .toISOString()
+
+                                })
+                            );
 
 
-                    const newItems =
-                        unique.filter(
-                            item =>
-                                !existingTexts.has(
+                    /*
+                     * Remove exact duplicates
+                     * inside imported backup.
+                     */
+
+                    const seen =
+                        new Set();
+
+
+                    const unique =
+                        cleaned.filter(
+                            item => {
+
+                                if (
+                                    seen.has(
+                                        item.text
+                                    )
+                                ) {
+
+                                    return false;
+                                }
+
+
+                                seen.add(
                                     item.text
-                                )
+                                );
+
+
+                                return true;
+                            }
                         );
 
 
-                    passwords = [
-                        ...passwords,
-                        ...newItems
-                    ];
+                    const replace =
+                        confirm(
+                            `Import ${unique.length} attempts?\n\n` +
+                            "OK = Replace current data\n" +
+                            "Cancel = Merge with current data"
+                        );
+
+
+                    if (replace) {
+
+                        passwords =
+                            unique;
+
+                    } else {
+
+                        const existingTexts =
+                            new Set(
+                                passwords.map(
+                                    item =>
+                                        item.text
+                                )
+                            );
+
+
+                        const newItems =
+                            unique.filter(
+                                item =>
+                                    !existingTexts.has(
+                                        item.text
+                                    )
+                            );
+
+
+                        passwords = [
+                            ...passwords,
+                            ...newItems
+                        ];
+                    }
+
+
+                    saveData();
+
+                    render();
+
+
+                    showToast(
+                        "Backup imported successfully.",
+                        "success"
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Import error:",
+                        error
+                    );
+
+
+                    showToast(
+                        "Invalid backup file.",
+                        "error"
+                    );
                 }
 
 
-                saveData();
+                /*
+                 * Allow the same file
+                 * to be imported again.
+                 */
 
-                render();
-
-
-                showToast(
-                    "Backup imported successfully.",
-                    "success"
-                );
-
-
-            } catch (error) {
-
-                console.error(
-                    "Import error:",
-                    error
-                );
-
-
-                showToast(
-                    "Invalid backup file.",
-                    "error"
-                );
-            }
-
-
-            /*
-             * Allows importing the same file again.
-             */
-
-            importInput.value = "";
-        };
+                importInput.value = "";
+            };
 
 
         reader.readAsText(file);
+
     }
 );
 
@@ -2286,15 +2705,19 @@ importInput.addEventListener(
 
 function formatFileDate() {
 
-    const now = new Date();
+    const now =
+        new Date();
+
 
     const year =
         now.getFullYear();
+
 
     const month =
         String(
             now.getMonth() + 1
         ).padStart(2, "0");
+
 
     const day =
         String(
