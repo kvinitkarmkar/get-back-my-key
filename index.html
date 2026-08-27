@@ -10,7 +10,7 @@
 
   <meta
     name="description"
-    content="Get Back My Key - Local password attempt tracker"
+    content="Get Back My Key — a local password attempt tracker."
   />
 
   <meta name="theme-color" content="#08090d" />
@@ -21,7 +21,7 @@
   <link
     rel="icon"
     type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2315181f'/%3E%3Cpath d='M37 11a13 13 0 0 0-8.7 22.65L12 50l5 5 4-4 4 4 5-5-4-4 5.2-5.2A13 13 0 1 0 37 11Zm0 7a6 6 0 1 1 0 12 6 6 0 0 1 0-12Z' fill='none' stroke='%23f2f3f5' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='m44 14 7-7M45 21l10-10' stroke='%233b82f6' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2316181d'/%3E%3Ccircle cx='27' cy='34' r='11' fill='none' stroke='%23f5f5f7' stroke-width='5'/%3E%3Cpath d='M36 27l14-14M44 19l5 5M40 23l5 5' stroke='%23f5f5f7' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M39 24l-5 5' stroke='%233b82f6' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"
   />
 
   <style>
@@ -42,24 +42,27 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background:
-        radial-gradient(
-          circle at 50% -10%,
-          rgba(36, 54, 86, 0.18),
-          transparent 38%
-        ),
-        #08090d;
-      color: #f5f5f7;
+
       font-family:
         Inter,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         Roboto,
-        Helvetica,
         Arial,
         sans-serif;
-      -webkit-font-smoothing: antialiased;
+
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(37, 99, 235, 0.08),
+          transparent 32%
+        ),
+        #08090d;
+
+      color: #f5f5f7;
+
+      overflow-x: hidden;
     }
 
     button,
@@ -68,6 +71,8 @@
     }
 
     button {
+      border: 0;
+      outline: none;
       cursor: pointer;
     }
 
@@ -76,74 +81,84 @@
     ========================================================= */
 
     .app {
-      width: min(100%, 760px);
+      width: min(680px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 28px 16px 34px;
+
+      padding-top: 42px;
+      padding-bottom: 50px;
     }
 
     /* =========================================================
        HEADER
     ========================================================= */
 
-    .header {
+    .hero {
       text-align: center;
-      margin-bottom: 26px;
+      margin-bottom: 38px;
     }
 
-    .logo {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 16px;
+    .logo-box {
+      width: 92px;
+      height: 92px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin: 0 auto 22px;
 
-      background: #15171c;
+      display: grid;
+      place-items: center;
+
+      border-radius: 25px;
+
+      background: #16181d;
+
       border: 1px solid #292c33;
-      border-radius: 21px;
 
       box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.28),
-        inset 0 1px 0 rgba(255, 255, 255, 0.025);
+        inset 0 1px 0 rgba(255,255,255,0.035),
+        0 10px 30px rgba(0,0,0,0.18);
     }
 
-    .logo svg {
-      width: 39px;
-      height: 39px;
+    .logo-box svg {
+      width: 54px;
+      height: 54px;
     }
 
-    .title {
+    .hero h1 {
       margin: 0;
-      font-size: clamp(28px, 7vw, 40px);
-      line-height: 1.12;
+
+      font-size: clamp(32px, 7vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -1.8px;
       font-weight: 750;
-      letter-spacing: -1.3px;
     }
 
-    .subtitle {
-      max-width: 650px;
-      margin: 12px auto 0;
-      color: #8d8f98;
-      font-size: 15px;
-      line-height: 1.55;
+    .hero p {
+      max-width: 610px;
+
+      margin: 18px auto 0;
+
+      color: #8f919a;
+
+      font-size: 17px;
+      line-height: 1.5;
+
+      letter-spacing: -0.2px;
     }
 
     /* =========================================================
-       ADD BOX
+       ADD PANEL
     ========================================================= */
 
-    .add-box {
-      padding: 10px;
-      margin-bottom: 18px;
+    .add-panel {
+      padding: 14px;
 
-      background: #101116;
-      border: 1px solid #292b31;
-      border-radius: 18px;
+      background: #111216;
+
+      border: 1px solid #292c32;
+      border-radius: 22px;
 
       box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.015);
+        inset 0 1px 0 rgba(255,255,255,0.025),
+        0 8px 30px rgba(0,0,0,0.15);
     }
 
     .input-wrap {
@@ -152,56 +167,60 @@
 
     #passwordInput {
       width: 100%;
-      height: 54px;
 
-      padding: 0 16px;
+      height: 66px;
 
-      color: #f4f4f6;
+      padding: 0 20px;
+
       background: #17181d;
 
-      border: 1px solid #292c33;
-      border-radius: 14px;
+      color: #f5f5f7;
+
+      border: 1px solid #2c2f36;
+      border-radius: 17px;
 
       outline: none;
 
-      font-size: 16px;
+      font-size: 18px;
+
       transition:
-        border-color 0.18s ease,
-        box-shadow 0.18s ease;
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
     #passwordInput::placeholder {
-      color: #696b75;
+      color: #676a73;
     }
 
     #passwordInput:focus {
       border-color: #3b82f6;
-      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.13);
+
+      box-shadow:
+        0 0 0 2px rgba(59,130,246,0.15);
     }
 
     .add-btn {
       width: 100%;
-      height: 52px;
+      height: 62px;
 
-      margin-top: 8px;
+      margin-top: 12px;
 
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 9px;
+      gap: 12px;
 
-      border: 0;
-      border-radius: 14px;
+      border-radius: 17px;
 
       background: #3b82f6;
-      color: #fff;
+      color: white;
 
-      font-size: 16px;
-      font-weight: 650;
+      font-size: 18px;
+      font-weight: 700;
 
       transition:
-        transform 0.12s ease,
-        background 0.15s ease;
+        transform 0.15s ease,
+        background 0.2s ease;
     }
 
     .add-btn:hover {
@@ -213,8 +232,8 @@
     }
 
     .add-btn svg {
-      width: 21px;
-      height: 21px;
+      width: 23px;
+      height: 23px;
     }
 
     /* =========================================================
@@ -224,89 +243,98 @@
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 14px;
+
+      gap: 12px;
+
+      margin-top: 20px;
     }
 
     .stat {
-      min-height: 76px;
+      min-height: 94px;
 
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
 
-      background: #101116;
-      border: 1px solid #292b31;
-      border-radius: 15px;
+      background: #101115;
+
+      border: 1px solid #292c32;
+      border-radius: 18px;
     }
 
-    .stat-number {
-      font-size: 25px;
+    .stat-value {
+      font-size: 28px;
       line-height: 1;
+
       font-weight: 750;
-      letter-spacing: -0.5px;
     }
 
     .stat-label {
-      margin-top: 7px;
+      margin-top: 8px;
 
-      color: #888a94;
+      color: #858790;
 
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
+
+      letter-spacing: 1px;
     }
 
     /* =========================================================
        SEARCH
     ========================================================= */
 
-    .search-wrap {
+    .search-box {
       position: relative;
-      margin-bottom: 9px;
+
+      margin-top: 20px;
     }
 
-    .search-icon {
+    .search-box svg {
       position: absolute;
-      left: 14px;
+
+      left: 20px;
       top: 50%;
-      width: 19px;
-      height: 19px;
+
+      width: 23px;
+      height: 23px;
+
+      color: #777a84;
+
       transform: translateY(-50%);
-      color: #737680;
+
       pointer-events: none;
     }
 
     #searchInput {
       width: 100%;
-      height: 50px;
+      height: 62px;
 
-      padding: 0 15px 0 44px;
+      padding:
+        0
+        18px
+        0
+        58px;
 
-      color: #f4f4f6;
-      background: #101116;
+      background: #101115;
 
-      border: 1px solid #292b31;
-      border-radius: 14px;
+      color: #f5f5f7;
+
+      border: 1px solid #292c32;
+      border-radius: 18px;
 
       outline: none;
 
-      font-size: 15px;
-
-      transition:
-        border-color 0.18s ease,
-        box-shadow 0.18s ease;
+      font-size: 16px;
     }
 
     #searchInput::placeholder {
-      color: #696b75;
+      color: #666972;
     }
 
     #searchInput:focus {
       border-color: #3b82f6;
-      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
     }
 
     /* =========================================================
@@ -315,11 +343,13 @@
 
     .filters {
       display: flex;
-      gap: 6px;
-      overflow-x: auto;
+      align-items: center;
 
-      margin-bottom: 12px;
-      padding: 2px 0;
+      gap: 8px;
+
+      margin: 12px 0 18px;
+
+      overflow-x: auto;
 
       scrollbar-width: none;
     }
@@ -331,42 +361,38 @@
     .filter-btn {
       flex: 0 0 auto;
 
-      min-height: 38px;
-      padding: 0 17px;
-
-      border: 1px solid transparent;
-      border-radius: 999px;
+      padding: 9px 18px;
 
       background: transparent;
-      color: #8d8f98;
+      color: #858790;
 
-      font-size: 13px;
+      border-radius: 999px;
+
+      font-size: 14px;
       font-weight: 650;
 
       transition:
-        background 0.15s ease,
-        color 0.15s ease,
-        border-color 0.15s ease;
-    }
-
-    .filter-btn:hover {
-      color: #d9d9de;
+        background 0.2s ease,
+        color 0.2s ease;
     }
 
     .filter-btn.active {
-      background: #191a20;
-      border-color: #30323a;
-      color: #f3f3f5;
+      color: #f5f5f7;
+
+      background: #1a1c21;
+
+      border: 1px solid #30333a;
     }
 
     /* =========================================================
-       PASSWORD LIST
+       LIST
     ========================================================= */
 
-    #passwordList {
+    #list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+
+      gap: 10px;
     }
 
     /* =========================================================
@@ -376,45 +402,53 @@
     .password-card {
       position: relative;
 
-      min-height: 82px;
+      min-height: 106px;
 
-      display: flex;
-      align-items: center;
+      padding:
+        14px
+        14px
+        14px
+        20px;
 
-      padding: 12px 10px 12px 14px;
+      background: #101115;
 
-      background: #101116;
+      border: 1px solid #292c32;
+      border-left: 4px solid #5d606a;
 
-      border: 1px solid #292b31;
-      border-left: 4px solid #464850;
+      border-radius: 19px;
 
-      border-radius: 16px;
+      display: grid;
+
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+
+      column-gap: 12px;
+      row-gap: 10px;
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.018);
 
       transition:
-        border-color 0.15s ease,
-        background 0.15s ease;
+        border-color 0.2s ease,
+        transform 0.15s ease;
     }
 
     .password-card:hover {
-      background: #121319;
+      border-color: #34373f;
     }
 
-    .password-card.status-success {
-      border-left-color: #35c759;
+    .password-card.success {
+      border-left-color: #39d98a;
     }
 
-    .password-card.status-failed {
-      border-left-color: #ff453a;
+    .password-card.failed {
+      border-left-color: #ef6868;
     }
 
-    .password-content {
+    .password-value {
       min-width: 0;
-      flex: 1;
-      padding-right: 8px;
-    }
 
-    .password-text {
-      margin: 0;
+      align-self: center;
 
       color: #f1f1f3;
 
@@ -424,89 +458,50 @@
         Menlo,
         Monaco,
         Consolas,
-        "Liberation Mono",
         monospace;
 
-      font-size: 16px;
-      line-height: 1.3;
+      font-size: 17px;
+      line-height: 1.35;
 
       overflow-wrap: anywhere;
-      word-break: break-word;
+
+      white-space: pre-wrap;
     }
 
-    .card-bottom {
+    .card-actions {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
 
-      margin-top: 8px;
-    }
+      grid-row: 1 / span 2;
+      grid-column: 2;
 
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-
-      min-height: 25px;
-      padding: 0 10px;
-
-      border-radius: 999px;
-
-      background: #24252a;
-      color: #a7a8b0;
-
-      font-size: 10px;
-      line-height: 1;
-      font-weight: 750;
-      letter-spacing: 0.5px;
-    }
-
-    .status-badge.success {
-      background: rgba(53, 199, 89, 0.12);
-      color: #65d985;
-    }
-
-    .status-badge.failed {
-      background: rgba(255, 69, 58, 0.12);
-      color: #ff7a72;
-    }
-
-    /* =========================================================
-       ACTION BUTTONS
-    ========================================================= */
-
-    .actions {
-      flex: 0 0 auto;
-
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      align-self: center;
     }
 
     .icon-btn {
-      width: 42px;
-      height: 42px;
+      width: 43px;
+      height: 43px;
 
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-items: center;
 
-      background: #15161b;
-      color: #9698a1;
+      color: #9a9ca5;
 
-      border: 1px solid #292b31;
-      border-radius: 12px;
+      background: #17191e;
+
+      border: 1px solid #292c32;
+      border-radius: 13px;
 
       transition:
         background 0.15s ease,
-        border-color 0.15s ease,
         color 0.15s ease,
         transform 0.12s ease;
     }
 
     .icon-btn:hover {
-      background: #1b1c22;
-      color: #e5e5e8;
-      border-color: #363841;
+      color: #f5f5f7;
+      background: #1d2026;
     }
 
     .icon-btn:active {
@@ -514,59 +509,85 @@
     }
 
     .icon-btn svg {
-      width: 20px;
-      height: 20px;
-      pointer-events: none;
+      width: 21px;
+      height: 21px;
     }
 
-    .icon-btn.success-active {
-      color: #65d985;
-      border-color: rgba(53, 199, 89, 0.28);
-      background: rgba(53, 199, 89, 0.08);
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
     }
 
-    .icon-btn.failed-active {
-      color: #ff7a72;
-      border-color: rgba(255, 69, 58, 0.28);
-      background: rgba(255, 69, 58, 0.08);
+    .status {
+      display: inline-flex;
+      align-items: center;
+
+      min-height: 25px;
+
+      padding: 0 11px;
+
+      border-radius: 999px;
+
+      background: #25262b;
+
+      color: #9c9ea7;
+
+      font-size: 10px;
+      font-weight: 750;
+
+      letter-spacing: 0.5px;
+    }
+
+    .status.success {
+      color: #59dc96;
+      background: rgba(52,211,125,0.10);
+    }
+
+    .status.failed {
+      color: #ff7777;
+      background: rgba(239,104,104,0.10);
+    }
+
+    .date {
+      color: #676a73;
+
+      font-size: 11px;
     }
 
     /* =========================================================
        EMPTY STATE
     ========================================================= */
 
-    .empty-state {
-      display: none;
-
-      padding: 38px 16px;
+    .empty {
+      padding: 38px 20px;
 
       text-align: center;
 
-      color: #686a73;
+      color: #686b74;
+
+      border: 1px dashed #292c32;
+      border-radius: 18px;
     }
 
-    .empty-icon {
-      width: 38px;
-      height: 38px;
-      margin: 0 auto 10px;
+    .empty svg {
+      width: 28px;
+      height: 28px;
 
-      color: #52545d;
+      margin-bottom: 10px;
     }
 
     .empty-title {
-      margin: 0;
-
-      color: #999ba4;
+      color: #a2a4ac;
 
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 650;
     }
 
-    .empty-description {
-      margin: 5px 0 0;
+    .empty-text {
+      margin-top: 5px;
 
       font-size: 12px;
-      line-height: 1.5;
     }
 
     /* =========================================================
@@ -576,256 +597,643 @@
     .backup {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
 
-      margin-top: 12px;
+      gap: 10px;
+
+      margin-top: 20px;
     }
 
     .backup-btn {
-      height: 54px;
+      height: 58px;
 
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 9px;
 
-      background: #101116;
-      color: #a7a8b0;
+      gap: 10px;
 
-      border: 1px solid #292b31;
-      border-radius: 14px;
+      background: #111216;
 
-      font-size: 13px;
+      color: #a8aab2;
+
+      border: 1px solid #292c32;
+      border-radius: 17px;
+
+      font-size: 14px;
       font-weight: 650;
 
       transition:
-        background 0.15s ease,
-        color 0.15s ease;
+        background 0.2s ease,
+        color 0.2s ease;
     }
 
     .backup-btn:hover {
-      background: #15161b;
-      color: #ededf0;
+      background: #17191e;
+      color: #f5f5f7;
     }
 
     .backup-btn svg {
-      width: 19px;
-      height: 19px;
+      width: 21px;
+      height: 21px;
+    }
+
+    #importInput {
+      display: none;
     }
 
     /* =========================================================
        LOCAL STORAGE NOTE
     ========================================================= */
 
-    .storage-note {
+    .local-note {
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+
       gap: 8px;
 
-      margin-top: 16px;
+      margin-top: 18px;
 
-      color: #60626b;
+      color: #60636c;
 
       font-size: 12px;
     }
 
-    .storage-dot {
+    .local-dot {
       width: 8px;
       height: 8px;
 
       border-radius: 50%;
-      background: #35c759;
 
-      box-shadow: 0 0 8px rgba(53, 199, 89, 0.45);
+      background: #39d98a;
+
+      box-shadow: 0 0 10px rgba(57,217,138,0.5);
     }
 
     /* =========================================================
-       TOAST
+       TOP TOAST
     ========================================================= */
 
-    .toast-container {
+    .toast {
       position: fixed;
 
+      top: max(12px, env(safe-area-inset-top));
+
       left: 50%;
-      bottom: 22px;
 
-      z-index: 1000;
+      width: min(430px, calc(100% - 20px));
 
-      width: min(calc(100% - 30px), 430px);
+      transform:
+        translate(-50%, -150%);
 
-      transform: translateX(-50%);
+      opacity: 0;
+
+      display: flex;
+      align-items: center;
+
+      gap: 11px;
+
+      padding: 12px 14px;
+
+      background: rgba(25,27,32,0.97);
+
+      border: 1px solid #30333a;
+      border-radius: 15px;
+
+      box-shadow:
+        0 14px 40px rgba(0,0,0,0.45);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      z-index: 100000;
+
+      pointer-events: none;
+
+      transition:
+        transform 0.38s cubic-bezier(.2,.8,.2,1),
+        opacity 0.25s ease;
+    }
+
+    .toast.show {
+      transform:
+        translate(-50%, 0);
+
+      opacity: 1;
+    }
+
+    .toast-icon {
+      width: 34px;
+      height: 34px;
+
+      flex: 0 0 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+    }
+
+    .toast-icon svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .toast.error .toast-icon {
+      color: #ff7777;
+      background: rgba(255,85,85,0.11);
+    }
+
+    .toast.success .toast-icon {
+      color: #5ee39a;
+      background: rgba(52,211,125,0.10);
+    }
+
+    .toast.info .toast-icon {
+      color: #72a7ff;
+      background: rgba(59,130,246,0.10);
+    }
+
+    .toast-title {
+      color: #f4f4f6;
+
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .toast-message {
+      margin-top: 2px;
+
+      color: #92959e;
+
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    /* =========================================================
+       CONFIRM MODAL
+    ========================================================= */
+
+    .modal-backdrop {
+      position: fixed;
+
+      inset: 0;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: rgba(0,0,0,0.70);
+
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+
+      z-index: 90000;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      width: min(400px, 100%);
+
+      padding: 22px;
+
+      background: #15171c;
+
+      border: 1px solid #30333a;
+      border-radius: 22px;
+
+      box-shadow:
+        0 25px 80px rgba(0,0,0,0.55);
+
+      animation: modalIn 0.22s ease;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: scale(0.96) translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-icon {
+      width: 48px;
+      height: 48px;
+
+      display: grid;
+      place-items: center;
+
+      margin-bottom: 15px;
+
+      border-radius: 15px;
+
+      color: #5ee39a;
+
+      background: rgba(52,211,125,0.10);
+    }
+
+    .modal-icon svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .modal h2 {
+      margin: 0;
+
+      font-size: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .modal p {
+      margin: 9px 0 0;
+
+      color: #8d9099;
+
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .modal-password {
+      margin-top: 15px;
+
+      padding: 12px;
+
+      color: #d8d9dd;
+
+      background: #0f1014;
+
+      border: 1px solid #292c32;
+      border-radius: 12px;
+
+      font-family: monospace;
+      font-size: 13px;
+
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+    }
+
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      gap: 9px;
+
+      margin-top: 18px;
+    }
+
+    .modal-btn {
+      height: 46px;
+
+      border-radius: 13px;
+
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .modal-cancel {
+      background: #202228;
+      color: #b8bac2;
+      border: 1px solid #30333a;
+    }
+
+    .modal-confirm {
+      background: #32b976;
+      color: white;
+    }
+
+    /* =========================================================
+       SUCCESS CELEBRATION
+    ========================================================= */
+
+    #celebration {
+      position: fixed;
+
+      inset: 0;
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(52,211,125,0.12),
+          rgba(5,7,10,0.96) 60%
+        );
+
+      z-index: 110000;
+    }
+
+    #celebration.show {
+      display: flex;
+
+      animation: celebrationFade 0.35s ease;
+    }
+
+    @keyframes celebrationFade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    #particleCanvas {
+      position: absolute;
+
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
 
       pointer-events: none;
     }
 
-    .toast {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .celebration-content {
+      position: relative;
+      z-index: 2;
 
-      padding: 12px 14px;
+      text-align: center;
 
-      background: #191a20;
-      color: #ededf0;
+      padding: 25px;
 
-      border: 1px solid #33353d;
-      border-radius: 13px;
+      animation:
+        celebrationPop 0.55s cubic-bezier(.2,.9,.2,1);
+    }
+
+    @keyframes celebrationPop {
+      from {
+        opacity: 0;
+        transform: scale(0.65) translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .success-circle {
+      width: 104px;
+      height: 104px;
+
+      margin: 0 auto 24px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      color: white;
+
+      background: #32b976;
 
       box-shadow:
-        0 12px 40px rgba(0, 0, 0, 0.45);
-
-      font-size: 13px;
-      font-weight: 550;
-
-      opacity: 0;
-      transform: translateY(10px);
-
-      transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
+        0 0 0 12px rgba(50,185,118,0.08),
+        0 0 60px rgba(50,185,118,0.25);
     }
 
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
+    .success-circle svg {
+      width: 54px;
+      height: 54px;
     }
 
-    .toast-icon {
-      width: 18px;
-      height: 18px;
-      flex: 0 0 auto;
+    .celebration-content h2 {
+      margin: 0;
+
+      font-size: clamp(32px, 8vw, 48px);
+
+      letter-spacing: -1.8px;
     }
 
-    .toast.success .toast-icon {
-      color: #65d985;
+    .celebration-content p {
+      margin: 12px auto 0;
+
+      max-width: 380px;
+
+      color: #999ca5;
+
+      font-size: 15px;
+      line-height: 1.5;
     }
 
-    .toast.error .toast-icon {
-      color: #ff7a72;
-    }
+    .celebration-close {
+      margin-top: 25px;
 
-    .toast.info .toast-icon {
-      color: #65a1ff;
+      height: 46px;
+
+      padding: 0 25px;
+
+      border-radius: 13px;
+
+      background: #202228;
+
+      border: 1px solid #30333a;
+
+      color: #e4e5e8;
+
+      font-weight: 650;
     }
 
     /* =========================================================
-       RESPONSIVE
+       MOBILE
     ========================================================= */
 
     @media (max-width: 600px) {
       .app {
-        padding: 22px 8px 28px;
+        width: calc(100% - 20px);
+
+        padding-top: 28px;
+        padding-bottom: 35px;
       }
 
-      .header {
-        margin-bottom: 20px;
+      .hero {
+        margin-bottom: 26px;
       }
 
-      .logo {
-        width: 64px;
-        height: 64px;
-        margin-bottom: 13px;
-        border-radius: 19px;
+      .logo-box {
+        width: 78px;
+        height: 78px;
+
+        margin-bottom: 17px;
+
+        border-radius: 21px;
       }
 
-      .logo svg {
-        width: 35px;
-        height: 35px;
+      .logo-box svg {
+        width: 45px;
+        height: 45px;
       }
 
-      .title {
-        font-size: 29px;
-        letter-spacing: -1px;
+      .hero h1 {
+        font-size: 34px;
+        letter-spacing: -1.3px;
       }
 
-      .subtitle {
-        margin-top: 8px;
-        padding: 0 8px;
+      .hero p {
+        margin-top: 12px;
 
-        font-size: 13px;
+        font-size: 14px;
+
         line-height: 1.45;
       }
 
-      .add-box {
-        padding: 8px;
-        border-radius: 16px;
+      .add-panel {
+        padding: 10px;
+
+        border-radius: 18px;
       }
 
       #passwordInput {
-        height: 52px;
-        font-size: 15px;
+        height: 58px;
+
+        padding: 0 16px;
+
+        border-radius: 15px;
+
+        font-size: 16px;
       }
 
       .add-btn {
-        height: 50px;
+        height: 56px;
+
+        margin-top: 9px;
+
+        border-radius: 15px;
+
+        font-size: 16px;
+      }
+
+      .stats {
+        gap: 8px;
+
+        margin-top: 14px;
       }
 
       .stat {
-        min-height: 72px;
-        border-radius: 14px;
-      }
+        min-height: 78px;
 
-      .stat-number {
-        font-size: 23px;
-      }
-
-      .stat-label {
-        font-size: 9px;
-      }
-
-      .password-card {
-        min-height: 76px;
-        padding: 10px 8px 10px 12px;
         border-radius: 15px;
       }
 
-      .password-text {
-        font-size: 15px;
+      .stat-value {
+        font-size: 24px;
       }
 
-      .card-bottom {
+      .stat-label {
         margin-top: 6px;
-      }
 
-      .status-badge {
-        min-height: 23px;
-        padding: 0 9px;
         font-size: 9px;
       }
 
-      .actions {
+      .search-box {
+        margin-top: 14px;
+      }
+
+      #searchInput {
+        height: 56px;
+
+        border-radius: 15px;
+
+        font-size: 15px;
+      }
+
+      .filters {
+        margin-top: 8px;
+        margin-bottom: 12px;
+      }
+
+      .filter-btn {
+        padding: 8px 15px;
+
+        font-size: 13px;
+      }
+
+      .password-card {
+        min-height: 88px;
+
+        padding:
+          11px
+          10px
+          11px
+          14px;
+
+        border-radius: 16px;
+
+        column-gap: 8px;
+        row-gap: 7px;
+      }
+
+      .password-value {
+        font-size: 15px;
+      }
+
+      .card-actions {
         gap: 4px;
       }
 
       .icon-btn {
         width: 39px;
         height: 39px;
+
         border-radius: 11px;
       }
 
       .icon-btn svg {
-        width: 18px;
-        height: 18px;
+        width: 19px;
+        height: 19px;
+      }
+
+      .status {
+        min-height: 22px;
+
+        padding: 0 9px;
+
+        font-size: 9px;
+      }
+
+      .date {
+        font-size: 10px;
+      }
+
+      .backup {
+        gap: 8px;
+
+        margin-top: 14px;
       }
 
       .backup-btn {
-        height: 50px;
+        height: 52px;
+
+        border-radius: 14px;
+
         font-size: 12px;
+      }
+
+      .local-note {
+        margin-top: 14px;
+
+        font-size: 11px;
       }
     }
 
     @media (max-width: 390px) {
       .password-card {
-        align-items: center;
-      }
-
-      .password-content {
-        padding-right: 5px;
-      }
-
-      .password-text {
-        font-size: 14px;
+        grid-template-columns: minmax(0, 1fr) auto;
       }
 
       .icon-btn {
@@ -834,12 +1242,16 @@
       }
 
       .icon-btn svg {
-        width: 17px;
-        height: 17px;
+        width: 18px;
+        height: 18px;
       }
 
-      .actions {
+      .card-actions {
         gap: 3px;
+      }
+
+      .password-value {
+        font-size: 14px;
       }
     }
   </style>
@@ -847,67 +1259,212 @@
 
 <body>
 
+  <!-- =========================================================
+       TOP TOAST
+  ========================================================== -->
+
+  <div
+    id="toast"
+    class="toast"
+    role="alert"
+    aria-live="polite"
+  >
+    <div id="toastIcon" class="toast-icon"></div>
+
+    <div>
+      <div id="toastTitle" class="toast-title"></div>
+      <div id="toastMessage" class="toast-message"></div>
+    </div>
+  </div>
+
+
+  <!-- =========================================================
+       CONFIRMATION MODAL
+  ========================================================== -->
+
+  <div
+    id="confirmModal"
+    class="modal-backdrop"
+    aria-hidden="true"
+  >
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="confirmTitle"
+    >
+
+      <div class="modal-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M8 12l2.5 2.5L16 9"></path>
+        </svg>
+      </div>
+
+      <h2 id="confirmTitle">
+        Confirm successful recovery
+      </h2>
+
+      <p>
+        Are you sure this password worked?
+        This will mark the attempt as successful.
+      </p>
+
+      <div
+        id="confirmPassword"
+        class="modal-password"
+      ></div>
+
+      <div class="modal-actions">
+
+        <button
+          id="cancelConfirm"
+          class="modal-btn modal-cancel"
+          type="button"
+        >
+          Cancel
+        </button>
+
+        <button
+          id="confirmSuccess"
+          class="modal-btn modal-confirm"
+          type="button"
+        >
+          Yes, it worked
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =========================================================
+       SUCCESS CELEBRATION
+  ========================================================== -->
+
+  <div id="celebration">
+
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="celebration-content">
+
+      <div class="success-circle">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12.5l4 4L19 7"></path>
+        </svg>
+      </div>
+
+      <h2>
+        Congratulations!
+      </h2>
+
+      <p>
+        Password recovered successfully.
+        The attempt has been marked as successful.
+      </p>
+
+      <button
+        id="closeCelebration"
+        class="celebration-close"
+        type="button"
+      >
+        Continue
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- =========================================================
+       MAIN APP
+  ========================================================== -->
+
   <main class="app">
 
-    <!-- =======================================================
-         HEADER
-    ======================================================== -->
+    <!-- HERO -->
 
-    <header class="header">
+    <header class="hero">
 
-      <div class="logo" aria-hidden="true">
+      <div class="logo-box">
+
         <svg
           viewBox="0 0 64 64"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
+
           <circle
-            cx="30"
-            cy="34"
+            cx="27"
+            cy="36"
             r="11"
-            stroke="#F2F3F5"
-            stroke-width="4"
+            stroke="#F5F5F7"
+            stroke-width="5"
           />
 
           <path
-            d="M38 26L53 11"
-            stroke="#F2F3F5"
-            stroke-width="4"
+            d="M35 28L50 13"
+            stroke="#F5F5F7"
+            stroke-width="5"
             stroke-linecap="round"
           />
 
           <path
-            d="M47 17L53 23"
-            stroke="#F2F3F5"
-            stroke-width="4"
+            d="M43 20L48 25"
+            stroke="#F5F5F7"
+            stroke-width="5"
             stroke-linecap="round"
           />
 
           <path
-            d="M42 22L48 28"
+            d="M39 24L44 29"
+            stroke="#F5F5F7"
+            stroke-width="5"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M39 24L34 29"
             stroke="#3B82F6"
-            stroke-width="4"
+            stroke-width="5"
             stroke-linecap="round"
           />
+
         </svg>
+
       </div>
 
-      <h1 class="title">Get Back My Key</h1>
+      <h1>
+        Get Back My Key
+      </h1>
 
-      <p class="subtitle">
-        Track password combinations locally. Copy, test and mark each attempt.
+      <p>
+        Track password combinations locally.
+        Copy, test and mark each attempt.
       </p>
 
     </header>
 
 
-    <!-- =======================================================
-         ADD PASSWORD
-    ======================================================== -->
+    <!-- ADD -->
 
-    <section class="add-box">
+    <section class="add-panel">
 
       <div class="input-wrap">
+
         <input
           id="passwordInput"
           type="text"
@@ -917,14 +1474,15 @@
           placeholder="Enter password combination..."
           aria-label="Password combination"
         />
+
       </div>
 
       <button
-        type="button"
-        class="add-btn"
         id="addButton"
+        class="add-btn"
+        type="button"
       >
-        <!-- Plus icon -->
+
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -932,64 +1490,82 @@
           stroke-width="2"
           stroke-linecap="round"
         >
-          <path d="M12 5V19" />
-          <path d="M5 12H19" />
+          <path d="M12 5v14"></path>
+          <path d="M5 12h14"></path>
         </svg>
 
         <span>Add</span>
+
       </button>
 
     </section>
 
 
-    <!-- =======================================================
-         STATS
-    ======================================================== -->
+    <!-- STATS -->
 
     <section class="stats">
 
       <div class="stat">
-        <div class="stat-number" id="totalCount">0</div>
-        <div class="stat-label">Total</div>
+        <div
+          id="totalCount"
+          class="stat-value"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          TOTAL
+        </div>
       </div>
 
       <div class="stat">
-        <div class="stat-number" id="triedCount">0</div>
-        <div class="stat-label">Tried</div>
+        <div
+          id="triedCount"
+          class="stat-value"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          TRIED
+        </div>
       </div>
 
       <div class="stat">
-        <div class="stat-number" id="successCount">0</div>
-        <div class="stat-label">Success</div>
+        <div
+          id="successCount"
+          class="stat-value"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          SUCCESS
+        </div>
       </div>
 
     </section>
 
 
-    <!-- =======================================================
-         SEARCH
-    ======================================================== -->
+    <!-- SEARCH -->
 
-    <div class="search-wrap">
+    <div class="search-box">
 
-      <!-- Search icon -->
       <svg
-        class="search-icon"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
         stroke-width="2"
         stroke-linecap="round"
       >
-        <circle cx="11" cy="11" r="7" />
-        <path d="M20 20L16.2 16.2" />
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="M16 16l5 5"></path>
       </svg>
 
       <input
         id="searchInput"
-        type="text"
+        type="search"
         autocomplete="off"
-        spellcheck="false"
         placeholder="Search attempts..."
         aria-label="Search attempts"
       />
@@ -997,107 +1573,64 @@
     </div>
 
 
-    <!-- =======================================================
-         FILTERS
-    ======================================================== -->
+    <!-- FILTERS -->
 
-    <div class="filters">
+    <nav
+      id="filters"
+      class="filters"
+      aria-label="Attempt filters"
+    >
 
       <button
-        type="button"
         class="filter-btn active"
         data-filter="all"
+        type="button"
       >
         All
       </button>
 
       <button
-        type="button"
         class="filter-btn"
         data-filter="pending"
+        type="button"
       >
         Pending
       </button>
 
       <button
-        type="button"
         class="filter-btn"
         data-filter="failed"
+        type="button"
       >
         Failed
       </button>
 
       <button
-        type="button"
         class="filter-btn"
         data-filter="success"
+        type="button"
       >
         Success
       </button>
 
-    </div>
+    </nav>
 
 
-    <!-- =======================================================
-         PASSWORD LIST
-    ======================================================== -->
+    <!-- LIST -->
 
-    <section id="passwordList"></section>
+    <section id="list"></section>
 
 
-    <!-- =======================================================
-         EMPTY STATE
-    ======================================================== -->
-
-    <section
-      class="empty-state"
-      id="emptyState"
-    >
-
-      <svg
-        class="empty-icon"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <circle cx="7.5" cy="15.5" r="3.5" />
-        <path d="M10 13L20 3" />
-        <path d="M17 6L20 9" />
-        <path d="M14 9L17 12" />
-      </svg>
-
-      <p
-        class="empty-title"
-        id="emptyTitle"
-      >
-        No password attempts yet
-      </p>
-
-      <p
-        class="empty-description"
-        id="emptyDescription"
-      >
-        Add your first combination above.
-      </p>
-
-    </section>
-
-
-    <!-- =======================================================
-         BACKUP
-    ======================================================== -->
+    <!-- BACKUP -->
 
     <section class="backup">
 
       <button
-        type="button"
-        class="backup-btn"
         id="exportButton"
+        class="backup-btn"
+        type="button"
       >
-        <!-- Download icon -->
+
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -1106,21 +1639,22 @@
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <path d="M12 3V15" />
-          <path d="M7 10L12 15L17 10" />
-          <path d="M5 21H19" />
+          <path d="M12 3v13"></path>
+          <path d="M7 11l5 5 5-5"></path>
+          <path d="M5 21h14"></path>
         </svg>
 
-        <span>Export Backup</span>
+        Export Backup
+
       </button>
 
 
       <button
-        type="button"
-        class="backup-btn"
         id="importButton"
+        class="backup-btn"
+        type="button"
       >
-        <!-- Upload icon -->
+
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -1129,118 +1663,65 @@
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <path d="M12 21V9" />
-          <path d="M7 14L12 9L17 14" />
-          <path d="M5 3H19" />
+          <path d="M12 21V8"></path>
+          <path d="M7 13l5-5 5 5"></path>
+          <path d="M5 3h14"></path>
         </svg>
 
-        <span>Import Backup</span>
+        Import Backup
+
       </button>
 
       <input
+        id="importInput"
         type="file"
-        id="importFile"
         accept=".json,application/json"
-        hidden
       />
 
     </section>
 
 
-    <!-- =======================================================
-         STORAGE STATUS
-    ======================================================== -->
+    <!-- LOCAL STORAGE -->
 
-    <div class="storage-note">
+    <div class="local-note">
 
-      <span class="storage-dot"></span>
+      <span class="local-dot"></span>
 
-      <span>Saved locally in this browser</span>
+      <span>
+        Saved locally in this browser
+      </span>
 
     </div>
 
   </main>
 
 
-  <!-- =========================================================
-       TOAST
-  ========================================================== -->
-
-  <div class="toast-container">
-
-    <div
-      class="toast"
-      id="toast"
-      role="status"
-      aria-live="polite"
-    >
-      <svg
-        class="toast-icon"
-        id="toastIcon"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></svg>
-
-      <span id="toastMessage"></span>
-    </div>
-
-  </div>
-
-
   <script>
-    "use strict";
-
     /* =========================================================
        STORAGE
-    ========================================================= */
+    ========================================================== */
 
-    const STORAGE_KEY = "getBackMyKey_passwords_v1";
+    const STORAGE_KEY = "get_back_my_key_attempts_v1";
 
 
     /* =========================================================
        STATE
-    ========================================================= */
+    ========================================================== */
 
-    let passwords = [];
+    let passwords = loadPasswords();
+
     let currentFilter = "all";
-    let searchQuery = "";
 
+    let pendingSuccessIndex = null;
 
-    /* =========================================================
-       DOM
-    ========================================================= */
+    let toastTimer = null;
 
-    const passwordInput = document.getElementById("passwordInput");
-    const addButton = document.getElementById("addButton");
-
-    const passwordList = document.getElementById("passwordList");
-
-    const totalCount = document.getElementById("totalCount");
-    const triedCount = document.getElementById("triedCount");
-    const successCount = document.getElementById("successCount");
-
-    const searchInput = document.getElementById("searchInput");
-
-    const emptyState = document.getElementById("emptyState");
-    const emptyTitle = document.getElementById("emptyTitle");
-    const emptyDescription = document.getElementById("emptyDescription");
-
-    const exportButton = document.getElementById("exportButton");
-    const importButton = document.getElementById("importButton");
-    const importFile = document.getElementById("importFile");
-
-    const toast = document.getElementById("toast");
-    const toastMessage = document.getElementById("toastMessage");
-    const toastIcon = document.getElementById("toastIcon");
+    let audioContext = null;
 
 
     /* =========================================================
        SVG ICONS
-    ========================================================= */
+    ========================================================== */
 
     const ICONS = {
 
@@ -1253,8 +1734,79 @@
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <rect x="8" y="8" width="11" height="11" rx="2"/>
-          <path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4H6.5A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"/>
+          <rect x="8" y="8" width="11" height="11" rx="2"></rect>
+          <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+        </svg>
+      `,
+
+      success: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12.5l4 4L19 7"></path>
+        </svg>
+      `,
+
+      failed: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.9"
+          stroke-linecap="round"
+        >
+          <path d="M6 6l12 12"></path>
+          <path d="M18 6L6 18"></path>
+        </svg>
+      `,
+
+      delete: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M4 7h16"></path>
+          <path d="M9 7V4h6v3"></path>
+          <path d="M7 7l1 13h8l1-13"></path>
+          <path d="M10 11v5"></path>
+          <path d="M14 11v5"></path>
+        </svg>
+      `,
+
+      error: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M15 9l-6 6"></path>
+          <path d="M9 9l6 6"></path>
+        </svg>
+      `,
+
+      info: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M12 10v6"></path>
+          <path d="M12 7h.01"></path>
         </svg>
       `,
 
@@ -1267,172 +1819,77 @@
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <path d="M5 12.5L10 17L19 7"/>
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M8 12l2.5 2.5L16 9"></path>
         </svg>
       `,
 
-      close: `
+      searchEmpty: `
         <svg
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
+          stroke-width="1.7"
           stroke-linecap="round"
         >
-          <path d="M6 6L18 18"/>
-          <path d="M18 6L6 18"/>
-        </svg>
-      `,
-
-      trash: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M4 7H20"/>
-          <path d="M9 7V4H15V7"/>
-          <path d="M7 7L8 20H16L17 7"/>
-          <path d="M10 11V17"/>
-          <path d="M14 11V17"/>
-        </svg>
-      `,
-
-      success: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="12" cy="12" r="9"/>
-          <path d="M8 12L11 15L16 9"/>
-        </svg>
-      `,
-
-      error: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-        >
-          <circle
-            cx="12"
-            cy="12"
-            r="9"
-          />
-          <path d="M9 9L15 15"/>
-          <path d="M15 9L9 15"/>
-        </svg>
-      `,
-
-      info: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="12" cy="12" r="9"/>
-          <path d="M12 11V16"/>
-          <path d="M12 8H12.01"/>
-        </svg>
-      `,
-
-      empty: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="7.5" cy="15.5" r="3.5"/>
-          <path d="M10 13L20 3"/>
-          <path d="M17 6L20 9"/>
-          <path d="M14 9L17 12"/>
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="M16 16l5 5"></path>
         </svg>
       `
     };
 
 
     /* =========================================================
-       LOAD DATA
-    ========================================================= */
+       LOAD / SAVE
+    ========================================================== */
 
     function loadPasswords() {
+
       try {
+
         const saved = localStorage.getItem(STORAGE_KEY);
 
         if (!saved) {
-          passwords = [];
-          return;
+          return [];
         }
 
         const parsed = JSON.parse(saved);
 
         if (!Array.isArray(parsed)) {
-          passwords = [];
-          return;
+          return [];
         }
 
-        passwords = parsed
-          .filter(item =>
-            item &&
-            typeof item.text === "string" &&
-            typeof item.status === "string"
-          )
-          .map(item => ({
-            id:
-              typeof item.id === "string"
-                ? item.id
-                : createId(),
-
-            text: item.text,
-
-            status:
-              ["pending", "success", "failed"].includes(item.status)
-                ? item.status
-                : "pending",
-
-            createdAt:
-              typeof item.createdAt === "number"
-                ? item.createdAt
-                : Date.now()
-          }));
+        return parsed.filter(item =>
+          item &&
+          typeof item.text === "string" &&
+          ["pending", "failed", "success"].includes(item.status)
+        );
 
       } catch (error) {
-        console.error("Failed to load local data:", error);
-        passwords = [];
+
+        console.error("Could not load local data:", error);
+
+        return [];
       }
     }
 
 
-    /* =========================================================
-       SAVE DATA
-    ========================================================= */
-
     function savePasswords() {
+
       try {
+
         localStorage.setItem(
           STORAGE_KEY,
           JSON.stringify(passwords)
         );
+
       } catch (error) {
-        console.error("Failed to save local data:", error);
+
+        console.error("Could not save local data:", error);
 
         showToast(
-          "Could not save data to this browser.",
+          "Storage error",
+          "The browser could not save your data.",
           "error"
         );
       }
@@ -1440,51 +1897,116 @@
 
 
     /* =========================================================
-       CREATE ID
-    ========================================================= */
+       HELPERS
+    ========================================================== */
 
-    function createId() {
-      if (
-        typeof crypto !== "undefined" &&
-        typeof crypto.randomUUID === "function"
-      ) {
-        return crypto.randomUUID();
-      }
+    function formatDate(timestamp) {
 
-      return (
-        Date.now().toString(36) +
-        Math.random().toString(36).slice(2)
+      const date = new Date(timestamp);
+
+      return date.toLocaleDateString(
+        undefined,
+        {
+          day: "2-digit",
+          month: "short"
+        }
+      ) + " " +
+      date.toLocaleTimeString(
+        undefined,
+        {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false
+        }
       );
+    }
+
+
+    function escapeText(value) {
+
+      return String(value);
+    }
+
+
+    /* =========================================================
+       TOAST
+    ========================================================== */
+
+    function showToast(
+      title,
+      message = "",
+      type = "info"
+    ) {
+
+      const toast =
+        document.getElementById("toast");
+
+      const icon =
+        document.getElementById("toastIcon");
+
+      const titleEl =
+        document.getElementById("toastTitle");
+
+      const messageEl =
+        document.getElementById("toastMessage");
+
+      clearTimeout(toastTimer);
+
+      toast.className =
+        "toast " + type;
+
+      icon.innerHTML =
+        ICONS[type] || ICONS.info;
+
+      titleEl.textContent =
+        title;
+
+      messageEl.textContent =
+        message;
+
+      toast.classList.add("show");
+
+      toastTimer = setTimeout(() => {
+
+        toast.classList.remove("show");
+
+      }, 3200);
     }
 
 
     /* =========================================================
        ADD PASSWORD
-       
-       IMPORTANT:
-       The password is stored EXACTLY as entered.
-       No trim, no lowercase, no modification.
-    ========================================================= */
+    ========================================================== */
 
     function addPassword() {
 
-      const value = passwordInput.value;
+      const input =
+        document.getElementById("passwordInput");
 
       /*
-        Only an actually empty input is rejected.
+        IMPORTANT:
+        We DO NOT trim the password before storing it.
 
-        We intentionally DO NOT use trim()
-        because the user's password must remain
-        exactly as entered, including spaces.
+        Example:
+        " my password "
+        remains exactly:
+        " my password "
+
+        Only an all-whitespace input is rejected.
       */
 
-      if (value.length === 0) {
+      const value = input.value;
+
+      if (!value.trim()) {
+
         showToast(
+          "Empty combination",
           "Enter a password combination first.",
           "error"
         );
 
-        passwordInput.focus();
+        input.focus();
+
         return;
       }
 
@@ -1492,621 +2014,836 @@
       /*
         Exact duplicate check.
 
-        "Password"
-        "password"
-        " Password"
-        "Password "
-
-        are treated as DIFFERENT entries.
-
-        This preserves the password exactly as entered.
+        Case-sensitive.
+        Spaces matter.
+        "Password" !== "password"
+        "abc" !== "abc "
       */
 
-      const duplicateIndex = passwords.findIndex(
-        item => item.text === value
-      );
+      const existingIndex =
+        passwords.findIndex(
+          item => item.text === value
+        );
 
 
-      if (duplicateIndex !== -1) {
+      if (existingIndex !== -1) {
 
         /*
-          Existing attempt number is based on its
-          position in the stored list.
-
-          Since newest entries are at the top,
-          position + 1 represents its visible number.
+          Because new items are inserted at the top,
+          user-visible attempt number is:
+          index + 1
         */
 
-        const attemptNumber = duplicateIndex + 1;
+        const attemptNumber =
+          existingIndex + 1;
 
         showToast(
+          "Duplicate attempt",
           `This combination already exists as attempt #${attemptNumber}.`,
           "error"
         );
 
-        passwordInput.focus();
+        input.select();
 
         return;
       }
 
 
+      const newItem = {
+
+        id:
+          Date.now().toString(36) +
+          Math.random().toString(36).slice(2),
+
+        text: value,
+
+        status: "pending",
+
+        createdAt: Date.now()
+      };
+
+
       /*
-        unshift() puts the newest password
-        at the TOP of the list.
+        New password goes to TOP.
       */
 
-      passwords.unshift({
-        id: createId(),
-        text: value,
-        status: "pending",
-        createdAt: Date.now()
-      });
-
-
-      passwordInput.value = "";
+      passwords.unshift(newItem);
 
       savePasswords();
 
-      currentFilter = "all";
-      searchQuery = "";
-      searchInput.value = "";
+      input.value = "";
 
-      updateFilterButtons();
       render();
 
       showToast(
-        "Password combination added.",
+        "Added",
+        "New combination added to the top of the list.",
         "success"
       );
+
+      input.focus();
     }
 
 
     /* =========================================================
-       COPY PASSWORD
-    ========================================================= */
+       COPY
+    ========================================================== */
 
-    async function copyPassword(id, button) {
+    async function copyPassword(index) {
 
-      const item = passwords.find(
-        password => password.id === id
-      );
+      const item = passwords[index];
 
-      if (!item) return;
-
+      if (!item) {
+        return;
+      }
 
       try {
 
-        /*
-          Modern Clipboard API
-        */
-
-        if (
-          navigator.clipboard &&
-          window.isSecureContext
-        ) {
-          await navigator.clipboard.writeText(item.text);
-
-        } else {
-
-          /*
-            Fallback for older/mobile browsers.
-          */
-
-          const textarea =
-            document.createElement("textarea");
-
-          textarea.value = item.text;
-
-          textarea.style.position = "fixed";
-          textarea.style.opacity = "0";
-          textarea.style.pointerEvents = "none";
-
-          document.body.appendChild(textarea);
-
-          textarea.focus();
-          textarea.select();
-
-          const successful =
-            document.execCommand("copy");
-
-          textarea.remove();
-
-          if (!successful) {
-            throw new Error("Copy failed");
-          }
-        }
-
-
-        const oldHTML = button.innerHTML;
-
-        button.innerHTML = ICONS.check;
-        button.style.color = "#65d985";
-        button.style.borderColor =
-          "rgba(53, 199, 89, 0.28)";
-
-        setTimeout(() => {
-
-          if (button.isConnected) {
-            button.innerHTML = oldHTML;
-            button.style.color = "";
-            button.style.borderColor = "";
-          }
-
-        }, 1000);
-
+        await navigator.clipboard.writeText(
+          item.text
+        );
 
         showToast(
-          "Password copied to clipboard.",
+          "Copied",
+          "Combination copied to clipboard.",
           "success"
         );
 
       } catch (error) {
 
-        console.error("Copy failed:", error);
+        /*
+          Fallback for older browsers.
+        */
 
-        showToast(
-          "Could not copy this password.",
-          "error"
-        );
+        try {
+
+          const textarea =
+            document.createElement("textarea");
+
+          textarea.value =
+            item.text;
+
+          textarea.style.position =
+            "fixed";
+
+          textarea.style.opacity =
+            "0";
+
+          document.body.appendChild(
+            textarea
+          );
+
+          textarea.select();
+
+          document.execCommand("copy");
+
+          textarea.remove();
+
+          showToast(
+            "Copied",
+            "Combination copied to clipboard.",
+            "success"
+          );
+
+        } catch (fallbackError) {
+
+          showToast(
+            "Copy failed",
+            "This browser blocked clipboard access.",
+            "error"
+          );
+        }
       }
     }
 
 
     /* =========================================================
-       CHANGE STATUS
-    ========================================================= */
+       MARK FAILED
+    ========================================================== */
 
-    function changeStatus(id, status) {
+    function markFailed(index) {
 
-      const item = passwords.find(
-        password => password.id === id
-      );
+      const item =
+        passwords[index];
 
-      if (!item) return;
-
-
-      /*
-        Clicking the currently active status
-        returns it to pending.
-      */
-
-      if (item.status === status) {
-        item.status = "pending";
-
-      } else {
-        item.status = status;
+      if (!item) {
+        return;
       }
 
+      /*
+        X is intentionally direct.
+        No confirmation.
+      */
+
+      if (item.status === "failed") {
+
+        item.status = "pending";
+
+        showToast(
+          "Marked pending",
+          "This attempt is pending again.",
+          "info"
+        );
+
+      } else {
+
+        item.status = "failed";
+
+        showToast(
+          "Marked failed",
+          "This combination was marked as failed.",
+          "info"
+        );
+      }
 
       savePasswords();
+
       render();
+    }
+
+
+    /* =========================================================
+       SUCCESS CONFIRMATION
+    ========================================================== */
+
+    function requestSuccess(index) {
+
+      const item =
+        passwords[index];
+
+      if (!item) {
+        return;
+      }
+
+      /*
+        If already successful,
+        allow user to return it to pending.
+      */
 
       if (item.status === "success") {
 
-        showToast(
-          "Marked as successful.",
-          "success"
-        );
+        item.status = "pending";
 
-      } else if (item.status === "failed") {
+        savePasswords();
+
+        render();
 
         showToast(
-          "Marked as failed.",
+          "Marked pending",
+          "Success status has been removed.",
           "info"
         );
-
-      } else {
-
-        showToast(
-          "Reset to pending.",
-          "info"
-        );
-      }
-    }
-
-
-    /* =========================================================
-       DELETE
-    ========================================================= */
-
-    function deletePassword(id) {
-
-      const index = passwords.findIndex(
-        item => item.id === id
-      );
-
-      if (index === -1) return;
-
-
-      const shouldDelete = window.confirm(
-        "Delete this password attempt?"
-      );
-
-      if (!shouldDelete) return;
-
-
-      passwords.splice(index, 1);
-
-      savePasswords();
-      render();
-
-      showToast(
-        "Password attempt deleted.",
-        "success"
-      );
-    }
-
-
-    /* =========================================================
-       FILTER
-    ========================================================= */
-
-    function setFilter(filter) {
-
-      currentFilter = filter;
-
-      updateFilterButtons();
-      render();
-    }
-
-
-    function updateFilterButtons() {
-
-      document
-        .querySelectorAll(".filter-btn")
-        .forEach(button => {
-
-          button.classList.toggle(
-            "active",
-            button.dataset.filter === currentFilter
-          );
-
-        });
-    }
-
-
-    /* =========================================================
-       SEARCH
-    ========================================================= */
-
-    function setSearch(value) {
-
-      searchQuery = value;
-
-      render();
-    }
-
-
-    /* =========================================================
-       GET FILTERED DATA
-    ========================================================= */
-
-    function getVisiblePasswords() {
-
-      const query =
-        searchQuery.toLocaleLowerCase();
-
-      return passwords.filter(item => {
-
-        const matchesSearch =
-          item.text
-            .toLocaleLowerCase()
-            .includes(query);
-
-
-        const matchesFilter =
-          currentFilter === "all" ||
-          item.status === currentFilter;
-
-
-        return matchesSearch && matchesFilter;
-      });
-    }
-
-
-    /* =========================================================
-       RENDER
-    ========================================================= */
-
-    function render() {
-
-      updateStats();
-
-      passwordList.innerHTML = "";
-
-      const visiblePasswords =
-        getVisiblePasswords();
-
-
-      if (visiblePasswords.length === 0) {
-
-        passwordList.style.display = "none";
-        emptyState.style.display = "block";
-
-
-        if (passwords.length === 0) {
-
-          emptyTitle.textContent =
-            "No password attempts yet";
-
-          emptyDescription.textContent =
-            "Add your first combination above.";
-
-        } else {
-
-          emptyTitle.textContent =
-            "No matching attempts";
-
-          emptyDescription.textContent =
-            "Try a different search or filter.";
-        }
 
         return;
       }
 
 
-      passwordList.style.display = "flex";
-      emptyState.style.display = "none";
+      pendingSuccessIndex = index;
+
+      const modal =
+        document.getElementById(
+          "confirmModal"
+        );
+
+      const password =
+        document.getElementById(
+          "confirmPassword"
+        );
+
+      password.textContent =
+        item.text;
+
+      modal.classList.add("show");
+
+      modal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+    }
 
 
-      visiblePasswords.forEach(item => {
+    function closeConfirmModal() {
 
-        const card =
-          createPasswordCard(item);
+      const modal =
+        document.getElementById(
+          "confirmModal"
+        );
 
-        passwordList.appendChild(card);
-      });
+      modal.classList.remove("show");
+
+      modal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      pendingSuccessIndex = null;
     }
 
 
     /* =========================================================
-       CREATE PASSWORD CARD
-    ========================================================= */
+       CONFIRM SUCCESS
+    ========================================================== */
 
-    function createPasswordCard(item) {
+    function confirmSuccess() {
 
-      const card =
-        document.createElement("article");
-
-      card.className =
-        "password-card";
-
-
-      if (item.status === "success") {
-        card.classList.add("status-success");
+      if (
+        pendingSuccessIndex === null
+      ) {
+        return;
       }
 
-      if (item.status === "failed") {
-        card.classList.add("status-failed");
+      const index =
+        pendingSuccessIndex;
+
+      const item =
+        passwords[index];
+
+      if (!item) {
+
+        closeConfirmModal();
+
+        return;
       }
 
 
-      /* -------------------------------------------------------
-         CONTENT
-      ------------------------------------------------------- */
+      item.status = "success";
 
-      const content =
-        document.createElement("div");
+      item.successAt = Date.now();
 
-      content.className =
-        "password-content";
+      savePasswords();
 
+      render();
 
-      const passwordText =
-        document.createElement("p");
+      closeConfirmModal();
 
-      passwordText.className =
-        "password-text";
 
       /*
-        textContent is intentionally used here
-        so special characters are displayed safely.
+        Haptic feedback.
+        Safe optional API.
       */
 
-      passwordText.textContent =
-        item.text;
+      triggerHaptic();
 
 
-      /* -------------------------------------------------------
-         BOTTOM / STATUS
-      ------------------------------------------------------- */
+      /*
+        Local success sound.
+      */
 
-      const bottom =
-        document.createElement("div");
-
-      bottom.className =
-        "card-bottom";
+      playSuccessSound();
 
 
-      const badge =
-        document.createElement("span");
+      /*
+        Full-screen celebration.
+      */
 
-      badge.className =
-        "status-badge";
+      startCelebration();
+    }
 
 
-      if (item.status === "success") {
+    /* =========================================================
+       DELETE
+    ========================================================== */
 
-        badge.classList.add("success");
-        badge.textContent = "SUCCESS";
+    function deletePassword(index) {
 
-      } else if (item.status === "failed") {
+      const item =
+        passwords[index];
 
-        badge.classList.add("failed");
-        badge.textContent = "FAILED";
+      if (!item) {
+        return;
+      }
+
+      passwords.splice(index, 1);
+
+      savePasswords();
+
+      render();
+
+      showToast(
+        "Deleted",
+        "The attempt was removed.",
+        "info"
+      );
+    }
+
+
+    /* =========================================================
+       HAPTIC
+    ========================================================== */
+
+    function triggerHaptic() {
+
+      if (
+        "vibrate" in navigator
+      ) {
+
+        try {
+
+          navigator.vibrate([
+            30,
+            40,
+            60,
+            40,
+            120
+          ]);
+
+        } catch (error) {
+
+          /* Unsupported device/browser. */
+        }
+      }
+    }
+
+
+    /* =========================================================
+       SUCCESS SOUND
+    ========================================================== */
+
+    function playSuccessSound() {
+
+      try {
+
+        const AudioCtx =
+          window.AudioContext ||
+          window.webkitAudioContext;
+
+        if (!AudioCtx) {
+          return;
+        }
+
+        if (!audioContext) {
+
+          audioContext =
+            new AudioCtx();
+        }
+
+        if (
+          audioContext.state ===
+          "suspended"
+        ) {
+
+          audioContext.resume();
+        }
+
+
+        const now =
+          audioContext.currentTime;
+
+
+        /*
+          Three-note rising chime.
+          Completely generated locally.
+        */
+
+        const notes = [
+          {
+            frequency: 523.25,
+            start: 0,
+            duration: 0.18
+          },
+          {
+            frequency: 659.25,
+            start: 0.10,
+            duration: 0.20
+          },
+          {
+            frequency: 783.99,
+            start: 0.22,
+            duration: 0.32
+          }
+        ];
+
+
+        notes.forEach(note => {
+
+          const oscillator =
+            audioContext.createOscillator();
+
+          const gain =
+            audioContext.createGain();
+
+          oscillator.type =
+            "sine";
+
+          oscillator.frequency.setValueAtTime(
+            note.frequency,
+            now + note.start
+          );
+
+          gain.gain.setValueAtTime(
+            0,
+            now + note.start
+          );
+
+          gain.gain.linearRampToValueAtTime(
+            0.10,
+            now + note.start + 0.025
+          );
+
+          gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            now +
+              note.start +
+              note.duration
+          );
+
+          oscillator.connect(gain);
+
+          gain.connect(
+            audioContext.destination
+          );
+
+          oscillator.start(
+            now + note.start
+          );
+
+          oscillator.stop(
+            now +
+              note.start +
+              note.duration
+          );
+        });
+
+      } catch (error) {
+
+        /*
+          Audio is enhancement only.
+          App continues normally if unavailable.
+        */
+      }
+    }
+
+
+    /* =========================================================
+       CELEBRATION
+    ========================================================== */
+
+    let particleAnimationId = null;
+
+    let particles = [];
+
+
+    function startCelebration() {
+
+      const celebration =
+        document.getElementById(
+          "celebration"
+        );
+
+      celebration.classList.add(
+        "show"
+      );
+
+      createParticles();
+
+      animateParticles();
+
+
+      /*
+        Auto close after a few seconds,
+        but user can close manually.
+      */
+
+      setTimeout(() => {
+
+        if (
+          celebration.classList.contains(
+            "show"
+          )
+        ) {
+
+          closeCelebration();
+        }
+
+      }, 5200);
+    }
+
+
+    function closeCelebration() {
+
+      const celebration =
+        document.getElementById(
+          "celebration"
+        );
+
+      celebration.classList.remove(
+        "show"
+      );
+
+      if (
+        particleAnimationId
+      ) {
+
+        cancelAnimationFrame(
+          particleAnimationId
+        );
+
+        particleAnimationId =
+          null;
+      }
+
+      particles = [];
+    }
+
+
+    /* =========================================================
+       PARTICLES
+    ========================================================== */
+
+    function createParticles() {
+
+      const canvas =
+        document.getElementById(
+          "particleCanvas"
+        );
+
+      const ctx =
+        canvas.getContext("2d");
+
+      const dpr =
+        Math.min(
+          window.devicePixelRatio || 1,
+          2
+        );
+
+      canvas.width =
+        window.innerWidth * dpr;
+
+      canvas.height =
+        window.innerHeight * dpr;
+
+      canvas.style.width =
+        window.innerWidth + "px";
+
+      canvas.style.height =
+        window.innerHeight + "px";
+
+      ctx.scale(dpr, dpr);
+
+      particles = [];
+
+
+      const count =
+        window.innerWidth < 600
+          ? 75
+          : 120;
+
+
+      for (
+        let i = 0;
+        i < count;
+        i++
+      ) {
+
+        particles.push({
+
+          x:
+            window.innerWidth / 2 +
+            (Math.random() - 0.5) *
+            100,
+
+          y:
+            window.innerHeight * 0.45,
+
+          vx:
+            (Math.random() - 0.5) *
+            10,
+
+          vy:
+            -Math.random() * 9 - 3,
+
+          gravity:
+            0.18 +
+            Math.random() * 0.10,
+
+          size:
+            3 +
+            Math.random() * 5,
+
+          rotation:
+            Math.random() * Math.PI,
+
+          rotationSpeed:
+            (Math.random() - 0.5) *
+            0.2,
+
+          life:
+            1,
+
+          decay:
+            0.004 +
+            Math.random() * 0.006,
+
+          shape:
+            Math.random() > 0.5
+              ? "rect"
+              : "circle"
+        });
+      }
+    }
+
+
+    function animateParticles() {
+
+      const canvas =
+        document.getElementById(
+          "particleCanvas"
+        );
+
+      const ctx =
+        canvas.getContext("2d");
+
+
+      ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+      );
+
+
+      particles.forEach(p => {
+
+        p.x += p.vx;
+
+        p.y += p.vy;
+
+        p.vy += p.gravity;
+
+        p.rotation +=
+          p.rotationSpeed;
+
+        p.life -= p.decay;
+
+
+        if (p.life <= 0) {
+          return;
+        }
+
+
+        ctx.save();
+
+        ctx.globalAlpha =
+          Math.max(p.life, 0);
+
+        ctx.translate(
+          p.x,
+          p.y
+        );
+
+        ctx.rotate(
+          p.rotation
+        );
+
+
+        /*
+          Use default canvas fill.
+          No hard-coded palette needed.
+        */
+
+        if (
+          p.shape === "rect"
+        ) {
+
+          ctx.fillRect(
+            -p.size,
+            -p.size / 2,
+            p.size * 2,
+            p.size
+          );
+
+        } else {
+
+          ctx.beginPath();
+
+          ctx.arc(
+            0,
+            0,
+            p.size / 2,
+            0,
+            Math.PI * 2
+          );
+
+          ctx.fill();
+        }
+
+        ctx.restore();
+
+      });
+
+
+      particles =
+        particles.filter(
+          p => p.life > 0
+        );
+
+
+      if (
+        particles.length > 0
+      ) {
+
+        particleAnimationId =
+          requestAnimationFrame(
+            animateParticles
+          );
 
       } else {
 
-        badge.textContent = "PENDING";
+        particleAnimationId =
+          null;
       }
-
-
-      bottom.appendChild(badge);
-
-      content.appendChild(passwordText);
-      content.appendChild(bottom);
-
-
-      /* -------------------------------------------------------
-         ACTIONS
-      ------------------------------------------------------- */
-
-      const actions =
-        document.createElement("div");
-
-      actions.className =
-        "actions";
-
-
-      /*
-        COPY
-      */
-
-      const copyButton =
-        document.createElement("button");
-
-      copyButton.type = "button";
-
-      copyButton.className =
-        "icon-btn";
-
-      copyButton.innerHTML =
-        ICONS.copy;
-
-      copyButton.title =
-        "Copy password";
-
-      copyButton.setAttribute(
-        "aria-label",
-        "Copy password"
-      );
-
-      copyButton.addEventListener(
-        "click",
-        () => copyPassword(item.id, copyButton)
-      );
-
-
-      /*
-        SUCCESS
-      */
-
-      const successButton =
-        document.createElement("button");
-
-      successButton.type = "button";
-
-      successButton.className =
-        "icon-btn";
-
-      if (item.status === "success") {
-        successButton.classList.add(
-          "success-active"
-        );
-      }
-
-      successButton.innerHTML =
-        ICONS.check;
-
-      successButton.title =
-        "Mark as success";
-
-      successButton.setAttribute(
-        "aria-label",
-        "Mark as success"
-      );
-
-      successButton.addEventListener(
-        "click",
-        () => changeStatus(item.id, "success")
-      );
-
-
-      /*
-        FAILED
-      */
-
-      const failedButton =
-        document.createElement("button");
-
-      failedButton.type = "button";
-
-      failedButton.className =
-        "icon-btn";
-
-      if (item.status === "failed") {
-        failedButton.classList.add(
-          "failed-active"
-        );
-      }
-
-      failedButton.innerHTML =
-        ICONS.close;
-
-      failedButton.title =
-        "Mark as failed";
-
-      failedButton.setAttribute(
-        "aria-label",
-        "Mark as failed"
-      );
-
-      failedButton.addEventListener(
-        "click",
-        () => changeStatus(item.id, "failed")
-      );
-
-
-      /*
-        DELETE
-      */
-
-      const deleteButton =
-        document.createElement("button");
-
-      deleteButton.type = "button";
-
-      deleteButton.className =
-        "icon-btn";
-
-      deleteButton.innerHTML =
-        ICONS.trash;
-
-      deleteButton.title =
-        "Delete attempt";
-
-      deleteButton.setAttribute(
-        "aria-label",
-        "Delete attempt"
-      );
-
-      deleteButton.addEventListener(
-        "click",
-        () => deletePassword(item.id)
-      );
-
-
-      actions.appendChild(copyButton);
-      actions.appendChild(successButton);
-      actions.appendChild(failedButton);
-      actions.appendChild(deleteButton);
-
-
-      /*
-        FINAL CARD
-      */
-
-      card.appendChild(content);
-      card.appendChild(actions);
-
-
-      return card;
     }
 
 
     /* =========================================================
-       UPDATE STATS
-    ========================================================= */
+       SEARCH / FILTER
+    ========================================================== */
+
+    function getFilteredPasswords() {
+
+      const search =
+        document
+          .getElementById("searchInput")
+          .value;
+
+
+      return passwords.filter(
+        item => {
+
+          const matchesSearch =
+            item.text
+              .toLocaleLowerCase()
+              .includes(
+                search.toLocaleLowerCase()
+              );
+
+
+          const matchesFilter =
+            currentFilter === "all" ||
+            item.status ===
+              currentFilter;
+
+
+          return (
+            matchesSearch &&
+            matchesFilter
+          );
+        }
+      );
+    }
+
+
+    /* =========================================================
+       RENDER
+    ========================================================== */
+
+    function render() {
+
+      updateStats();
+
+      renderList();
+    }
+
 
     function updateStats() {
 
@@ -2115,279 +2852,499 @@
 
       const tried =
         passwords.filter(
-          item => item.status !== "pending"
+          item =>
+            item.status !==
+            "pending"
         ).length;
 
       const success =
         passwords.filter(
-          item => item.status === "success"
+          item =>
+            item.status ===
+            "success"
         ).length;
 
 
-      totalCount.textContent =
+      document.getElementById(
+        "totalCount"
+      ).textContent =
         total;
 
-      triedCount.textContent =
+
+      document.getElementById(
+        "triedCount"
+      ).textContent =
         tried;
 
-      successCount.textContent =
+
+      document.getElementById(
+        "successCount"
+      ).textContent =
         success;
     }
 
 
-    /* =========================================================
-       TOAST
-    ========================================================= */
+    function renderList() {
 
-    let toastTimer = null;
+      const list =
+        document.getElementById(
+          "list"
+        );
 
-
-    function showToast(message, type = "info") {
-
-      clearTimeout(toastTimer);
+      list.innerHTML = "";
 
 
-      toast.className =
-        `toast ${type}`;
+      const visible =
+        getFilteredPasswords();
 
 
-      toastMessage.textContent =
-        message;
+      if (
+        visible.length === 0
+      ) {
+
+        const empty =
+          document.createElement(
+            "div"
+          );
+
+        empty.className =
+          "empty";
 
 
-      if (type === "success") {
-        toastIcon.innerHTML =
-          ICONS.success;
+        empty.innerHTML = `
+          ${ICONS.searchEmpty}
 
-      } else if (type === "error") {
-        toastIcon.innerHTML =
-          ICONS.error;
+          <div class="empty-title">
+            ${
+              passwords.length === 0
+                ? "No attempts yet"
+                : "No matching attempts"
+            }
+          </div>
 
-      } else {
-        toastIcon.innerHTML =
-          ICONS.info;
+          <div class="empty-text">
+            ${
+              passwords.length === 0
+                ? "Add your first combination above."
+                : "Try another search or filter."
+            }
+          </div>
+        `;
+
+        list.appendChild(empty);
+
+        return;
       }
 
 
-      /*
-        Force animation restart.
-      */
+      visible.forEach(item => {
 
-      requestAnimationFrame(() => {
+        const actualIndex =
+          passwords.indexOf(item);
 
-        toast.classList.add("show");
+        const card =
+          document.createElement(
+            "article"
+          );
 
+
+        card.className =
+          "password-card " +
+          (
+            item.status ===
+            "success"
+              ? "success"
+              : item.status ===
+                "failed"
+                ? "failed"
+                : ""
+          );
+
+
+        /* Password */
+
+        const password =
+          document.createElement(
+            "div"
+          );
+
+        password.className =
+          "password-value";
+
+        password.textContent =
+          escapeText(item.text);
+
+
+        /* Actions */
+
+        const actions =
+          document.createElement(
+            "div"
+          );
+
+        actions.className =
+          "card-actions";
+
+
+        const copyButton =
+          createIconButton(
+            ICONS.copy,
+            "Copy combination"
+          );
+
+        copyButton.addEventListener(
+          "click",
+          () =>
+            copyPassword(
+              actualIndex
+            )
+        );
+
+
+        const successButton =
+          createIconButton(
+            ICONS.success,
+            item.status === "success"
+              ? "Remove success status"
+              : "Mark as successful"
+          );
+
+
+        if (
+          item.status ===
+          "success"
+        ) {
+
+          successButton.style.color =
+            "#5ee39a";
+        }
+
+
+        successButton.addEventListener(
+          "click",
+          () =>
+            requestSuccess(
+              actualIndex
+            )
+        );
+
+
+        const failedButton =
+          createIconButton(
+            ICONS.failed,
+            item.status === "failed"
+              ? "Reset to pending"
+              : "Mark as failed"
+          );
+
+
+        if (
+          item.status ===
+          "failed"
+        ) {
+
+          failedButton.style.color =
+            "#ff7777";
+        }
+
+
+        failedButton.addEventListener(
+          "click",
+          () =>
+            markFailed(
+              actualIndex
+            )
+        );
+
+
+        const deleteButton =
+          createIconButton(
+            ICONS.delete,
+            "Delete attempt"
+          );
+
+
+        deleteButton.addEventListener(
+          "click",
+          () =>
+            deletePassword(
+              actualIndex
+            )
+        );
+
+
+        actions.appendChild(
+          copyButton
+        );
+
+        actions.appendChild(
+          successButton
+        );
+
+        actions.appendChild(
+          failedButton
+        );
+
+        actions.appendChild(
+          deleteButton
+        );
+
+
+        /* Status */
+
+        const statusRow =
+          document.createElement(
+            "div"
+          );
+
+        statusRow.className =
+          "status-row";
+
+
+        const status =
+          document.createElement(
+            "span"
+          );
+
+        status.className =
+          "status " +
+          (
+            item.status ===
+            "success"
+              ? "success"
+              : item.status ===
+                "failed"
+                ? "failed"
+                : ""
+          );
+
+
+        status.textContent =
+          item.status ===
+          "success"
+            ? "SUCCESS"
+            : item.status ===
+              "failed"
+              ? "FAILED"
+              : "PENDING";
+
+
+        const date =
+          document.createElement(
+            "span"
+          );
+
+        date.className =
+          "date";
+
+        date.textContent =
+          formatDate(
+            item.createdAt
+          );
+
+
+        statusRow.appendChild(
+          status
+        );
+
+        statusRow.appendChild(
+          date
+        );
+
+
+        card.appendChild(
+          password
+        );
+
+        card.appendChild(
+          actions
+        );
+
+        card.appendChild(
+          statusRow
+        );
+
+
+        list.appendChild(
+          card
+        );
       });
+    }
 
 
-      toastTimer =
-        setTimeout(() => {
+    function createIconButton(
+      icon,
+      label
+    ) {
 
-          toast.classList.remove("show");
+      const button =
+        document.createElement(
+          "button"
+        );
 
-        }, 2400);
+      button.type =
+        "button";
+
+      button.className =
+        "icon-btn";
+
+      button.innerHTML =
+        icon;
+
+      button.setAttribute(
+        "aria-label",
+        label
+      );
+
+      button.title =
+        label;
+
+      return button;
     }
 
 
     /* =========================================================
-       EXPORT BACKUP
-    ========================================================= */
+       EXPORT
+    ========================================================== */
 
     function exportBackup() {
 
       const backup = {
-        app: "Get Back My Key",
-        version: 1,
-        exportedAt: new Date().toISOString(),
-        passwords: passwords
+
+        app:
+          "Get Back My Key",
+
+        version:
+          1,
+
+        exportedAt:
+          new Date().toISOString(),
+
+        attempts:
+          passwords
       };
-
-
-      const json =
-        JSON.stringify(
-          backup,
-          null,
-          2
-        );
 
 
       const blob =
         new Blob(
-          [json],
+          [
+            JSON.stringify(
+              backup,
+              null,
+              2
+            )
+          ],
           {
-            type: "application/json"
+            type:
+              "application/json"
           }
         );
 
 
       const url =
-        URL.createObjectURL(blob);
+        URL.createObjectURL(
+          blob
+        );
 
 
       const link =
-        document.createElement("a");
+        document.createElement(
+          "a"
+        );
 
-      link.href = url;
+      link.href =
+        url;
 
       link.download =
-        `get-back-my-key-backup-${formatDateForFile()}.json`;
+        "get-back-my-key-backup.json";
 
-
-      document.body.appendChild(link);
+      document.body.appendChild(
+        link
+      );
 
       link.click();
 
       link.remove();
 
-      URL.revokeObjectURL(url);
+      URL.revokeObjectURL(
+        url
+      );
 
 
       showToast(
-        "Backup exported successfully.",
+        "Backup exported",
+        "Your local backup file is ready.",
         "success"
       );
     }
 
 
     /* =========================================================
-       FORMAT BACKUP FILE DATE
-    ========================================================= */
+       IMPORT
+    ========================================================== */
 
-    function formatDateForFile() {
+    function importBackup(file) {
 
-      const now =
-        new Date();
-
-      const year =
-        now.getFullYear();
-
-      const month =
-        String(now.getMonth() + 1)
-          .padStart(2, "0");
-
-      const day =
-        String(now.getDate())
-          .padStart(2, "0");
-
-      const hours =
-        String(now.getHours())
-          .padStart(2, "0");
-
-      const minutes =
-        String(now.getMinutes())
-          .padStart(2, "0");
-
-
-      return `${year}-${month}-${day}-${hours}${minutes}`;
-    }
-
-
-    /* =========================================================
-       IMPORT BACKUP
-    ========================================================= */
-
-    function importBackup() {
-
-      importFile.value = "";
-
-      importFile.click();
-    }
-
-
-    /* =========================================================
-       PROCESS IMPORT
-    ========================================================= */
-
-    function processImport(file) {
-
-      if (!file) return;
+      if (!file) {
+        return;
+      }
 
 
       const reader =
         new FileReader();
 
 
-      reader.onload = function(event) {
+      reader.onload = event => {
 
         try {
 
-          const parsed =
-            JSON.parse(event.target.result);
+          const data =
+            JSON.parse(
+              event.target.result
+            );
 
-
-          /*
-            Support our backup format.
-          */
 
           const imported =
-            Array.isArray(parsed)
-              ? parsed
-              : parsed.passwords;
+            Array.isArray(data)
+              ? data
+              : data.attempts;
 
 
-          if (!Array.isArray(imported)) {
+          if (
+            !Array.isArray(
+              imported
+            )
+          ) {
+
             throw new Error(
-              "Invalid backup format"
+              "Invalid backup format."
             );
           }
 
 
-          const validItems =
-            imported
-              .filter(item =>
+          const valid =
+            imported.filter(
+              item =>
                 item &&
-                typeof item.text === "string"
-              )
-              .map(item => ({
-
-                id:
-                  typeof item.id === "string"
-                    ? item.id
-                    : createId(),
-
-                text:
-                  item.text,
-
-                status:
-                  ["pending", "success", "failed"]
-                    .includes(item.status)
-                    ? item.status
-                    : "pending",
-
-                createdAt:
-                  typeof item.createdAt === "number"
-                    ? item.createdAt
-                    : Date.now()
-
-              }));
+                typeof item.text ===
+                  "string" &&
+                [
+                  "pending",
+                  "failed",
+                  "success"
+                ].includes(
+                  item.status
+                )
+            );
 
 
-          /*
-            Remove exact duplicates INSIDE
-            the imported backup while preserving
-            the first occurrence.
-          */
-
-          const uniqueImported = [];
-
-          for (const item of validItems) {
-
-            const exists =
-              uniqueImported.some(
-                existing =>
-                  existing.text === item.text
-              );
-
-            if (!exists) {
-              uniqueImported.push(item);
-            }
-          }
-
-
-          if (uniqueImported.length === 0) {
+          if (
+            valid.length === 0
+          ) {
 
             showToast(
-              "No valid password attempts found in backup.",
+              "Invalid backup",
+              "No valid attempts were found.",
               "error"
             );
 
@@ -2395,62 +3352,69 @@
           }
 
 
-          const replaceExisting =
-            window.confirm(
-              "Replace current data with this backup?\n\nPress Cancel to merge it with your current data."
-            );
+          /*
+            Preserve backup order.
+            Duplicates are removed using exact
+            string comparison.
+          */
+
+          const merged = [];
+
+          const seen =
+            new Set();
 
 
-          if (replaceExisting) {
+          valid.forEach(item => {
 
-            /*
-              Reverse because the newest item
-              should remain at the top.
-            */
-
-            passwords =
-              [...uniqueImported];
-
-          } else {
-
-            /*
-              Merge without exact duplicates.
-              Imported entries are added to the top.
-            */
-
-            const existingTexts =
-              new Set(
-                passwords.map(
-                  item => item.text
-                )
-              );
-
-
-            const newItems =
-              uniqueImported.filter(
-                item =>
-                  !existingTexts.has(item.text)
-              );
-
-
-            passwords =
-              [
-                ...newItems,
-                ...passwords
-              ];
-
-
-            if (newItems.length === 0) {
-
-              showToast(
-                "No new attempts were found in the backup.",
-                "info"
-              );
+            if (
+              seen.has(
+                item.text
+              )
+            ) {
 
               return;
             }
-          }
 
+            seen.add(
+              item.text
+            );
+
+            merged.push({
+
+              id:
+                item.id ||
+                (
+                  Date.now()
+                  .toString(36) +
+                  Math.random()
+                    .toString(36)
+                    .slice(2)
+                ),
+
+              text:
+                item.text,
+
+              status:
+                item.status,
+
+              createdAt:
+                Number(
+                  item.createdAt
+                ) ||
+                Date.now(),
+
+              ...(item.successAt
+                ? {
+                    successAt:
+                      item.successAt
+                  }
+                : {})
+            });
+          });
+
+
+          passwords =
+            merged;
 
           savePasswords();
 
@@ -2458,142 +3422,257 @@
 
 
           showToast(
-            "Backup imported successfully.",
+            "Backup imported",
+            `${merged.length} attempts restored locally.`,
             "success"
           );
+
 
         } catch (error) {
 
           console.error(
-            "Import failed:",
             error
           );
 
           showToast(
-            "Invalid or corrupted backup file.",
+            "Import failed",
+            "The selected file is not a valid backup.",
             "error"
           );
         }
       };
 
 
-      reader.onerror = function() {
-
-        showToast(
-          "Could not read the backup file.",
-          "error"
-        );
-      };
-
-
-      reader.readAsText(file);
+      reader.readAsText(
+        file
+      );
     }
 
 
     /* =========================================================
        EVENT LISTENERS
-    ========================================================= */
+    ========================================================== */
 
-    addButton.addEventListener(
-      "click",
-      addPassword
-    );
+    document
+      .getElementById(
+        "addButton"
+      )
+      .addEventListener(
+        "click",
+        addPassword
+      );
 
 
-    /*
-      Enter = Add password.
-    */
+    document
+      .getElementById(
+        "passwordInput"
+      )
+      .addEventListener(
+        "keydown",
+        event => {
 
-    passwordInput.addEventListener(
+          if (
+            event.key ===
+            "Enter"
+          ) {
+
+            event.preventDefault();
+
+            addPassword();
+          }
+        }
+      );
+
+
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .addEventListener(
+        "input",
+        renderList
+      );
+
+
+    document
+      .getElementById(
+        "filters"
+      )
+      .addEventListener(
+        "click",
+        event => {
+
+          const button =
+            event.target.closest(
+              ".filter-btn"
+            );
+
+          if (!button) {
+            return;
+          }
+
+          currentFilter =
+            button.dataset.filter;
+
+
+          document
+            .querySelectorAll(
+              ".filter-btn"
+            )
+            .forEach(
+              btn =>
+                btn.classList.toggle(
+                  "active",
+                  btn === button
+                )
+            );
+
+
+          renderList();
+        }
+      );
+
+
+    document
+      .getElementById(
+        "cancelConfirm"
+      )
+      .addEventListener(
+        "click",
+        closeConfirmModal
+      );
+
+
+    document
+      .getElementById(
+        "confirmSuccess"
+      )
+      .addEventListener(
+        "click",
+        confirmSuccess
+      );
+
+
+    document
+      .getElementById(
+        "confirmModal"
+      )
+      .addEventListener(
+        "click",
+        event => {
+
+          if (
+            event.target.id ===
+            "confirmModal"
+          ) {
+
+            closeConfirmModal();
+          }
+        }
+      );
+
+
+    document
+      .getElementById(
+        "closeCelebration"
+      )
+      .addEventListener(
+        "click",
+        closeCelebration
+      );
+
+
+    document
+      .getElementById(
+        "exportButton"
+      )
+      .addEventListener(
+        "click",
+        exportBackup
+      );
+
+
+    document
+      .getElementById(
+        "importButton"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          document
+            .getElementById(
+              "importInput"
+            )
+            .click();
+        }
+      );
+
+
+    document
+      .getElementById(
+        "importInput"
+      )
+      .addEventListener(
+        "change",
+        event => {
+
+          const file =
+            event.target.files[0];
+
+          importBackup(file);
+
+          event.target.value =
+            "";
+        }
+      );
+
+
+    document.addEventListener(
       "keydown",
       event => {
 
-        if (event.key === "Enter") {
+        if (
+          event.key ===
+          "Escape"
+        ) {
 
-          event.preventDefault();
+          closeConfirmModal();
 
-          addPassword();
+          closeCelebration();
         }
       }
     );
 
 
-    /*
-      Search.
-    */
+    /* =========================================================
+       RESIZE PARTICLE CANVAS
+    ========================================================== */
 
-    searchInput.addEventListener(
-      "input",
-      event => {
+    window.addEventListener(
+      "resize",
+      () => {
 
-        setSearch(
-          event.target.value
-        );
-      }
-    );
+        const celebration =
+          document.getElementById(
+            "celebration"
+          );
 
+        if (
+          celebration.classList.contains(
+            "show"
+          )
+        ) {
 
-    /*
-      Filters.
-    */
-
-    document
-      .querySelectorAll(".filter-btn")
-      .forEach(button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            setFilter(
-              button.dataset.filter
-            );
-          }
-        );
-
-      });
-
-
-    /*
-      Export.
-    */
-
-    exportButton.addEventListener(
-      "click",
-      exportBackup
-    );
-
-
-    /*
-      Import.
-    */
-
-    importButton.addEventListener(
-      "click",
-      importBackup
-    );
-
-
-    importFile.addEventListener(
-      "change",
-      event => {
-
-        const file =
-          event.target.files &&
-          event.target.files[0];
-
-        processImport(file);
+          createParticles();
+        }
       }
     );
 
 
     /* =========================================================
-       INITIALIZE
-    ========================================================= */
-
-    loadPasswords();
-
-    updateFilterButtons();
+       INITIAL RENDER
+    ========================================================== */
 
     render();
 
