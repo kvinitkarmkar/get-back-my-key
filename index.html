@@ -2,32 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
   />
 
   <meta
     name="description"
-    content="Get Back My Key — a local password attempt tracker."
+    content="Get Back My Key — a private local password attempt tracker."
   />
-
-  <meta name="theme-color" content="#08090d" />
 
   <title>Get Back My Key</title>
 
   <!-- Favicon -->
   <link
     rel="icon"
-    type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2316181d'/%3E%3Ccircle cx='27' cy='34' r='11' fill='none' stroke='%23f5f5f7' stroke-width='5'/%3E%3Cpath d='M36 27l14-14M44 19l5 5M40 23l5 5' stroke='%23f5f5f7' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M39 24l-5 5' stroke='%233b82f6' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23151518'/%3E%3Ccircle cx='25' cy='38' r='11' fill='none' stroke='%23f2f2f5' stroke-width='5'/%3E%3Cpath d='M33 30l18-18M42 21l6 6M38 25l5 5' fill='none' stroke='%233b82f6' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"
   />
 
   <style>
-    /* =========================================================
-       RESET
-    ========================================================= */
+    :root {
+      --bg: #07080b;
+      --surface: #101115;
+      --surface-2: #15161a;
+      --surface-3: #1a1b20;
+      --border: #292a30;
+      --border-soft: #222329;
+
+      --text: #f4f4f6;
+      --muted: #92939c;
+      --muted-2: #686a74;
+
+      --blue: #3b82f6;
+      --blue-hover: #4b8df8;
+
+      --green: #39d98a;
+      --red: #ff7373;
+      --yellow: #e7c76b;
+
+      --radius: 16px;
+    }
 
     * {
       box-sizing: border-box;
@@ -35,33 +49,32 @@
     }
 
     html {
-      min-height: 100%;
-      background: #08090d;
+      background: var(--bg);
+      color-scheme: dark;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-
-      font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
-
       background:
         radial-gradient(
           circle at 50% -10%,
-          rgba(37, 99, 235, 0.08),
-          transparent 32%
+          rgba(37, 99, 235, 0.075),
+          transparent 30%
         ),
-        #08090d;
+        var(--bg);
 
-      color: #f5f5f7;
+      color: var(--text);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 
+      font-size: 14px;
       overflow-x: hidden;
     }
 
@@ -71,286 +84,261 @@
     }
 
     button {
-      border: 0;
-      outline: none;
-      cursor: pointer;
+      color: inherit;
     }
 
-    /* =========================================================
+    /* =========================
        APP
-    ========================================================= */
+    ========================= */
 
     .app {
-      width: min(680px, calc(100% - 32px));
+      width: min(100%, 760px);
       margin: 0 auto;
-
-      padding-top: 42px;
-      padding-bottom: 50px;
+      padding: 42px 16px 30px;
     }
 
-    /* =========================================================
+    /* =========================
        HEADER
-    ========================================================= */
+    ========================= */
 
     .hero {
       text-align: center;
-      margin-bottom: 38px;
+      margin-bottom: 28px;
     }
 
-    .logo-box {
-      width: 92px;
-      height: 92px;
-
+    .logo {
+      width: 82px;
+      height: 82px;
       margin: 0 auto 22px;
 
       display: grid;
       place-items: center;
 
-      border-radius: 25px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
 
-      background: #16181d;
-
-      border: 1px solid #292c33;
+      background: #15161a;
 
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.035),
-        0 10px 30px rgba(0,0,0,0.18);
+        0 12px 35px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
     }
 
-    .logo-box svg {
-      width: 54px;
-      height: 54px;
+    .logo svg {
+      width: 47px;
+      height: 47px;
     }
 
     .hero h1 {
       margin: 0;
-
-      font-size: clamp(32px, 7vw, 48px);
-      line-height: 1.05;
+      font-size: clamp(30px, 6vw, 48px);
+      line-height: 1.08;
       letter-spacing: -1.8px;
-      font-weight: 750;
+      font-weight: 760;
     }
 
     .hero p {
-      max-width: 610px;
+      margin: 12px auto 0;
+      max-width: 600px;
 
-      margin: 18px auto 0;
-
-      color: #8f919a;
-
-      font-size: 17px;
+      color: var(--muted);
+      font-size: 16px;
       line-height: 1.5;
-
-      letter-spacing: -0.2px;
     }
 
-    /* =========================================================
-       ADD PANEL
-    ========================================================= */
+    /* =========================
+       ADD BOX
+    ========================= */
 
-    .add-panel {
-      padding: 14px;
+    .add-box {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
 
-      background: #111216;
-
-      border: 1px solid #292c32;
-      border-radius: 22px;
+      background: rgba(17, 18, 22, 0.85);
 
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.025),
-        0 8px 30px rgba(0,0,0,0.15);
+        0 12px 30px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.02);
     }
 
     .input-wrap {
       position: relative;
     }
 
-    #passwordInput {
+    .password-input {
       width: 100%;
+      height: 56px;
 
-      height: 66px;
+      padding: 0 16px;
 
-      padding: 0 20px;
-
-      background: #17181d;
-
-      color: #f5f5f7;
-
-      border: 1px solid #2c2f36;
-      border-radius: 17px;
+      border: 1px solid #2c2e35;
+      border-radius: 14px;
 
       outline: none;
 
-      font-size: 18px;
+      background: #16171b;
+      color: var(--text);
+
+      font-size: 16px;
 
       transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
     }
 
-    #passwordInput::placeholder {
-      color: #676a73;
+    .password-input::placeholder {
+      color: #686a74;
     }
 
-    #passwordInput:focus {
-      border-color: #3b82f6;
-
-      box-shadow:
-        0 0 0 2px rgba(59,130,246,0.15);
+    .password-input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.16);
     }
 
     .add-btn {
       width: 100%;
-      height: 62px;
+      height: 56px;
 
-      margin-top: 12px;
+      margin-top: 10px;
+
+      border: 0;
+      border-radius: 14px;
+
+      background: var(--blue);
+      color: white;
+
+      font-size: 17px;
+      font-weight: 700;
+
+      cursor: pointer;
 
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-
-      border-radius: 17px;
-
-      background: #3b82f6;
-      color: white;
-
-      font-size: 18px;
-      font-weight: 700;
+      gap: 10px;
 
       transition:
-        transform 0.15s ease,
-        background 0.2s ease;
+        transform 0.12s ease,
+        background 0.15s ease;
     }
 
     .add-btn:hover {
-      background: #3478e5;
+      background: var(--blue-hover);
     }
 
     .add-btn:active {
       transform: scale(0.985);
     }
 
-    .add-btn svg {
-      width: 23px;
-      height: 23px;
+    .icon {
+      width: 21px;
+      height: 21px;
+      flex: 0 0 auto;
     }
 
-    /* =========================================================
+    /* =========================
        STATS
-    ========================================================= */
+    ========================= */
 
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
 
-      gap: 12px;
-
-      margin-top: 20px;
+      margin: 18px 0;
     }
 
     .stat {
-      min-height: 94px;
+      min-height: 76px;
 
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
 
-      background: #101115;
+      border: 1px solid var(--border);
+      border-radius: 15px;
 
-      border: 1px solid #292c32;
-      border-radius: 18px;
+      background: #101115;
     }
 
     .stat-value {
-      font-size: 28px;
+      font-size: 25px;
       line-height: 1;
-
       font-weight: 750;
     }
 
     .stat-label {
-      margin-top: 8px;
+      margin-top: 7px;
 
-      color: #858790;
-
+      color: var(--muted);
       font-size: 11px;
       font-weight: 700;
 
-      letter-spacing: 1px;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
     }
 
-    /* =========================================================
+    /* =========================
        SEARCH
-    ========================================================= */
+    ========================= */
 
     .search-box {
       position: relative;
-
-      margin-top: 20px;
+      margin-bottom: 10px;
     }
 
-    .search-box svg {
+    .search-box .search-icon {
       position: absolute;
-
-      left: 20px;
+      left: 15px;
       top: 50%;
-
-      width: 23px;
-      height: 23px;
-
-      color: #777a84;
-
       transform: translateY(-50%);
 
+      width: 21px;
+      height: 21px;
+
+      color: var(--muted);
       pointer-events: none;
     }
 
-    #searchInput {
+    .search-input {
       width: 100%;
-      height: 62px;
+      height: 52px;
 
-      padding:
-        0
-        18px
-        0
-        58px;
+      padding: 0 16px 0 48px;
 
-      background: #101115;
-
-      color: #f5f5f7;
-
-      border: 1px solid #292c32;
-      border-radius: 18px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
 
       outline: none;
 
-      font-size: 16px;
+      background: #101115;
+      color: var(--text);
+
+      font-size: 15px;
     }
 
-    #searchInput::placeholder {
-      color: #666972;
+    .search-input:focus {
+      border-color: #363840;
     }
 
-    #searchInput:focus {
-      border-color: #3b82f6;
+    .search-input::placeholder {
+      color: #696b75;
     }
 
-    /* =========================================================
+    /* =========================
        FILTERS
-    ========================================================= */
+    ========================= */
 
     .filters {
       display: flex;
       align-items: center;
+      gap: 7px;
 
-      gap: 8px;
-
-      margin: 12px 0 18px;
+      margin-bottom: 12px;
 
       overflow-x: auto;
-
       scrollbar-width: none;
     }
 
@@ -359,98 +347,92 @@
     }
 
     .filter-btn {
-      flex: 0 0 auto;
+      height: 38px;
 
-      padding: 9px 18px;
+      padding: 0 15px;
+
+      border: 1px solid transparent;
+      border-radius: 20px;
 
       background: transparent;
-      color: #858790;
-
-      border-radius: 999px;
+      color: var(--muted);
 
       font-size: 14px;
       font-weight: 650;
 
-      transition:
-        background 0.2s ease,
-        color 0.2s ease;
+      cursor: pointer;
+
+      white-space: nowrap;
     }
 
     .filter-btn.active {
-      color: #f5f5f7;
-
-      background: #1a1c21;
-
-      border: 1px solid #30333a;
+      border-color: var(--border);
+      background: #191a1e;
+      color: var(--text);
     }
 
-    /* =========================================================
-       LIST
-    ========================================================= */
+    /* =========================
+       PASSWORD LIST
+    ========================= */
 
     #list {
       display: flex;
       flex-direction: column;
-
-      gap: 10px;
+      gap: 8px;
     }
 
-    /* =========================================================
-       COMPACT PASSWORD CARD
-    ========================================================= */
+    /*
+      IMPORTANT:
+      Compact card.
+      No huge vertical padding.
+    */
 
     .password-card {
-      position: relative;
+      min-height: 72px;
 
-      min-height: 106px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
 
-      padding:
-        14px
-        14px
-        14px
-        20px;
+      padding: 10px 10px 10px 14px;
+
+      border: 1px solid var(--border);
+      border-left: 4px solid #545761;
+
+      border-radius: 15px;
 
       background: #101115;
 
-      border: 1px solid #292c32;
-      border-left: 4px solid #5d606a;
-
-      border-radius: 19px;
-
-      display: grid;
-
-      grid-template-columns: 1fr auto;
-      grid-template-rows: auto auto;
-
-      column-gap: 12px;
-      row-gap: 10px;
-
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.018);
-
       transition:
-        border-color 0.2s ease,
-        transform 0.15s ease;
+        border-color 0.15s ease,
+        background 0.15s ease;
     }
 
     .password-card:hover {
-      border-color: #34373f;
+      background: #121318;
     }
 
-    .password-card.success {
-      border-left-color: #39d98a;
+    .password-card.pending {
+      border-left-color: #5c5f69;
     }
 
     .password-card.failed {
-      border-left-color: #ef6868;
+      border-left-color: var(--red);
     }
 
-    .password-value {
+    .password-card.success {
+      border-left-color: var(--green);
+    }
+
+    .password-main {
       min-width: 0;
+      flex: 1;
+    }
 
-      align-self: center;
+    .password-text {
+      display: block;
 
-      color: #f1f1f3;
+      color: #eeeeF2;
 
       font-family:
         ui-monospace,
@@ -460,337 +442,278 @@
         Consolas,
         monospace;
 
-      font-size: 17px;
-      line-height: 1.35;
+      font-size: 15px;
+      line-height: 1.3;
 
+      word-break: break-word;
       overflow-wrap: anywhere;
-
-      white-space: pre-wrap;
     }
 
-    .card-actions {
+    .password-meta {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
 
-      grid-row: 1 / span 2;
-      grid-column: 2;
-
-      align-self: center;
-    }
-
-    .icon-btn {
-      width: 43px;
-      height: 43px;
-
-      display: grid;
-      place-items: center;
-
-      color: #9a9ca5;
-
-      background: #17191e;
-
-      border: 1px solid #292c32;
-      border-radius: 13px;
-
-      transition:
-        background 0.15s ease,
-        color 0.15s ease,
-        transform 0.12s ease;
-    }
-
-    .icon-btn:hover {
-      color: #f5f5f7;
-      background: #1d2026;
-    }
-
-    .icon-btn:active {
-      transform: scale(0.94);
-    }
-
-    .icon-btn svg {
-      width: 21px;
-      height: 21px;
-    }
-
-    .status-row {
-      display: flex;
-      align-items: center;
-      gap: 9px;
+      margin-top: 6px;
     }
 
     .status {
       display: inline-flex;
       align-items: center;
 
-      min-height: 25px;
+      height: 22px;
 
-      padding: 0 11px;
+      padding: 0 9px;
 
       border-radius: 999px;
 
-      background: #25262b;
+      background: #24252a;
 
-      color: #9c9ea7;
+      color: #a4a5ae;
 
       font-size: 10px;
       font-weight: 750;
 
-      letter-spacing: 0.5px;
-    }
-
-    .status.success {
-      color: #59dc96;
-      background: rgba(52,211,125,0.10);
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
     }
 
     .status.failed {
-      color: #ff7777;
-      background: rgba(239,104,104,0.10);
+      color: #ff8888;
+      background: rgba(255, 90, 90, 0.1);
+    }
+
+    .status.success {
+      color: #62e7a1;
+      background: rgba(57, 217, 138, 0.1);
     }
 
     .date {
-      color: #676a73;
-
-      font-size: 11px;
+      color: #666872;
+      font-size: 10px;
+      white-space: nowrap;
     }
 
-    /* =========================================================
-       EMPTY STATE
-    ========================================================= */
+    /* =========================
+       CARD ACTIONS
+    ========================= */
 
-    .empty {
-      padding: 38px 20px;
-
-      text-align: center;
-
-      color: #686b74;
-
-      border: 1px dashed #292c32;
-      border-radius: 18px;
-    }
-
-    .empty svg {
-      width: 28px;
-      height: 28px;
-
-      margin-bottom: 10px;
-    }
-
-    .empty-title {
-      color: #a2a4ac;
-
-      font-size: 14px;
-      font-weight: 650;
-    }
-
-    .empty-text {
-      margin-top: 5px;
-
-      font-size: 12px;
-    }
-
-    /* =========================================================
-       BACKUP
-    ========================================================= */
-
-    .backup {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-
-      gap: 10px;
-
-      margin-top: 20px;
-    }
-
-    .backup-btn {
-      height: 58px;
-
+    .actions {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 5px;
 
-      gap: 10px;
-
-      background: #111216;
-
-      color: #a8aab2;
-
-      border: 1px solid #292c32;
-      border-radius: 17px;
-
-      font-size: 14px;
-      font-weight: 650;
-
-      transition:
-        background 0.2s ease,
-        color 0.2s ease;
+      flex: 0 0 auto;
     }
 
-    .backup-btn:hover {
-      background: #17191e;
-      color: #f5f5f7;
-    }
-
-    .backup-btn svg {
-      width: 21px;
-      height: 21px;
-    }
-
-    #importInput {
-      display: none;
-    }
-
-    /* =========================================================
-       LOCAL STORAGE NOTE
-    ========================================================= */
-
-    .local-note {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      gap: 8px;
-
-      margin-top: 18px;
-
-      color: #60636c;
-
-      font-size: 12px;
-    }
-
-    .local-dot {
-      width: 8px;
-      height: 8px;
-
-      border-radius: 50%;
-
-      background: #39d98a;
-
-      box-shadow: 0 0 10px rgba(57,217,138,0.5);
-    }
-
-    /* =========================================================
-       TOP TOAST
-    ========================================================= */
-
-    .toast {
-      position: fixed;
-
-      top: max(12px, env(safe-area-inset-top));
-
-      left: 50%;
-
-      width: min(430px, calc(100% - 20px));
-
-      transform:
-        translate(-50%, -150%);
-
-      opacity: 0;
-
-      display: flex;
-      align-items: center;
-
-      gap: 11px;
-
-      padding: 12px 14px;
-
-      background: rgba(25,27,32,0.97);
-
-      border: 1px solid #30333a;
-      border-radius: 15px;
-
-      box-shadow:
-        0 14px 40px rgba(0,0,0,0.45);
-
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-
-      z-index: 100000;
-
-      pointer-events: none;
-
-      transition:
-        transform 0.38s cubic-bezier(.2,.8,.2,1),
-        opacity 0.25s ease;
-    }
-
-    .toast.show {
-      transform:
-        translate(-50%, 0);
-
-      opacity: 1;
-    }
-
-    .toast-icon {
-      width: 34px;
-      height: 34px;
-
-      flex: 0 0 34px;
+    .action-btn {
+      width: 40px;
+      height: 40px;
 
       display: grid;
       place-items: center;
 
-      border-radius: 50%;
+      border: 1px solid #292a30;
+      border-radius: 12px;
+
+      background: #15161a;
+      color: #9698a1;
+
+      cursor: pointer;
+
+      transition:
+        background 0.12s ease,
+        border-color 0.12s ease,
+        color 0.12s ease,
+        transform 0.12s ease;
     }
 
-    .toast-icon svg {
+    .action-btn:hover {
+      background: #1a1b20;
+      border-color: #373940;
+      color: #e8e8eb;
+    }
+
+    .action-btn:active {
+      transform: scale(0.94);
+    }
+
+    .action-btn.success-btn.active {
+      color: var(--green);
+      border-color: rgba(57, 217, 138, 0.28);
+      background: rgba(57, 217, 138, 0.08);
+    }
+
+    .action-btn.failed-btn.active {
+      color: var(--red);
+      border-color: rgba(255, 115, 115, 0.28);
+      background: rgba(255, 115, 115, 0.08);
+    }
+
+    .action-btn svg {
       width: 19px;
       height: 19px;
     }
 
+    /* =========================
+       EMPTY
+    ========================= */
+
+    .empty {
+      padding: 35px 10px;
+      text-align: center;
+      color: var(--muted-2);
+      font-size: 13px;
+    }
+
+    /* =========================
+       BACKUP
+    ========================= */
+
+    .backup {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+
+      margin-top: 16px;
+    }
+
+    .backup-btn {
+      height: 54px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      background: #101115;
+      color: #a8a9b1;
+
+      font-size: 14px;
+      font-weight: 650;
+
+      cursor: pointer;
+    }
+
+    .backup-btn:hover {
+      background: #15161a;
+      color: var(--text);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .privacy {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+
+      margin-top: 18px;
+
+      color: #656770;
+      font-size: 12px;
+    }
+
+    .privacy-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      box-shadow: 0 0 10px rgba(57, 217, 138, 0.6);
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    .toast {
+      position: fixed;
+
+      top: 14px;
+      left: 50%;
+
+      width: min(calc(100% - 24px), 460px);
+
+      transform: translate(-50%, -120px);
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 13px 15px;
+
+      border: 1px solid #303139;
+      border-radius: 14px;
+
+      background: rgba(25, 26, 31, 0.97);
+
+      box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.35),
+        0 2px 8px rgba(0, 0, 0, 0.25);
+
+      z-index: 10000;
+
+      opacity: 0;
+
+      transition:
+        transform 0.3s cubic-bezier(.2,.8,.2,1),
+        opacity 0.25s ease;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+    }
+
+    .toast-text {
+      min-width: 0;
+      color: #e8e8eb;
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
     .toast.error .toast-icon {
-      color: #ff7777;
-      background: rgba(255,85,85,0.11);
+      color: var(--red);
     }
 
     .toast.success .toast-icon {
-      color: #5ee39a;
-      background: rgba(52,211,125,0.10);
+      color: var(--green);
     }
 
-    .toast.info .toast-icon {
-      color: #72a7ff;
-      background: rgba(59,130,246,0.10);
-    }
-
-    .toast-title {
-      color: #f4f4f6;
-
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .toast-message {
-      margin-top: 2px;
-
-      color: #92959e;
-
-      font-size: 11px;
-      line-height: 1.35;
-    }
-
-    /* =========================================================
-       CONFIRM MODAL
-    ========================================================= */
+    /* =========================
+       MODAL
+    ========================= */
 
     .modal-backdrop {
       position: fixed;
-
       inset: 0;
 
       display: none;
       align-items: center;
       justify-content: center;
 
-      padding: 20px;
+      padding: 18px;
 
-      background: rgba(0,0,0,0.70);
+      background: rgba(0, 0, 0, 0.68);
 
-      backdrop-filter: blur(7px);
-      -webkit-backdrop-filter: blur(7px);
+      backdrop-filter: blur(5px);
 
-      z-index: 90000;
+      z-index: 11000;
     }
 
     .modal-backdrop.show {
@@ -798,163 +721,136 @@
     }
 
     .modal {
-      width: min(400px, 100%);
+      width: min(100%, 390px);
 
-      padding: 22px;
+      padding: 20px;
 
-      background: #15171c;
+      border: 1px solid #303139;
+      border-radius: 18px;
 
-      border: 1px solid #30333a;
-      border-radius: 22px;
+      background: #15161a;
 
-      box-shadow:
-        0 25px 80px rgba(0,0,0,0.55);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
 
-      animation: modalIn 0.22s ease;
+      animation: modalIn 0.18s ease-out;
     }
 
     @keyframes modalIn {
       from {
         opacity: 0;
-        transform: scale(0.96) translateY(8px);
+        transform: scale(0.96);
       }
 
       to {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: scale(1);
       }
     }
 
     .modal-icon {
-      width: 48px;
-      height: 48px;
+      width: 42px;
+      height: 42px;
 
       display: grid;
       place-items: center;
 
-      margin-bottom: 15px;
+      margin-bottom: 12px;
 
-      border-radius: 15px;
+      border-radius: 12px;
 
-      color: #5ee39a;
-
-      background: rgba(52,211,125,0.10);
+      background: rgba(57, 217, 138, 0.09);
+      color: var(--green);
     }
 
     .modal-icon svg {
-      width: 26px;
-      height: 26px;
+      width: 23px;
+      height: 23px;
     }
 
     .modal h2 {
       margin: 0;
 
-      font-size: 20px;
-      letter-spacing: -0.5px;
+      font-size: 19px;
+      letter-spacing: -0.3px;
     }
 
     .modal p {
-      margin: 9px 0 0;
+      margin: 8px 0 18px;
 
-      color: #8d9099;
-
+      color: var(--muted);
       font-size: 13px;
       line-height: 1.5;
     }
 
     .modal-password {
-      margin-top: 15px;
+      display: block;
 
-      padding: 12px;
+      margin-bottom: 18px;
 
-      color: #d8d9dd;
+      padding: 10px 11px;
 
-      background: #0f1014;
+      border: 1px solid var(--border);
+      border-radius: 10px;
 
-      border: 1px solid #292c32;
-      border-radius: 12px;
+      background: #101115;
 
       font-family: monospace;
       font-size: 13px;
 
-      overflow-wrap: anywhere;
-      white-space: pre-wrap;
+      word-break: break-word;
     }
 
     .modal-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
-
-      gap: 9px;
-
-      margin-top: 18px;
+      gap: 8px;
     }
 
     .modal-btn {
-      height: 46px;
+      height: 44px;
 
-      border-radius: 13px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
 
-      font-size: 13px;
-      font-weight: 700;
+      background: #1a1b20;
+
+      font-weight: 650;
+      cursor: pointer;
     }
 
-    .modal-cancel {
-      background: #202228;
-      color: #b8bac2;
-      border: 1px solid #30333a;
+    .modal-btn.confirm {
+      border-color: var(--green);
+      background: var(--green);
+      color: #06140d;
     }
 
-    .modal-confirm {
-      background: #32b976;
-      color: white;
-    }
+    /* =========================
+       SUCCESS OVERLAY
+    ========================= */
 
-    /* =========================================================
-       SUCCESS CELEBRATION
-    ========================================================= */
-
-    #celebration {
+    .celebration {
       position: fixed;
-
       inset: 0;
 
       display: none;
-
       align-items: center;
       justify-content: center;
 
       overflow: hidden;
 
-      background:
-        radial-gradient(
-          circle at center,
-          rgba(52,211,125,0.12),
-          rgba(5,7,10,0.96) 60%
-        );
+      background: rgba(5, 7, 10, 0.86);
 
-      z-index: 110000;
+      backdrop-filter: blur(6px);
+
+      z-index: 12000;
     }
 
-    #celebration.show {
+    .celebration.show {
       display: flex;
-
-      animation: celebrationFade 0.35s ease;
     }
 
-    @keyframes celebrationFade {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    #particleCanvas {
+    #particles {
       position: absolute;
-
       inset: 0;
 
       width: 100%;
@@ -967,291 +863,259 @@
       position: relative;
       z-index: 2;
 
+      width: min(90%, 440px);
+
       text-align: center;
 
-      padding: 25px;
-
-      animation:
-        celebrationPop 0.55s cubic-bezier(.2,.9,.2,1);
+      animation: celebrationIn 0.45s cubic-bezier(.2,.9,.2,1);
     }
 
-    @keyframes celebrationPop {
+    @keyframes celebrationIn {
       from {
         opacity: 0;
-        transform: scale(0.65) translateY(15px);
+        transform: translateY(18px) scale(0.92);
       }
 
       to {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: translateY(0) scale(1);
       }
     }
 
-    .success-circle {
-      width: 104px;
-      height: 104px;
-
-      margin: 0 auto 24px;
+    .celebration-check {
+      width: 76px;
+      height: 76px;
 
       display: grid;
       place-items: center;
 
+      margin: 0 auto 18px;
+
+      border: 1px solid rgba(57, 217, 138, 0.3);
       border-radius: 50%;
 
-      color: white;
+      background: rgba(57, 217, 138, 0.1);
 
-      background: #32b976;
+      color: var(--green);
 
-      box-shadow:
-        0 0 0 12px rgba(50,185,118,0.08),
-        0 0 60px rgba(50,185,118,0.25);
+      box-shadow: 0 0 55px rgba(57, 217, 138, 0.15);
     }
 
-    .success-circle svg {
-      width: 54px;
-      height: 54px;
+    .celebration-check svg {
+      width: 39px;
+      height: 39px;
+      stroke-width: 2.5;
     }
 
-    .celebration-content h2 {
+    .celebration h2 {
       margin: 0;
 
-      font-size: clamp(32px, 8vw, 48px);
-
-      letter-spacing: -1.8px;
+      font-size: clamp(30px, 8vw, 46px);
+      letter-spacing: -1.5px;
     }
 
-    .celebration-content p {
-      margin: 12px auto 0;
+    .celebration p {
+      margin: 10px 0 20px;
 
-      max-width: 380px;
-
-      color: #999ca5;
-
-      font-size: 15px;
-      line-height: 1.5;
+      color: var(--muted);
+      font-size: 14px;
     }
 
     .celebration-close {
-      margin-top: 25px;
+      height: 44px;
 
-      height: 46px;
+      padding: 0 22px;
 
-      padding: 0 25px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
 
-      border-radius: 13px;
-
-      background: #202228;
-
-      border: 1px solid #30333a;
-
-      color: #e4e5e8;
+      background: #17181c;
+      color: white;
 
       font-weight: 650;
+
+      cursor: pointer;
     }
 
-    /* =========================================================
-       MOBILE
-    ========================================================= */
+    /* =========================
+       RESPONSIVE
+    ========================= */
 
     @media (max-width: 600px) {
       .app {
-        width: calc(100% - 20px);
-
-        padding-top: 28px;
-        padding-bottom: 35px;
+        padding: 30px 8px 24px;
       }
 
       .hero {
-        margin-bottom: 26px;
+        margin-bottom: 22px;
       }
 
-      .logo-box {
-        width: 78px;
-        height: 78px;
-
+      .logo {
+        width: 72px;
+        height: 72px;
         margin-bottom: 17px;
-
-        border-radius: 21px;
+        border-radius: 19px;
       }
 
-      .logo-box svg {
-        width: 45px;
-        height: 45px;
+      .logo svg {
+        width: 42px;
+        height: 42px;
       }
 
       .hero h1 {
-        font-size: 34px;
+        font-size: 32px;
         letter-spacing: -1.3px;
       }
 
       .hero p {
-        margin-top: 12px;
-
+        margin-top: 9px;
         font-size: 14px;
-
         line-height: 1.45;
       }
 
-      .add-panel {
+      .add-box {
         padding: 10px;
-
-        border-radius: 18px;
+        border-radius: 16px;
       }
 
-      #passwordInput {
-        height: 58px;
-
-        padding: 0 16px;
-
-        border-radius: 15px;
-
-        font-size: 16px;
+      .password-input,
+      .add-btn {
+        height: 52px;
       }
 
       .add-btn {
-        height: 56px;
-
-        margin-top: 9px;
-
-        border-radius: 15px;
-
-        font-size: 16px;
+        margin-top: 8px;
       }
 
       .stats {
-        gap: 8px;
-
-        margin-top: 14px;
+        gap: 7px;
+        margin: 14px 0;
       }
 
       .stat {
-        min-height: 78px;
-
-        border-radius: 15px;
+        min-height: 68px;
+        border-radius: 13px;
       }
 
       .stat-value {
-        font-size: 24px;
+        font-size: 23px;
       }
 
       .stat-label {
-        margin-top: 6px;
-
-        font-size: 9px;
+        margin-top: 5px;
+        font-size: 10px;
       }
 
-      .search-box {
-        margin-top: 14px;
-      }
-
-      #searchInput {
-        height: 56px;
-
-        border-radius: 15px;
-
-        font-size: 15px;
-      }
-
-      .filters {
-        margin-top: 8px;
-        margin-bottom: 12px;
+      .search-input {
+        height: 49px;
       }
 
       .filter-btn {
-        padding: 8px 15px;
-
-        font-size: 13px;
+        height: 36px;
+        padding: 0 13px;
       }
 
       .password-card {
-        min-height: 88px;
-
-        padding:
-          11px
-          10px
-          11px
-          14px;
-
-        border-radius: 16px;
-
-        column-gap: 8px;
-        row-gap: 7px;
+        min-height: 67px;
+        padding: 8px 8px 8px 11px;
+        border-radius: 14px;
+        gap: 7px;
       }
 
-      .password-value {
-        font-size: 15px;
+      .password-text {
+        font-size: 14px;
       }
 
-      .card-actions {
-        gap: 4px;
-      }
-
-      .icon-btn {
-        width: 39px;
-        height: 39px;
-
-        border-radius: 11px;
-      }
-
-      .icon-btn svg {
-        width: 19px;
-        height: 19px;
+      .password-meta {
+        margin-top: 5px;
+        gap: 6px;
       }
 
       .status {
-        min-height: 22px;
-
-        padding: 0 9px;
-
+        height: 21px;
+        padding: 0 8px;
         font-size: 9px;
       }
 
       .date {
-        font-size: 10px;
+        font-size: 9px;
       }
 
-      .backup {
-        gap: 8px;
-
-        margin-top: 14px;
+      .actions {
+        gap: 4px;
       }
 
-      .backup-btn {
-        height: 52px;
-
-        border-radius: 14px;
-
-        font-size: 12px;
+      .action-btn {
+        width: 37px;
+        height: 37px;
+        border-radius: 11px;
       }
 
-      .local-note {
-        margin-top: 14px;
-
-        font-size: 11px;
-      }
-    }
-
-    @media (max-width: 390px) {
-      .password-card {
-        grid-template-columns: minmax(0, 1fr) auto;
-      }
-
-      .icon-btn {
-        width: 36px;
-        height: 36px;
-      }
-
-      .icon-btn svg {
+      .action-btn svg {
         width: 18px;
         height: 18px;
       }
 
-      .card-actions {
-        gap: 3px;
+      .backup {
+        gap: 7px;
+        margin-top: 12px;
       }
 
-      .password-value {
-        font-size: 14px;
+      .backup-btn {
+        height: 48px;
+        border-radius: 12px;
+        font-size: 12px;
+      }
+
+      .privacy {
+        margin-top: 14px;
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .app {
+        padding-left: 6px;
+        padding-right: 6px;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+      }
+
+      .hero p {
+        font-size: 13px;
+      }
+
+      .password-card {
+        padding-left: 9px;
+      }
+
+      .action-btn {
+        width: 34px;
+        height: 34px;
+      }
+
+      .action-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .password-text {
+        font-size: 13px;
+      }
+    }
+
+    /* =========================
+       REDUCED MOTION
+    ========================= */
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
@@ -1259,220 +1123,103 @@
 
 <body>
 
-  <!-- =========================================================
+  <!-- =========================
        TOP TOAST
-  ========================================================== -->
+  ========================= -->
 
   <div
-    id="toast"
     class="toast"
-    role="alert"
+    id="toast"
+    role="status"
     aria-live="polite"
   >
-    <div id="toastIcon" class="toast-icon"></div>
+    <svg
+      class="toast-icon"
+      id="toastIcon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></svg>
 
-    <div>
-      <div id="toastTitle" class="toast-title"></div>
-      <div id="toastMessage" class="toast-message"></div>
-    </div>
+    <span class="toast-text" id="toastText"></span>
   </div>
 
-
-  <!-- =========================================================
-       CONFIRMATION MODAL
-  ========================================================== -->
-
-  <div
-    id="confirmModal"
-    class="modal-backdrop"
-    aria-hidden="true"
-  >
-    <div
-      class="modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="confirmTitle"
-    >
-
-      <div class="modal-icon">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="12" cy="12" r="9"></circle>
-          <path d="M8 12l2.5 2.5L16 9"></path>
-        </svg>
-      </div>
-
-      <h2 id="confirmTitle">
-        Confirm successful recovery
-      </h2>
-
-      <p>
-        Are you sure this password worked?
-        This will mark the attempt as successful.
-      </p>
-
-      <div
-        id="confirmPassword"
-        class="modal-password"
-      ></div>
-
-      <div class="modal-actions">
-
-        <button
-          id="cancelConfirm"
-          class="modal-btn modal-cancel"
-          type="button"
-        >
-          Cancel
-        </button>
-
-        <button
-          id="confirmSuccess"
-          class="modal-btn modal-confirm"
-          type="button"
-        >
-          Yes, it worked
-        </button>
-
-      </div>
-    </div>
-  </div>
-
-
-  <!-- =========================================================
-       SUCCESS CELEBRATION
-  ========================================================== -->
-
-  <div id="celebration">
-
-    <canvas id="particleCanvas"></canvas>
-
-    <div class="celebration-content">
-
-      <div class="success-circle">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.4"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M5 12.5l4 4L19 7"></path>
-        </svg>
-      </div>
-
-      <h2>
-        Congratulations!
-      </h2>
-
-      <p>
-        Password recovered successfully.
-        The attempt has been marked as successful.
-      </p>
-
-      <button
-        id="closeCelebration"
-        class="celebration-close"
-        type="button"
-      >
-        Continue
-      </button>
-
-    </div>
-  </div>
-
-
-  <!-- =========================================================
-       MAIN APP
-  ========================================================== -->
 
   <main class="app">
 
-    <!-- HERO -->
+    <!-- =========================
+         HEADER
+    ========================= -->
 
     <header class="hero">
 
-      <div class="logo-box">
+      <div class="logo" aria-label="Get Back My Key">
 
         <svg
           viewBox="0 0 64 64"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-
           <circle
-            cx="27"
-            cy="36"
-            r="11"
-            stroke="#F5F5F7"
+            cx="24"
+            cy="40"
+            r="12"
+            stroke="#F2F2F5"
             stroke-width="5"
           />
 
           <path
-            d="M35 28L50 13"
-            stroke="#F5F5F7"
-            stroke-width="5"
-            stroke-linecap="round"
-          />
-
-          <path
-            d="M43 20L48 25"
-            stroke="#F5F5F7"
-            stroke-width="5"
-            stroke-linecap="round"
-          />
-
-          <path
-            d="M39 24L44 29"
-            stroke="#F5F5F7"
-            stroke-width="5"
-            stroke-linecap="round"
-          />
-
-          <path
-            d="M39 24L34 29"
+            d="M33 31L52 12"
             stroke="#3B82F6"
             stroke-width="5"
             stroke-linecap="round"
           />
 
+          <path
+            d="M42 21L48 27"
+            stroke="#F2F2F5"
+            stroke-width="5"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M38 25L44 31"
+            stroke="#F2F2F5"
+            stroke-width="5"
+            stroke-linecap="round"
+          />
         </svg>
 
       </div>
 
-      <h1>
-        Get Back My Key
-      </h1>
+      <h1>Get Back My Key</h1>
 
       <p>
-        Track password combinations locally.
-        Copy, test and mark each attempt.
+        Track password combinations locally. Copy, test and mark each attempt.
       </p>
 
     </header>
 
 
-    <!-- ADD -->
+    <!-- =========================
+         ADD PASSWORD
+    ========================= -->
 
-    <section class="add-panel">
+    <section class="add-box">
 
       <div class="input-wrap">
 
         <input
           id="passwordInput"
+          class="password-input"
           type="text"
           autocomplete="off"
-          autocapitalize="none"
+          autocapitalize="off"
           spellcheck="false"
           placeholder="Enter password combination..."
-          aria-label="Password combination"
         />
 
       </div>
@@ -1484,14 +1231,15 @@
       >
 
         <svg
+          class="icon"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
           stroke-linecap="round"
         >
-          <path d="M12 5v14"></path>
-          <path d="M5 12h14"></path>
+          <path d="M12 5V19" />
+          <path d="M5 12H19" />
         </svg>
 
         <span>Add</span>
@@ -1501,85 +1249,87 @@
     </section>
 
 
-    <!-- STATS -->
+    <!-- =========================
+         STATS
+    ========================= -->
 
     <section class="stats">
 
       <div class="stat">
-        <div
+        <span
+          class="stat-value"
           id="totalCount"
-          class="stat-value"
-        >
-          0
-        </div>
+        >0</span>
 
-        <div class="stat-label">
-          TOTAL
-        </div>
+        <span class="stat-label">
+          Total
+        </span>
       </div>
 
       <div class="stat">
-        <div
+        <span
+          class="stat-value"
           id="triedCount"
-          class="stat-value"
-        >
-          0
-        </div>
+        >0</span>
 
-        <div class="stat-label">
-          TRIED
-        </div>
+        <span class="stat-label">
+          Tried
+        </span>
       </div>
 
       <div class="stat">
-        <div
-          id="successCount"
+        <span
           class="stat-value"
-        >
-          0
-        </div>
+          id="successCount"
+        >0</span>
 
-        <div class="stat-label">
-          SUCCESS
-        </div>
+        <span class="stat-label">
+          Success
+        </span>
       </div>
 
     </section>
 
 
-    <!-- SEARCH -->
+    <!-- =========================
+         SEARCH
+    ========================= -->
 
     <div class="search-box">
 
       <svg
+        class="search-icon"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
         stroke-width="2"
         stroke-linecap="round"
       >
-        <circle cx="11" cy="11" r="7"></circle>
-        <path d="M16 16l5 5"></path>
+        <circle
+          cx="11"
+          cy="11"
+          r="7"
+        />
+
+        <path d="M16 16L21 21" />
       </svg>
 
       <input
         id="searchInput"
+        class="search-input"
         type="search"
         autocomplete="off"
         placeholder="Search attempts..."
-        aria-label="Search attempts"
       />
 
     </div>
 
 
-    <!-- FILTERS -->
+    <!-- =========================
+         FILTERS
+    ========================= -->
 
-    <nav
-      id="filters"
-      class="filters"
-      aria-label="Attempt filters"
-    >
+    <div class="filters">
 
       <button
         class="filter-btn active"
@@ -1613,15 +1363,19 @@
         Success
       </button>
 
-    </nav>
+    </div>
 
 
-    <!-- LIST -->
+    <!-- =========================
+         PASSWORD LIST
+    ========================= -->
 
     <section id="list"></section>
 
 
-    <!-- BACKUP -->
+    <!-- =========================
+         BACKUP
+    ========================= -->
 
     <section class="backup">
 
@@ -1632,6 +1386,7 @@
       >
 
         <svg
+          class="icon"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -1639,9 +1394,11 @@
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <path d="M12 3v13"></path>
-          <path d="M7 11l5 5 5-5"></path>
-          <path d="M5 21h14"></path>
+          <path d="M12 16V3" />
+          <path d="M7 8L12 3L17 8" />
+          <path d="M5 21H19" />
+          <path d="M5 17V21" />
+          <path d="M19 17V21" />
         </svg>
 
         Export Backup
@@ -1656,6 +1413,7 @@
       >
 
         <svg
+          class="icon"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -1663,9 +1421,11 @@
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <path d="M12 21V8"></path>
-          <path d="M7 13l5-5 5 5"></path>
-          <path d="M5 3h14"></path>
+          <path d="M12 8V21" />
+          <path d="M7 13L12 8L17 13" />
+          <path d="M5 3H19" />
+          <path d="M5 3V7" />
+          <path d="M19 3V7" />
         </svg>
 
         Import Backup
@@ -1673,19 +1433,22 @@
       </button>
 
       <input
-        id="importInput"
+        id="fileInput"
         type="file"
         accept=".json,application/json"
+        hidden
       />
 
     </section>
 
 
-    <!-- LOCAL STORAGE -->
+    <!-- =========================
+         PRIVACY
+    ========================= -->
 
-    <div class="local-note">
+    <div class="privacy">
 
-      <span class="local-dot"></span>
+      <span class="privacy-dot"></span>
 
       <span>
         Saved locally in this browser
@@ -1696,21 +1459,137 @@
   </main>
 
 
+  <!-- =========================
+       SUCCESS CONFIRMATION
+  ========================= -->
+
+  <div
+    class="modal-backdrop"
+    id="confirmModal"
+  >
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="confirmTitle"
+    >
+
+      <div class="modal-icon">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M20 6L9 17L4 12" />
+        </svg>
+
+      </div>
+
+      <h2 id="confirmTitle">
+        Mark as successful?
+      </h2>
+
+      <p>
+        Confirm that this password combination successfully recovered the account.
+      </p>
+
+      <div
+        class="modal-password"
+        id="confirmPassword"
+      ></div>
+
+      <div class="modal-actions">
+
+        <button
+          class="modal-btn"
+          id="cancelConfirm"
+          type="button"
+        >
+          Cancel
+        </button>
+
+        <button
+          class="modal-btn confirm"
+          id="confirmSuccess"
+          type="button"
+        >
+          Yes, Success
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       CELEBRATION
+  ========================= -->
+
+  <div
+    class="celebration"
+    id="celebration"
+  >
+
+    <canvas id="particles"></canvas>
+
+    <div class="celebration-content">
+
+      <div class="celebration-check">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M20 6L9 17L4 12" />
+        </svg>
+
+      </div>
+
+      <h2>Congratulations!</h2>
+
+      <p>
+        You found the correct password combination.
+      </p>
+
+      <button
+        class="celebration-close"
+        id="closeCelebration"
+        type="button"
+      >
+        Continue
+      </button>
+
+    </div>
+
+  </div>
+
+
   <script>
-    /* =========================================================
-       STORAGE
-    ========================================================== */
+    /* ============================================================
+       GET BACK MY KEY
+       Local-only password attempt tracker
+    ============================================================ */
 
-    const STORAGE_KEY = "get_back_my_key_attempts_v1";
+    const STORAGE_KEY = "get-back-my-key-data-v1";
 
 
-    /* =========================================================
+    /* ============================================================
        STATE
-    ========================================================== */
+    ============================================================ */
 
-    let passwords = loadPasswords();
-
+    let passwords = [];
     let currentFilter = "all";
+    let searchTerm = "";
 
     let pendingSuccessIndex = null;
 
@@ -1718,294 +1597,233 @@
 
     let audioContext = null;
 
+    let particleAnimation = null;
 
-    /* =========================================================
+
+    /* ============================================================
+       DOM
+    ============================================================ */
+
+    const passwordInput =
+      document.getElementById("passwordInput");
+
+    const addButton =
+      document.getElementById("addButton");
+
+    const list =
+      document.getElementById("list");
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const totalCount =
+      document.getElementById("totalCount");
+
+    const triedCount =
+      document.getElementById("triedCount");
+
+    const successCount =
+      document.getElementById("successCount");
+
+    const toast =
+      document.getElementById("toast");
+
+    const toastText =
+      document.getElementById("toastText");
+
+    const toastIcon =
+      document.getElementById("toastIcon");
+
+    const confirmModal =
+      document.getElementById("confirmModal");
+
+    const confirmPassword =
+      document.getElementById("confirmPassword");
+
+    const cancelConfirm =
+      document.getElementById("cancelConfirm");
+
+    const confirmSuccess =
+      document.getElementById("confirmSuccess");
+
+    const celebration =
+      document.getElementById("celebration");
+
+    const closeCelebration =
+      document.getElementById("closeCelebration");
+
+    const particlesCanvas =
+      document.getElementById("particles");
+
+    const exportButton =
+      document.getElementById("exportButton");
+
+    const importButton =
+      document.getElementById("importButton");
+
+    const fileInput =
+      document.getElementById("fileInput");
+
+
+    /* ============================================================
        SVG ICONS
-    ========================================================== */
+    ============================================================ */
 
-    const ICONS = {
-
-      copy: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <rect x="8" y="8" width="11" height="11" rx="2"></rect>
-          <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
-        </svg>
-      `,
+    const icons = {
 
       success: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.9"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M5 12.5l4 4L19 7"></path>
-        </svg>
-      `,
-
-      failed: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.9"
-          stroke-linecap="round"
-        >
-          <path d="M6 6l12 12"></path>
-          <path d="M18 6L6 18"></path>
-        </svg>
-      `,
-
-      delete: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M4 7h16"></path>
-          <path d="M9 7V4h6v3"></path>
-          <path d="M7 7l1 13h8l1-13"></path>
-          <path d="M10 11v5"></path>
-          <path d="M14 11v5"></path>
-        </svg>
+        <path d="M20 6L9 17L4 12"/>
       `,
 
       error: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-        >
-          <circle cx="12" cy="12" r="9"></circle>
-          <path d="M15 9l-6 6"></path>
-          <path d="M9 9l6 6"></path>
-        </svg>
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M15 9L9 15"/>
+        <path d="M9 9L15 15"/>
       `,
 
-      info: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-        >
-          <circle cx="12" cy="12" r="9"></circle>
-          <path d="M12 10v6"></path>
-          <path d="M12 7h.01"></path>
-        </svg>
+      copy: `
+        <rect x="9" y="9" width="11" height="11" rx="2"/>
+        <path d="M15 9V6C15 4.9 14.1 4 13 4H6C4.9 4 4 4.9 4 6V13C4 14.1 4.9 15 6 15H9"/>
       `,
 
       check: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="12" cy="12" r="9"></circle>
-          <path d="M8 12l2.5 2.5L16 9"></path>
-        </svg>
+        <path d="M20 6L9 17L4 12"/>
       `,
 
-      searchEmpty: `
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.7"
-          stroke-linecap="round"
-        >
-          <circle cx="11" cy="11" r="7"></circle>
-          <path d="M16 16l5 5"></path>
-        </svg>
+      x: `
+        <path d="M6 6L18 18"/>
+        <path d="M18 6L6 18"/>
+      `,
+
+      trash: `
+        <path d="M4 7H20"/>
+        <path d="M10 11V17"/>
+        <path d="M14 11V17"/>
+        <path d="M6 7L7 20H17L18 7"/>
+        <path d="M9 7L10 4H14L15 7"/>
       `
     };
 
 
-    /* =========================================================
-       LOAD / SAVE
-    ========================================================== */
+    /* ============================================================
+       LOCAL STORAGE
+    ============================================================ */
 
-    function loadPasswords() {
+    function saveData() {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(passwords)
+      );
+
+    }
+
+
+    function loadData() {
 
       try {
 
-        const saved = localStorage.getItem(STORAGE_KEY);
+        const saved =
+          localStorage.getItem(STORAGE_KEY);
 
         if (!saved) {
-          return [];
+          passwords = [];
+          return;
         }
 
         const parsed = JSON.parse(saved);
 
         if (!Array.isArray(parsed)) {
-          return [];
+          passwords = [];
+          return;
         }
 
-        return parsed.filter(item =>
-          item &&
-          typeof item.text === "string" &&
-          ["pending", "failed", "success"].includes(item.status)
-        );
+        passwords = parsed
+          .filter(item =>
+            item &&
+            typeof item.text === "string" &&
+            ["pending", "failed", "success"].includes(item.status)
+          )
+          .map(item => ({
+            id:
+              typeof item.id === "string"
+                ? item.id
+                : createId(),
+
+            text: item.text,
+
+            status: item.status,
+
+            createdAt:
+              Number.isFinite(item.createdAt)
+                ? item.createdAt
+                : Date.now()
+          }));
 
       } catch (error) {
 
-        console.error("Could not load local data:", error);
+        console.error(
+          "Unable to load local data:",
+          error
+        );
 
-        return [];
+        passwords = [];
+
       }
+
     }
 
 
-    function savePasswords() {
+    /* ============================================================
+       ID
+    ============================================================ */
 
-      try {
+    function createId() {
 
-        localStorage.setItem(
-          STORAGE_KEY,
-          JSON.stringify(passwords)
-        );
-
-      } catch (error) {
-
-        console.error("Could not save local data:", error);
-
-        showToast(
-          "Storage error",
-          "The browser could not save your data.",
-          "error"
-        );
+      if (
+        window.crypto &&
+        typeof crypto.randomUUID === "function"
+      ) {
+        return crypto.randomUUID();
       }
-    }
 
-
-    /* =========================================================
-       HELPERS
-    ========================================================== */
-
-    function formatDate(timestamp) {
-
-      const date = new Date(timestamp);
-
-      return date.toLocaleDateString(
-        undefined,
-        {
-          day: "2-digit",
-          month: "short"
-        }
-      ) + " " +
-      date.toLocaleTimeString(
-        undefined,
-        {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false
-        }
+      return (
+        Date.now().toString(36) +
+        Math.random().toString(36).slice(2)
       );
+
     }
 
 
-    function escapeText(value) {
-
-      return String(value);
-    }
-
-
-    /* =========================================================
-       TOAST
-    ========================================================== */
-
-    function showToast(
-      title,
-      message = "",
-      type = "info"
-    ) {
-
-      const toast =
-        document.getElementById("toast");
-
-      const icon =
-        document.getElementById("toastIcon");
-
-      const titleEl =
-        document.getElementById("toastTitle");
-
-      const messageEl =
-        document.getElementById("toastMessage");
-
-      clearTimeout(toastTimer);
-
-      toast.className =
-        "toast " + type;
-
-      icon.innerHTML =
-        ICONS[type] || ICONS.info;
-
-      titleEl.textContent =
-        title;
-
-      messageEl.textContent =
-        message;
-
-      toast.classList.add("show");
-
-      toastTimer = setTimeout(() => {
-
-        toast.classList.remove("show");
-
-      }, 3200);
-    }
-
-
-    /* =========================================================
+    /* ============================================================
        ADD PASSWORD
-    ========================================================== */
+    ============================================================ */
 
     function addPassword() {
 
-      const input =
-        document.getElementById("passwordInput");
-
       /*
         IMPORTANT:
-        We DO NOT trim the password before storing it.
+        We DO NOT trim the actual password.
 
-        Example:
-        " my password "
-        remains exactly:
-        " my password "
+        This means:
+        " password"
+        "password "
+        "Pass Word"
 
-        Only an all-whitespace input is rejected.
+        remain exactly as entered.
       */
 
-      const value = input.value;
+      const value =
+        passwordInput.value;
 
       if (!value.trim()) {
 
         showToast(
-          "Empty combination",
           "Enter a password combination first.",
           "error"
         );
 
-        input.focus();
+        passwordInput.focus();
 
         return;
       }
@@ -2014,10 +1832,9 @@
       /*
         Exact duplicate check.
 
-        Case-sensitive.
-        Spaces matter.
-        "Password" !== "password"
-        "abc" !== "abc "
+        No lowercase conversion.
+        No whitespace removal.
+        No normalization.
       */
 
       const existingIndex =
@@ -2029,21 +1846,22 @@
       if (existingIndex !== -1) {
 
         /*
-          Because new items are inserted at the top,
-          user-visible attempt number is:
-          index + 1
+          Attempt number is based on the
+          current list position.
+
+          Since newest items are stored first,
+          index + 1 is the visible attempt number.
         */
 
         const attemptNumber =
           existingIndex + 1;
 
         showToast(
-          "Duplicate attempt",
           `This combination already exists as attempt #${attemptNumber}.`,
           "error"
         );
 
-        input.select();
+        passwordInput.select();
 
         return;
       }
@@ -2051,282 +1869,189 @@
 
       const newItem = {
 
-        id:
-          Date.now().toString(36) +
-          Math.random().toString(36).slice(2),
+        id: createId(),
 
         text: value,
 
         status: "pending",
 
         createdAt: Date.now()
+
       };
 
 
       /*
-        New password goes to TOP.
+        NEWEST PASSWORD ALWAYS GOES TO TOP
       */
 
       passwords.unshift(newItem);
 
-      savePasswords();
+      saveData();
 
-      input.value = "";
+      passwordInput.value = "";
+
+      currentFilter = "all";
+
+      updateFilterButtons();
 
       render();
 
       showToast(
-        "Added",
-        "New combination added to the top of the list.",
+        "Password combination added.",
         "success"
       );
 
-      input.focus();
+      passwordInput.focus();
+
     }
 
 
-    /* =========================================================
-       COPY
-    ========================================================== */
+    /* ============================================================
+       MARK STATUS
+    ============================================================ */
 
-    async function copyPassword(index) {
+    function markStatus(index, status) {
 
-      const item = passwords[index];
-
-      if (!item) {
+      if (!passwords[index]) {
         return;
       }
 
-      try {
-
-        await navigator.clipboard.writeText(
-          item.text
-        );
-
-        showToast(
-          "Copied",
-          "Combination copied to clipboard.",
-          "success"
-        );
-
-      } catch (error) {
-
-        /*
-          Fallback for older browsers.
-        */
-
-        try {
-
-          const textarea =
-            document.createElement("textarea");
-
-          textarea.value =
-            item.text;
-
-          textarea.style.position =
-            "fixed";
-
-          textarea.style.opacity =
-            "0";
-
-          document.body.appendChild(
-            textarea
-          );
-
-          textarea.select();
-
-          document.execCommand("copy");
-
-          textarea.remove();
-
-          showToast(
-            "Copied",
-            "Combination copied to clipboard.",
-            "success"
-          );
-
-        } catch (fallbackError) {
-
-          showToast(
-            "Copy failed",
-            "This browser blocked clipboard access.",
-            "error"
-          );
-        }
-      }
-    }
-
-
-    /* =========================================================
-       MARK FAILED
-    ========================================================== */
-
-    function markFailed(index) {
-
-      const item =
-        passwords[index];
-
-      if (!item) {
-        return;
-      }
 
       /*
-        X is intentionally direct.
-        No confirmation.
+        SUCCESS requires confirmation.
       */
 
-      if (item.status === "failed") {
+      if (status === "success") {
 
-        item.status = "pending";
+        if (passwords[index].status === "success") {
 
-        showToast(
-          "Marked pending",
-          "This attempt is pending again.",
-          "info"
-        );
+          /*
+            Clicking an already-successful password
+            doesn't need another celebration.
+          */
 
-      } else {
+          return;
+        }
 
-        item.status = "failed";
+        openSuccessConfirmation(index);
 
-        showToast(
-          "Marked failed",
-          "This combination was marked as failed.",
-          "info"
-        );
+        return;
       }
 
-      savePasswords();
+
+      /*
+        FAILED / X does NOT require confirmation.
+      */
+
+      passwords[index].status =
+        passwords[index].status === "failed"
+          ? "pending"
+          : "failed";
+
+      saveData();
 
       render();
+
+      showToast(
+        passwords[index].status === "failed"
+          ? "Marked as failed."
+          : "Moved back to pending.",
+        "error"
+      );
+
     }
 
 
-    /* =========================================================
+    /* ============================================================
        SUCCESS CONFIRMATION
-    ========================================================== */
+    ============================================================ */
 
-    function requestSuccess(index) {
+    function openSuccessConfirmation(index) {
 
-      const item =
-        passwords[index];
-
-      if (!item) {
+      if (!passwords[index]) {
         return;
       }
-
-      /*
-        If already successful,
-        allow user to return it to pending.
-      */
-
-      if (item.status === "success") {
-
-        item.status = "pending";
-
-        savePasswords();
-
-        render();
-
-        showToast(
-          "Marked pending",
-          "Success status has been removed.",
-          "info"
-        );
-
-        return;
-      }
-
 
       pendingSuccessIndex = index;
 
-      const modal =
-        document.getElementById(
-          "confirmModal"
-        );
+      confirmPassword.textContent =
+        passwords[index].text;
 
-      const password =
-        document.getElementById(
-          "confirmPassword"
-        );
+      confirmModal.classList.add("show");
 
-      password.textContent =
-        item.text;
+      setTimeout(() => {
+        confirmSuccess.focus();
+      }, 30);
 
-      modal.classList.add("show");
-
-      modal.setAttribute(
-        "aria-hidden",
-        "false"
-      );
     }
 
 
-    function closeConfirmModal() {
-
-      const modal =
-        document.getElementById(
-          "confirmModal"
-        );
-
-      modal.classList.remove("show");
-
-      modal.setAttribute(
-        "aria-hidden",
-        "true"
-      );
+    function closeSuccessConfirmation() {
 
       pendingSuccessIndex = null;
+
+      confirmModal.classList.remove("show");
+
     }
 
 
-    /* =========================================================
-       CONFIRM SUCCESS
-    ========================================================== */
+    confirmSuccess.addEventListener(
+      "click",
+      confirmSuccessfulPassword
+    );
 
-    function confirmSuccess() {
+
+    cancelConfirm.addEventListener(
+      "click",
+      closeSuccessConfirmation
+    );
+
+
+    confirmModal.addEventListener(
+      "click",
+      event => {
+
+        if (event.target === confirmModal) {
+          closeSuccessConfirmation();
+        }
+
+      }
+    );
+
+
+    function confirmSuccessfulPassword() {
 
       if (
-        pendingSuccessIndex === null
+        pendingSuccessIndex === null ||
+        !passwords[pendingSuccessIndex]
       ) {
+        closeSuccessConfirmation();
         return;
       }
+
 
       const index =
         pendingSuccessIndex;
 
-      const item =
-        passwords[index];
 
-      if (!item) {
+      passwords[index].status =
+        "success";
 
-        closeConfirmModal();
-
-        return;
-      }
-
-
-      item.status = "success";
-
-      item.successAt = Date.now();
-
-      savePasswords();
+      saveData();
 
       render();
 
-      closeConfirmModal();
-
+      closeSuccessConfirmation();
 
       /*
-        Haptic feedback.
-        Safe optional API.
+        Mobile haptic feedback.
       */
 
       triggerHaptic();
 
 
       /*
-        Local success sound.
+        Success sound.
       */
 
       playSuccessSound();
@@ -2336,70 +2061,51 @@
         Full-screen celebration.
       */
 
-      startCelebration();
+      showCelebration();
+
     }
 
 
-    /* =========================================================
-       DELETE
-    ========================================================== */
-
-    function deletePassword(index) {
-
-      const item =
-        passwords[index];
-
-      if (!item) {
-        return;
-      }
-
-      passwords.splice(index, 1);
-
-      savePasswords();
-
-      render();
-
-      showToast(
-        "Deleted",
-        "The attempt was removed.",
-        "info"
-      );
-    }
-
-
-    /* =========================================================
+    /* ============================================================
        HAPTIC
-    ========================================================== */
+    ============================================================ */
 
     function triggerHaptic() {
 
       if (
-        "vibrate" in navigator
+        "vibrate" in navigator &&
+        typeof navigator.vibrate === "function"
       ) {
 
+        /*
+          Short premium-feeling pattern.
+        */
+
         try {
+          navigator.vibrate([35, 25, 55]);
+        } catch (_) {}
 
-          navigator.vibrate([
-            30,
-            40,
-            60,
-            40,
-            120
-          ]);
-
-        } catch (error) {
-
-          /* Unsupported device/browser. */
-        }
       }
+
     }
 
 
-    /* =========================================================
+    /* ============================================================
        SUCCESS SOUND
-    ========================================================== */
+    ============================================================ */
 
     function playSuccessSound() {
+
+      /*
+        Uses Web Audio API.
+
+        No external MP3/WAV file.
+        No network request.
+
+        Since this function is triggered by a
+        user click, mobile browsers generally
+        allow the audio context.
+      */
 
       try {
 
@@ -2411,17 +2117,15 @@
           return;
         }
 
-        if (!audioContext) {
 
-          audioContext =
-            new AudioCtx();
+        if (!audioContext) {
+          audioContext = new AudioCtx();
         }
 
-        if (
-          audioContext.state ===
-          "suspended"
-        ) {
 
+        if (
+          audioContext.state === "suspended"
+        ) {
           audioContext.resume();
         }
 
@@ -2429,11 +2133,6 @@
         const now =
           audioContext.currentTime;
 
-
-        /*
-          Three-note rising chime.
-          Completely generated locally.
-        */
 
         const notes = [
           {
@@ -2443,13 +2142,13 @@
           },
           {
             frequency: 659.25,
-            start: 0.10,
-            duration: 0.20
+            start: 0.12,
+            duration: 0.18
           },
           {
             frequency: 783.99,
-            start: 0.22,
-            duration: 0.32
+            start: 0.24,
+            duration: 0.28
           }
         ];
 
@@ -2462,474 +2161,292 @@
           const gain =
             audioContext.createGain();
 
+
           oscillator.type =
             "sine";
+
 
           oscillator.frequency.setValueAtTime(
             note.frequency,
             now + note.start
           );
 
+
           gain.gain.setValueAtTime(
-            0,
+            0.0001,
             now + note.start
           );
 
-          gain.gain.linearRampToValueAtTime(
-            0.10,
+
+          gain.gain.exponentialRampToValueAtTime(
+            0.14,
             now + note.start + 0.025
           );
 
+
           gain.gain.exponentialRampToValueAtTime(
-            0.001,
-            now +
-              note.start +
-              note.duration
+            0.0001,
+            now + note.start + note.duration
           );
+
 
           oscillator.connect(gain);
+          gain.connect(audioContext.destination);
 
-          gain.connect(
-            audioContext.destination
-          );
 
           oscillator.start(
             now + note.start
           );
 
+
           oscillator.stop(
             now +
-              note.start +
-              note.duration
+            note.start +
+            note.duration +
+            0.02
           );
+
         });
 
       } catch (error) {
 
-        /*
-          Audio is enhancement only.
-          App continues normally if unavailable.
-        */
-      }
-    }
-
-
-    /* =========================================================
-       CELEBRATION
-    ========================================================== */
-
-    let particleAnimationId = null;
-
-    let particles = [];
-
-
-    function startCelebration() {
-
-      const celebration =
-        document.getElementById(
-          "celebration"
+        console.warn(
+          "Success sound unavailable:",
+          error
         );
 
-      celebration.classList.add(
-        "show"
-      );
-
-      createParticles();
-
-      animateParticles();
-
-
-      /*
-        Auto close after a few seconds,
-        but user can close manually.
-      */
-
-      setTimeout(() => {
-
-        if (
-          celebration.classList.contains(
-            "show"
-          )
-        ) {
-
-          closeCelebration();
-        }
-
-      }, 5200);
-    }
-
-
-    function closeCelebration() {
-
-      const celebration =
-        document.getElementById(
-          "celebration"
-        );
-
-      celebration.classList.remove(
-        "show"
-      );
-
-      if (
-        particleAnimationId
-      ) {
-
-        cancelAnimationFrame(
-          particleAnimationId
-        );
-
-        particleAnimationId =
-          null;
       }
 
-      particles = [];
     }
 
 
-    /* =========================================================
-       PARTICLES
-    ========================================================== */
+    /* ============================================================
+       DELETE
+    ============================================================ */
 
-    function createParticles() {
+    function deleteItem(index) {
 
-      const canvas =
-        document.getElementById(
-          "particleCanvas"
-        );
-
-      const ctx =
-        canvas.getContext("2d");
-
-      const dpr =
-        Math.min(
-          window.devicePixelRatio || 1,
-          2
-        );
-
-      canvas.width =
-        window.innerWidth * dpr;
-
-      canvas.height =
-        window.innerHeight * dpr;
-
-      canvas.style.width =
-        window.innerWidth + "px";
-
-      canvas.style.height =
-        window.innerHeight + "px";
-
-      ctx.scale(dpr, dpr);
-
-      particles = [];
-
-
-      const count =
-        window.innerWidth < 600
-          ? 75
-          : 120;
-
-
-      for (
-        let i = 0;
-        i < count;
-        i++
-      ) {
-
-        particles.push({
-
-          x:
-            window.innerWidth / 2 +
-            (Math.random() - 0.5) *
-            100,
-
-          y:
-            window.innerHeight * 0.45,
-
-          vx:
-            (Math.random() - 0.5) *
-            10,
-
-          vy:
-            -Math.random() * 9 - 3,
-
-          gravity:
-            0.18 +
-            Math.random() * 0.10,
-
-          size:
-            3 +
-            Math.random() * 5,
-
-          rotation:
-            Math.random() * Math.PI,
-
-          rotationSpeed:
-            (Math.random() - 0.5) *
-            0.2,
-
-          life:
-            1,
-
-          decay:
-            0.004 +
-            Math.random() * 0.006,
-
-          shape:
-            Math.random() > 0.5
-              ? "rect"
-              : "circle"
-        });
+      if (!passwords[index]) {
+        return;
       }
-    }
 
 
-    function animateParticles() {
+      const password =
+        passwords[index].text;
 
-      const canvas =
-        document.getElementById(
-          "particleCanvas"
+
+      const confirmed =
+        window.confirm(
+          `Delete this attempt?\n\n${password}`
         );
 
-      const ctx =
-        canvas.getContext("2d");
+
+      if (!confirmed) {
+        return;
+      }
 
 
-      ctx.clearRect(
-        0,
-        0,
-        window.innerWidth,
-        window.innerHeight
+      passwords.splice(index, 1);
+
+      saveData();
+
+      render();
+
+      showToast(
+        "Attempt deleted.",
+        "error"
       );
 
-
-      particles.forEach(p => {
-
-        p.x += p.vx;
-
-        p.y += p.vy;
-
-        p.vy += p.gravity;
-
-        p.rotation +=
-          p.rotationSpeed;
-
-        p.life -= p.decay;
+    }
 
 
-        if (p.life <= 0) {
-          return;
-        }
+    /* ============================================================
+       COPY
+    ============================================================ */
+
+    async function copyText(text, button) {
+
+      try {
+
+        await navigator.clipboard.writeText(text);
+
+        const oldHTML =
+          button.innerHTML;
 
 
-        ctx.save();
+        button.innerHTML = icons.success;
 
-        ctx.globalAlpha =
-          Math.max(p.life, 0);
+        button.classList.add("active");
 
-        ctx.translate(
-          p.x,
-          p.y
+
+        showToast(
+          "Password copied to clipboard.",
+          "success"
         );
 
-        ctx.rotate(
-          p.rotation
-        );
 
+        setTimeout(() => {
+
+          button.innerHTML =
+            oldHTML;
+
+          button.classList.remove("active");
+
+        }, 900);
+
+      } catch (error) {
 
         /*
-          Use default canvas fill.
-          No hard-coded palette needed.
+          Fallback for older browsers.
         */
 
-        if (
-          p.shape === "rect"
-        ) {
+        try {
 
-          ctx.fillRect(
-            -p.size,
-            -p.size / 2,
-            p.size * 2,
-            p.size
+          const textarea =
+            document.createElement("textarea");
+
+          textarea.value = text;
+
+          textarea.style.position = "fixed";
+          textarea.style.opacity = "0";
+
+          document.body.appendChild(textarea);
+
+          textarea.focus();
+          textarea.select();
+
+          document.execCommand("copy");
+
+          textarea.remove();
+
+
+          showToast(
+            "Password copied to clipboard.",
+            "success"
           );
 
-        } else {
+        } catch (_) {
 
-          ctx.beginPath();
-
-          ctx.arc(
-            0,
-            0,
-            p.size / 2,
-            0,
-            Math.PI * 2
+          showToast(
+            "Unable to copy. Copy it manually.",
+            "error"
           );
 
-          ctx.fill();
         }
 
-        ctx.restore();
+      }
+
+    }
+
+
+    /* ============================================================
+       SEARCH
+    ============================================================ */
+
+    searchInput.addEventListener(
+      "input",
+      () => {
+
+        searchTerm =
+          searchInput.value;
+
+        render();
+
+      }
+    );
+
+
+    /* ============================================================
+       FILTERS
+    ============================================================ */
+
+    document
+      .querySelectorAll(".filter-btn")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            currentFilter =
+              button.dataset.filter;
+
+            updateFilterButtons();
+
+            render();
+
+          }
+        );
 
       });
 
 
-      particles =
-        particles.filter(
-          p => p.life > 0
-        );
+    function updateFilterButtons() {
 
+      document
+        .querySelectorAll(".filter-btn")
+        .forEach(button => {
 
-      if (
-        particles.length > 0
-      ) {
-
-        particleAnimationId =
-          requestAnimationFrame(
-            animateParticles
+          button.classList.toggle(
+            "active",
+            button.dataset.filter === currentFilter
           );
 
-      } else {
+        });
 
-        particleAnimationId =
-          null;
-      }
     }
 
 
-    /* =========================================================
-       SEARCH / FILTER
-    ========================================================== */
-
-    function getFilteredPasswords() {
-
-      const search =
-        document
-          .getElementById("searchInput")
-          .value;
-
-
-      return passwords.filter(
-        item => {
-
-          const matchesSearch =
-            item.text
-              .toLocaleLowerCase()
-              .includes(
-                search.toLocaleLowerCase()
-              );
-
-
-          const matchesFilter =
-            currentFilter === "all" ||
-            item.status ===
-              currentFilter;
-
-
-          return (
-            matchesSearch &&
-            matchesFilter
-          );
-        }
-      );
-    }
-
-
-    /* =========================================================
+    /* ============================================================
        RENDER
-    ========================================================== */
+    ============================================================ */
 
     function render() {
 
       updateStats();
 
-      renderList();
-    }
+
+      const normalizedSearch =
+        searchTerm.toLowerCase();
 
 
-    function updateStats() {
+      const filtered =
+        passwords.filter(item => {
 
-      const total =
-        passwords.length;
-
-      const tried =
-        passwords.filter(
-          item =>
-            item.status !==
-            "pending"
-        ).length;
-
-      const success =
-        passwords.filter(
-          item =>
-            item.status ===
-            "success"
-        ).length;
+          const matchesFilter =
+            currentFilter === "all" ||
+            item.status === currentFilter;
 
 
-      document.getElementById(
-        "totalCount"
-      ).textContent =
-        total;
+          const matchesSearch =
+            item.text
+              .toLowerCase()
+              .includes(normalizedSearch);
 
 
-      document.getElementById(
-        "triedCount"
-      ).textContent =
-        tried;
+          return (
+            matchesFilter &&
+            matchesSearch
+          );
 
+        });
 
-      document.getElementById(
-        "successCount"
-      ).textContent =
-        success;
-    }
-
-
-    function renderList() {
-
-      const list =
-        document.getElementById(
-          "list"
-        );
 
       list.innerHTML = "";
 
 
-      const visible =
-        getFilteredPasswords();
-
-
-      if (
-        visible.length === 0
-      ) {
+      if (filtered.length === 0) {
 
         const empty =
-          document.createElement(
-            "div"
-          );
+          document.createElement("div");
 
         empty.className =
           "empty";
 
-
-        empty.innerHTML = `
-          ${ICONS.searchEmpty}
-
-          <div class="empty-title">
-            ${
-              passwords.length === 0
-                ? "No attempts yet"
-                : "No matching attempts"
-            }
-          </div>
-
-          <div class="empty-text">
-            ${
-              passwords.length === 0
-                ? "Add your first combination above."
-                : "Try another search or filter."
-            }
-          </div>
-        `;
+        empty.textContent =
+          passwords.length === 0
+            ? "No password attempts yet."
+            : "No matching attempts found.";
 
         list.appendChild(empty);
 
@@ -2937,259 +2454,244 @@
       }
 
 
-      visible.forEach(item => {
+      filtered.forEach(item => {
 
-        const actualIndex =
-          passwords.indexOf(item);
-
-        const card =
-          document.createElement(
-            "article"
+        const originalIndex =
+          passwords.findIndex(
+            password =>
+              password.id === item.id
           );
-
-
-        card.className =
-          "password-card " +
-          (
-            item.status ===
-            "success"
-              ? "success"
-              : item.status ===
-                "failed"
-                ? "failed"
-                : ""
-          );
-
-
-        /* Password */
-
-        const password =
-          document.createElement(
-            "div"
-          );
-
-        password.className =
-          "password-value";
-
-        password.textContent =
-          escapeText(item.text);
-
-
-        /* Actions */
-
-        const actions =
-          document.createElement(
-            "div"
-          );
-
-        actions.className =
-          "card-actions";
-
-
-        const copyButton =
-          createIconButton(
-            ICONS.copy,
-            "Copy combination"
-          );
-
-        copyButton.addEventListener(
-          "click",
-          () =>
-            copyPassword(
-              actualIndex
-            )
-        );
-
-
-        const successButton =
-          createIconButton(
-            ICONS.success,
-            item.status === "success"
-              ? "Remove success status"
-              : "Mark as successful"
-          );
-
-
-        if (
-          item.status ===
-          "success"
-        ) {
-
-          successButton.style.color =
-            "#5ee39a";
-        }
-
-
-        successButton.addEventListener(
-          "click",
-          () =>
-            requestSuccess(
-              actualIndex
-            )
-        );
-
-
-        const failedButton =
-          createIconButton(
-            ICONS.failed,
-            item.status === "failed"
-              ? "Reset to pending"
-              : "Mark as failed"
-          );
-
-
-        if (
-          item.status ===
-          "failed"
-        ) {
-
-          failedButton.style.color =
-            "#ff7777";
-        }
-
-
-        failedButton.addEventListener(
-          "click",
-          () =>
-            markFailed(
-              actualIndex
-            )
-        );
-
-
-        const deleteButton =
-          createIconButton(
-            ICONS.delete,
-            "Delete attempt"
-          );
-
-
-        deleteButton.addEventListener(
-          "click",
-          () =>
-            deletePassword(
-              actualIndex
-            )
-        );
-
-
-        actions.appendChild(
-          copyButton
-        );
-
-        actions.appendChild(
-          successButton
-        );
-
-        actions.appendChild(
-          failedButton
-        );
-
-        actions.appendChild(
-          deleteButton
-        );
-
-
-        /* Status */
-
-        const statusRow =
-          document.createElement(
-            "div"
-          );
-
-        statusRow.className =
-          "status-row";
-
-
-        const status =
-          document.createElement(
-            "span"
-          );
-
-        status.className =
-          "status " +
-          (
-            item.status ===
-            "success"
-              ? "success"
-              : item.status ===
-                "failed"
-                ? "failed"
-                : ""
-          );
-
-
-        status.textContent =
-          item.status ===
-          "success"
-            ? "SUCCESS"
-            : item.status ===
-              "failed"
-              ? "FAILED"
-              : "PENDING";
-
-
-        const date =
-          document.createElement(
-            "span"
-          );
-
-        date.className =
-          "date";
-
-        date.textContent =
-          formatDate(
-            item.createdAt
-          );
-
-
-        statusRow.appendChild(
-          status
-        );
-
-        statusRow.appendChild(
-          date
-        );
-
-
-        card.appendChild(
-          password
-        );
-
-        card.appendChild(
-          actions
-        );
-
-        card.appendChild(
-          statusRow
-        );
 
 
         list.appendChild(
-          card
+          createPasswordCard(
+            item,
+            originalIndex
+          )
         );
+
       });
+
     }
 
 
-    function createIconButton(
-      icon,
+    /* ============================================================
+       CREATE PASSWORD CARD
+    ============================================================ */
+
+    function createPasswordCard(
+      item,
+      index
+    ) {
+
+      const card =
+        document.createElement("article");
+
+
+      card.className =
+        `password-card ${item.status}`;
+
+
+      /* Password content */
+
+      const main =
+        document.createElement("div");
+
+      main.className =
+        "password-main";
+
+
+      const password =
+        document.createElement("span");
+
+      password.className =
+        "password-text";
+
+      /*
+        textContent prevents HTML injection
+        while keeping the exact password.
+      */
+
+      password.textContent =
+        item.text;
+
+
+      const meta =
+        document.createElement("div");
+
+      meta.className =
+        "password-meta";
+
+
+      const status =
+        document.createElement("span");
+
+      status.className =
+        `status ${item.status}`;
+
+
+      status.textContent =
+        item.status === "success"
+          ? "Success"
+          : item.status === "failed"
+            ? "Failed"
+            : "Pending";
+
+
+      const date =
+        document.createElement("span");
+
+      date.className =
+        "date";
+
+      date.textContent =
+        formatDate(item.createdAt);
+
+
+      meta.appendChild(status);
+      meta.appendChild(date);
+
+
+      main.appendChild(password);
+      main.appendChild(meta);
+
+
+      /* Actions */
+
+      const actions =
+        document.createElement("div");
+
+      actions.className =
+        "actions";
+
+
+      /* Copy */
+
+      const copyButton =
+        createActionButton(
+          icons.copy,
+          "Copy password"
+        );
+
+      copyButton.addEventListener(
+        "click",
+        () => {
+          copyText(
+            item.text,
+            copyButton
+          );
+        }
+      );
+
+
+      /* Success */
+
+      const successButton =
+        createActionButton(
+          icons.check,
+          "Mark as successful"
+        );
+
+      successButton.classList.add(
+        "success-btn"
+      );
+
+
+      if (item.status === "success") {
+        successButton.classList.add(
+          "active"
+        );
+      }
+
+
+      successButton.addEventListener(
+        "click",
+        () => {
+          markStatus(
+            index,
+            "success"
+          );
+        }
+      );
+
+
+      /* Failed */
+
+      const failedButton =
+        createActionButton(
+          icons.x,
+          "Mark as failed"
+        );
+
+      failedButton.classList.add(
+        "failed-btn"
+      );
+
+
+      if (item.status === "failed") {
+        failedButton.classList.add(
+          "active"
+        );
+      }
+
+
+      failedButton.addEventListener(
+        "click",
+        () => {
+          markStatus(
+            index,
+            "failed"
+          );
+        }
+      );
+
+
+      /* Delete */
+
+      const deleteButton =
+        createActionButton(
+          icons.trash,
+          "Delete attempt"
+        );
+
+
+      deleteButton.addEventListener(
+        "click",
+        () => {
+          deleteItem(index);
+        }
+      );
+
+
+      actions.appendChild(copyButton);
+      actions.appendChild(successButton);
+      actions.appendChild(failedButton);
+      actions.appendChild(deleteButton);
+
+
+      card.appendChild(main);
+      card.appendChild(actions);
+
+
+      return card;
+
+    }
+
+
+    function createActionButton(
+      svgContent,
       label
     ) {
 
       const button =
-        document.createElement(
-          "button"
-        );
+        document.createElement("button");
+
 
       button.type =
         "button";
 
       button.className =
-        "icon-btn";
-
-      button.innerHTML =
-        icon;
+        "action-btn";
 
       button.setAttribute(
         "aria-label",
@@ -3199,15 +2701,527 @@
       button.title =
         label;
 
+
+      button.innerHTML = `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          ${svgContent}
+        </svg>
+      `;
+
+
       return button;
+
     }
 
 
-    /* =========================================================
-       EXPORT
-    ========================================================== */
+    /* ============================================================
+       DATE
+    ============================================================ */
+
+    function formatDate(timestamp) {
+
+      const date =
+        new Date(timestamp);
+
+
+      const now =
+        new Date();
+
+
+      const sameDay =
+        date.getDate() === now.getDate() &&
+        date.getMonth() === now.getMonth() &&
+        date.getFullYear() === now.getFullYear();
+
+
+      if (sameDay) {
+
+        return date.toLocaleTimeString(
+          undefined,
+          {
+            hour: "2-digit",
+            minute: "2-digit"
+          }
+        );
+
+      }
+
+
+      return date.toLocaleDateString(
+        undefined,
+        {
+          day: "2-digit",
+          month: "short"
+        }
+      );
+
+    }
+
+
+    /* ============================================================
+       STATS
+    ============================================================ */
+
+    function updateStats() {
+
+      const total =
+        passwords.length;
+
+
+      const tried =
+        passwords.filter(
+          item =>
+            item.status !== "pending"
+        ).length;
+
+
+      const success =
+        passwords.filter(
+          item =>
+            item.status === "success"
+        ).length;
+
+
+      totalCount.textContent =
+        total;
+
+      triedCount.textContent =
+        tried;
+
+      successCount.textContent =
+        success;
+
+    }
+
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+
+    function showToast(
+      message,
+      type = "success"
+    ) {
+
+      clearTimeout(toastTimer);
+
+
+      toast.className =
+        `toast ${type}`;
+
+
+      toastText.textContent =
+        message;
+
+
+      toastIcon.innerHTML =
+        type === "success"
+          ? icons.success
+          : icons.error;
+
+
+      /*
+        Force browser to process state
+        before showing the toast.
+      */
+
+      requestAnimationFrame(() => {
+
+        toast.classList.add(
+          "show"
+        );
+
+      });
+
+
+      toastTimer =
+        setTimeout(() => {
+
+          toast.classList.remove(
+            "show"
+          );
+
+        }, 3200);
+
+    }
+
+
+    /* ============================================================
+       CELEBRATION
+    ============================================================ */
+
+    function showCelebration() {
+
+      celebration.classList.add(
+        "show"
+      );
+
+
+      startParticles();
+
+    }
+
+
+    function closeCelebrationScreen() {
+
+      celebration.classList.remove(
+        "show"
+      );
+
+
+      stopParticles();
+
+    }
+
+
+    closeCelebration.addEventListener(
+      "click",
+      closeCelebrationScreen
+    );
+
+
+    celebration.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target === celebration
+        ) {
+          closeCelebrationScreen();
+        }
+
+      }
+    );
+
+
+    /* ============================================================
+       PARTICLES
+    ============================================================ */
+
+    function startParticles() {
+
+      stopParticles();
+
+
+      const canvas =
+        particlesCanvas;
+
+      const ctx =
+        canvas.getContext("2d");
+
+
+      let width =
+        window.innerWidth;
+
+      let height =
+        window.innerHeight;
+
+
+      canvas.width =
+        width *
+        window.devicePixelRatio;
+
+      canvas.height =
+        height *
+        window.devicePixelRatio;
+
+
+      ctx.setTransform(
+        window.devicePixelRatio,
+        0,
+        0,
+        window.devicePixelRatio,
+        0,
+        0
+      );
+
+
+      const particles =
+        [];
+
+
+      const particleCount =
+        Math.min(
+          150,
+          Math.max(
+            80,
+            Math.floor(
+              width / 4
+            )
+          )
+        );
+
+
+      for (
+        let i = 0;
+        i < particleCount;
+        i++
+      ) {
+
+        particles.push({
+
+          x:
+            width / 2 +
+            (Math.random() - 0.5) *
+            90,
+
+          y:
+            height / 2 +
+            (Math.random() - 0.5) *
+            60,
+
+          vx:
+            (Math.random() - 0.5) *
+            7,
+
+          vy:
+            (Math.random() - 0.5) *
+            7 -
+            2,
+
+          size:
+            Math.random() * 3 +
+            1.5,
+
+          rotation:
+            Math.random() *
+            Math.PI,
+
+          rotationSpeed:
+            (Math.random() - 0.5) *
+            0.15,
+
+          life:
+            1,
+
+          decay:
+            Math.random() *
+              0.012 +
+            0.006
+
+        });
+
+      }
+
+
+      function resize() {
+
+        width =
+          window.innerWidth;
+
+        height =
+          window.innerHeight;
+
+
+        canvas.width =
+          width *
+          window.devicePixelRatio;
+
+        canvas.height =
+          height *
+          window.devicePixelRatio;
+
+
+        ctx.setTransform(
+          window.devicePixelRatio,
+          0,
+          0,
+          window.devicePixelRatio,
+          0,
+          0
+        );
+
+      }
+
+
+      window.addEventListener(
+        "resize",
+        resize
+      );
+
+
+      function animate() {
+
+        ctx.clearRect(
+          0,
+          0,
+          width,
+          height
+        );
+
+
+        let alive =
+          false;
+
+
+        particles.forEach(p => {
+
+          if (p.life <= 0) {
+            return;
+          }
+
+
+          alive = true;
+
+
+          p.x += p.vx;
+          p.y += p.vy;
+
+          p.vy += 0.055;
+
+          p.rotation +=
+            p.rotationSpeed;
+
+          p.life -=
+            p.decay;
+
+
+          ctx.save();
+
+          ctx.translate(
+            p.x,
+            p.y
+          );
+
+          ctx.rotate(
+            p.rotation
+          );
+
+
+          ctx.globalAlpha =
+            Math.max(
+              0,
+              p.life
+            );
+
+
+          /*
+            No fixed CSS color is used here.
+            Canvas defaults are kept simple.
+          */
+
+          ctx.fillStyle =
+            p.life > 0.55
+              ? "#60a5fa"
+              : "#ffffff";
+
+
+          ctx.fillRect(
+            -p.size / 2,
+            -p.size / 2,
+            p.size,
+            p.size * 1.8
+          );
+
+
+          ctx.restore();
+
+        });
+
+
+        if (alive) {
+
+          particleAnimation =
+            requestAnimationFrame(
+              animate
+            );
+
+        }
+
+      }
+
+
+      animate();
+
+
+      canvas._cleanup =
+        () => {
+
+          window.removeEventListener(
+            "resize",
+            resize
+          );
+
+        };
+
+    }
+
+
+    function stopParticles() {
+
+      if (particleAnimation) {
+
+        cancelAnimationFrame(
+          particleAnimation
+        );
+
+        particleAnimation =
+          null;
+
+      }
+
+
+      if (
+        particlesCanvas._cleanup
+      ) {
+
+        particlesCanvas._cleanup();
+
+        particlesCanvas._cleanup =
+          null;
+
+      }
+
+
+      const ctx =
+        particlesCanvas.getContext(
+          "2d"
+        );
+
+
+      if (ctx) {
+
+        ctx.clearRect(
+          0,
+          0,
+          particlesCanvas.width,
+          particlesCanvas.height
+        );
+
+      }
+
+    }
+
+
+    /* ============================================================
+       EXPORT BACKUP
+    ============================================================ */
+
+    exportButton.addEventListener(
+      "click",
+      exportBackup
+    );
+
 
     function exportBackup() {
+
+      if (passwords.length === 0) {
+
+        showToast(
+          "There is no data to export.",
+          "error"
+        );
+
+        return;
+      }
+
 
       const backup = {
 
@@ -3222,6 +3236,7 @@
 
         attempts:
           passwords
+
       };
 
 
@@ -3247,24 +3262,25 @@
         );
 
 
-      const link =
-        document.createElement(
-          "a"
-        );
+      const anchor =
+        document.createElement("a");
 
-      link.href =
+
+      anchor.href =
         url;
 
-      link.download =
-        "get-back-my-key-backup.json";
+      anchor.download =
+        `get-back-my-key-backup-${dateForFilename()}.json`;
+
 
       document.body.appendChild(
-        link
+        anchor
       );
 
-      link.click();
+      anchor.click();
 
-      link.remove();
+      anchor.remove();
+
 
       URL.revokeObjectURL(
         url
@@ -3272,360 +3288,220 @@
 
 
       showToast(
-        "Backup exported",
-        "Your local backup file is ready.",
+        "Backup exported successfully.",
         "success"
       );
+
     }
 
 
-    /* =========================================================
-       IMPORT
-    ========================================================== */
+    function dateForFilename() {
 
-    function importBackup(file) {
+      const date =
+        new Date();
 
-      if (!file) {
-        return;
+      return [
+        date.getFullYear(),
+
+        String(
+          date.getMonth() + 1
+        ).padStart(2, "0"),
+
+        String(
+          date.getDate()
+        ).padStart(2, "0")
+      ].join("-");
+
+    }
+
+
+    /* ============================================================
+       IMPORT BACKUP
+    ============================================================ */
+
+    importButton.addEventListener(
+      "click",
+      () => {
+        fileInput.click();
       }
+    );
 
 
-      const reader =
-        new FileReader();
+    fileInput.addEventListener(
+      "change",
+      async () => {
+
+        const file =
+          fileInput.files[0];
 
 
-      reader.onload = event => {
+        if (!file) {
+          return;
+        }
+
 
         try {
 
-          const data =
-            JSON.parse(
-              event.target.result
-            );
+          const text =
+            await file.text();
 
 
-          const imported =
-            Array.isArray(data)
-              ? data
-              : data.attempts;
+          const parsed =
+            JSON.parse(text);
 
+
+          let imported;
+
+
+          /*
+            Support both:
+            { attempts: [...] }
+            and direct [...]
+          */
 
           if (
-            !Array.isArray(
-              imported
+            Array.isArray(parsed)
+          ) {
+
+            imported =
+              parsed;
+
+          } else if (
+            parsed &&
+            Array.isArray(
+              parsed.attempts
             )
           ) {
+
+            imported =
+              parsed.attempts;
+
+          } else {
 
             throw new Error(
               "Invalid backup format."
             );
+
           }
 
 
-          const valid =
-            imported.filter(
-              item =>
+          const clean =
+            imported
+              .filter(item =>
                 item &&
-                typeof item.text ===
-                  "string" &&
-                [
-                  "pending",
-                  "failed",
-                  "success"
-                ].includes(
+                typeof item.text === "string" &&
+                ["pending", "failed", "success"].includes(
                   item.status
                 )
+              )
+              .map(item => ({
+                id: createId(),
+
+                text: item.text,
+
+                status: item.status,
+
+                createdAt:
+                  Number.isFinite(
+                    item.createdAt
+                  )
+                    ? item.createdAt
+                    : Date.now()
+              }));
+
+
+          if (clean.length === 0) {
+
+            throw new Error(
+              "Backup contains no valid attempts."
             );
 
-
-          if (
-            valid.length === 0
-          ) {
-
-            showToast(
-              "Invalid backup",
-              "No valid attempts were found.",
-              "error"
-            );
-
-            return;
           }
 
 
-          /*
-            Preserve backup order.
-            Duplicates are removed using exact
-            string comparison.
-          */
-
-          const merged = [];
-
-          const seen =
-            new Set();
-
-
-          valid.forEach(item => {
-
-            if (
-              seen.has(
-                item.text
-              )
-            ) {
-
-              return;
-            }
-
-            seen.add(
-              item.text
+          const confirmed =
+            window.confirm(
+              `Import ${clean.length} attempt(s)?\n\nExisting local data will be replaced.`
             );
 
-            merged.push({
 
-              id:
-                item.id ||
-                (
-                  Date.now()
-                  .toString(36) +
-                  Math.random()
-                    .toString(36)
-                    .slice(2)
-                ),
+          if (!confirmed) {
 
-              text:
-                item.text,
+            fileInput.value =
+              "";
 
-              status:
-                item.status,
+            return;
 
-              createdAt:
-                Number(
-                  item.createdAt
-                ) ||
-                Date.now(),
-
-              ...(item.successAt
-                ? {
-                    successAt:
-                      item.successAt
-                  }
-                : {})
-            });
-          });
+          }
 
 
           passwords =
-            merged;
+            clean;
 
-          savePasswords();
+          saveData();
+
+          currentFilter =
+            "all";
+
+          searchTerm =
+            "";
+
+          searchInput.value =
+            "";
+
+          updateFilterButtons();
 
           render();
 
 
           showToast(
-            "Backup imported",
-            `${merged.length} attempts restored locally.`,
+            "Backup imported successfully.",
             "success"
           );
-
 
         } catch (error) {
 
           console.error(
+            "Import error:",
             error
           );
 
+
           showToast(
-            "Import failed",
-            "The selected file is not a valid backup.",
+            "Invalid or corrupted backup file.",
             "error"
           );
+
         }
-      };
 
 
-      reader.readAsText(
-        file
-      );
-    }
+        fileInput.value =
+          "";
+
+      }
+    );
 
 
-    /* =========================================================
-       EVENT LISTENERS
-    ========================================================== */
+    /* ============================================================
+       KEYBOARD
+    ============================================================ */
 
-    document
-      .getElementById(
-        "addButton"
-      )
-      .addEventListener(
-        "click",
-        addPassword
-      );
+    passwordInput.addEventListener(
+      "keydown",
+      event => {
 
+        if (
+          event.key === "Enter"
+        ) {
 
-    document
-      .getElementById(
-        "passwordInput"
-      )
-      .addEventListener(
-        "keydown",
-        event => {
+          event.preventDefault();
 
-          if (
-            event.key ===
-            "Enter"
-          ) {
+          addPassword();
 
-            event.preventDefault();
-
-            addPassword();
-          }
         }
-      );
 
-
-    document
-      .getElementById(
-        "searchInput"
-      )
-      .addEventListener(
-        "input",
-        renderList
-      );
-
-
-    document
-      .getElementById(
-        "filters"
-      )
-      .addEventListener(
-        "click",
-        event => {
-
-          const button =
-            event.target.closest(
-              ".filter-btn"
-            );
-
-          if (!button) {
-            return;
-          }
-
-          currentFilter =
-            button.dataset.filter;
-
-
-          document
-            .querySelectorAll(
-              ".filter-btn"
-            )
-            .forEach(
-              btn =>
-                btn.classList.toggle(
-                  "active",
-                  btn === button
-                )
-            );
-
-
-          renderList();
-        }
-      );
-
-
-    document
-      .getElementById(
-        "cancelConfirm"
-      )
-      .addEventListener(
-        "click",
-        closeConfirmModal
-      );
-
-
-    document
-      .getElementById(
-        "confirmSuccess"
-      )
-      .addEventListener(
-        "click",
-        confirmSuccess
-      );
-
-
-    document
-      .getElementById(
-        "confirmModal"
-      )
-      .addEventListener(
-        "click",
-        event => {
-
-          if (
-            event.target.id ===
-            "confirmModal"
-          ) {
-
-            closeConfirmModal();
-          }
-        }
-      );
-
-
-    document
-      .getElementById(
-        "closeCelebration"
-      )
-      .addEventListener(
-        "click",
-        closeCelebration
-      );
-
-
-    document
-      .getElementById(
-        "exportButton"
-      )
-      .addEventListener(
-        "click",
-        exportBackup
-      );
-
-
-    document
-      .getElementById(
-        "importButton"
-      )
-      .addEventListener(
-        "click",
-        () => {
-
-          document
-            .getElementById(
-              "importInput"
-            )
-            .click();
-        }
-      );
-
-
-    document
-      .getElementById(
-        "importInput"
-      )
-      .addEventListener(
-        "change",
-        event => {
-
-          const file =
-            event.target.files[0];
-
-          importBackup(file);
-
-          event.target.value =
-            "";
-        }
-      );
+      }
+    );
 
 
     document.addEventListener(
@@ -3633,46 +3509,58 @@
       event => {
 
         if (
-          event.key ===
-          "Escape"
+          event.key === "Escape"
         ) {
 
-          closeConfirmModal();
+          if (
+            confirmModal.classList.contains(
+              "show"
+            )
+          ) {
 
-          closeCelebration();
-        }
-      }
-    );
+            closeSuccessConfirmation();
+
+          }
 
 
-    /* =========================================================
-       RESIZE PARTICLE CANVAS
-    ========================================================== */
+          if (
+            celebration.classList.contains(
+              "show"
+            )
+          ) {
 
-    window.addEventListener(
-      "resize",
-      () => {
+            closeCelebrationScreen();
 
-        const celebration =
-          document.getElementById(
-            "celebration"
+          }
+
+
+          toast.classList.remove(
+            "show"
           );
 
-        if (
-          celebration.classList.contains(
-            "show"
-          )
-        ) {
-
-          createParticles();
         }
+
       }
     );
 
 
-    /* =========================================================
-       INITIAL RENDER
-    ========================================================== */
+    /* ============================================================
+       ADD BUTTON
+    ============================================================ */
+
+    addButton.addEventListener(
+      "click",
+      addPassword
+    );
+
+
+    /* ============================================================
+       INITIALIZE
+    ============================================================ */
+
+    loadData();
+
+    updateFilterButtons();
 
     render();
 
