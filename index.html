@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -85,7 +86,7 @@
 
 
     /* =========================================
-       COMMON ICON
+       ICONS
     ========================================= */
 
     .icon {
@@ -143,7 +144,10 @@
       width: 54px;
       height: 54px;
 
-      margin: 0 auto 14px;
+      margin:
+        0
+        auto
+        14px;
 
       display: flex;
       align-items: center;
@@ -151,9 +155,12 @@
 
       color: #d4d4d8;
 
-      background: var(--surface-2);
+      background:
+        var(--surface-2);
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-radius: 16px;
 
       box-shadow:
@@ -181,6 +188,7 @@
       color: var(--muted);
 
       font-size: 14px;
+
       line-height: 1.55;
     }
 
@@ -223,9 +231,11 @@
         0
         14px;
 
-      background: var(--surface-2);
+      background:
+        var(--surface-2);
 
-      color: var(--text);
+      color:
+        var(--text);
 
       border:
         1px solid var(--border);
@@ -242,7 +252,8 @@
     }
 
     .add-card input::placeholder {
-      color: var(--muted-2);
+      color:
+        var(--muted-2);
     }
 
     .add-card input:focus {
@@ -258,6 +269,7 @@
       height: 48px;
 
       display: inline-flex;
+
       align-items: center;
       justify-content: center;
 
@@ -267,11 +279,13 @@
         0
         18px;
 
-      background: var(--blue);
+      background:
+        var(--blue);
 
       color: white;
 
       border: 0;
+
       border-radius: 12px;
 
       font-size: 14px;
@@ -285,11 +299,13 @@
     }
 
     .add-btn:hover {
-      filter: brightness(1.08);
+      filter:
+        brightness(1.08);
     }
 
     .add-btn:active {
-      transform: scale(0.97);
+      transform:
+        scale(0.97);
     }
 
 
@@ -317,7 +333,8 @@
 
       text-align: center;
 
-      background: var(--surface);
+      background:
+        var(--surface);
 
       border:
         1px solid var(--border);
@@ -339,7 +356,8 @@
 
       margin-top: 4px;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
       font-size: 10px;
       font-weight: 600;
@@ -351,7 +369,7 @@
 
 
     /* =========================================
-       LIST
+       PASSWORD LIST
     ========================================= */
 
     #list {
@@ -373,7 +391,8 @@
 
       padding: 12px;
 
-      background: var(--surface);
+      background:
+        var(--surface);
 
       border:
         1px solid var(--border);
@@ -388,27 +407,31 @@
     }
 
     .item:hover {
-      background: #141416;
+      background:
+        #141416;
 
       transform:
         translateY(-1px);
     }
 
     .item.pending {
-      border-left-color: #52525b;
+      border-left-color:
+        #52525b;
     }
 
     .item.done-yes {
-      border-left-color: var(--green);
+      border-left-color:
+        var(--green);
     }
 
     .item.done-no {
-      border-left-color: var(--red);
+      border-left-color:
+        var(--red);
     }
 
 
     /* =========================================
-       PASSWORD
+       PASSWORD CONTENT
     ========================================= */
 
     .password-content {
@@ -420,7 +443,8 @@
     .pw-text {
       display: block;
 
-      color: var(--text);
+      color:
+        var(--text);
 
       font-family:
         "SFMono-Regular",
@@ -453,7 +477,8 @@
         3px
         8px;
 
-      border-radius: 999px;
+      border-radius:
+        999px;
 
       font-size: 10px;
       font-weight: 600;
@@ -464,20 +489,24 @@
     }
 
     .status.pending {
-      color: #a1a1aa;
+      color:
+        #a1a1aa;
 
-      background: #27272a;
+      background:
+        #27272a;
     }
 
     .status.success {
-      color: #86efac;
+      color:
+        #86efac;
 
       background:
         rgba(34, 197, 94, 0.12);
     }
 
     .status.failed {
-      color: #fca5a5;
+      color:
+        #fca5a5;
 
       background:
         rgba(239, 68, 68, 0.12);
@@ -509,9 +538,11 @@
 
       padding: 0;
 
-      background: var(--surface-2);
+      background:
+        var(--surface-2);
 
-      color: #a1a1aa;
+      color:
+        #a1a1aa;
 
       border:
         1px solid var(--border);
@@ -528,18 +559,21 @@
     }
 
     .action-btn:hover {
-      background: var(--surface-3);
+      background:
+        var(--surface-3);
 
-      color: var(--text);
+      color:
+        var(--text);
     }
 
     .action-btn:active {
-      transform: scale(0.93);
+      transform:
+        scale(0.93);
     }
 
 
     /* =========================================
-       SUCCESS / FAILED BUTTON
+       ACTIVE STATUS BUTTONS
     ========================================= */
 
     .action-btn.success.active {
@@ -549,7 +583,8 @@
       border-color:
         rgba(34, 197, 94, 0.40);
 
-      color: var(--green);
+      color:
+        var(--green);
     }
 
     .action-btn.failed.active {
@@ -559,7 +594,8 @@
       border-color:
         rgba(239, 68, 68, 0.40);
 
-      color: var(--red);
+      color:
+        var(--red);
     }
 
 
@@ -574,7 +610,8 @@
       border-color:
         rgba(34, 197, 94, 0.40);
 
-      color: var(--green);
+      color:
+        var(--green);
     }
 
 
@@ -583,11 +620,13 @@
     ========================================= */
 
     .action-btn.delete {
-      color: #71717a;
+      color:
+        #71717a;
     }
 
     .action-btn.delete:hover {
-      color: var(--red);
+      color:
+        var(--red);
 
       border-color:
         rgba(239, 68, 68, 0.35);
@@ -605,12 +644,14 @@
 
       text-align: center;
 
-      background: var(--surface);
+      background:
+        var(--surface);
 
       border:
         1px dashed var(--border);
 
-      border-radius: 16px;
+      border-radius:
+        16px;
     }
 
     .empty-icon {
@@ -627,18 +668,22 @@
       align-items: center;
       justify-content: center;
 
-      background: var(--surface-2);
+      background:
+        var(--surface-2);
 
       border:
         1px solid var(--border);
 
-      border-radius: 14px;
+      border-radius:
+        14px;
 
-      color: var(--muted);
+      color:
+        var(--muted);
     }
 
     .empty-title {
-      color: var(--text);
+      color:
+        var(--text);
 
       font-size: 14px;
       font-weight: 600;
@@ -652,7 +697,8 @@
         auto
         0;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
       font-size: 12px;
 
@@ -665,7 +711,8 @@
     ========================================= */
 
     .footer {
-      margin-top: 24px;
+      margin-top:
+        24px;
 
       display: flex;
 
@@ -674,7 +721,8 @@
 
       gap: 5px;
 
-      color: #52525b;
+      color:
+        #52525b;
 
       font-size: 11px;
 
@@ -696,33 +744,40 @@
       }
 
       .header {
-        margin-bottom: 20px;
+        margin-bottom:
+          20px;
       }
 
       .logo {
         width: 50px;
         height: 50px;
 
-        border-radius: 15px;
+        border-radius:
+          15px;
       }
 
       h1 {
-        font-size: 21px;
+        font-size:
+          21px;
       }
 
       .subtitle {
-        margin-top: 7px;
+        margin-top:
+          7px;
 
-        font-size: 12px;
+        font-size:
+          12px;
       }
 
       .add-card {
-        padding: 9px;
+        padding:
+          9px;
       }
 
       .add-card input,
       .add-btn {
-        height: 45px;
+        height:
+          45px;
       }
 
       .add-btn {
@@ -732,7 +787,8 @@
       }
 
       .stats {
-        gap: 7px;
+        gap:
+          7px;
 
         margin:
           14px
@@ -746,32 +802,42 @@
       }
 
       .stat-number {
-        font-size: 17px;
+        font-size:
+          17px;
       }
 
       .stat-label {
-        font-size: 9px;
+        font-size:
+          9px;
       }
 
       .item {
-        align-items: flex-start;
+        align-items:
+          flex-start;
 
-        padding: 11px;
+        padding:
+          11px;
       }
 
       .actions {
-        gap: 4px;
+        gap:
+          4px;
       }
 
       .action-btn {
-        width: 33px;
-        height: 33px;
+        width:
+          33px;
 
-        border-radius: 9px;
+        height:
+          33px;
+
+        border-radius:
+          9px;
       }
 
       .pw-text {
-        font-size: 13px;
+        font-size:
+          13px;
       }
     }
 
@@ -783,26 +849,34 @@
     @media (max-width: 380px) {
 
       .add-card {
-        flex-direction: column;
+        flex-direction:
+          column;
       }
 
       .add-btn {
-        width: 100%;
+        width:
+          100%;
       }
 
       .item {
-        gap: 8px;
+        gap:
+          8px;
       }
 
       .actions {
-        gap: 3px;
+        gap:
+          3px;
       }
 
       .action-btn {
-        width: 31px;
-        height: 31px;
+        width:
+          31px;
+
+        height:
+          31px;
       }
     }
+
   </style>
 </head>
 
@@ -820,13 +894,14 @@
 
       <div class="logo">
 
-        <!-- KEY ICON -->
+        <!-- KEY -->
 
         <svg
           class="icon icon-lg"
           viewBox="0 0 24 24"
           aria-hidden="true"
         >
+
           <circle
             cx="8"
             cy="15"
@@ -844,6 +919,7 @@
           <path
             d="m18 5 2 2"
           ></path>
+
         </svg>
 
       </div>
@@ -887,13 +963,14 @@
         type="button"
       >
 
-        <!-- PLUS ICON -->
+        <!-- PLUS -->
 
         <svg
           class="icon icon-sm"
           viewBox="0 0 24 24"
           aria-hidden="true"
         >
+
           <path
             d="M12 5v14"
           ></path>
@@ -901,7 +978,9 @@
           <path
             d="M5 12h14"
           ></path>
+
         </svg>
+
 
         <span>
           Add
@@ -986,7 +1065,7 @@
 
       <div class="empty-icon">
 
-        <!-- LOCK ICON -->
+        <!-- LOCK -->
 
         <svg
           class="icon icon-lg"
@@ -1029,7 +1108,7 @@
 
     <footer class="footer">
 
-      <!-- SHIELD ICON -->
+      <!-- SHIELD -->
 
       <svg
         class="icon"
@@ -1038,7 +1117,15 @@
       >
 
         <path
-          d="M12 3 20 6v5c0 5-3.4 8.7-8 10-4.6-1.3-8-5-8-10V6l8-3Z"
+          d="
+            M12 3
+            20 6
+            v5
+            c0 5-3.4 8.7-8 10
+            -4.6-1.3-8-5-8-10
+            V6
+            l8-3Z
+          "
         ></path>
 
       </svg>
@@ -1056,7 +1143,7 @@
   <script>
 
     /* =========================================
-       STORAGE
+       LOCAL STORAGE
     ========================================= */
 
     const STORAGE_KEY =
@@ -1130,6 +1217,10 @@
 
     /* =========================================
        ADD PASSWORD
+       
+       IMPORTANT:
+       unshift() puts the newest password
+       at the TOP of the list.
     ========================================= */
 
     function addPassword() {
@@ -1152,7 +1243,7 @@
       }
 
 
-      passwords.push({
+      passwords.unshift({
 
         id:
           Date.now() +
@@ -1160,7 +1251,8 @@
             .toString(16)
             .slice(2),
 
-        text: value,
+        text:
+          value,
 
         status:
           "pending",
@@ -1174,7 +1266,8 @@
       savePasswords();
 
 
-      input.value = "";
+      input.value =
+        "";
 
 
       render();
@@ -1189,7 +1282,9 @@
     ========================================= */
 
     document
-      .getElementById("addBtn")
+      .getElementById(
+        "addBtn"
+      )
       .addEventListener(
         "click",
         addPassword
@@ -1197,16 +1292,21 @@
 
 
     /* =========================================
-       ENTER KEY
+       ENTER TO ADD
     ========================================= */
 
     document
-      .getElementById("pwInput")
+      .getElementById(
+        "pwInput"
+      )
       .addEventListener(
         "keydown",
         function (event) {
 
-          if (event.key === "Enter") {
+          if (
+            event.key ===
+            "Enter"
+          ) {
 
             event.preventDefault();
 
@@ -1226,7 +1326,10 @@
       status
     ) {
 
-      if (!passwords[index]) {
+      if (
+        !passwords[index]
+      ) {
+
         return;
       }
 
@@ -1257,9 +1360,14 @@
        DELETE
     ========================================= */
 
-    function deleteItem(index) {
+    function deleteItem(
+      index
+    ) {
 
-      if (!passwords[index]) {
+      if (
+        !passwords[index]
+      ) {
+
         return;
       }
 
@@ -1280,11 +1388,11 @@
     /* =========================================
        COPY PASSWORD
        
-       Primary:
-       navigator.clipboard
+       Method 1:
+       Clipboard API
 
-       Fallback:
-       textarea + execCommand
+       Method 2:
+       Mobile/browser fallback
     ========================================= */
 
     async function copyText(
@@ -1292,12 +1400,12 @@
       button
     ) {
 
-      let copied = false;
+      let copied =
+        false;
 
 
       /* -----------------------------------------
          METHOD 1
-         Modern Clipboard API
       ----------------------------------------- */
 
       try {
@@ -1310,7 +1418,8 @@
           await navigator.clipboard
             .writeText(text);
 
-          copied = true;
+          copied =
+            true;
         }
 
       } catch (error) {
@@ -1324,7 +1433,6 @@
 
       /* -----------------------------------------
          METHOD 2
-         Mobile / Browser fallback
       ----------------------------------------- */
 
       if (!copied) {
@@ -1337,7 +1445,8 @@
             );
 
 
-          textarea.value = text;
+          textarea.value =
+            text;
 
 
           textarea.setAttribute(
@@ -1399,7 +1508,7 @@
 
 
       /* -----------------------------------------
-         SUCCESS
+         COPY SUCCESS
       ----------------------------------------- */
 
       if (copied) {
@@ -1472,7 +1581,8 @@
         );
 
 
-      list.innerHTML = "";
+      list.innerHTML =
+        "";
 
 
       /* -----------------------------------------
@@ -1539,6 +1649,9 @@
 
       /* -----------------------------------------
          ITEMS
+         
+         Array is already ordered:
+         newest -> oldest
       ----------------------------------------- */
 
       passwords.forEach(
@@ -1572,7 +1685,9 @@
             );
 
 
-          /* Status */
+          /* -----------------------------------------
+             STATUS
+          ----------------------------------------- */
 
           let statusClass =
             "pending";
@@ -1580,7 +1695,8 @@
           let statusText =
             "Pending";
 
-          let statusIcon = "";
+          let statusIcon =
+            "";
 
 
           if (
@@ -1657,7 +1773,7 @@
 
 
           /* -----------------------------------------
-             CARD HTML
+             CARD
           ----------------------------------------- */
 
           item.innerHTML = `
@@ -1676,7 +1792,10 @@
 
 
               <span
-                class="status ${statusClass}"
+                class="
+                  status
+                  ${statusClass}
+                "
               >
 
                 ${statusIcon}
@@ -1696,14 +1815,19 @@
               <!-- COPY -->
 
               <button
-                class="action-btn"
+                class="
+                  action-btn
+                "
                 type="button"
                 title="Copy password"
                 aria-label="Copy password"
               >
 
                 <svg
-                  class="icon icon-sm"
+                  class="
+                    icon
+                    icon-sm
+                  "
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
@@ -1749,7 +1873,10 @@
               >
 
                 <svg
-                  class="icon icon-sm"
+                  class="
+                    icon
+                    icon-sm
+                  "
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
@@ -1782,7 +1909,10 @@
               >
 
                 <svg
-                  class="icon icon-sm"
+                  class="
+                    icon
+                    icon-sm
+                  "
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
@@ -1813,7 +1943,10 @@
               >
 
                 <svg
-                  class="icon icon-sm"
+                  class="
+                    icon
+                    icon-sm
+                  "
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
@@ -1827,9 +1960,7 @@
                   ></path>
 
                   <path
-                    d="
-                      M19 6l-1 15H6L5 6
-                    "
+                    d="M19 6l-1 15H6L5 6"
                   ></path>
 
                   <path
@@ -1850,7 +1981,7 @@
 
 
           /* -----------------------------------------
-             BUTTON EVENTS
+             BUTTONS
           ----------------------------------------- */
 
           const buttons =
