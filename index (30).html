@@ -1,0 +1,3773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  />
+
+  <meta
+    name="description"
+    content="Get Back My Key — a private local password attempt tracker."
+  />
+
+  <title>Get Back My Key</title>
+
+  <!-- Favicon -->
+  <link
+    rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23151518'/%3E%3Ccircle cx='25' cy='38' r='11' fill='none' stroke='%23f2f2f5' stroke-width='5'/%3E%3Cpath d='M33 30l18-18M42 21l6 6M38 25l5 5' fill='none' stroke='%233b82f6' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"
+  />
+
+  <style>
+    :root {
+      --bg: #07080b;
+      --surface: #101115;
+      --surface-2: #15161a;
+      --surface-3: #1a1b20;
+      --border: #292a30;
+      --border-soft: #222329;
+
+      --text: #f4f4f6;
+      --muted: #92939c;
+      --muted-2: #686a74;
+
+      --blue: #3b82f6;
+      --blue-hover: #4b8df8;
+
+      --green: #39d98a;
+      --red: #ff7373;
+      --yellow: #e7c76b;
+
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      background: var(--bg);
+      color-scheme: dark;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(37, 99, 235, 0.075),
+          transparent 30%
+        ),
+        var(--bg);
+
+      color: var(--text);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      font-size: 14px;
+      overflow-x: hidden;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    /* =========================
+       APP
+    ========================= */
+
+    .app {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      padding: 42px 16px 30px;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .hero {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .logo {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 22px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--border);
+      border-radius: 22px;
+
+      background: #15161a;
+
+      box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
+    }
+
+    .logo svg {
+      width: 47px;
+      height: 47px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(30px, 6vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -1.8px;
+      font-weight: 760;
+    }
+
+    .hero p {
+      margin: 12px auto 0;
+      max-width: 600px;
+
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       ADD BOX
+    ========================= */
+
+    .add-box {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+
+      background: rgba(17, 18, 22, 0.85);
+
+      box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.02);
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .password-input {
+      width: 100%;
+      height: 56px;
+
+      padding: 0 16px;
+
+      border: 1px solid #2c2e35;
+      border-radius: 14px;
+
+      outline: none;
+
+      background: #16171b;
+      color: var(--text);
+
+      font-size: 16px;
+
+      transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .password-input::placeholder {
+      color: #686a74;
+    }
+
+    .password-input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.16);
+    }
+
+    .add-btn {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+
+  width: 44px;
+  height: 44px;
+
+  border: 0;
+  border-radius: 11px;
+
+  background: var(--blue);
+  color: white;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    transform 0.12s ease,
+    background 0.15s ease;
+}
+
+.add-btn:hover {
+  background: var(--blue-hover);
+}
+
+.add-btn:active {
+  transform: scale(0.94);
+}
+
+    .icon {
+      width: 21px;
+      height: 21px;
+      flex: 0 0 auto;
+    }
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+
+      margin: 18px 0;
+    }
+
+    .stat {
+      min-height: 76px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      border: 1px solid var(--border);
+      border-radius: 15px;
+
+      background: #101115;
+    }
+
+    .stat-value {
+      font-size: 25px;
+      line-height: 1;
+      font-weight: 750;
+    }
+
+    .stat-label {
+      margin-top: 7px;
+
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+    }
+
+    /* =========================
+       SEARCH
+    ========================= */
+
+    .search-box {
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .search-box .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      width: 21px;
+      height: 21px;
+
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 52px;
+
+      padding: 0 16px 0 48px;
+
+      border: 1px solid var(--border);
+      border-radius: 15px;
+
+      outline: none;
+
+      background: #101115;
+      color: var(--text);
+
+      font-size: 15px;
+    }
+
+    .search-input:focus {
+      border-color: #363840;
+    }
+
+    .search-input::placeholder {
+      color: #696b75;
+    }
+
+    /* =========================
+       FILTERS
+    ========================= */
+
+    .filters {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      margin-bottom: 12px;
+
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .filters::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-btn {
+      height: 38px;
+
+      padding: 0 15px;
+
+      border: 1px solid transparent;
+      border-radius: 20px;
+
+      background: transparent;
+      color: var(--muted);
+
+      font-size: 14px;
+      font-weight: 650;
+
+      cursor: pointer;
+
+      white-space: nowrap;
+    }
+
+    .filter-btn.active {
+      border-color: var(--border);
+      background: #191a1e;
+      color: var(--text);
+    }
+
+    /* =========================
+       PASSWORD LIST
+    ========================= */
+
+    #list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .password-card {
+      min-height: 72px;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 10px 10px 10px 14px;
+
+      border: 1px solid var(--border);
+      border-left: 4px solid #545761;
+
+      border-radius: 15px;
+
+      background: #101115;
+
+      transition:
+        border-color 0.15s ease,
+        background 0.15s ease;
+    }
+
+    .password-card:hover {
+      background: #121318;
+    }
+
+    .password-card.pending {
+      border-left-color: #5c5f69;
+    }
+
+    .password-card.failed {
+      border-left-color: var(--red);
+    }
+
+    .password-card.success {
+      border-left-color: var(--green);
+    }
+
+    .password-main {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .password-text {
+      display: block;
+
+      color: #eeeeF2;
+
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+
+      font-size: 15px;
+      line-height: 1.3;
+
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .password-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-top: 6px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+
+      height: 22px;
+
+      padding: 0 9px;
+
+      border-radius: 999px;
+
+      background: #24252a;
+
+      color: #a4a5ae;
+
+      font-size: 10px;
+      font-weight: 750;
+
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .status.failed {
+      color: #ff8888;
+      background: rgba(255, 90, 90, 0.1);
+    }
+
+    .status.success {
+      color: #62e7a1;
+      background: rgba(57, 217, 138, 0.1);
+    }
+
+    .date {
+      color: #666872;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+
+    /* =========================
+       CARD ACTIONS
+    ========================= */
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      flex: 0 0 auto;
+    }
+
+    .action-btn {
+      width: 40px;
+      height: 40px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid #292a30;
+      border-radius: 12px;
+
+      background: #15161a;
+      color: #9698a1;
+
+      cursor: pointer;
+
+      transition:
+        background 0.12s ease,
+        border-color 0.12s ease,
+        color 0.12s ease,
+        transform 0.12s ease;
+    }
+
+    .action-btn:hover {
+      background: #1a1b20;
+      border-color: #373940;
+      color: #e8e8eb;
+    }
+
+    .action-btn:active {
+      transform: scale(0.94);
+    }
+
+    .action-btn.success-btn.active {
+      color: var(--green);
+      border-color: rgba(57, 217, 138, 0.28);
+      background: rgba(57, 217, 138, 0.08);
+    }
+
+    .action-btn.failed-btn.active {
+      color: var(--red);
+      border-color: rgba(255, 115, 115, 0.28);
+      background: rgba(255, 115, 115, 0.08);
+    }
+
+    .action-btn svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    /* =========================
+       EMPTY
+    ========================= */
+
+    .empty {
+      padding: 35px 10px;
+      text-align: center;
+      color: var(--muted-2);
+      font-size: 13px;
+    }
+
+    /* =========================
+       BACKUP
+    ========================= */
+
+    .backup {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+
+      margin-top: 16px;
+    }
+
+    .backup-btn {
+      height: 54px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      background: #101115;
+      color: #a8a9b1;
+
+      font-size: 14px;
+      font-weight: 650;
+
+      cursor: pointer;
+    }
+
+    .backup-btn:hover {
+      background: #15161a;
+      color: var(--text);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .privacy {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+
+      margin-top: 18px;
+
+      color: #656770;
+      font-size: 12px;
+    }
+
+    .privacy-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      box-shadow: 0 0 10px rgba(57, 217, 138, 0.6);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 24px;
+      padding: 12px 0;
+      font-size: 11px;
+      color: #8b8f98;
+    }
+
+    .footer a {
+      color: inherit;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    .toast {
+      position: fixed;
+
+      top: 14px;
+      left: 50%;
+
+      width: min(calc(100% - 24px), 460px);
+
+      transform: translate(-50%, -120px);
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 13px 15px;
+
+      border: 1px solid #303139;
+      border-radius: 14px;
+
+      background: rgba(25, 26, 31, 0.97);
+
+      box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.35),
+        0 2px 8px rgba(0, 0, 0, 0.25);
+
+      z-index: 10000;
+
+      opacity: 0;
+
+      transition:
+        transform 0.3s cubic-bezier(.2,.8,.2,1),
+        opacity 0.25s ease;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+    }
+
+    .toast-text {
+      min-width: 0;
+      color: #e8e8eb;
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
+    .toast.error .toast-icon {
+      color: var(--red);
+    }
+
+    .toast.success .toast-icon {
+      color: var(--green);
+    }
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 18px;
+
+      background: rgba(0, 0, 0, 0.68);
+
+      backdrop-filter: blur(5px);
+
+      z-index: 11000;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      width: min(100%, 390px);
+
+      padding: 20px;
+
+      border: 1px solid #303139;
+      border-radius: 18px;
+
+      background: #15161a;
+
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+
+      animation: modalIn 0.18s ease-out;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .modal-icon {
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+      place-items: center;
+
+      margin-bottom: 12px;
+
+      border-radius: 12px;
+
+      background: rgba(57, 217, 138, 0.09);
+      color: var(--green);
+    }
+
+    .modal-icon svg {
+      width: 23px;
+      height: 23px;
+    }
+
+    .modal h2 {
+      margin: 0;
+
+      font-size: 19px;
+      letter-spacing: -0.3px;
+    }
+
+    .modal p {
+      margin: 8px 0 18px;
+
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .modal-password {
+      display: block;
+
+      margin-bottom: 18px;
+
+      padding: 10px 11px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: #101115;
+
+      font-family: monospace;
+      font-size: 13px;
+
+      word-break: break-word;
+    }
+
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .modal-btn {
+      height: 44px;
+
+      border: 1px solid var(--border);
+      border-radius: 11px;
+
+      background: #1a1b20;
+
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    .modal-btn.confirm {
+      border-color: var(--green);
+      background: var(--green);
+      color: #06140d;
+    }
+
+    /* =========================
+       DELETE MODAL
+    ========================= */
+
+    .delete-modal-backdrop {
+      position: fixed;
+      inset: 0;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 18px;
+
+      background: rgba(0, 0, 0, 0.68);
+
+      backdrop-filter: blur(5px);
+
+      z-index: 11000;
+    }
+
+    .delete-modal-backdrop.show {
+      display: flex;
+    }
+
+    .delete-modal {
+      width: min(100%, 390px);
+
+      padding: 20px;
+
+      border: 1px solid #303139;
+      border-radius: 18px;
+
+      background: #15161a;
+
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+
+      animation: modalIn 0.18s ease-out;
+    }
+
+    .delete-modal-icon {
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+      place-items: center;
+
+      margin-bottom: 12px;
+
+      border-radius: 12px;
+
+      background: rgba(255, 115, 115, 0.09);
+      color: var(--red);
+    }
+
+    .delete-modal-icon svg {
+      width: 23px;
+      height: 23px;
+    }
+
+    .delete-modal h2 {
+      margin: 0;
+
+      font-size: 19px;
+      letter-spacing: -0.3px;
+    }
+
+    .delete-modal p {
+      margin: 8px 0 18px;
+
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .delete-modal-password {
+      display: block;
+
+      margin-bottom: 18px;
+
+      padding: 10px 11px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: #101115;
+
+      font-family: monospace;
+      font-size: 13px;
+
+      word-break: break-word;
+    }
+
+    .delete-modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .delete-modal-btn {
+      height: 44px;
+
+      border: 1px solid var(--border);
+      border-radius: 11px;
+
+      background: #1a1b20;
+
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    .delete-modal-btn.delete-confirm {
+      border-color: var(--red);
+      background: var(--red);
+      color: #190606;
+    }
+
+    /* =========================
+       SUCCESS OVERLAY
+    ========================= */
+
+    .celebration {
+      position: fixed;
+      inset: 0;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+
+      background: rgba(5, 7, 10, 0.86);
+
+      backdrop-filter: blur(6px);
+
+      z-index: 12000;
+    }
+
+    .celebration.show {
+      display: flex;
+    }
+
+    #particles {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      pointer-events: none;
+    }
+
+    .celebration-content {
+      position: relative;
+      z-index: 2;
+
+      width: min(90%, 440px);
+
+      text-align: center;
+
+      animation: celebrationIn 0.45s cubic-bezier(.2,.9,.2,1);
+    }
+
+    @keyframes celebrationIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.92);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .celebration-check {
+      width: 76px;
+      height: 76px;
+
+      display: grid;
+      place-items: center;
+
+      margin: 0 auto 18px;
+
+      border: 1px solid rgba(57, 217, 138, 0.3);
+      border-radius: 50%;
+
+      background: rgba(57, 217, 138, 0.1);
+
+      color: var(--green);
+
+      box-shadow: 0 0 55px rgba(57, 217, 138, 0.15);
+    }
+
+    .celebration-check svg {
+      width: 39px;
+      height: 39px;
+      stroke-width: 2.5;
+    }
+
+    .celebration h2 {
+      margin: 0;
+
+      font-size: clamp(30px, 8vw, 46px);
+      letter-spacing: -1.5px;
+    }
+
+    .celebration p {
+      margin: 10px 0 20px;
+
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .celebration-close {
+      height: 44px;
+
+      padding: 0 22px;
+
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      background: #17181c;
+      color: white;
+
+      font-weight: 650;
+
+      cursor: pointer;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 600px) {
+      .app {
+        padding: 30px 8px 24px;
+      }
+
+      .hero {
+        margin-bottom: 22px;
+      }
+
+      .logo {
+        width: 72px;
+        height: 72px;
+        margin-bottom: 17px;
+        border-radius: 19px;
+      }
+
+      .logo svg {
+        width: 42px;
+        height: 42px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+        letter-spacing: -1.3px;
+      }
+
+      .hero p {
+        margin-top: 9px;
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .add-box {
+        padding: 10px;
+        border-radius: 16px;
+      }
+
+      .password-input{
+        height: 52px;
+      }
+
+      .add-btn {
+        width: 40px;
+  height: 40px;
+  right: 6px;
+  top: 6px;
+      }
+
+      .stats {
+        gap: 7px;
+        margin: 14px 0;
+      }
+
+      .stat {
+        min-height: 68px;
+        border-radius: 13px;
+      }
+
+      .stat-value {
+        font-size: 23px;
+      }
+
+      .stat-label {
+        margin-top: 5px;
+        font-size: 10px;
+      }
+
+      .search-input {
+        height: 49px;
+      }
+
+      .filter-btn {
+        height: 36px;
+        padding: 0 13px;
+      }
+
+      .password-card {
+        min-height: 67px;
+        padding: 8px 8px 8px 11px;
+        border-radius: 14px;
+        gap: 7px;
+      }
+
+      .password-text {
+        font-size: 14px;
+      }
+
+      .password-meta {
+        margin-top: 5px;
+        gap: 6px;
+      }
+
+      .status {
+        height: 21px;
+        padding: 0 8px;
+        font-size: 9px;
+      }
+
+      .date {
+        font-size: 9px;
+      }
+
+      .actions {
+        gap: 4px;
+      }
+
+      .action-btn {
+        width: 37px;
+        height: 37px;
+        border-radius: 11px;
+      }
+
+      .action-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .backup {
+        gap: 7px;
+        margin-top: 12px;
+      }
+
+      .backup-btn {
+        height: 48px;
+        border-radius: 12px;
+        font-size: 12px;
+      }
+
+      .privacy {
+        margin-top: 14px;
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .app {
+        padding-left: 6px;
+        padding-right: 6px;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+      }
+
+      .hero p {
+        font-size: 13px;
+      }
+
+      .password-card {
+        padding-left: 9px;
+      }
+
+      .action-btn {
+        width: 34px;
+        height: 34px;
+      }
+
+      .action-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .password-text {
+        font-size: 13px;
+      }
+    }
+
+    /* =========================
+       REDUCED MOTION
+    ========================= */
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       TOP TOAST
+  ========================= -->
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+  >
+    <svg
+      class="toast-icon"
+      id="toastIcon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></svg>
+
+    <span class="toast-text" id="toastText"></span>
+  </div>
+
+
+  <main class="app">
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header class="hero">
+
+      <div class="logo" aria-label="Get Back My Key">
+
+        <svg
+          viewBox="0 0 64 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="24"
+            cy="40"
+            r="12"
+            stroke="#F2F2F5"
+            stroke-width="5"
+          />
+
+          <path
+            d="M33 31L52 12"
+            stroke="#3B82F6"
+            stroke-width="5"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M42 21L48 27"
+            stroke="#F2F2F5"
+            stroke-width="5"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M38 25L44 31"
+            stroke="#F2F2F5"
+            stroke-width="5"
+            stroke-linecap="round"
+          />
+        </svg>
+
+      </div>
+
+      <h1>Get Back My Key</h1>
+
+      <p>
+        Track password combinations locally. Copy, test and mark each attempt.
+      </p>
+
+    </header>
+
+
+<!-- =========================
+     ADD PASSWORD
+========================= -->
+
+<section class="add-box">
+
+  <div class="input-wrap">
+
+    <input
+      id="passwordInput"
+      class="password-input"
+      type="text"
+      autocomplete="off"
+      autocapitalize="off"
+      spellcheck="false"
+      placeholder="Enter password combination..."
+    />
+
+    <button
+      id="addButton"
+      class="add-btn"
+      type="button"
+      aria-label="Add password"
+      title="Add password"
+    >
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <path d="M12 5V19" />
+        <path d="M5 12H19" />
+      </svg>
+    </button>
+
+  </div>
+
+</section>
+
+
+    <!-- =========================
+         STATS
+    ========================= -->
+
+    <section class="stats">
+
+      <div class="stat">
+        <span
+          class="stat-value"
+          id="totalCount"
+        >0</span>
+
+        <span class="stat-label">
+          Total
+        </span>
+      </div>
+
+      <div class="stat">
+        <span
+          class="stat-value"
+          id="triedCount"
+        >0</span>
+
+        <span class="stat-label">
+          Tried
+        </span>
+      </div>
+
+      <div class="stat">
+        <span
+          class="stat-value"
+          id="successCount"
+        >0</span>
+
+        <span class="stat-label">
+          Success
+        </span>
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SEARCH
+    ========================= -->
+
+    <div class="search-box">
+
+      <svg
+        class="search-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <circle
+          cx="11"
+          cy="11"
+          r="7"
+        />
+
+        <path d="M16 16L21 21" />
+      </svg>
+
+      <input
+        id="searchInput"
+        class="search-input"
+        type="search"
+        autocomplete="off"
+        placeholder="Search attempts..."
+      />
+
+    </div>
+
+
+    <!-- =========================
+         FILTERS
+    ========================= -->
+
+    <div class="filters">
+
+      <button
+        class="filter-btn active"
+        data-filter="all"
+        type="button"
+      >
+        All
+      </button>
+
+      <button
+        class="filter-btn"
+        data-filter="pending"
+        type="button"
+      >
+        Pending
+      </button>
+
+      <button
+        class="filter-btn"
+        data-filter="failed"
+        type="button"
+      >
+        Failed
+      </button>
+
+      <button
+        class="filter-btn"
+        data-filter="success"
+        type="button"
+      >
+        Success
+      </button>
+
+    </div>
+
+
+    <!-- =========================
+         PASSWORD LIST
+    ========================= -->
+
+    <section id="list"></section>
+
+
+    <!-- =========================
+         BACKUP
+    ========================= -->
+
+    <section class="backup">
+
+      <button
+        id="exportButton"
+        class="backup-btn"
+        type="button"
+      >
+
+        <svg
+          class="icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 16V3" />
+          <path d="M7 8L12 3L17 8" />
+          <path d="M5 21H19" />
+          <path d="M5 17V21" />
+          <path d="M19 17V21" />
+        </svg>
+
+        Export Backup
+
+      </button>
+
+
+      <button
+        id="importButton"
+        class="backup-btn"
+        type="button"
+      >
+
+        <svg
+          class="icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 8V21" />
+          <path d="M7 13L12 8L17 13" />
+          <path d="M5 3H19" />
+          <path d="M5 3V7" />
+          <path d="M19 3V7" />
+        </svg>
+
+        Import Backup
+
+      </button>
+
+      <input
+        id="fileInput"
+        type="file"
+        accept=".json,application/json"
+        hidden
+      />
+
+    </section>
+
+
+    <!-- =========================
+         PRIVACY
+    ========================= -->
+
+    <div class="privacy">
+
+      <span class="privacy-dot"></span>
+
+      <span>
+        Saved locally in this browser
+      </span>
+
+      <span>•</span>
+
+      <a
+        href="https://github.com/kvinitkarmkar"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="
+          color: inherit;
+          text-decoration: none;
+          font-weight: 600;
+        "
+      >
+        Made by @kvinitkarmkar
+      </a>
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================
+       SUCCESS CONFIRMATION
+    ========================= -->
+
+  <div
+    class="modal-backdrop"
+    id="confirmModal"
+  >
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="confirmTitle"
+    >
+
+      <div class="modal-icon">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M20 6L9 17L4 12" />
+        </svg>
+
+      </div>
+
+      <h2 id="confirmTitle">
+        Mark as successful?
+      </h2>
+
+      <p>
+        Confirm that this password combination successfully recovered the account.
+      </p>
+
+      <div
+        class="modal-password"
+        id="confirmPassword"
+      ></div>
+
+      <div class="modal-actions">
+
+        <button
+          class="modal-btn"
+          id="cancelConfirm"
+          type="button"
+        >
+          Cancel
+        </button>
+
+        <button
+          class="modal-btn confirm"
+          id="confirmSuccess"
+          type="button"
+        >
+          Yes, Success
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       DELETE CONFIRMATION
+    ========================= -->
+
+  <div
+    class="delete-modal-backdrop"
+    id="deleteModal"
+  >
+
+    <div
+      class="delete-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="deleteTitle"
+    >
+
+      <div class="delete-modal-icon">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M4 7H20" />
+          <path d="M10 11V17" />
+          <path d="M14 11V17" />
+          <path d="M6 7L7 20H17L18 7" />
+          <path d="M9 7L10 4H14L15 7" />
+        </svg>
+
+      </div>
+
+      <h2 id="deleteTitle">
+        Delete this attempt?
+      </h2>
+
+      <p>
+        This action cannot be undone. The selected password combination will be permanently removed.
+      </p>
+
+      <div
+        class="delete-modal-password"
+        id="deletePassword"
+      ></div>
+
+      <div class="delete-modal-actions">
+
+        <button
+          class="delete-modal-btn"
+          id="cancelDelete"
+          type="button"
+        >
+          Cancel
+        </button>
+
+        <button
+          class="delete-modal-btn delete-confirm"
+          id="confirmDelete"
+          type="button"
+        >
+          Delete
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       CELEBRATION
+    ========================= -->
+
+  <div
+    class="celebration"
+    id="celebration"
+  >
+
+    <canvas id="particles"></canvas>
+
+    <div class="celebration-content">
+
+      <div class="celebration-check">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M20 6L9 17L4 12" />
+        </svg>
+
+      </div>
+
+      <h2>Congratulations!</h2>
+
+      <p>
+        You found the correct password combination.
+      </p>
+
+      <button
+        class="celebration-close"
+        id="closeCelebration"
+        type="button"
+      >
+        Continue
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script>
+    /* ============================================================
+       GET BACK MY KEY
+       Local-only password attempt tracker
+    ============================================================ */
+
+    const STORAGE_KEY = "get-back-my-key-data-v1";
+
+
+    /* ============================================================
+       STATE
+    ============================================================ */
+
+    let passwords = [];
+    let currentFilter = "all";
+    let searchTerm = "";
+
+    let pendingSuccessIndex = null;
+    let pendingDeleteIndex = null;
+
+    let toastTimer = null;
+
+    let audioContext = null;
+
+    let particleAnimation = null;
+
+
+    /* ============================================================
+       DOM
+    ============================================================ */
+
+    const passwordInput =
+      document.getElementById("passwordInput");
+
+    const addButton =
+      document.getElementById("addButton");
+
+    const list =
+      document.getElementById("list");
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const totalCount =
+      document.getElementById("totalCount");
+
+    const triedCount =
+      document.getElementById("triedCount");
+
+    const successCount =
+      document.getElementById("successCount");
+
+    const toast =
+      document.getElementById("toast");
+
+    const toastText =
+      document.getElementById("toastText");
+
+    const toastIcon =
+      document.getElementById("toastIcon");
+
+    const confirmModal =
+      document.getElementById("confirmModal");
+
+    const confirmPassword =
+      document.getElementById("confirmPassword");
+
+    const cancelConfirm =
+      document.getElementById("cancelConfirm");
+
+    const confirmSuccess =
+      document.getElementById("confirmSuccess");
+
+    const deleteModal =
+      document.getElementById("deleteModal");
+
+    const deletePassword =
+      document.getElementById("deletePassword");
+
+    const cancelDelete =
+      document.getElementById("cancelDelete");
+
+    const confirmDelete =
+      document.getElementById("confirmDelete");
+
+    const celebration =
+      document.getElementById("celebration");
+
+    const closeCelebration =
+      document.getElementById("closeCelebration");
+
+    const particlesCanvas =
+      document.getElementById("particles");
+
+    const exportButton =
+      document.getElementById("exportButton");
+
+    const importButton =
+      document.getElementById("importButton");
+
+    const fileInput =
+      document.getElementById("fileInput");
+
+
+    /* ============================================================
+       SVG ICONS
+    ============================================================ */
+
+    const icons = {
+
+      success: `
+        <path d="M20 6L9 17L4 12"/>
+      `,
+
+      error: `
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M15 9L9 15"/>
+        <path d="M9 9L15 15"/>
+      `,
+
+      copy: `
+        <rect x="9" y="9" width="11" height="11" rx="2"/>
+        <path d="M15 9V6C15 4.9 14.1 4 13 4H6C4.9 4 4 4.9 4 6V13C4 14.1 4.9 15 6 15H9"/>
+      `,
+
+      check: `
+        <path d="M20 6L9 17L4 12"/>
+      `,
+
+      x: `
+        <path d="M6 6L18 18"/>
+        <path d="M18 6L6 18"/>
+      `,
+
+      trash: `
+        <path d="M4 7H20"/>
+        <path d="M10 11V17"/>
+        <path d="M14 11V17"/>
+        <path d="M6 7L7 20H17L18 7"/>
+        <path d="M9 7L10 4H14L15 7"/>
+      `
+    };
+
+
+    /* ============================================================
+       LOCAL STORAGE
+    ============================================================ */
+
+    function saveData() {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(passwords)
+      );
+
+    }
+
+
+    function loadData() {
+
+      try {
+
+        const saved =
+          localStorage.getItem(STORAGE_KEY);
+
+        if (!saved) {
+          passwords = [];
+          return;
+        }
+
+        const parsed = JSON.parse(saved);
+
+        if (!Array.isArray(parsed)) {
+          passwords = [];
+          return;
+        }
+
+        passwords = parsed
+          .filter(item =>
+            item &&
+            typeof item.text === "string" &&
+            ["pending", "failed", "success"].includes(item.status)
+          )
+          .map(item => ({
+            id:
+              typeof item.id === "string"
+                ? item.id
+                : createId(),
+
+            text: item.text,
+
+            status: item.status,
+
+            createdAt:
+              Number.isFinite(item.createdAt)
+                ? item.createdAt
+                : Date.now()
+          }));
+
+      } catch (error) {
+
+        console.error(
+          "Unable to load local data:",
+          error
+        );
+
+        passwords = [];
+
+      }
+
+    }
+
+
+    /* ============================================================
+       ID
+    ============================================================ */
+
+    function createId() {
+
+      if (
+        window.crypto &&
+        typeof crypto.randomUUID === "function"
+      ) {
+        return crypto.randomUUID();
+      }
+
+      return (
+        Date.now().toString(36) +
+        Math.random().toString(36).slice(2)
+      );
+
+    }
+
+
+    /* ============================================================
+       ADD PASSWORD
+    ============================================================ */
+
+    function addPassword() {
+
+      const value =
+        passwordInput.value;
+
+      if (!value.trim()) {
+
+        showToast(
+          "Enter a password combination first.",
+          "error"
+        );
+
+        passwordInput.focus();
+
+        return;
+      }
+
+
+      const existingIndex =
+        passwords.findIndex(
+          item => item.text === value
+        );
+
+
+      if (existingIndex !== -1) {
+
+        const attemptNumber =
+          existingIndex + 1;
+
+        showToast(
+          `This combination already exists as attempt #${attemptNumber}.`,
+          "error"
+        );
+
+        passwordInput.select();
+
+        return;
+      }
+
+
+      const newItem = {
+
+        id: createId(),
+
+        text: value,
+
+        status: "pending",
+
+        createdAt: Date.now()
+
+      };
+
+
+      passwords.unshift(newItem);
+
+      saveData();
+
+      passwordInput.value = "";
+
+      currentFilter = "all";
+
+      updateFilterButtons();
+
+      render();
+
+      showToast(
+        "Password combination added.",
+        "success"
+      );
+
+      passwordInput.focus();
+
+    }
+
+
+    /* ============================================================
+       MARK STATUS
+    ============================================================ */
+
+    function markStatus(index, status) {
+
+      if (!passwords[index]) {
+        return;
+      }
+
+
+      if (status === "success") {
+
+        if (passwords[index].status === "success") {
+          return;
+        }
+
+        openSuccessConfirmation(index);
+
+        return;
+      }
+
+
+      passwords[index].status =
+        passwords[index].status === "failed"
+          ? "pending"
+          : "failed";
+
+      saveData();
+
+      render();
+
+      showToast(
+        passwords[index].status === "failed"
+          ? "Marked as failed."
+          : "Moved back to pending.",
+        "error"
+      );
+
+    }
+
+
+    /* ============================================================
+       SUCCESS CONFIRMATION
+    ============================================================ */
+
+    function openSuccessConfirmation(index) {
+
+      if (!passwords[index]) {
+        return;
+      }
+
+      pendingSuccessIndex = index;
+
+      confirmPassword.textContent =
+        passwords[index].text;
+
+      confirmModal.classList.add("show");
+
+      setTimeout(() => {
+        confirmSuccess.focus();
+      }, 30);
+
+    }
+
+
+    function closeSuccessConfirmation() {
+
+      pendingSuccessIndex = null;
+
+      confirmModal.classList.remove("show");
+
+    }
+
+
+    confirmSuccess.addEventListener(
+      "click",
+      confirmSuccessfulPassword
+    );
+
+
+    cancelConfirm.addEventListener(
+      "click",
+      closeSuccessConfirmation
+    );
+
+
+    confirmModal.addEventListener(
+      "click",
+      event => {
+
+        if (event.target === confirmModal) {
+          closeSuccessConfirmation();
+        }
+
+      }
+    );
+
+
+    function confirmSuccessfulPassword() {
+
+      if (
+        pendingSuccessIndex === null ||
+        !passwords[pendingSuccessIndex]
+      ) {
+        closeSuccessConfirmation();
+        return;
+      }
+
+
+      const index =
+        pendingSuccessIndex;
+
+
+      passwords[index].status =
+        "success";
+
+      saveData();
+
+      render();
+
+      closeSuccessConfirmation();
+
+      triggerHaptic();
+
+      playSuccessSound();
+
+      showCelebration();
+
+    }
+
+
+    /* ============================================================
+       DELETE CONFIRMATION
+    ============================================================ */
+
+    function openDeleteConfirmation(index) {
+
+      if (!passwords[index]) {
+        return;
+      }
+
+      pendingDeleteIndex = index;
+
+      deletePassword.textContent =
+        passwords[index].text;
+
+      deleteModal.classList.add("show");
+
+      setTimeout(() => {
+        cancelDelete.focus();
+      }, 30);
+
+    }
+
+
+    function closeDeleteConfirmation() {
+
+      pendingDeleteIndex = null;
+
+      deleteModal.classList.remove("show");
+
+    }
+
+
+    cancelDelete.addEventListener(
+      "click",
+      closeDeleteConfirmation
+    );
+
+
+    confirmDelete.addEventListener(
+      "click",
+      confirmDeleteItem
+    );
+
+
+    deleteModal.addEventListener(
+      "click",
+      event => {
+
+        if (event.target === deleteModal) {
+          closeDeleteConfirmation();
+        }
+
+      }
+    );
+
+
+    function confirmDeleteItem() {
+
+      if (
+        pendingDeleteIndex === null ||
+        !passwords[pendingDeleteIndex]
+      ) {
+        closeDeleteConfirmation();
+        return;
+      }
+
+
+      const index =
+        pendingDeleteIndex;
+
+
+      passwords.splice(index, 1);
+
+      saveData();
+
+      render();
+
+      closeDeleteConfirmation();
+
+      showToast(
+        "Attempt deleted.",
+        "error"
+      );
+
+    }
+
+
+    /* ============================================================
+       HAPTIC
+    ============================================================ */
+
+    function triggerHaptic() {
+
+      if (
+        "vibrate" in navigator &&
+        typeof navigator.vibrate === "function"
+      ) {
+
+        try {
+          navigator.vibrate([35, 25, 55]);
+        } catch (_) {}
+
+      }
+
+    }
+
+
+    /* ============================================================
+       SUCCESS SOUND
+    ============================================================ */
+
+    function playSuccessSound() {
+
+      try {
+
+        const AudioCtx =
+          window.AudioContext ||
+          window.webkitAudioContext;
+
+        if (!AudioCtx) {
+          return;
+        }
+
+
+        if (!audioContext) {
+          audioContext = new AudioCtx();
+        }
+
+
+        if (
+          audioContext.state === "suspended"
+        ) {
+          audioContext.resume();
+        }
+
+
+        const now =
+          audioContext.currentTime;
+
+
+        const notes = [
+          {
+            frequency: 523.25,
+            start: 0,
+            duration: 0.18
+          },
+          {
+            frequency: 659.25,
+            start: 0.12,
+            duration: 0.18
+          },
+          {
+            frequency: 783.99,
+            start: 0.24,
+            duration: 0.28
+          }
+        ];
+
+
+        notes.forEach(note => {
+
+          const oscillator =
+            audioContext.createOscillator();
+
+          const gain =
+            audioContext.createGain();
+
+
+          oscillator.type =
+            "sine";
+
+
+          oscillator.frequency.setValueAtTime(
+            note.frequency,
+            now + note.start
+          );
+
+
+          gain.gain.setValueAtTime(
+            0.0001,
+            now + note.start
+          );
+
+
+          gain.gain.exponentialRampToValueAtTime(
+            0.14,
+            now + note.start + 0.025
+          );
+
+
+          gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            now + note.start + note.duration
+          );
+
+
+          oscillator.connect(gain);
+          gain.connect(audioContext.destination);
+
+
+          oscillator.start(
+            now + note.start
+          );
+
+
+          oscillator.stop(
+            now +
+            note.start +
+            note.duration +
+            0.02
+          );
+
+        });
+
+      } catch (error) {
+
+        console.warn(
+          "Success sound unavailable:",
+          error
+        );
+
+      }
+
+    }
+
+
+    /* ============================================================
+       DELETE
+    ============================================================ */
+
+    function deleteItem(index) {
+
+      if (!passwords[index]) {
+        return;
+      }
+
+      openDeleteConfirmation(index);
+
+    }
+
+
+    /* ============================================================
+       COPY
+    ============================================================ */
+
+    async function copyText(text, button) {
+
+      try {
+
+        await navigator.clipboard.writeText(text);
+
+        const oldHTML =
+          button.innerHTML;
+
+
+        button.innerHTML = icons.success;
+
+        button.classList.add("active");
+
+
+        showToast(
+          "Password copied to clipboard.",
+          "success"
+        );
+
+
+        setTimeout(() => {
+
+          button.innerHTML =
+            oldHTML;
+
+          button.classList.remove("active");
+
+        }, 900);
+
+      } catch (error) {
+
+        try {
+
+          const textarea =
+            document.createElement("textarea");
+
+          textarea.value = text;
+
+          textarea.style.position = "fixed";
+          textarea.style.opacity = "0";
+
+          document.body.appendChild(textarea);
+
+          textarea.focus();
+          textarea.select();
+
+          document.execCommand("copy");
+
+          textarea.remove();
+
+
+          showToast(
+            "Password copied to clipboard.",
+            "success"
+          );
+
+        } catch (_) {
+
+          showToast(
+            "Unable to copy. Copy it manually.",
+            "error"
+          );
+
+        }
+
+      }
+
+    }
+
+
+    /* ============================================================
+       SEARCH
+    ============================================================ */
+
+    searchInput.addEventListener(
+      "input",
+      () => {
+
+        searchTerm =
+          searchInput.value;
+
+        render();
+
+      }
+    );
+
+
+    /* ============================================================
+       FILTERS
+    ============================================================ */
+
+    document
+      .querySelectorAll(".filter-btn")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            currentFilter =
+              button.dataset.filter;
+
+            updateFilterButtons();
+
+            render();
+
+          }
+        );
+
+      });
+
+
+    function updateFilterButtons() {
+
+      document
+        .querySelectorAll(".filter-btn")
+        .forEach(button => {
+
+          button.classList.toggle(
+            "active",
+            button.dataset.filter === currentFilter
+          );
+
+        });
+
+    }
+
+
+    /* ============================================================
+       RENDER
+    ============================================================ */
+
+    function render() {
+
+      updateStats();
+
+
+      const normalizedSearch =
+        searchTerm.toLowerCase();
+
+
+      const filtered =
+        passwords.filter(item => {
+
+          const matchesFilter =
+            currentFilter === "all" ||
+            item.status === currentFilter;
+
+
+          const matchesSearch =
+            item.text
+              .toLowerCase()
+              .includes(normalizedSearch);
+
+
+          return (
+            matchesFilter &&
+            matchesSearch
+          );
+
+        });
+
+
+      list.innerHTML = "";
+
+
+      if (filtered.length === 0) {
+
+        const empty =
+          document.createElement("div");
+
+        empty.className =
+          "empty";
+
+        empty.textContent =
+          passwords.length === 0
+            ? "No password attempts yet."
+            : "No matching attempts found.";
+
+        list.appendChild(empty);
+
+        return;
+      }
+
+
+      filtered.forEach(item => {
+
+        const originalIndex =
+          passwords.findIndex(
+            password =>
+              password.id === item.id
+          );
+
+
+        list.appendChild(
+          createPasswordCard(
+            item,
+            originalIndex
+          )
+        );
+
+      });
+
+    }
+
+
+    /* ============================================================
+       CREATE PASSWORD CARD
+    ============================================================ */
+
+    function createPasswordCard(
+      item,
+      index
+    ) {
+
+      const card =
+        document.createElement("article");
+
+
+      card.className =
+        `password-card ${item.status}`;
+
+
+      const main =
+        document.createElement("div");
+
+      main.className =
+        "password-main";
+
+
+      const password =
+        document.createElement("span");
+
+      password.className =
+        "password-text";
+
+      password.textContent =
+        item.text;
+
+
+      const meta =
+        document.createElement("div");
+
+      meta.className =
+        "password-meta";
+
+
+      const status =
+        document.createElement("span");
+
+      status.className =
+        `status ${item.status}`;
+
+
+      status.textContent =
+        item.status === "success"
+          ? "Success"
+          : item.status === "failed"
+            ? "Failed"
+            : "Pending";
+
+
+      const date =
+        document.createElement("span");
+
+      date.className =
+        "date";
+
+      date.textContent =
+        formatDate(item.createdAt);
+
+
+      meta.appendChild(status);
+      meta.appendChild(date);
+
+
+      main.appendChild(password);
+      main.appendChild(meta);
+
+
+      /* Actions */
+
+      const actions =
+        document.createElement("div");
+
+      actions.className =
+        "actions";
+
+
+      /* Copy */
+
+      const copyButton =
+        createActionButton(
+          icons.copy,
+          "Copy password"
+        );
+
+      copyButton.addEventListener(
+        "click",
+        () => {
+          copyText(
+            item.text,
+            copyButton
+          );
+        }
+      );
+
+
+      /* Success */
+
+      const successButton =
+        createActionButton(
+          icons.check,
+          "Mark as successful"
+        );
+
+      successButton.classList.add(
+        "success-btn"
+      );
+
+
+      if (item.status === "success") {
+        successButton.classList.add(
+          "active"
+        );
+      }
+
+
+      successButton.addEventListener(
+        "click",
+        () => {
+          markStatus(
+            index,
+            "success"
+          );
+        }
+      );
+
+
+      /* Failed */
+
+      const failedButton =
+        createActionButton(
+          icons.x,
+          "Mark as failed"
+        );
+
+      failedButton.classList.add(
+        "failed-btn"
+      );
+
+
+      if (item.status === "failed") {
+        failedButton.classList.add(
+          "active"
+        );
+      }
+
+
+      failedButton.addEventListener(
+        "click",
+        () => {
+          markStatus(
+            index,
+            "failed"
+          );
+        }
+      );
+
+
+      /* Delete */
+
+      const deleteButton =
+        createActionButton(
+          icons.trash,
+          "Delete attempt"
+        );
+
+
+      deleteButton.addEventListener(
+        "click",
+        () => {
+          deleteItem(index);
+        }
+      );
+
+
+      actions.appendChild(copyButton);
+      actions.appendChild(successButton);
+      actions.appendChild(failedButton);
+      actions.appendChild(deleteButton);
+
+
+      card.appendChild(main);
+      card.appendChild(actions);
+
+
+      return card;
+
+    }
+
+
+    function createActionButton(
+      svgContent,
+      label
+    ) {
+
+      const button =
+        document.createElement("button");
+
+
+      button.type =
+        "button";
+
+      button.className =
+        "action-btn";
+
+      button.setAttribute(
+        "aria-label",
+        label
+      );
+
+      button.title =
+        label;
+
+
+      button.innerHTML = `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          ${svgContent}
+        </svg>
+      `;
+
+
+      return button;
+
+    }
+
+
+    /* ============================================================
+       DATE
+    ============================================================ */
+
+    function formatDate(timestamp) {
+
+      const date =
+        new Date(timestamp);
+
+
+      const now =
+        new Date();
+
+
+      const sameDay =
+        date.getDate() === now.getDate() &&
+        date.getMonth() === now.getMonth() &&
+        date.getFullYear() === now.getFullYear();
+
+
+      if (sameDay) {
+
+        return date.toLocaleTimeString(
+          undefined,
+          {
+            hour: "2-digit",
+            minute: "2-digit"
+          }
+        );
+
+      }
+
+
+      return date.toLocaleDateString(
+        undefined,
+        {
+          day: "2-digit",
+          month: "short"
+        }
+      );
+
+    }
+
+
+    /* ============================================================
+       STATS
+    ============================================================ */
+
+    function updateStats() {
+
+      const total =
+        passwords.length;
+
+
+      const tried =
+        passwords.filter(
+          item =>
+            item.status !== "pending"
+        ).length;
+
+
+      const success =
+        passwords.filter(
+          item =>
+            item.status === "success"
+        ).length;
+
+
+      totalCount.textContent =
+        total;
+
+      triedCount.textContent =
+        tried;
+
+      successCount.textContent =
+        success;
+
+    }
+
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+
+    function showToast(
+      message,
+      type = "success"
+    ) {
+
+      clearTimeout(toastTimer);
+
+
+      toast.className =
+        `toast ${type}`;
+
+
+      toastText.textContent =
+        message;
+
+
+      toastIcon.innerHTML =
+        type === "success"
+          ? icons.success
+          : icons.error;
+
+
+      requestAnimationFrame(() => {
+
+        toast.classList.add(
+          "show"
+        );
+
+      });
+
+
+      toastTimer =
+        setTimeout(() => {
+
+          toast.classList.remove(
+            "show"
+          );
+
+        }, 3200);
+
+    }
+
+
+    /* ============================================================
+       CELEBRATION
+    ============================================================ */
+
+    function showCelebration() {
+
+      celebration.classList.add(
+        "show"
+      );
+
+
+      startParticles();
+
+    }
+
+
+    function closeCelebrationScreen() {
+
+      celebration.classList.remove(
+        "show"
+      );
+
+
+      stopParticles();
+
+    }
+
+
+    closeCelebration.addEventListener(
+      "click",
+      closeCelebrationScreen
+    );
+
+
+    celebration.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target === celebration
+        ) {
+          closeCelebrationScreen();
+        }
+
+      }
+    );
+
+
+    /* ============================================================
+       PARTICLES
+    ============================================================ */
+
+    function startParticles() {
+
+      stopParticles();
+
+
+      const canvas =
+        particlesCanvas;
+
+      const ctx =
+        canvas.getContext("2d");
+
+
+      let width =
+        window.innerWidth;
+
+      let height =
+        window.innerHeight;
+
+
+      canvas.width =
+        width *
+        window.devicePixelRatio;
+
+      canvas.height =
+        height *
+        window.devicePixelRatio;
+
+
+      ctx.setTransform(
+        window.devicePixelRatio,
+        0,
+        0,
+        window.devicePixelRatio,
+        0,
+        0
+      );
+
+
+      const particles =
+        [];
+
+
+      const particleCount =
+        Math.min(
+          150,
+          Math.max(
+            80,
+            Math.floor(
+              width / 4
+            )
+          )
+        );
+
+
+      for (
+        let i = 0;
+        i < particleCount;
+        i++
+      ) {
+
+        particles.push({
+
+          x:
+            width / 2 +
+            (Math.random() - 0.5) *
+            90,
+
+          y:
+            height / 2 +
+            (Math.random() - 0.5) *
+            60,
+
+          vx:
+            (Math.random() - 0.5) *
+            7,
+
+          vy:
+            (Math.random() - 0.5) *
+            7 -
+            2,
+
+          size:
+            Math.random() * 3 +
+            1.5,
+
+          rotation:
+            Math.random() *
+            Math.PI,
+
+          rotationSpeed:
+            (Math.random() - 0.5) *
+            0.15,
+
+          life:
+            1,
+
+          decay:
+            Math.random() *
+              0.012 +
+            0.006
+
+        });
+
+      }
+
+
+      function resize() {
+
+        width =
+          window.innerWidth;
+
+        height =
+          window.innerHeight;
+
+
+        canvas.width =
+          width *
+          window.devicePixelRatio;
+
+        canvas.height =
+          height *
+          window.devicePixelRatio;
+
+
+        ctx.setTransform(
+          window.devicePixelRatio,
+          0,
+          0,
+          window.devicePixelRatio,
+          0,
+          0
+        );
+
+      }
+
+
+      window.addEventListener(
+        "resize",
+        resize
+      );
+
+
+      function animate() {
+
+        ctx.clearRect(
+          0,
+          0,
+          width,
+          height
+        );
+
+
+        let alive =
+          false;
+
+
+        particles.forEach(p => {
+
+          if (p.life <= 0) {
+            return;
+          }
+
+
+          alive = true;
+
+
+          p.x += p.vx;
+          p.y += p.vy;
+
+          p.vy += 0.055;
+
+          p.rotation +=
+            p.rotationSpeed;
+
+          p.life -=
+            p.decay;
+
+
+          ctx.save();
+
+          ctx.translate(
+            p.x,
+            p.y
+          );
+
+          ctx.rotate(
+            p.rotation
+          );
+
+
+          ctx.globalAlpha =
+            Math.max(
+              0,
+              p.life
+            );
+
+
+          ctx.fillStyle =
+            p.life > 0.55
+              ? "#60a5fa"
+              : "#ffffff";
+
+
+          ctx.fillRect(
+            -p.size / 2,
+            -p.size / 2,
+            p.size,
+            p.size * 1.8
+          );
+
+
+          ctx.restore();
+
+        });
+
+
+        if (alive) {
+
+          particleAnimation =
+            requestAnimationFrame(
+              animate
+            );
+
+        }
+
+      }
+
+
+      animate();
+
+
+      canvas._cleanup =
+        () => {
+
+          window.removeEventListener(
+            "resize",
+            resize
+          );
+
+        };
+
+    }
+
+
+    function stopParticles() {
+
+      if (particleAnimation) {
+
+        cancelAnimationFrame(
+          particleAnimation
+        );
+
+        particleAnimation =
+          null;
+
+      }
+
+
+      if (
+        particlesCanvas._cleanup
+      ) {
+
+        particlesCanvas._cleanup();
+
+        particlesCanvas._cleanup =
+          null;
+
+      }
+
+
+      const ctx =
+        particlesCanvas.getContext(
+          "2d"
+        );
+
+
+      if (ctx) {
+
+        ctx.clearRect(
+          0,
+          0,
+          particlesCanvas.width,
+          particlesCanvas.height
+        );
+
+      }
+
+    }
+
+
+    /* ============================================================
+       EXPORT BACKUP
+    ============================================================ */
+
+    exportButton.addEventListener(
+      "click",
+      exportBackup
+    );
+
+
+    function exportBackup() {
+
+      if (passwords.length === 0) {
+
+        showToast(
+          "There is no data to export.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      const backup = {
+
+        app:
+          "Get Back My Key",
+
+        version:
+          1,
+
+        exportedAt:
+          new Date().toISOString(),
+
+        attempts:
+          passwords
+
+      };
+
+
+      const blob =
+        new Blob(
+          [
+            JSON.stringify(
+              backup,
+              null,
+              2
+            )
+          ],
+          {
+            type:
+              "application/json"
+          }
+        );
+
+
+      const url =
+        URL.createObjectURL(
+          blob
+        );
+
+
+      const anchor =
+        document.createElement("a");
+
+
+      anchor.href =
+        url;
+
+      anchor.download =
+        `get-back-my-key-backup-${dateForFilename()}.json`;
+
+
+      document.body.appendChild(
+        anchor
+      );
+
+      anchor.click();
+
+      anchor.remove();
+
+
+      URL.revokeObjectURL(
+        url
+      );
+
+
+      showToast(
+        "Backup exported successfully.",
+        "success"
+      );
+
+    }
+
+
+    function dateForFilename() {
+
+      const date =
+        new Date();
+
+      return [
+        date.getFullYear(),
+
+        String(
+          date.getMonth() + 1
+        ).padStart(2, "0"),
+
+        String(
+          date.getDate()
+        ).padStart(2, "0")
+      ].join("-");
+
+    }
+
+
+    /* ============================================================
+       IMPORT BACKUP
+    ============================================================ */
+
+    importButton.addEventListener(
+      "click",
+      () => {
+        fileInput.click();
+      }
+    );
+
+
+    fileInput.addEventListener(
+      "change",
+      async () => {
+
+        const file =
+          fileInput.files[0];
+
+
+        if (!file) {
+          return;
+        }
+
+
+        try {
+
+          const text =
+            await file.text();
+
+
+          const parsed =
+            JSON.parse(text);
+
+
+          let imported;
+
+
+          if (
+            Array.isArray(parsed)
+          ) {
+
+            imported =
+              parsed;
+
+          } else if (
+            parsed &&
+            Array.isArray(
+              parsed.attempts
+            )
+          ) {
+
+            imported =
+              parsed.attempts;
+
+          } else {
+
+            throw new Error(
+              "Invalid backup format."
+            );
+
+          }
+
+
+          const clean =
+            imported
+              .filter(item =>
+                item &&
+                typeof item.text === "string" &&
+                ["pending", "failed", "success"].includes(
+                  item.status
+                )
+              )
+              .map(item => ({
+                id: createId(),
+
+                text: item.text,
+
+                status: item.status,
+
+                createdAt:
+                  Number.isFinite(
+                    item.createdAt
+                  )
+                    ? item.createdAt
+                    : Date.now()
+              }));
+
+
+          if (clean.length === 0) {
+
+            throw new Error(
+              "Backup contains no valid attempts."
+            );
+
+          }
+
+
+          const confirmed =
+            window.confirm(
+              `Import ${clean.length} attempt(s)?\n\nExisting local data will be replaced.`
+            );
+
+
+          if (!confirmed) {
+
+            fileInput.value =
+              "";
+
+            return;
+
+          }
+
+
+          passwords =
+            clean;
+
+          saveData();
+
+          currentFilter =
+            "all";
+
+          searchTerm =
+            "";
+
+          searchInput.value =
+            "";
+
+          updateFilterButtons();
+
+          render();
+
+
+          showToast(
+            "Backup imported successfully.",
+            "success"
+          );
+
+        } catch (error) {
+
+          console.error(
+            "Import error:",
+            error
+          );
+
+
+          showToast(
+            "Invalid or corrupted backup file.",
+            "error"
+          );
+
+        }
+
+
+        fileInput.value =
+          "";
+
+      }
+    );
+
+
+    /* ============================================================
+       KEYBOARD
+    ============================================================ */
+
+    passwordInput.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          event.preventDefault();
+
+          addPassword();
+
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          if (
+            confirmModal.classList.contains(
+              "show"
+            )
+          ) {
+
+            closeSuccessConfirmation();
+
+          }
+
+
+          if (
+            deleteModal.classList.contains(
+              "show"
+            )
+          ) {
+
+            closeDeleteConfirmation();
+
+          }
+
+
+          if (
+            celebration.classList.contains(
+              "show"
+            )
+          ) {
+
+            closeCelebrationScreen();
+
+          }
+
+
+          toast.classList.remove(
+            "show"
+          );
+
+        }
+
+      }
+    );
+
+
+    /* ============================================================
+       ADD BUTTON
+    ============================================================ */
+
+    addButton.addEventListener(
+      "click",
+      addPassword
+    );
+
+
+    /* ============================================================
+       INITIALIZE
+    ============================================================ */
+
+    loadData();
+
+    updateFilterButtons();
+
+    render();
+
+  </script>
+
+</body>
+</html>
