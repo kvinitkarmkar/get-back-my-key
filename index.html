@@ -1,24 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
 <meta name="theme-color" content="#08090c">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<meta
+    name="description"
+    content="Get Back My Key — local password recovery attempt tracker."
+>
+
+<link
+    rel="icon"
+    type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect width='64' height='64' rx='16' fill='%23101114'/%3E%3Ccircle cx='23' cy='35' r='10' stroke='%23F5F5F7' stroke-width='5'/%3E%3Cpath d='M30 28L48 10' stroke='%23F5F5F7' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M42 16L48 22' stroke='%23F5F5F7' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M36 22L42 28' stroke='%23F5F5F7' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M17 23A15 15 0 0 1 38 18' stroke='%233B82F6' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M16 17L16 24L23 24' stroke='%233B82F6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+>
 
 <title>Get Back My Key</title>
 
+
 <style>
+
+/* =========================================
+   BASE
+========================================= */
+
 :root {
     --bg: #08090c;
     --surface: #101114;
-    --surface-2: #17181c;
-    --border: #25262b;
-    --border-hover: #35363d;
+    --surface-2: #151619;
+    --border: #24252a;
+    --border-hover: #33343a;
 
     --text: #f5f5f7;
-    --muted: #92939b;
-    --muted-2: #686a72;
+    --muted: #858790;
+    --muted-2: #60626a;
 
     --blue: #3b82f6;
     --green: #22c55e;
@@ -40,9 +62,9 @@ body {
 
     background:
         radial-gradient(
-            circle at 50% -10%,
-            rgba(59, 130, 246, 0.08),
-            transparent 32%
+            circle at 50% -15%,
+            rgba(59,130,246,.07),
+            transparent 35%
         ),
         var(--bg);
 
@@ -64,7 +86,6 @@ input {
 }
 
 button {
-    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -74,9 +95,14 @@ button {
 ========================================= */
 
 .app {
-    width: min(100% - 24px, 700px);
+    width: min(100% - 18px, 680px);
+
     margin: 0 auto;
-    padding: 32px 0 28px;
+
+    padding:
+        22px
+        0
+        20px;
 }
 
 
@@ -86,135 +112,134 @@ button {
 
 .header {
     text-align: center;
-    margin-bottom: 22px;
+
+    margin-bottom: 16px;
 }
 
 .logo {
-    width: 58px;
-    height: 58px;
+    width: 48px;
+    height: 48px;
 
-    margin: 0 auto 15px;
+    margin: 0 auto 10px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: #151619;
-    border: 1px solid #292a2f;
-    border-radius: 18px;
+    background: #141519;
 
-    box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255,255,255,0.04);
+    border: 1px solid #27282d;
+
+    border-radius: 14px;
 }
 
 .logo svg {
-    width: 28px;
-    height: 28px;
-    color: #d8d9de;
+    width: 27px;
+    height: 27px;
 }
 
 .header h1 {
     margin: 0;
 
-    font-size: clamp(24px, 5vw, 32px);
+    font-size: 24px;
     line-height: 1.15;
 
-    letter-spacing: -0.8px;
     font-weight: 750;
+
+    letter-spacing: -.6px;
 }
 
 .header p {
-    max-width: 500px;
+    max-width: 470px;
 
-    margin: 9px auto 0;
+    margin:
+        6px auto
+        0;
 
     color: var(--muted);
 
-    font-size: 14px;
-    line-height: 1.4;
+    font-size: 12px;
+
+    line-height: 1.35;
 }
 
 
 /* =========================================
-   ADD BOX
+   ADD AREA
 ========================================= */
 
 .add-box {
-    padding: 11px;
-    margin-bottom: 15px;
+    padding: 8px;
 
-    background: rgba(16, 17, 20, 0.9);
+    margin-bottom: 10px;
 
-    border: 1px solid var(--border);
-    border-radius: 16px;
+    background: var(--surface);
 
-    box-shadow:
-        0 12px 30px rgba(0,0,0,0.15),
-        inset 0 1px 0 rgba(255,255,255,0.02);
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
 }
 
 .password-input {
     width: 100%;
-    height: 50px;
+    height: 43px;
 
-    padding: 0 14px;
+    padding:
+        0 11px;
 
     background: var(--surface-2);
+
     color: var(--text);
 
-    border: 1px solid #292a2f;
-    border-radius: 12px;
+    border:
+        1px solid #28292e;
+
+    border-radius: 9px;
 
     outline: none;
 
-    font-size: 15px;
+    font-size: 13px;
 
-    transition:
-        border-color .2s,
-        box-shadow .2s;
+    transition: .2s;
 }
 
 .password-input::placeholder {
-    color: #686a73;
+    color: #656770;
 }
 
 .password-input:focus {
-    border-color: rgba(59,130,246,.65);
+    border-color:
+        rgba(59,130,246,.65);
 
     box-shadow:
-        0 0 0 3px rgba(59,130,246,.10);
+        0 0 0 2px
+        rgba(59,130,246,.08);
 }
 
 .add-button {
     width: 100%;
-    height: 50px;
+    height: 42px;
 
-    margin-top: 8px;
+    margin-top: 6px;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 9px;
 
-    background: var(--blue);
-    color: #fff;
+    gap: 7px;
 
     border: 0;
-    border-radius: 12px;
+    border-radius: 9px;
 
-    font-size: 15px;
+    background: var(--blue);
+
+    color: white;
+
+    font-size: 13px;
     font-weight: 700;
 
     cursor: pointer;
-
-    transition:
-        background .2s,
-        transform .1s;
-}
-
-.add-button:hover {
-    background: #3275df;
 }
 
 .add-button:active {
@@ -222,8 +247,8 @@ button {
 }
 
 .add-button svg {
-    width: 19px;
-    height: 19px;
+    width: 16px;
+    height: 16px;
 }
 
 
@@ -233,20 +258,24 @@ button {
 
 .stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
 
-    gap: 8px;
+    grid-template-columns:
+        repeat(3, 1fr);
 
-    margin-bottom: 16px;
+    gap: 5px;
+
+    margin-bottom: 9px;
 }
 
 .stat {
-    padding: 12px 7px;
+    padding: 8px 5px;
 
     background: var(--surface);
 
-    border: 1px solid var(--border);
-    border-radius: 14px;
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
 
     text-align: center;
 }
@@ -254,7 +283,8 @@ button {
 .stat-value {
     display: block;
 
-    font-size: 22px;
+    font-size: 18px;
+
     line-height: 1;
 
     font-weight: 750;
@@ -263,14 +293,15 @@ button {
 .stat-label {
     display: block;
 
-    margin-top: 6px;
+    margin-top: 4px;
 
     color: var(--muted);
 
-    font-size: 9px;
+    font-size: 8px;
+
     font-weight: 750;
 
-    letter-spacing: .7px;
+    letter-spacing: .6px;
 }
 
 
@@ -281,48 +312,55 @@ button {
 .search-box {
     position: relative;
 
-    margin-bottom: 10px;
+    margin-bottom: 7px;
 }
 
-.search-box svg {
+.search-box > svg {
     position: absolute;
 
-    left: 14px;
+    left: 11px;
     top: 50%;
 
-    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
 
-    width: 18px;
-    height: 18px;
+    transform:
+        translateY(-50%);
 
-    color: #777983;
+    color: #6d6f78;
 
     pointer-events: none;
 }
 
 .search-input {
     width: 100%;
-    height: 46px;
+    height: 39px;
 
-    padding: 0 14px 0 43px;
+    padding:
+        0 10px
+        0 35px;
 
     background: var(--surface);
+
     color: var(--text);
 
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    border:
+        1px solid var(--border);
+
+    border-radius: 9px;
 
     outline: none;
 
-    font-size: 14px;
-}
-
-.search-input:focus {
-    border-color: var(--border-hover);
+    font-size: 12px;
 }
 
 .search-input::placeholder {
-    color: #686a73;
+    color: #62646d;
+}
+
+.search-input:focus {
+    border-color:
+        var(--border-hover);
 }
 
 
@@ -332,12 +370,12 @@ button {
 
 .filters {
     display: flex;
-    gap: 4px;
+
+    gap: 3px;
 
     overflow-x: auto;
 
-    margin-bottom: 11px;
-    padding-bottom: 2px;
+    margin-bottom: 7px;
 
     scrollbar-width: none;
 }
@@ -349,26 +387,32 @@ button {
 .filter-btn {
     flex: 0 0 auto;
 
-    padding: 7px 13px;
+    padding:
+        5px 10px;
 
     background: transparent;
+
     color: var(--muted);
 
-    border: 1px solid transparent;
+    border:
+        1px solid transparent;
+
     border-radius: 99px;
 
-    font-size: 13px;
+    font-size: 11px;
+
     font-weight: 650;
 
     cursor: pointer;
 }
 
 .filter-btn.active {
-    background: #191a1e;
+    background: #18191d;
 
-    color: #f1f1f3;
+    color: #ededf0;
 
-    border-color: #292a2f;
+    border-color:
+        #292a2f;
 }
 
 
@@ -378,123 +422,80 @@ button {
 
 #list {
     display: flex;
+
     flex-direction: column;
-    gap: 8px;
+
+    gap: 5px;
 }
 
 
 /* =========================================
-   PASSWORD CARD
+   COMPACT CARD
 ========================================= */
 
 .item {
-    position: relative;
+    min-width: 0;
 
-    padding: 10px 10px 10px 12px;
+    padding:
+        6px
+        7px
+        6px
+        9px;
 
     background: var(--surface);
 
-    border: 1px solid var(--border);
-    border-left: 3px solid #414249;
+    border:
+        1px solid var(--border);
 
-    border-radius: 14px;
+    border-left:
+        2px solid #3d3e44;
+
+    border-radius: 9px;
 
     transition:
-        border-color .2s,
-        transform .1s;
-}
-
-.item:hover {
-    border-color: var(--border-hover);
+        border-color .15s;
 }
 
 .item.success {
-    border-left-color: var(--green);
+    border-left-color:
+        var(--green);
 }
 
 .item.failed {
-    border-left-color: var(--red);
+    border-left-color:
+        var(--red);
 }
 
 
 /* =========================================
-   CARD TOP
+   CARD MAIN ROW
 ========================================= */
 
-.item-top {
-    min-height: 32px;
-
+.card-row {
     display: flex;
+
     align-items: center;
-    justify-content: space-between;
+
+    gap: 7px;
+
+    min-width: 0;
 }
+
+
+/* =========================================
+   ATTEMPT
+========================================= */
 
 .attempt-number {
-    color: #70727b;
+    flex: 0 0 auto;
 
-    font-size: 11px;
-    font-weight: 700;
-}
+    min-width: 22px;
 
-.actions {
-    display: flex;
-    gap: 3px;
-}
+    color: #656770;
 
-.icon-btn {
-    width: 32px;
-    height: 32px;
+    font-size: 9px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: var(--surface-2);
-    color: #8f9199;
-
-    border: 1px solid #292a2f;
-    border-radius: 9px;
-
-    cursor: pointer;
-
-    transition:
-        background .15s,
-        color .15s,
-        border-color .15s,
-        transform .1s;
-}
-
-.icon-btn:hover {
-    background: #1d1e22;
-    color: #e4e5e8;
-    border-color: #37383f;
-}
-
-.icon-btn:active {
-    transform: scale(.93);
-}
-
-.icon-btn svg {
-    width: 17px;
-    height: 17px;
-
-    stroke-width: 1.8;
-}
-
-.icon-btn.success-active {
-    color: #86efac;
-
-    border-color: rgba(34,197,94,.35);
-
-    background: rgba(34,197,94,.09);
-}
-
-.icon-btn.failed-active {
-    color: #fca5a5;
-
-    border-color: rgba(239,68,68,.35);
-
-    background: rgba(239,68,68,.09);
+    font-weight: 750;
 }
 
 
@@ -503,9 +504,11 @@ button {
 ========================================= */
 
 .password-text {
-    margin-top: 9px;
+    flex: 1;
 
-    color: #f1f1f3;
+    min-width: 0;
+
+    color: #eeeeF1;
 
     font-family:
         "SFMono-Regular",
@@ -514,102 +517,191 @@ button {
         Menlo,
         monospace;
 
-    font-size: 15px;
-    line-height: 1.35;
+    font-size: 12px;
+
+    line-height: 1.25;
 
     word-break: break-word;
-    overflow-wrap: anywhere;
 
-    /*
-       IMPORTANT:
-       User ke spaces exactly preserve honge.
-    */
+    overflow-wrap: anywhere;
 
     white-space: pre-wrap;
 }
 
 
 /* =========================================
-   CARD BOTTOM
+   ACTIONS
 ========================================= */
 
-.item-bottom {
+.actions {
+    flex: 0 0 auto;
+
+    display: flex;
+
+    gap: 2px;
+}
+
+.icon-btn {
+    width: 26px;
+    height: 26px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--surface-2);
+
+    color: #777982;
+
+    border:
+        1px solid #292a2f;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    transition:
+        background .12s,
+        color .12s,
+        transform .1s;
+}
+
+.icon-btn:active {
+    transform: scale(.91);
+}
+
+.icon-btn:hover {
+    background: #1d1e22;
+
+    color: #e3e4e7;
+}
+
+.icon-btn svg {
+    width: 13px;
+    height: 13px;
+
+    stroke-width: 1.8;
+}
+
+.icon-btn.success-active {
+    color: #86efac;
+
+    background:
+        rgba(34,197,94,.09);
+
+    border-color:
+        rgba(34,197,94,.28);
+}
+
+.icon-btn.failed-active {
+    color: #fca5a5;
+
+    background:
+        rgba(239,68,68,.09);
+
+    border-color:
+        rgba(239,68,68,.28);
+}
+
+
+/* =========================================
+   CARD META
+========================================= */
+
+.item-meta {
     display: flex;
 
     align-items: center;
-    justify-content: space-between;
 
-    margin-top: 8px;
+    gap: 7px;
+
+    margin:
+        3px 0
+        0
+        29px;
 }
 
 .status {
     display: inline-flex;
+
     align-items: center;
 
-    padding: 4px 9px;
+    padding:
+        2px 6px;
+
+    background: #202126;
+
+    color: #8f9199;
 
     border-radius: 99px;
 
-    background: #24252a;
-    color: #a7a8af;
+    font-size: 7px;
 
-    font-size: 10px;
-    font-weight: 750;
+    font-weight: 800;
 
     letter-spacing: .4px;
 }
 
 .status.success {
-    background: rgba(34,197,94,.12);
+    background:
+        rgba(34,197,94,.11);
+
     color: #86efac;
 }
 
 .status.failed {
-    background: rgba(239,68,68,.12);
+    background:
+        rgba(239,68,68,.11);
+
     color: #fca5a5;
 }
 
 .date {
-    color: #62646c;
-    font-size: 10px;
+    color: #55575f;
+
+    font-size: 8px;
 }
 
 
 /* =========================================
-   EMPTY STATE
+   EMPTY
 ========================================= */
 
 .empty {
-    padding: 40px 20px;
+    padding:
+        28px 14px;
 
     text-align: center;
 
-    color: var(--muted-2);
+    border:
+        1px dashed #292a2f;
 
-    border: 1px dashed #292a2f;
-    border-radius: 15px;
+    border-radius: 10px;
+
+    color: var(--muted-2);
 }
 
 .empty svg {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
 
-    margin-bottom: 9px;
-
-    color: #55575f;
+    margin-bottom: 6px;
 }
 
 .empty-title {
-    color: #999ba3;
+    color: #888a92;
 
-    font-size: 14px;
+    font-size: 12px;
+
     font-weight: 650;
 }
 
 .empty-subtitle {
-    margin-top: 5px;
+    margin-top: 3px;
 
-    font-size: 12px;
+    font-size: 10px;
 }
 
 
@@ -619,40 +711,48 @@ button {
 
 .backup {
     display: grid;
-    grid-template-columns: 1fr 1fr;
 
-    gap: 7px;
+    grid-template-columns:
+        1fr 1fr;
 
-    margin-top: 16px;
+    gap: 5px;
+
+    margin-top: 9px;
 }
 
 .backup-btn {
-    height: 44px;
+    height: 36px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
-    gap: 8px;
 
-    background: #151619;
-    color: #d2d3d7;
+    gap: 6px;
 
-    border: 1px solid #292a2f;
-    border-radius: 11px;
+    background: var(--surface);
 
-    font-size: 12px;
-    font-weight: 700;
+    color: #aaaab1;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 8px;
+
+    font-size: 10px;
+
+    font-weight: 650;
 
     cursor: pointer;
 }
 
 .backup-btn:hover {
-    background: #1b1c20;
+    background: #15161a;
 }
 
 .backup-btn svg {
-    width: 17px;
-    height: 17px;
+    width: 14px;
+    height: 14px;
 }
 
 .backup-btn input {
@@ -661,7 +761,7 @@ button {
 
 
 /* =========================================
-   LOCAL STORAGE NOTICE
+   LOCAL STORAGE
 ========================================= */
 
 .local-notice {
@@ -670,25 +770,26 @@ button {
     align-items: center;
     justify-content: center;
 
-    gap: 7px;
+    gap: 5px;
 
-    margin-top: 17px;
+    margin-top: 9px;
 
-    color: #62646c;
+    color: #55575f;
 
-    font-size: 11px;
+    font-size: 9px;
 }
 
 .local-dot {
-    width: 7px;
-    height: 7px;
+    width: 5px;
+    height: 5px;
 
     background: var(--green);
 
     border-radius: 50%;
 
     box-shadow:
-        0 0 8px rgba(34,197,94,.55);
+        0 0 6px
+        rgba(34,197,94,.5);
 }
 
 
@@ -700,24 +801,32 @@ button {
     position: fixed;
 
     left: 50%;
-    bottom: 20px;
+    bottom: 15px;
 
-    transform: translate(-50%, 20px);
+    max-width:
+        calc(100% - 24px);
 
-    max-width: calc(100% - 30px);
+    padding:
+        8px 11px;
 
-    padding: 10px 14px;
+    transform:
+        translate(-50%, 15px);
 
-    background: #1b1c20;
-    color: #f0f0f2;
+    background: #191a1e;
 
-    border: 1px solid #303137;
-    border-radius: 10px;
+    color: #ededf0;
+
+    border:
+        1px solid #303137;
+
+    border-radius: 8px;
 
     box-shadow:
-        0 10px 30px rgba(0,0,0,.35);
+        0 8px 25px
+        rgba(0,0,0,.4);
 
-    font-size: 12px;
+    font-size: 10px;
+
     font-weight: 600;
 
     opacity: 0;
@@ -725,8 +834,8 @@ button {
     pointer-events: none;
 
     transition:
-        opacity .2s,
-        transform .2s;
+        opacity .18s,
+        transform .18s;
 
     z-index: 100;
 
@@ -741,11 +850,13 @@ button {
 }
 
 .toast.error {
-    border-color: rgba(239,68,68,.35);
+    border-color:
+        rgba(239,68,68,.35);
 }
 
 .toast.success {
-    border-color: rgba(34,197,94,.35);
+    border-color:
+        rgba(34,197,94,.35);
 }
 
 
@@ -756,303 +867,334 @@ button {
 @media (max-width: 600px) {
 
     .app {
-        width: calc(100% - 18px);
+        width:
+            calc(100% - 12px);
 
-        padding-top: 22px;
-        padding-bottom: 22px;
+        padding:
+            16px
+            0
+            15px;
     }
 
     .header {
-        margin-bottom: 18px;
+        margin-bottom: 12px;
     }
 
     .logo {
-        width: 52px;
-        height: 52px;
+        width: 43px;
+        height: 43px;
 
-        margin-bottom: 13px;
+        margin-bottom: 8px;
 
-        border-radius: 16px;
+        border-radius: 12px;
     }
 
     .logo svg {
-        width: 25px;
-        height: 25px;
+        width: 24px;
+        height: 24px;
     }
 
     .header h1 {
-        font-size: 25px;
-    }
-
-    .header p {
-        font-size: 13px;
-        line-height: 1.4;
-    }
-
-    .add-box {
-        padding: 9px;
-        margin-bottom: 13px;
-    }
-
-    .password-input {
-        height: 47px;
-        font-size: 14px;
-    }
-
-    .add-button {
-        height: 47px;
-        margin-top: 7px;
-    }
-
-    .stats {
-        gap: 6px;
-        margin-bottom: 14px;
-    }
-
-    .stat {
-        padding: 11px 5px;
-        border-radius: 13px;
-    }
-
-    .stat-value {
         font-size: 21px;
     }
 
-    .stat-label {
-        font-size: 9px;
+    .header p {
+        font-size: 10px;
+
+        max-width: 340px;
+    }
+
+    .add-box {
+        padding: 6px;
+
+        border-radius: 10px;
+    }
+
+    .password-input {
+        height: 39px;
+
+        font-size: 12px;
+
+        border-radius: 8px;
+    }
+
+    .add-button {
+        height: 38px;
+
         margin-top: 5px;
-    }
 
-    .search-input {
-        height: 44px;
-    }
+        border-radius: 8px;
 
-    .filters {
-        margin-bottom: 9px;
-    }
-
-    .filter-btn {
-        padding: 6px 12px;
         font-size: 12px;
     }
 
-    #list {
-        gap: 7px;
+    .stats {
+        gap: 4px;
+
+        margin-bottom: 7px;
     }
 
-    .item {
-        padding: 9px 9px 9px 11px;
-        border-radius: 13px;
+    .stat {
+        padding: 7px 3px;
+
+        border-radius: 8px;
     }
 
-    .icon-btn {
-        width: 31px;
-        height: 31px;
+    .stat-value {
+        font-size: 16px;
     }
 
-    .icon-btn svg {
-        width: 16px;
-        height: 16px;
+    .stat-label {
+        font-size: 7px;
+
+        margin-top: 3px;
     }
 
-    .password-text {
-        margin-top: 8px;
-        font-size: 15px;
-    }
+    .search-input {
+        height: 36px;
 
-    .item-bottom {
-        margin-top: 7px;
-    }
-
-    .backup {
-        margin-top: 14px;
-    }
-
-    .backup-btn {
-        height: 42px;
         font-size: 11px;
     }
 
-    .local-notice {
-        margin-top: 14px;
+    .search-box > svg {
+        left: 10px;
+
+        width: 14px;
+        height: 14px;
+    }
+
+    .search-input {
+        padding-left: 32px;
+    }
+
+    .filter-btn {
+        padding:
+            4px 9px;
+
         font-size: 10px;
+    }
+
+    #list {
+        gap: 4px;
+    }
+
+    .item {
+        padding:
+            5px
+            6px
+            5px
+            7px;
+
+        border-radius: 8px;
+    }
+
+    .card-row {
+        gap: 5px;
+    }
+
+    .attempt-number {
+        min-width: 18px;
+
+        font-size: 8px;
+    }
+
+    .password-text {
+        font-size: 11px;
+    }
+
+    .actions {
+        gap: 2px;
+    }
+
+    .icon-btn {
+        width: 24px;
+        height: 24px;
+
+        border-radius: 6px;
+    }
+
+    .icon-btn svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    .item-meta {
+        margin-top: 2px;
+        margin-left: 23px;
+    }
+
+    .status {
+        padding:
+            2px 5px;
+
+        font-size: 6px;
+    }
+
+    .date {
+        font-size: 7px;
+    }
+
+    .backup {
+        margin-top: 8px;
+    }
+
+    .backup-btn {
+        height: 34px;
+
+        font-size: 9px;
+    }
+
+    .local-notice {
+        margin-top: 8px;
+
+        font-size: 8px;
     }
 }
 
 
 /* =========================================
-   VERY SMALL PHONES
+   EXTRA SMALL DEVICES
 ========================================= */
 
-@media (max-width: 380px) {
+@media (max-width: 360px) {
 
     .app {
-        width: calc(100% - 14px);
-    }
-
-    .header h1 {
-        font-size: 23px;
-    }
-
-    .header p {
-        font-size: 12px;
-    }
-
-    .icon-btn {
-        width: 29px;
-        height: 29px;
-    }
-
-    .icon-btn svg {
-        width: 15px;
-        height: 15px;
+        width:
+            calc(100% - 8px);
     }
 
     .password-text {
-        font-size: 14px;
+        font-size: 10px;
     }
 
-    .status {
-        padding: 3px 8px;
-        font-size: 9px;
+    .icon-btn {
+        width: 22px;
+        height: 22px;
     }
 
-    .date {
-        font-size: 9px;
+    .icon-btn svg {
+        width: 11px;
+        height: 11px;
+    }
+
+    .attempt-number {
+        min-width: 16px;
     }
 }
+
 </style>
 </head>
 
 
 <body>
 
+
 <div class="app">
 
-    <!-- =================================
-         HEADER
-    ================================== -->
 
-    <header class="header">
+<!-- =========================================
+     HEADER
+========================================= -->
 
-        <div class="logo">
+<header class="header">
 
-    <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-    >
-        <circle cx="8" cy="15" r="4"></circle>
-        <path d="M11 12l9-9"></path>
-        <path d="M17 5l2 2"></path>
-        <path d="M15 7l2 2"></path>
-    </svg>
+    <div class="logo">
 
-</div>
-
-        <h1>Password Recovery Tracker</h1>
-
-        <p>
-            Keep track of password combinations you've tried.
-            Copy, test, and mark each attempt.
-        </p>
-
-    </header>
-
-
-    <!-- =================================
-         ADD PASSWORD
-    ================================== -->
-
-    <section class="add-box">
-
-        <input
-            id="pwInput"
-            class="password-input"
-            type="text"
-            autocomplete="off"
-            placeholder="Enter password combination..."
-            aria-label="Password combination"
+        <svg
+            viewBox="0 0 64 64"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
         >
 
-        <button
-            id="addButton"
-            class="add-button"
-            type="button"
-        >
+            <!-- Key -->
 
-            <!-- Plus -->
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
+            <circle
+                cx="23"
+                cy="35"
+                r="10"
+                stroke="#F5F5F7"
+                stroke-width="5"
+            />
+
+            <path
+                d="M30 28L48 10"
+                stroke="#F5F5F7"
+                stroke-width="5"
                 stroke-linecap="round"
-            >
-                <path d="M12 5v14"></path>
-                <path d="M5 12h14"></path>
-            </svg>
+            />
 
-            Add
+            <path
+                d="M42 16L48 22"
+                stroke="#F5F5F7"
+                stroke-width="5"
+                stroke-linecap="round"
+            />
 
-        </button>
+            <path
+                d="M36 22L42 28"
+                stroke="#F5F5F7"
+                stroke-width="5"
+                stroke-linecap="round"
+            />
 
-    </section>
+            <!-- Recovery -->
 
+            <path
+                d="M17 23A15 15 0 0 1 38 18"
+                stroke="#3B82F6"
+                stroke-width="4"
+                stroke-linecap="round"
+            />
 
-    <!-- =================================
-         STATS
-    ================================== -->
+            <path
+                d="M16 17L16 24L23 24"
+                stroke="#3B82F6"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
 
-    <section class="stats">
+        </svg>
 
-        <div class="stat">
-            <span
-                id="totalCount"
-                class="stat-value"
-            >0</span>
-
-            <span class="stat-label">
-                TOTAL
-            </span>
-        </div>
-
-
-        <div class="stat">
-            <span
-                id="triedCount"
-                class="stat-value"
-            >0</span>
-
-            <span class="stat-label">
-                TRIED
-            </span>
-        </div>
+    </div>
 
 
-        <div class="stat">
-            <span
-                id="successCount"
-                class="stat-value"
-            >0</span>
-
-            <span class="stat-label">
-                SUCCESS
-            </span>
-        </div>
-
-    </section>
+    <h1>
+        Get Back My Key
+    </h1>
 
 
-    <!-- =================================
-         SEARCH
-    ================================== -->
+    <p>
+        Track password combinations locally.
+        Copy, test and mark each attempt.
+    </p>
 
-    <div class="search-box">
+</header>
 
-        <!-- Search -->
+
+<!-- =========================================
+     ADD
+========================================= -->
+
+<section class="add-box">
+
+    <input
+        id="pwInput"
+        class="password-input"
+        type="text"
+        autocomplete="off"
+        placeholder="Enter password combination..."
+        aria-label="Password combination"
+    >
+
+
+    <button
+        id="addButton"
+        class="add-button"
+        type="button"
+    >
+
         <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -1060,153 +1202,242 @@ button {
             stroke-width="2"
             stroke-linecap="round"
         >
-            <circle
-                cx="11"
-                cy="11"
-                r="7"
-            ></circle>
 
-            <path d="M20 20l-4-4"></path>
+            <path d="M12 5v14"/>
+            <path d="M5 12h14"/>
+
         </svg>
 
+        Add
 
-        <input
-            id="searchInput"
-            class="search-input"
-            type="text"
-            autocomplete="off"
-            placeholder="Search attempts..."
+    </button>
+
+</section>
+
+
+<!-- =========================================
+     STATS
+========================================= -->
+
+<section class="stats">
+
+    <div class="stat">
+
+        <span
+            id="totalCount"
+            class="stat-value"
         >
+            0
+        </span>
 
-    </div>
-
-
-    <!-- =================================
-         FILTERS
-    ================================== -->
-
-    <div class="filters">
-
-        <button
-            class="filter-btn active"
-            data-filter="all"
-            type="button"
-        >
-            All
-        </button>
-
-        <button
-            class="filter-btn"
-            data-filter="pending"
-            type="button"
-        >
-            Pending
-        </button>
-
-        <button
-            class="filter-btn"
-            data-filter="failed"
-            type="button"
-        >
-            Failed
-        </button>
-
-        <button
-            class="filter-btn"
-            data-filter="success"
-            type="button"
-        >
-            Success
-        </button>
-
-    </div>
-
-
-    <!-- =================================
-         PASSWORD LIST
-    ================================== -->
-
-    <div id="list"></div>
-
-
-    <!-- =================================
-         BACKUP
-    ================================== -->
-
-    <section class="backup">
-
-        <button
-            id="exportButton"
-            class="backup-btn"
-            type="button"
-        >
-
-            <!-- Download -->
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M12 3v12"></path>
-                <path d="M7 10l5 5 5-5"></path>
-                <path d="M4 21h16"></path>
-            </svg>
-
-            Export Backup
-
-        </button>
-
-
-        <label class="backup-btn">
-
-            <!-- Upload -->
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M12 16V4"></path>
-                <path d="M7 9l5-5 5 5"></path>
-                <path d="M4 20h16"></path>
-            </svg>
-
-            Import Backup
-
-            <input
-                id="importInput"
-                type="file"
-                accept=".json,application/json"
-            >
-
-        </label>
-
-    </section>
-
-
-    <!-- =================================
-         LOCAL STORAGE
-    ================================== -->
-
-    <div class="local-notice">
-
-        <span class="local-dot"></span>
-
-        <span>
-            Saved locally in this browser
+        <span class="stat-label">
+            TOTAL
         </span>
 
     </div>
 
+
+    <div class="stat">
+
+        <span
+            id="triedCount"
+            class="stat-value"
+        >
+            0
+        </span>
+
+        <span class="stat-label">
+            TRIED
+        </span>
+
+    </div>
+
+
+    <div class="stat">
+
+        <span
+            id="successCount"
+            class="stat-value"
+        >
+            0
+        </span>
+
+        <span class="stat-label">
+            SUCCESS
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     SEARCH
+========================================= -->
+
+<div class="search-box">
+
+    <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+    >
+
+        <circle
+            cx="11"
+            cy="11"
+            r="7"
+        />
+
+        <path
+            d="M20 20l-4-4"
+        />
+
+    </svg>
+
+
+    <input
+        id="searchInput"
+        class="search-input"
+        type="text"
+        autocomplete="off"
+        placeholder="Search attempts..."
+    >
+
 </div>
 
 
-<!-- TOAST -->
+<!-- =========================================
+     FILTERS
+========================================= -->
+
+<div class="filters">
+
+    <button
+        class="filter-btn active"
+        data-filter="all"
+        type="button"
+    >
+        All
+    </button>
+
+    <button
+        class="filter-btn"
+        data-filter="pending"
+        type="button"
+    >
+        Pending
+    </button>
+
+    <button
+        class="filter-btn"
+        data-filter="failed"
+        type="button"
+    >
+        Failed
+    </button>
+
+    <button
+        class="filter-btn"
+        data-filter="success"
+        type="button"
+    >
+        Success
+    </button>
+
+</div>
+
+
+<!-- =========================================
+     LIST
+========================================= -->
+
+<div id="list"></div>
+
+
+<!-- =========================================
+     BACKUP
+========================================= -->
+
+<section class="backup">
+
+    <button
+        id="exportButton"
+        class="backup-btn"
+        type="button"
+    >
+
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+
+            <path d="M12 3v12"/>
+            <path d="M7 10l5 5 5-5"/>
+            <path d="M4 21h16"/>
+
+        </svg>
+
+        Export Backup
+
+    </button>
+
+
+    <label class="backup-btn">
+
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+
+            <path d="M12 16V4"/>
+            <path d="M7 9l5-5 5 5"/>
+            <path d="M4 20h16"/>
+
+        </svg>
+
+        Import Backup
+
+        <input
+            id="importInput"
+            type="file"
+            accept=".json,application/json"
+        >
+
+    </label>
+
+</section>
+
+
+<!-- =========================================
+     LOCAL STORAGE
+========================================= -->
+
+<div class="local-notice">
+
+    <span class="local-dot"></span>
+
+    Saved locally in this browser
+
+</div>
+
+
+</div>
+
+
+<!-- =========================================
+     TOAST
+========================================= -->
 
 <div
     id="toast"
@@ -1215,6 +1446,7 @@ button {
 
 
 <script>
+
 "use strict";
 
 
@@ -1273,7 +1505,7 @@ const importInput =
 
 
 /* =========================================
-   LOAD LOCAL DATA
+   LOAD
 ========================================= */
 
 function loadData() {
@@ -1281,8 +1513,9 @@ function loadData() {
     try {
 
         const saved =
-            localStorage.getItem(STORAGE_KEY);
-
+            localStorage.getItem(
+                STORAGE_KEY
+            );
 
         if (!saved) {
 
@@ -1291,25 +1524,18 @@ function loadData() {
             return;
         }
 
-
         const parsed =
             JSON.parse(saved);
 
-
-        if (Array.isArray(parsed)) {
-
-            passwords = parsed;
-
-        } else {
-
-            passwords = [];
-        }
-
+        passwords =
+            Array.isArray(parsed)
+                ? parsed
+                : [];
 
     } catch (error) {
 
         console.error(
-            "Failed to load data:",
+            "Load error:",
             error
         );
 
@@ -1319,7 +1545,7 @@ function loadData() {
 
 
 /* =========================================
-   SAVE LOCAL DATA
+   SAVE
 ========================================= */
 
 function saveData() {
@@ -1334,7 +1560,7 @@ function saveData() {
     } catch (error) {
 
         console.error(
-            "Failed to save data:",
+            "Save error:",
             error
         );
 
@@ -1347,19 +1573,19 @@ function saveData() {
 
 
 /* =========================================
-   CREATE UNIQUE ID
+   ID
 ========================================= */
 
 function createId() {
 
     if (
         window.crypto &&
-        typeof crypto.randomUUID === "function"
+        typeof crypto.randomUUID ===
+            "function"
     ) {
 
         return crypto.randomUUID();
     }
-
 
     return (
         Date.now().toString(36) +
@@ -1376,59 +1602,63 @@ function createId() {
 
 let toastTimer = null;
 
-
 function showToast(
     message,
     type = ""
 ) {
 
-    clearTimeout(toastTimer);
+    clearTimeout(
+        toastTimer
+    );
 
+    toast.textContent =
+        message;
 
-    toast.textContent = message;
-
-
-    toast.className = "toast";
-
+    toast.className =
+        "toast";
 
     if (type) {
 
-        toast.classList.add(type);
+        toast.classList.add(
+            type
+        );
     }
 
+    requestAnimationFrame(
+        () => {
 
-    requestAnimationFrame(() => {
+            toast.classList.add(
+                "show"
+            );
 
-        toast.classList.add("show");
-
-    });
-
+        }
+    );
 
     toastTimer =
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            toast.classList.remove("show");
+                toast.classList.remove(
+                    "show"
+                );
 
-        }, 2200);
+            },
+            2200
+        );
 }
 
 
 /* =========================================
-   ADD PASSWORD
+   ADD
 ========================================= */
 
 function addPassword() {
 
     /*
-     * IMPORTANT:
+     * Do NOT trim the actual value.
      *
-     * value itself is NOT trimmed.
-     *
-     * trim() is used ONLY to check
-     * whether the input is empty.
-     *
-     * So user input remains EXACTLY
-     * as entered.
+     * This means spaces and case
+     * remain exactly as entered.
      */
 
     const value =
@@ -1453,12 +1683,6 @@ function addPassword() {
      *
      * Case-sensitive.
      * Space-sensitive.
-     *
-     * "Password"
-     * "password"
-     * "Password "
-     *
-     * are all different.
      */
 
     const existingIndex =
@@ -1468,17 +1692,14 @@ function addPassword() {
         );
 
 
-    if (existingIndex !== -1) {
-
-        const attemptNumber =
-            existingIndex + 1;
-
+    if (
+        existingIndex !== -1
+    ) {
 
         showToast(
-            `This combination already exists as attempt #${attemptNumber}.`,
+            `This combination already exists as attempt #${existingIndex + 1}.`,
             "error"
         );
-
 
         pwInput.select();
 
@@ -1487,19 +1708,19 @@ function addPassword() {
 
 
     /*
-     * unshift()
-     *
-     * New password always goes
-     * to the TOP of the list.
+     * unshift = new item at TOP.
      */
 
     passwords.unshift({
 
-        id: createId(),
+        id:
+            createId(),
 
-        text: value,
+        text:
+            value,
 
-        status: "pending",
+        status:
+            "pending",
 
         createdAt:
             new Date().toISOString()
@@ -1509,25 +1730,21 @@ function addPassword() {
 
     saveData();
 
-
     pwInput.value = "";
 
-
     render();
-
 
     showToast(
         "Password combination added.",
         "success"
     );
 
-
     pwInput.focus();
 }
 
 
 /* =========================================
-   MARK STATUS
+   STATUS
 ========================================= */
 
 function markStatus(
@@ -1540,23 +1757,15 @@ function markStatus(
 
 
     if (!item) {
+
         return;
     }
 
 
-    /*
-     * Clicking active status again
-     * changes it back to pending.
-     */
-
-    if (item.status === status) {
-
-        item.status = "pending";
-
-    } else {
-
-        item.status = status;
-    }
+    item.status =
+        item.status === status
+            ? "pending"
+            : status;
 
 
     saveData();
@@ -1569,24 +1778,26 @@ function markStatus(
    DELETE
 ========================================= */
 
-function deleteItem(index) {
+function deleteItem(
+    index
+) {
 
     const item =
         passwords[index];
 
 
     if (!item) {
+
         return;
     }
 
 
-    const confirmed =
-        confirm(
+    if (
+        !confirm(
             "Delete this password attempt?"
-        );
+        )
+    ) {
 
-
-    if (!confirmed) {
         return;
     }
 
@@ -1601,7 +1812,6 @@ function deleteItem(index) {
 
     render();
 
-
     showToast(
         "Attempt deleted.",
         "success"
@@ -1610,16 +1820,14 @@ function deleteItem(index) {
 
 
 /* =========================================
-   COPY PASSWORD
+   COPY
 ========================================= */
 
-async function copyText(text) {
+async function copyText(
+    text
+) {
 
     try {
-
-        /*
-         * Primary method.
-         */
 
         if (
             navigator.clipboard &&
@@ -1635,39 +1843,27 @@ async function copyText(text) {
             fallbackCopy(text);
         }
 
-
         showToast(
             "Password copied to clipboard.",
             "success"
         );
 
-
     } catch (error) {
-
-        console.error(
-            "Copy failed:",
-            error
-        );
-
 
         try {
 
             fallbackCopy(text);
-
 
             showToast(
                 "Password copied to clipboard.",
                 "success"
             );
 
-
         } catch (fallbackError) {
 
             console.error(
-                "Fallback copy failed:",
                 fallbackError
             );
-
 
             showToast(
                 "Could not copy password.",
@@ -1682,13 +1878,18 @@ async function copyText(text) {
    COPY FALLBACK
 ========================================= */
 
-function fallbackCopy(text) {
+function fallbackCopy(
+    text
+) {
 
     const textarea =
-        document.createElement("textarea");
+        document.createElement(
+            "textarea"
+        );
 
 
-    textarea.value = text;
+    textarea.value =
+        text;
 
 
     textarea.style.position =
@@ -1698,6 +1899,9 @@ function fallbackCopy(text) {
         "-9999px";
 
     textarea.style.top =
+        "0";
+
+    textarea.style.opacity =
         "0";
 
 
@@ -1710,9 +1914,16 @@ function fallbackCopy(text) {
 
     textarea.select();
 
+    textarea.setSelectionRange(
+        0,
+        textarea.value.length
+    );
+
 
     const successful =
-        document.execCommand("copy");
+        document.execCommand(
+            "copy"
+        );
 
 
     textarea.remove();
@@ -1721,7 +1932,7 @@ function fallbackCopy(text) {
     if (!successful) {
 
         throw new Error(
-            "Fallback copy failed."
+            "Copy failed"
         );
     }
 }
@@ -1748,39 +1959,47 @@ searchInput.addEventListener(
 ========================================= */
 
 document
-    .querySelectorAll(".filter-btn")
-    .forEach(button => {
+    .querySelectorAll(
+        ".filter-btn"
+    )
+    .forEach(
+        button => {
 
-        button.addEventListener(
-            "click",
-            function() {
+            button.addEventListener(
+                "click",
+                function() {
 
-                currentFilter =
-                    this.dataset.filter;
+                    currentFilter =
+                        this.dataset.filter;
 
 
-                document
-                    .querySelectorAll(".filter-btn")
-                    .forEach(btn => {
+                    document
+                        .querySelectorAll(
+                            ".filter-btn"
+                        )
+                        .forEach(
+                            btn => {
 
-                        btn.classList.toggle(
-                            "active",
-                            btn.dataset.filter ===
-                                currentFilter
+                                btn.classList.toggle(
+                                    "active",
+                                    btn.dataset.filter ===
+                                        currentFilter
+                                );
+
+                            }
                         );
 
-                    });
 
+                    render();
+                }
+            );
 
-                render();
-            }
-        );
-
-    });
+        }
+    );
 
 
 /* =========================================
-   GET VISIBLE ITEMS
+   VISIBLE ITEMS
 ========================================= */
 
 function getVisibleItems() {
@@ -1796,7 +2015,8 @@ function getVisibleItems() {
                     );
 
 
-            let matchesFilter = true;
+            let matchesFilter =
+                true;
 
 
             if (
@@ -1845,25 +2065,32 @@ function getVisibleItems() {
    ESCAPE HTML
 ========================================= */
 
-function escapeHtml(value) {
+function escapeHtml(
+    value
+) {
 
     return String(value)
+
         .replace(
             /&/g,
             "&amp;"
         )
+
         .replace(
             /</g,
             "&lt;"
         )
+
         .replace(
             />/g,
             "&gt;"
         )
+
         .replace(
             /"/g,
             "&quot;"
         )
+
         .replace(
             /'/g,
             "&#039;"
@@ -1891,14 +2118,13 @@ const icons = {
                 width="11"
                 height="11"
                 rx="2"
-            ></rect>
+            />
 
             <path
                 d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-            ></path>
+            />
         </svg>
     `,
-
 
     check: `
         <svg
@@ -1908,10 +2134,11 @@ const icons = {
             stroke-linecap="round"
             stroke-linejoin="round"
         >
-            <path d="M5 12l4 4L19 6"></path>
+            <path
+                d="M5 12l4 4L19 6"
+            />
         </svg>
     `,
-
 
     close: `
         <svg
@@ -1921,11 +2148,10 @@ const icons = {
             stroke-linecap="round"
             stroke-linejoin="round"
         >
-            <path d="M6 6l12 12"></path>
-            <path d="M18 6L6 18"></path>
+            <path d="M6 6l12 12"/>
+            <path d="M18 6L6 18"/>
         </svg>
     `,
-
 
     trash: `
         <svg
@@ -1935,19 +2161,11 @@ const icons = {
             stroke-linecap="round"
             stroke-linejoin="round"
         >
-            <path d="M4 7h16"></path>
-
-            <path d="M10 11v6"></path>
-
-            <path d="M14 11v6"></path>
-
-            <path
-                d="M6 7l1 14h10l1-14"
-            ></path>
-
-            <path
-                d="M9 7V4h6v3"
-            ></path>
+            <path d="M4 7h16"/>
+            <path d="M10 11v6"/>
+            <path d="M14 11v6"/>
+            <path d="M6 7l1 14h10l1-14"/>
+            <path d="M9 7V4h6v3"/>
         </svg>
     `
 };
@@ -1987,18 +2205,17 @@ function render() {
                     stroke="currentColor"
                     stroke-width="1.7"
                     stroke-linecap="round"
-                    stroke-linejoin="round"
                 >
 
                     <circle
                         cx="12"
                         cy="12"
                         r="8"
-                    ></circle>
+                    />
 
                     <path
                         d="M8 12h8"
-                    ></path>
+                    />
 
                 </svg>
 
@@ -2018,7 +2235,7 @@ function render() {
 
                     ${
                         noData
-                            ? "Add your first password combination above."
+                            ? "Add your first combination above."
                             : "Try another search or filter."
                     }
 
@@ -2028,152 +2245,188 @@ function render() {
 
         `;
 
+
         return;
     }
 
 
-    visibleItems.forEach(item => {
+    visibleItems.forEach(
+        item => {
 
-        const originalIndex =
-            passwords.indexOf(item);
-
-
-        const attemptNumber =
-            originalIndex + 1;
-
-
-        const isSuccess =
-            item.status === "yes";
+            const originalIndex =
+                passwords.indexOf(
+                    item
+                );
 
 
-        const isFailed =
-            item.status === "no";
+            const attemptNumber =
+                originalIndex + 1;
 
 
-        const card =
-            document.createElement("article");
+            const success =
+                item.status === "yes";
 
 
-        card.className =
-            "item " +
-            (
-                isSuccess
-                    ? "success"
-                    : isFailed
-                        ? "failed"
-                        : ""
-            );
+            const failed =
+                item.status === "no";
 
 
-        card.innerHTML = `
-
-            <div class="item-top">
-
-                <span class="attempt-number">
-                    #${attemptNumber}
-                </span>
+            const card =
+                document.createElement(
+                    "article"
+                );
 
 
-                <div class="actions">
-
-                    <button
-                        type="button"
-                        class="icon-btn"
-                        data-action="copy"
-                        data-index="${originalIndex}"
-                        aria-label="Copy password"
-                        title="Copy"
-                    >
-                        ${icons.copy}
-                    </button>
+            card.className =
+                "item " +
+                (
+                    success
+                        ? "success"
+                        : failed
+                            ? "failed"
+                            : ""
+                );
 
 
-                    <button
-                        type="button"
-                        class="icon-btn ${
-                            isSuccess
-                                ? "success-active"
-                                : ""
-                        }"
-                        data-action="success"
-                        data-index="${originalIndex}"
-                        aria-label="Mark as successful"
-                        title="Mark successful"
-                    >
-                        ${icons.check}
-                    </button>
+            card.innerHTML = `
+
+                <div class="card-row">
 
 
-                    <button
-                        type="button"
-                        class="icon-btn ${
-                            isFailed
-                                ? "failed-active"
-                                : ""
-                        }"
-                        data-action="failed"
-                        data-index="${originalIndex}"
-                        aria-label="Mark as failed"
-                        title="Mark failed"
-                    >
-                        ${icons.close}
-                    </button>
+                    <span class="attempt-number">
+                        #${attemptNumber}
+                    </span>
 
 
-                    <button
-                        type="button"
-                        class="icon-btn"
-                        data-action="delete"
-                        data-index="${originalIndex}"
-                        aria-label="Delete attempt"
-                        title="Delete"
-                    >
-                        ${icons.trash}
-                    </button>
+                    <div class="password-text">
+                        ${escapeHtml(item.text)}
+                    </div>
+
+
+                    <div class="actions">
+
+
+                        <!-- Copy -->
+
+                        <button
+                            type="button"
+                            class="icon-btn"
+                            data-action="copy"
+                            data-index="${originalIndex}"
+                            aria-label="Copy password"
+                            title="Copy"
+                        >
+
+                            ${icons.copy}
+
+                        </button>
+
+
+                        <!-- Success -->
+
+                        <button
+                            type="button"
+                            class="icon-btn ${
+                                success
+                                    ? "success-active"
+                                    : ""
+                            }"
+                            data-action="success"
+                            data-index="${originalIndex}"
+                            aria-label="Mark successful"
+                            title="Success"
+                        >
+
+                            ${icons.check}
+
+                        </button>
+
+
+                        <!-- Failed -->
+
+                        <button
+                            type="button"
+                            class="icon-btn ${
+                                failed
+                                    ? "failed-active"
+                                    : ""
+                            }"
+                            data-action="failed"
+                            data-index="${originalIndex}"
+                            aria-label="Mark failed"
+                            title="Failed"
+                        >
+
+                            ${icons.close}
+
+                        </button>
+
+
+                        <!-- Delete -->
+
+                        <button
+                            type="button"
+                            class="icon-btn"
+                            data-action="delete"
+                            data-index="${originalIndex}"
+                            aria-label="Delete"
+                            title="Delete"
+                        >
+
+                            ${icons.trash}
+
+                        </button>
+
+
+                    </div>
 
                 </div>
 
-            </div>
+
+                <div class="item-meta">
 
 
-            <div class="password-text">
-                ${escapeHtml(item.text)}
-            </div>
+                    <span
+                        class="status ${
+                            success
+                                ? "success"
+                                : failed
+                                    ? "failed"
+                                    : ""
+                        }"
+                    >
+
+                        ${
+                            success
+                                ? "SUCCESS"
+                                : failed
+                                    ? "FAILED"
+                                    : "PENDING"
+                        }
+
+                    </span>
 
 
-            <div class="item-bottom">
+                    <span class="date">
 
-                <span class="status ${
-                    isSuccess
-                        ? "success"
-                        : isFailed
-                            ? "failed"
-                            : ""
-                }">
+                        ${formatDate(
+                            item.createdAt
+                        )}
 
-                    ${
-                        isSuccess
-                            ? "SUCCESS"
-                            : isFailed
-                                ? "FAILED"
-                                : "PENDING"
-                    }
-
-                </span>
+                    </span>
 
 
-                <span class="date">
-                    ${formatDate(item.createdAt)}
-                </span>
+                </div>
 
-            </div>
-
-        `;
+            `;
 
 
-        list.appendChild(card);
+            list.appendChild(
+                card
+            );
 
-    });
+        }
+    );
 }
 
 
@@ -2206,10 +2459,8 @@ function updateStats() {
     totalCount.textContent =
         total;
 
-
     triedCount.textContent =
         tried;
-
 
     successCount.textContent =
         success;
@@ -2225,12 +2476,15 @@ function formatDate(
 ) {
 
     if (!dateString) {
+
         return "";
     }
 
 
     const date =
-        new Date(dateString);
+        new Date(
+            dateString
+        );
 
 
     if (
@@ -2256,7 +2510,7 @@ function formatDate(
 
 
 /* =========================================
-   CARD ACTIONS
+   ACTION HANDLER
 ========================================= */
 
 list.addEventListener(
@@ -2270,6 +2524,7 @@ list.addEventListener(
 
 
         if (!button) {
+
             return;
         }
 
@@ -2292,7 +2547,9 @@ list.addEventListener(
         }
 
 
-        if (action === "copy") {
+        if (
+            action === "copy"
+        ) {
 
             const item =
                 passwords[index];
@@ -2307,7 +2564,6 @@ list.addEventListener(
 
         }
 
-
         else if (
             action === "success"
         ) {
@@ -2318,7 +2574,6 @@ list.addEventListener(
             );
 
         }
-
 
         else if (
             action === "failed"
@@ -2331,13 +2586,13 @@ list.addEventListener(
 
         }
 
-
         else if (
             action === "delete"
         ) {
 
-            deleteItem(index);
-
+            deleteItem(
+                index
+            );
         }
 
     }
@@ -2373,7 +2628,7 @@ pwInput.addEventListener(
 
 
 /* =========================================
-   EXPORT BACKUP
+   EXPORT
 ========================================= */
 
 exportButton.addEventListener(
@@ -2437,7 +2692,8 @@ exportButton.addEventListener(
             );
 
 
-        link.href = url;
+        link.href =
+            url;
 
 
         link.download =
@@ -2470,7 +2726,7 @@ exportButton.addEventListener(
 
 
 /* =========================================
-   IMPORT BACKUP
+   IMPORT
 ========================================= */
 
 importInput.addEventListener(
@@ -2482,6 +2738,7 @@ importInput.addEventListener(
 
 
         if (!file) {
+
             return;
         }
 
@@ -2501,13 +2758,9 @@ importInput.addEventListener(
                         );
 
 
-                    let importedAttempts =
+                    let imported =
                         null;
 
-
-                    /*
-                     * Our backup format.
-                     */
 
                     if (
                         data &&
@@ -2516,44 +2769,38 @@ importInput.addEventListener(
                         )
                     ) {
 
-                        importedAttempts =
+                        imported =
                             data.attempts;
 
-                    }
-
-
-                    /*
-                     * Also accept plain arrays.
-                     */
-
-                    else if (
-                        Array.isArray(data)
+                    } else if (
+                        Array.isArray(
+                            data
+                        )
                     ) {
 
-                        importedAttempts =
+                        imported =
                             data;
-
                     }
 
 
-                    if (
-                        !importedAttempts
-                    ) {
+                    if (!imported) {
 
                         throw new Error(
-                            "Invalid backup."
+                            "Invalid backup"
                         );
                     }
 
 
                     const cleaned =
-                        importedAttempts
+                        imported
+
                             .filter(
                                 item =>
                                     item &&
                                     typeof item.text ===
                                         "string"
                             )
+
                             .map(
                                 item => ({
 
@@ -2583,11 +2830,6 @@ importInput.addEventListener(
                                 })
                             );
 
-
-                    /*
-                     * Remove exact duplicates
-                     * inside imported backup.
-                     */
 
                     const seen =
                         new Set();
@@ -2632,7 +2874,7 @@ importInput.addEventListener(
 
                     } else {
 
-                        const existingTexts =
+                        const existing =
                             new Set(
                                 passwords.map(
                                     item =>
@@ -2644,7 +2886,7 @@ importInput.addEventListener(
                         const newItems =
                             unique.filter(
                                 item =>
-                                    !existingTexts.has(
+                                    !existing.has(
                                         item.text
                                     )
                             );
@@ -2683,16 +2925,14 @@ importInput.addEventListener(
                 }
 
 
-                /*
-                 * Allow the same file
-                 * to be imported again.
-                 */
-
-                importInput.value = "";
+                importInput.value =
+                    "";
             };
 
 
-        reader.readAsText(file);
+        reader.readAsText(
+            file
+        );
 
     }
 );
@@ -2708,28 +2948,24 @@ function formatFileDate() {
         new Date();
 
 
-    const year =
-        now.getFullYear();
+    return [
 
+        now.getFullYear(),
 
-    const month =
         String(
             now.getMonth() + 1
-        ).padStart(2, "0");
+        ).padStart(2, "0"),
 
-
-    const day =
         String(
             now.getDate()
-        ).padStart(2, "0");
+        ).padStart(2, "0")
 
-
-    return `${year}-${month}-${day}`;
+    ].join("-");
 }
 
 
 /* =========================================
-   INITIALIZE
+   START
 ========================================= */
 
 loadData();
