@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09090b" />
+
+  <title>Password Recovery Tracker</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #09090b;
+      --surface: #111113;
+      --surface-2: #18181b;
+      --surface-3: #202023;
+      --border: #27272a;
+
+      --text: #fafafa;
+      --muted: #a1a1aa;
+      --muted-2: #71717a;
+
+      --blue: #3b82f6;
+      --green: #22c55e;
+      --red: #ef4444;
+    }
+
+    html {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(59, 130, 246, 0.12),
+          transparent 38%
+        ),
+        var(--bg);
+
+      color: var(--text);
+
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container {
+      width: min(720px, 100%);
+      margin: 0 auto;
+      padding: 28px 16px 40px;
+    }
+
+    /* =========================
+       ICON
+    ========================= */
+
+    .icon {
+      width: 18px;
+      height: 18px;
+
+      display: block;
+
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon-sm {
+      width: 16px;
+      height: 16px;
+    }
+
+    .icon-lg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .logo {
+      width: 54px;
+      height: 54px;
+
+      margin: 0 auto 14px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 16px;
+
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+
+      color: #d4d4d8;
+
+      box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.28),
+        inset 0 1px rgba(255, 255, 255, 0.04);
+    }
+
+    h1 {
+      margin: 0;
+
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.6px;
+    }
+
+    .subtitle {
+      max-width: 500px;
+
+      margin: 8px auto 0;
+
+      color: var(--muted);
+
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    /* =========================
+       ADD CARD
+    ========================= */
+
+    .add-card {
+      display: flex;
+      gap: 10px;
+
+      padding: 10px;
+
+      background: rgba(17, 17, 19, 0.88);
+
+      border: 1px solid var(--border);
+      border-radius: 17px;
+
+      box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.22),
+        inset 0 1px rgba(255, 255, 255, 0.025);
+    }
+
+    .input-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .add-card input {
+      width: 100%;
+      height: 48px;
+
+      padding: 0 14px;
+
+      background: var(--surface-2);
+
+      color: var(--text);
+
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      outline: none;
+
+      font-size: 14px;
+
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .add-card input::placeholder {
+      color: var(--muted-2);
+    }
+
+    .add-card input:focus {
+      border-color: rgba(59, 130, 246, 0.65);
+
+      box-shadow:
+        0 0 0 3px rgba(59, 130, 246, 0.10);
+    }
+
+    .add-btn {
+      height: 48px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+
+      padding: 0 18px;
+
+      background: var(--blue);
+      color: white;
+
+      border: 0;
+      border-radius: 12px;
+
+      font-size: 14px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.15s ease,
+        filter 0.15s ease;
+    }
+
+    .add-btn:hover {
+      filter: brightness(1.08);
+    }
+
+    .add-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 10px;
+
+      margin: 18px 0;
+    }
+
+    .stat {
+      padding: 14px 10px;
+
+      text-align: center;
+
+      background: var(--surface);
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .stat-number {
+      display: block;
+
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .stat-label {
+      display: block;
+
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 600;
+
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    /* =========================
+       LIST
+    ========================= */
+
+    #list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      min-width: 0;
+
+      padding: 12px;
+
+      background: var(--surface);
+
+      border: 1px solid var(--border);
+      border-left-width: 3px;
+
+      border-radius: 15px;
+
+      transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .item:hover {
+      background: #141416;
+      transform: translateY(-1px);
+    }
+
+    .item.pending {
+      border-left-color: #52525b;
+    }
+
+    .item.done-yes {
+      border-left-color: var(--green);
+    }
+
+    .item.done-no {
+      border-left-color: var(--red);
+    }
+
+    /* =========================
+       PASSWORD CONTENT
+    ========================= */
+
+    .password-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .pw-text {
+      display: block;
+
+      color: var(--text);
+
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+      font-size: 14px;
+      line-height: 1.5;
+
+      word-break: break-all;
+    }
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+
+      margin-top: 6px;
+
+      padding: 3px 8px;
+
+      border-radius: 999px;
+
+      font-size: 10px;
+      font-weight: 600;
+
+      text-transform: uppercase;
+      letter-spacing: 0.45px;
+    }
+
+    .status.pending {
+      background: #27272a;
+      color: #a1a1aa;
+    }
+
+    .status.success {
+      background: rgba(34, 197, 94, 0.12);
+      color: #86efac;
+    }
+
+    .status.failed {
+      background: rgba(239, 68, 68, 0.12);
+      color: #fca5a5;
+    }
+
+    /* =========================
+       ACTIONS
+    ========================= */
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      flex-shrink: 0;
+    }
+
+    .action-btn {
+      width: 36px;
+      height: 36px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 0;
+
+      background: var(--surface-2);
+      color: #a1a1aa;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      cursor: pointer;
+
+      transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease,
+        transform 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--surface-3);
+      color: var(--text);
+    }
+
+    .action-btn:active {
+      transform: scale(0.93);
+    }
+
+    .action-btn.success.active {
+      background: rgba(34, 197, 94, 0.12);
+      border-color: rgba(34, 197, 94, 0.40);
+      color: var(--green);
+    }
+
+    .action-btn.failed.active {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: rgba(239, 68, 68, 0.40);
+      color: var(--red);
+    }
+
+    .action-btn.delete {
+      color: #71717a;
+    }
+
+    .action-btn.delete:hover {
+      color: var(--red);
+      border-color: rgba(239, 68, 68, 0.35);
+    }
+
+    /* =========================
+       COPY STATE
+    ========================= */
+
+    .action-btn.copied {
+      background: rgba(34, 197, 94, 0.12);
+      border-color: rgba(34, 197, 94, 0.4);
+      color: var(--green);
+    }
+
+    /* =========================
+       EMPTY STATE
+    ========================= */
+
+    .empty {
+      padding: 52px 20px;
+
+      text-align: center;
+
+      background: var(--surface);
+
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+    }
+
+    .empty-icon {
+      width: 46px;
+      height: 46px;
+
+      margin: 0 auto 13px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: var(--surface-2);
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      color: var(--muted);
+    }
+
+    .empty-title {
+      color: var(--text);
+
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .empty-text {
+      max-width: 300px;
+
+      margin: 6px auto 0;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer {
+      margin-top: 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+
+      color: #52525b;
+
+      font-size: 11px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 560px) {
+
+      .container {
+        padding: 22px 12px 30px;
+      }
+
+      .header {
+        margin-bottom: 20px;
+      }
+
+      .logo {
+        width: 50px;
+        height: 50px;
+
+        border-radius: 15px;
+      }
+
+      h1 {
+        font-size: 21px;
+      }
+
+      .subtitle {
+        margin-top: 7px;
+        font-size: 12px;
+      }
+
+      .add-card {
+        padding: 9px;
+      }
+
+      .add-card input,
+      .add-btn {
+        height: 45px;
+      }
+
+      .add-btn {
+        padding: 0 15px;
+      }
+
+      .stats {
+        gap: 7px;
+        margin: 14px 0;
+      }
+
+      .stat {
+        padding: 11px 6px;
+      }
+
+      .stat-number {
+        font-size: 17px;
+      }
+
+      .stat-label {
+        font-size: 9px;
+      }
+
+      .item {
+        align-items: flex-start;
+        padding: 11px;
+      }
+
+      .actions {
+        gap: 4px;
+      }
+
+      .action-btn {
+        width: 33px;
+        height: 33px;
+        border-radius: 9px;
+      }
+
+      .pw-text {
+        font-size: 13px;
+      }
+    }
+
+    /* =========================
+       SMALL PHONES
+    ========================= */
+
+    @media (max-width: 380px) {
+
+      .add-card {
+        flex-direction: column;
+      }
+
+      .add-btn {
+        width: 100%;
+      }
+
+      .item {
+        gap: 8px;
+      }
+
+      .actions {
+        gap: 3px;
+      }
+
+      .action-btn {
+        width: 31px;
+        height: 31px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+      <div class="logo">
+        <!-- Key -->
+        <svg
+          class="icon icon-lg"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <circle cx="8" cy="15" r="4"></circle>
+          <path d="M10.8 12.2 20 3"></path>
+          <path d="m16 7 2 2"></path>
+          <path d="m18 5 2 2"></path>
+        </svg>
+      </div>
+
+      <h1>Password Recovery Tracker</h1>
+
+      <p class="subtitle">
+        Keep track of password combinations you've tried.
+        Copy, test, and mark each attempt.
+      </p>
+
+    </header>
+
+
+    <!-- ADD PASSWORD -->
+
+    <section class="add-card">
+
+      <div class="input-wrapper">
+
+        <input
+          type="text"
+          id="pwInput"
+          autocomplete="off"
+          placeholder="Enter password combination..."
+        />
+
+      </div>
+
+      <button
+        class="add-btn"
+        onclick="addPassword()"
+        type="button"
+      >
+
+        <!-- Plus -->
+        <svg
+          class="icon icon-sm"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path d="M12 5v14"></path>
+          <path d="M5 12h14"></path>
+        </svg>
+
+        <span>Add</span>
+
+      </button>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+      <div class="stat">
+        <span
+          class="stat-number"
+          id="totalCount"
+        >
+          0
+        </span>
+
+        <span class="stat-label">
+          Total
+        </span>
+      </div>
+
+
+      <div class="stat">
+        <span
+          class="stat-number"
+          id="triedCount"
+        >
+          0
+        </span>
+
+        <span class="stat-label">
+          Tried
+        </span>
+      </div>
+
+
+      <div class="stat">
+        <span
+          class="stat-number"
+          id="successCount"
+        >
+          0
+        </span>
+
+        <span class="stat-label">
+          Success
+        </span>
+      </div>
+
+    </section>
+
+
+    <!-- PASSWORD LIST -->
+
+    <section id="list"></section>
+
+
+    <!-- EMPTY STATE -->
+
+    <div
+      class="empty"
+      id="emptyMsg"
+    >
+
+      <div class="empty-icon">
+
+        <!-- Lock -->
+        <svg
+          class="icon icon-lg"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <rect
+            x="4"
+            y="10"
+            width="16"
+            height="11"
+            rx="2"
+          ></rect>
+
+          <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+        </svg>
+
+      </div>
+
+      <div class="empty-title">
+        No password attempts yet
+      </div>
+
+      <div class="empty-text">
+        Add your first combination above to start tracking.
+      </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+      <!-- Shield -->
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path
+          d="M12 3 20 6v5c0 5-3.4 8.7-8 10-4.6-1.3-8-5-8-10V6l8-3Z"
+        ></path>
+      </svg>
+
+      <span>
+        Data is stored locally in this browser.
+      </span>
+
+    </footer>
+
+  </main>
+
+
+  <script>
+
+    /* =========================
+       STORAGE
+    ========================= */
+
+    const STORAGE_KEY =
+      "password_recovery_tracker";
+
+    let passwords = loadPasswords();
+
+
+    function loadPasswords() {
+
+      try {
+
+        const saved =
+          localStorage.getItem(STORAGE_KEY);
+
+        if (!saved) {
+          return [];
+        }
+
+        const parsed = JSON.parse(saved);
+
+        return Array.isArray(parsed)
+          ? parsed
+          : [];
+
+      } catch (error) {
+
+        console.error(
+          "Could not load saved data:",
+          error
+        );
+
+        return [];
+      }
+    }
+
+
+    function savePasswords() {
+
+      try {
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(passwords)
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Could not save data:",
+          error
+        );
+      }
+    }
+
+
+    /* =========================
+       ADD
+    ========================= */
+
+    function addPassword() {
+
+      const input =
+        document.getElementById("pwInput");
+
+      const value =
+        input.value.trim();
+
+      if (!value) {
+
+        input.focus();
+
+        return;
+      }
+
+
+      passwords.push({
+
+        id:
+          Date.now() +
+          Math.random()
+            .toString(16)
+            .slice(2),
+
+        text: value,
+
+        status: "pending",
+
+        createdAt:
+          new Date().toISOString()
+
+      });
+
+
+      savePasswords();
+
+      input.value = "";
+
+      render();
+
+      input.focus();
+    }
+
+
+    /* ENTER TO ADD */
+
+    document
+      .getElementById("pwInput")
+      .addEventListener(
+        "keydown",
+        function (event) {
+
+          if (event.key === "Enter") {
+
+            event.preventDefault();
+
+            addPassword();
+          }
+
+        }
+      );
+
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    function markStatus(index, status) {
+
+      if (!passwords[index]) {
+        return;
+      }
+
+
+      if (
+        passwords[index].status === status
+      ) {
+
+        passwords[index].status =
+          "pending";
+
+      } else {
+
+        passwords[index].status =
+          status;
+      }
+
+
+      savePasswords();
+
+      render();
+    }
+
+
+    /* =========================
+       DELETE
+    ========================= */
+
+    function deleteItem(index) {
+
+      if (!passwords[index]) {
+        return;
+      }
+
+
+      passwords.splice(index, 1);
+
+      savePasswords();
+
+      render();
+    }
+
+
+    /* =========================
+       COPY
+    ========================= */
+
+    async function copyText(
+      text,
+      button
+    ) {
+
+      try {
+
+        await navigator.clipboard
+          .writeText(text);
+
+
+        const original =
+          button.innerHTML;
+
+
+        /* Check icon */
+
+        button.innerHTML = `
+          <svg
+            class="icon icon-sm"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="m5 12 4 4L19 6"></path>
+          </svg>
+        `;
+
+
+        button.classList.add("copied");
+
+
+        setTimeout(
+          () => {
+
+            button.innerHTML =
+              original;
+
+            button.classList.remove(
+              "copied"
+            );
+
+          },
+          1200
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Copy failed:",
+          error
+        );
+
+        alert(
+          "Unable to copy. Please copy it manually."
+        );
+      }
+    }
+
+
+    /* =========================
+       RENDER
+    ========================= */
+
+    function render() {
+
+      const list =
+        document.getElementById("list");
+
+      const emptyMsg =
+        document.getElementById(
+          "emptyMsg"
+        );
+
+
+      list.innerHTML = "";
+
+
+      /* Stats */
+
+      const total =
+        passwords.length;
+
+
+      const tried =
+        passwords.filter(
+          password =>
+            password.status !==
+            "pending"
+        ).length;
+
+
+      const success =
+        passwords.filter(
+          password =>
+            password.status ===
+            "yes"
+        ).length;
+
+
+      document.getElementById(
+        "totalCount"
+      ).textContent = total;
+
+
+      document.getElementById(
+        "triedCount"
+      ).textContent = tried;
+
+
+      document.getElementById(
+        "successCount"
+      ).textContent = success;
+
+
+      /* Empty state */
+
+      emptyMsg.style.display =
+        total === 0
+          ? "block"
+          : "none";
+
+
+      /* Items */
+
+      passwords.forEach(
+        (password, index) => {
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+
+          item.className =
+            "item " +
+            (
+              password.status === "yes"
+                ? "done-yes"
+                : password.status === "no"
+                  ? "done-no"
+                  : "pending"
+            );
+
+
+          let statusClass;
+          let statusText;
+          let statusIcon;
+
+
+          if (
+            password.status ===
+            "yes"
+          ) {
+
+            statusClass =
+              "success";
+
+            statusText =
+              "Success";
+
+            statusIcon = `
+              <svg
+                class="icon"
+                style="width:11px;height:11px"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m5 12 4 4L19 6"></path>
+              </svg>
+            `;
+
+          } else if (
+            password.status ===
+            "no"
+          ) {
+
+            statusClass =
+              "failed";
+
+            statusText =
+              "Failed";
+
+            statusIcon = `
+              <svg
+                class="icon"
+                style="width:11px;height:11px"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M6 6l12 12"></path>
+                <path d="m18 6-12 12"></path>
+              </svg>
+            `;
+
+          } else {
+
+            statusClass =
+              "pending";
+
+            statusText =
+              "Pending";
+
+            statusIcon = "";
+          }
+
+
+          item.innerHTML = `
+
+            <div class="password-content">
+
+              <span class="pw-text">
+                ${escapeHtml(
+                  password.text
+                )}
+              </span>
+
+              <span
+                class="status ${statusClass}"
+              >
+
+                ${statusIcon}
+
+                ${statusText}
+
+              </span>
+
+            </div>
+
+
+            <div class="actions">
+
+              <!-- COPY -->
+
+              <button
+                class="action-btn"
+                title="Copy password"
+                aria-label="Copy password"
+                type="button"
+                onclick="copyText(
+                  ${JSON.stringify(
+                    password.text
+                  )},
+                  this
+                )"
+              >
+
+                <svg
+                  class="icon icon-sm"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <rect
+                    x="9"
+                    y="9"
+                    width="11"
+                    height="11"
+                    rx="2"
+                  ></rect>
+
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+
+              </button>
+
+
+              <!-- SUCCESS -->
+
+              <button
+                class="action-btn success ${
+                  password.status === "yes"
+                    ? "active"
+                    : ""
+                }"
+                title="Mark as successful"
+                aria-label="Mark as successful"
+                type="button"
+                onclick="markStatus(
+                  ${index},
+                  'yes'
+                )"
+              >
+
+                <svg
+                  class="icon icon-sm"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="m5 12 4 4L19 6"></path>
+                </svg>
+
+              </button>
+
+
+              <!-- FAILED -->
+
+              <button
+                class="action-btn failed ${
+                  password.status === "no"
+                    ? "active"
+                    : ""
+                }"
+                title="Mark as failed"
+                aria-label="Mark as failed"
+                type="button"
+                onclick="markStatus(
+                  ${index},
+                  'no'
+                )"
+              >
+
+                <svg
+                  class="icon icon-sm"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M6 6l12 12"></path>
+                  <path d="m18 6-12 12"></path>
+                </svg>
+
+              </button>
+
+
+              <!-- DELETE -->
+
+              <button
+                class="action-btn delete"
+                title="Delete"
+                aria-label="Delete"
+                type="button"
+                onclick="deleteItem(
+                  ${index}
+                )"
+              >
+
+                <svg
+                  class="icon icon-sm"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3 6h18"
+                  ></path>
+
+                  <path
+                    d="M8 6V4h8v2"
+                  ></path>
+
+                  <path
+                    d="M19 6l-1 15H6L5 6"
+                  ></path>
+
+                  <path
+                    d="M10 11v6"
+                  ></path>
+
+                  <path
+                    d="M14 11v6"
+                  ></path>
+                </svg>
+
+              </button>
+
+            </div>
+          `;
+
+
+          list.appendChild(item);
+
+        }
+      );
+    }
+
+
+    /* =========================
+       HTML ESCAPE
+    ========================= */
+
+    function escapeHtml(str) {
+
+      return String(str)
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+    }
+
+
+    /* =========================
+       INITIAL RENDER
+    ========================= */
+
+    render();
+
+  </script>
+
+</body>
+</html>
