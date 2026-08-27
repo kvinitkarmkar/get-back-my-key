@@ -1,27 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
-  />
+  >
 
-  <meta
-    name="theme-color"
-    content="#09090b"
-  />
+  <meta name="theme-color" content="#09090b">
 
-  <title>Password Recovery Tracker</title>
+  <title>Get Back My Key</title>
 
   <style>
-    /* =========================================
-       RESET
-    ========================================= */
 
     * {
       box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #09090b;
+      --surface: #111113;
+      --surface-2: #18181b;
+      --surface-3: #202023;
+
+      --border: #27272a;
+
+      --text: #fafafa;
+      --muted: #a1a1aa;
+      --muted-2: #71717a;
+
+      --blue: #3b82f6;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #eab308;
     }
 
     html {
@@ -38,9 +51,9 @@
           rgba(59, 130, 246, 0.12),
           transparent 38%
         ),
-        #09090b;
+        var(--bg);
 
-      color: #fafafa;
+      color: var(--text);
 
       font-family:
         Inter,
@@ -61,33 +74,9 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-
-    /* =========================================
-       VARIABLES
-    ========================================= */
-
-    :root {
-      --bg: #09090b;
-
-      --surface: #111113;
-      --surface-2: #18181b;
-      --surface-3: #202023;
-
-      --border: #27272a;
-
-      --text: #fafafa;
-      --muted: #a1a1aa;
-      --muted-2: #71717a;
-
-      --blue: #3b82f6;
-      --green: #22c55e;
-      --red: #ef4444;
-    }
-
-
-    /* =========================================
+    /* =========================
        ICONS
-    ========================================= */
+    ========================= */
 
     .icon {
       width: 18px;
@@ -109,35 +98,33 @@
     }
 
     .icon-lg {
-      width: 25px;
-      height: 25px;
+      width: 24px;
+      height: 24px;
     }
 
-
-    /* =========================================
+    /* =========================
        CONTAINER
-    ========================================= */
+    ========================= */
 
     .container {
-      width: min(720px, 100%);
+      width: min(760px, 100%);
 
       margin: 0 auto;
 
       padding:
         28px
         16px
-        40px;
+        45px;
     }
 
-
-    /* =========================================
+    /* =========================
        HEADER
-    ========================================= */
+    ========================= */
 
     .header {
       text-align: center;
 
-      margin-bottom: 28px;
+      margin-bottom: 26px;
     }
 
     .logo {
@@ -150,6 +137,7 @@
         14px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
@@ -164,8 +152,7 @@
       border-radius: 16px;
 
       box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.28),
-        inset 0 1px rgba(255, 255, 255, 0.04);
+        0 12px 35px rgba(0, 0, 0, 0.28);
     }
 
     h1 {
@@ -185,17 +172,17 @@
         auto
         0;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
-      font-size: 14px;
+      font-size: 13px;
 
       line-height: 1.55;
     }
 
-
-    /* =========================================
-       ADD CARD
-    ========================================= */
+    /* =========================
+       ADD
+    ========================= */
 
     .add-card {
       display: flex;
@@ -205,21 +192,16 @@
       padding: 10px;
 
       background:
-        rgba(17, 17, 19, 0.88);
+        rgba(17, 17, 19, 0.9);
 
       border:
         1px solid var(--border);
 
       border-radius: 17px;
-
-      box-shadow:
-        0 15px 45px rgba(0, 0, 0, 0.22),
-        inset 0 1px rgba(255, 255, 255, 0.025);
     }
 
     .input-wrapper {
       flex: 1;
-
       min-width: 0;
     }
 
@@ -258,11 +240,11 @@
 
     .add-card input:focus {
       border-color:
-        rgba(59, 130, 246, 0.65);
+        rgba(59, 130, 246, 0.7);
 
       box-shadow:
         0 0 0 3px
-        rgba(59, 130, 246, 0.10);
+        rgba(59, 130, 246, 0.1);
     }
 
     .add-btn {
@@ -282,9 +264,10 @@
       background:
         var(--blue);
 
-      color: white;
+      color:
+        white;
 
-      border: 0;
+      border: none;
 
       border-radius: 12px;
 
@@ -308,10 +291,9 @@
         scale(0.97);
     }
 
-
-    /* =========================================
+    /* =========================
        STATS
-    ========================================= */
+    ========================= */
 
     .stats {
       display: grid;
@@ -323,12 +305,13 @@
 
       margin:
         18px
-        0;
+        0
+        12px;
     }
 
     .stat {
       padding:
-        14px
+        13px
         10px;
 
       text-align: center;
@@ -347,8 +330,6 @@
 
       font-size: 19px;
       font-weight: 700;
-
-      letter-spacing: -0.3px;
     }
 
     .stat-label {
@@ -367,10 +348,174 @@
       letter-spacing: 0.6px;
     }
 
+    /* =========================
+       TOOLBAR
+    ========================= */
 
-    /* =========================================
-       PASSWORD LIST
-    ========================================= */
+    .toolbar {
+      display: flex;
+
+      gap: 8px;
+
+      margin:
+        12px
+        0;
+    }
+
+    .search-box {
+      position: relative;
+
+      flex: 1;
+    }
+
+    .search-box .search-icon {
+      position: absolute;
+
+      left: 13px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color:
+        var(--muted-2);
+
+      pointer-events: none;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 42px;
+
+      padding:
+        0
+        13px
+        0
+        40px;
+
+      background:
+        var(--surface);
+
+      color:
+        var(--text);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 11px;
+
+      outline: none;
+
+      font-size: 13px;
+    }
+
+    .search-box input:focus {
+      border-color:
+        rgba(59, 130, 246, 0.55);
+    }
+
+    .filter-btn {
+      height: 42px;
+
+      padding:
+        0
+        13px;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 6px;
+
+      background:
+        var(--surface);
+
+      color:
+        var(--muted);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 11px;
+
+      cursor: pointer;
+
+      font-size: 12px;
+    }
+
+    .filter-btn:hover {
+      color:
+        var(--text);
+
+      background:
+        var(--surface-2);
+    }
+
+    /* =========================
+       FILTERS
+    ========================= */
+
+    .filters {
+      display: flex;
+
+      gap: 6px;
+
+      overflow-x: auto;
+
+      margin-bottom:
+        12px;
+
+      scrollbar-width: none;
+    }
+
+    .filters::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter {
+      flex-shrink: 0;
+
+      padding:
+        7px
+        11px;
+
+      background:
+        transparent;
+
+      color:
+        var(--muted);
+
+      border:
+        1px solid transparent;
+
+      border-radius:
+        999px;
+
+      cursor: pointer;
+
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .filter:hover {
+      color:
+        var(--text);
+    }
+
+    .filter.active {
+      color:
+        var(--text);
+
+      background:
+        var(--surface-2);
+
+      border-color:
+        var(--border);
+    }
+
+    /* =========================
+       LIST
+    ========================= */
 
     #list {
       display: flex;
@@ -397,9 +542,11 @@
       border:
         1px solid var(--border);
 
-      border-left-width: 3px;
+      border-left-width:
+        3px;
 
-      border-radius: 15px;
+      border-radius:
+        15px;
 
       transition:
         background 0.2s ease,
@@ -429,15 +576,36 @@
         var(--red);
     }
 
-
-    /* =========================================
-       PASSWORD CONTENT
-    ========================================= */
+    /* =========================
+       PASSWORD
+    ========================= */
 
     .password-content {
       flex: 1;
 
       min-width: 0;
+    }
+
+    .attempt-line {
+      display: flex;
+
+      align-items: center;
+
+      gap: 7px;
+
+      margin-bottom:
+        5px;
+    }
+
+    .attempt-number {
+      color:
+        var(--muted-2);
+
+      font-size: 10px;
+      font-weight: 700;
+
+      letter-spacing:
+        0.3px;
     }
 
     .pw-text {
@@ -454,24 +622,42 @@
 
       font-size: 14px;
 
-      line-height: 1.5;
+      line-height:
+        1.5;
 
-      word-break: break-all;
+      /*
+        IMPORTANT:
+        Preserve exactly what user entered,
+        including spaces and line breaks.
+      */
+      white-space: pre-wrap;
+
+      word-break: break-word;
     }
 
+    .date {
+      margin-top:
+        6px;
 
-    /* =========================================
+      color:
+        var(--muted-2);
+
+      font-size: 10px;
+    }
+
+    /* =========================
        STATUS
-    ========================================= */
+    ========================= */
 
     .status {
       display: inline-flex;
 
       align-items: center;
 
-      gap: 5px;
+      gap: 4px;
 
-      margin-top: 6px;
+      margin-top:
+        6px;
 
       padding:
         3px
@@ -480,12 +666,14 @@
       border-radius:
         999px;
 
-      font-size: 10px;
-      font-weight: 600;
+      font-size: 9px;
+      font-weight: 700;
 
-      text-transform: uppercase;
+      text-transform:
+        uppercase;
 
-      letter-spacing: 0.45px;
+      letter-spacing:
+        0.5px;
     }
 
     .status.pending {
@@ -512,10 +700,9 @@
         rgba(239, 68, 68, 0.12);
     }
 
-
-    /* =========================================
+    /* =========================
        ACTIONS
-    ========================================= */
+    ========================= */
 
     .actions {
       display: flex;
@@ -547,7 +734,8 @@
       border:
         1px solid var(--border);
 
-      border-radius: 10px;
+      border-radius:
+        10px;
 
       cursor: pointer;
 
@@ -571,17 +759,12 @@
         scale(0.93);
     }
 
-
-    /* =========================================
-       ACTIVE STATUS BUTTONS
-    ========================================= */
-
     .action-btn.success.active {
       background:
         rgba(34, 197, 94, 0.12);
 
       border-color:
-        rgba(34, 197, 94, 0.40);
+        rgba(34, 197, 94, 0.4);
 
       color:
         var(--green);
@@ -592,36 +775,21 @@
         rgba(239, 68, 68, 0.12);
 
       border-color:
-        rgba(239, 68, 68, 0.40);
+        rgba(239, 68, 68, 0.4);
 
       color:
         var(--red);
     }
-
-
-    /* =========================================
-       COPY SUCCESS
-    ========================================= */
 
     .action-btn.copied {
       background:
         rgba(34, 197, 94, 0.12);
 
       border-color:
-        rgba(34, 197, 94, 0.40);
+        rgba(34, 197, 94, 0.4);
 
       color:
         var(--green);
-    }
-
-
-    /* =========================================
-       DELETE
-    ========================================= */
-
-    .action-btn.delete {
-      color:
-        #71717a;
     }
 
     .action-btn.delete:hover {
@@ -632,14 +800,13 @@
         rgba(239, 68, 68, 0.35);
     }
 
-
-    /* =========================================
-       EMPTY STATE
-    ========================================= */
+    /* =========================
+       EMPTY
+    ========================= */
 
     .empty {
       padding:
-        52px
+        50px
         20px;
 
       text-align: center;
@@ -668,6 +835,9 @@
       align-items: center;
       justify-content: center;
 
+      color:
+        var(--muted);
+
       background:
         var(--surface-2);
 
@@ -676,21 +846,19 @@
 
       border-radius:
         14px;
-
-      color:
-        var(--muted);
     }
 
     .empty-title {
-      color:
-        var(--text);
+      font-size:
+        14px;
 
-      font-size: 14px;
-      font-weight: 600;
+      font-weight:
+        600;
     }
 
     .empty-text {
-      max-width: 300px;
+      max-width:
+        320px;
 
       margin:
         6px
@@ -700,39 +868,290 @@
       color:
         var(--muted);
 
-      font-size: 12px;
+      font-size:
+        12px;
 
-      line-height: 1.5;
+      line-height:
+        1.5;
     }
 
+    /* =========================
+       BACKUP
+    ========================= */
 
-    /* =========================================
-       FOOTER
-    ========================================= */
+    .backup {
+      display: flex;
 
-    .footer {
+      gap: 8px;
+
       margin-top:
-        24px;
+        18px;
+    }
+
+    .backup-btn {
+      flex: 1;
+
+      height: 40px;
 
       display: flex;
 
       align-items: center;
       justify-content: center;
 
-      gap: 5px;
+      gap: 6px;
 
       color:
-        #52525b;
+        var(--muted);
 
-      font-size: 11px;
+      background:
+        var(--surface);
 
-      text-align: center;
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        10px;
+
+      cursor: pointer;
+
+      font-size:
+        11px;
+
+      font-weight:
+        600;
     }
 
+    .backup-btn:hover {
+      color:
+        var(--text);
 
-    /* =========================================
+      background:
+        var(--surface-2);
+    }
+
+    /* =========================
+       STORAGE
+    ========================= */
+
+    .storage-status {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 6px;
+
+      margin-top:
+        16px;
+
+      color:
+        var(--muted-2);
+
+      font-size:
+        10px;
+    }
+
+    .storage-dot {
+      width: 6px;
+      height: 6px;
+
+      border-radius:
+        50%;
+
+      background:
+        var(--green);
+
+      box-shadow:
+        0 0 8px
+        rgba(34, 197, 94, 0.5);
+    }
+
+    /* =========================
+       PROGRESS
+    ========================= */
+
+    .progress-wrap {
+      margin:
+        4px
+        0
+        14px;
+    }
+
+    .progress-info {
+      display: flex;
+
+      justify-content: space-between;
+
+      margin-bottom:
+        6px;
+
+      color:
+        var(--muted-2);
+
+      font-size:
+        10px;
+    }
+
+    .progress {
+      width: 100%;
+      height: 4px;
+
+      overflow:
+        hidden;
+
+      background:
+        var(--surface-3);
+
+      border-radius:
+        999px;
+    }
+
+    .progress-bar {
+      height: 100%;
+
+      width: 0%;
+
+      background:
+        var(--green);
+
+      border-radius:
+        inherit;
+
+      transition:
+        width 0.25s ease;
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    #toastContainer {
+      position: fixed;
+
+      left: 50%;
+      bottom: 22px;
+
+      z-index: 1000;
+
+      transform:
+        translateX(-50%);
+
+      width:
+        min(420px, calc(100% - 24px));
+
+      pointer-events:
+        none;
+    }
+
+    .toast {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      padding:
+        12px
+        14px;
+
+      background:
+        #18181b;
+
+      color:
+        var(--text);
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        12px;
+
+      box-shadow:
+        0 15px 40px
+        rgba(0, 0, 0, 0.4);
+
+      font-size:
+        12px;
+
+      animation:
+        toastIn
+        0.2s
+        ease;
+    }
+
+    .toast.success {
+      border-color:
+        rgba(34, 197, 94, 0.35);
+    }
+
+    .toast.error {
+      border-color:
+        rgba(239, 68, 68, 0.35);
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight:
+        700;
+    }
+
+    .toast-message {
+      margin-top:
+        2px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        11px;
+    }
+
+    .undo-btn {
+      padding:
+        5px
+        8px;
+
+      color:
+        #93c5fd;
+
+      background:
+        transparent;
+
+      border:
+        0;
+
+      cursor:
+        pointer;
+
+      font-size:
+        11px;
+
+      font-weight:
+        700;
+    }
+
+    @keyframes toastIn {
+
+      from {
+        opacity: 0;
+        transform:
+          translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform:
+          translateY(0);
+      }
+
+    }
+
+    /* =========================
        MOBILE
-    ========================================= */
+    ========================= */
 
     @media (max-width: 560px) {
 
@@ -740,20 +1159,15 @@
         padding:
           22px
           12px
-          30px;
-      }
-
-      .header {
-        margin-bottom:
-          20px;
+          35px;
       }
 
       .logo {
-        width: 50px;
-        height: 50px;
+        width:
+          50px;
 
-        border-radius:
-          15px;
+        height:
+          50px;
       }
 
       h1 {
@@ -762,9 +1176,6 @@
       }
 
       .subtitle {
-        margin-top:
-          7px;
-
         font-size:
           12px;
       }
@@ -789,10 +1200,6 @@
       .stats {
         gap:
           7px;
-
-        margin:
-          14px
-          0;
       }
 
       .stat {
@@ -804,11 +1211,6 @@
       .stat-number {
         font-size:
           17px;
-      }
-
-      .stat-label {
-        font-size:
-          9px;
       }
 
       .item {
@@ -841,10 +1243,9 @@
       }
     }
 
-
-    /* =========================================
+    /* =========================
        SMALL PHONES
-    ========================================= */
+    ========================= */
 
     @media (max-width: 380px) {
 
@@ -858,9 +1259,22 @@
           100%;
       }
 
+      .toolbar {
+        flex-direction:
+          column;
+      }
+
+      .filter-btn {
+        width:
+          100%;
+
+        justify-content:
+          center;
+      }
+
       .item {
         gap:
-          8px;
+          7px;
       }
 
       .actions {
@@ -870,14 +1284,16 @@
 
       .action-btn {
         width:
-          31px;
+          30px;
 
         height:
-          31px;
+          30px;
       }
+
     }
 
   </style>
+
 </head>
 
 
@@ -885,16 +1301,11 @@
 
   <main class="container">
 
-
-    <!-- =====================================
-         HEADER
-    ====================================== -->
+    <!-- HEADER -->
 
     <header class="header">
 
       <div class="logo">
-
-        <!-- KEY -->
 
         <svg
           class="icon icon-lg"
@@ -924,23 +1335,18 @@
 
       </div>
 
-
       <h1>
-        Password Recovery Tracker
+        Get Back My Key
       </h1>
 
-
       <p class="subtitle">
-        Keep track of password combinations you've tried.
-        Copy, test, and mark each attempt.
+        Keep track of password combinations and your recovery attempts.
       </p>
 
     </header>
 
 
-    <!-- =====================================
-         ADD PASSWORD
-    ====================================== -->
+    <!-- ADD PASSWORD -->
 
     <section class="add-card">
 
@@ -952,10 +1358,9 @@
           autocomplete="off"
           spellcheck="false"
           placeholder="Enter password combination..."
-        />
+        >
 
       </div>
-
 
       <button
         class="add-btn"
@@ -963,24 +1368,16 @@
         type="button"
       >
 
-        <!-- PLUS -->
-
         <svg
           class="icon icon-sm"
           viewBox="0 0 24 24"
           aria-hidden="true"
         >
 
-          <path
-            d="M12 5v14"
-          ></path>
-
-          <path
-            d="M5 12h14"
-          ></path>
+          <path d="M12 5v14"></path>
+          <path d="M5 12h14"></path>
 
         </svg>
-
 
         <span>
           Add
@@ -991,9 +1388,7 @@
     </section>
 
 
-    <!-- =====================================
-         STATS
-    ====================================== -->
+    <!-- STATS -->
 
     <section class="stats">
 
@@ -1047,16 +1442,119 @@
     </section>
 
 
-    <!-- =====================================
-         PASSWORD LIST
-    ====================================== -->
+    <!-- PROGRESS -->
+
+    <div
+      class="progress-wrap"
+      id="progressWrap"
+      style="display:none;"
+    >
+
+      <div class="progress-info">
+
+        <span>
+          Recovery progress
+        </span>
+
+        <span id="progressText">
+          0%
+        </span>
+
+      </div>
+
+      <div class="progress">
+
+        <div
+          class="progress-bar"
+          id="progressBar"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="toolbar">
+
+      <div class="search-box">
+
+        <svg
+          class="icon icon-sm search-icon"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+
+          <circle
+            cx="11"
+            cy="11"
+            r="7"
+          ></circle>
+
+          <path
+            d="m20 20-4-4"
+          ></path>
+
+        </svg>
+
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search attempts..."
+          autocomplete="off"
+        >
+
+      </div>
+
+    </div>
+
+
+    <!-- FILTERS -->
+
+    <div class="filters">
+
+      <button
+        class="filter active"
+        data-filter="all"
+        type="button"
+      >
+        All
+      </button>
+
+      <button
+        class="filter"
+        data-filter="pending"
+        type="button"
+      >
+        Pending
+      </button>
+
+      <button
+        class="filter"
+        data-filter="no"
+        type="button"
+      >
+        Failed
+      </button>
+
+      <button
+        class="filter"
+        data-filter="yes"
+        type="button"
+      >
+        Success
+      </button>
+
+    </div>
+
+
+    <!-- PASSWORD LIST -->
 
     <section id="list"></section>
 
 
-    <!-- =====================================
-         EMPTY STATE
-    ====================================== -->
+    <!-- EMPTY STATE -->
 
     <div
       class="empty"
@@ -1064,8 +1562,6 @@
     >
 
       <div class="empty-icon">
-
-        <!-- LOCK -->
 
         <svg
           class="icon icon-lg"
@@ -1089,11 +1585,9 @@
 
       </div>
 
-
       <div class="empty-title">
         No password attempts yet
       </div>
-
 
       <div class="empty-text">
         Add your first combination above to start tracking.
@@ -1102,57 +1596,127 @@
     </div>
 
 
-    <!-- =====================================
-         FOOTER
-    ====================================== -->
+    <!-- BACKUP -->
 
-    <footer class="footer">
+    <div class="backup">
 
-      <!-- SHIELD -->
-
-      <svg
-        class="icon"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
+      <button
+        class="backup-btn"
+        id="exportBtn"
+        type="button"
       >
 
-        <path
-          d="
-            M12 3
-            20 6
-            v5
-            c0 5-3.4 8.7-8 10
-            -4.6-1.3-8-5-8-10
-            V6
-            l8-3Z
-          "
-        ></path>
+        <svg
+          class="icon icon-sm"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
 
-      </svg>
+          <path d="M12 3v12"></path>
+
+          <path d="m7 10 5 5 5-5"></path>
+
+          <path
+            d="M5 21h14"
+          ></path>
+
+        </svg>
+
+        Export Backup
+
+      </button>
 
 
-      <span>
-        Data is stored locally in this browser.
+      <button
+        class="backup-btn"
+        id="importBtn"
+        type="button"
+      >
+
+        <svg
+          class="icon icon-sm"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+
+          <path d="M12 15V3"></path>
+
+          <path d="m7 8 5-5 5 5"></path>
+
+          <path
+            d="M5 21h14"
+          ></path>
+
+        </svg>
+
+        Import Backup
+
+      </button>
+
+    </div>
+
+
+    <input
+      type="file"
+      id="fileInput"
+      accept=".json,application/json"
+      hidden
+    >
+
+
+    <!-- STORAGE -->
+
+    <div class="storage-status">
+
+      <span class="storage-dot"></span>
+
+      <span id="storageText">
+        Saved locally in this browser
       </span>
 
-    </footer>
+    </div>
 
   </main>
+
+
+  <!-- TOAST -->
+
+  <div id="toastContainer"></div>
 
 
   <script>
 
     /* =========================================
-       LOCAL STORAGE
+       CONFIG
     ========================================= */
 
     const STORAGE_KEY =
-      "password_recovery_tracker";
+      "get_back_my_key_passwords_v3";
 
+
+    /* =========================================
+       STATE
+    ========================================= */
 
     let passwords =
       loadPasswords();
 
+    let currentFilter =
+      "all";
+
+    let searchQuery =
+      "";
+
+    let deletedBackup =
+      null;
+
+    let undoTimeout =
+      null;
+
+
+    /* =========================================
+       LOAD STORAGE
+    ========================================= */
 
     function loadPasswords() {
 
@@ -1178,12 +1742,16 @@
         }
 
 
-        return parsed;
+        return parsed.filter(
+          item =>
+            item &&
+            typeof item.text === "string"
+        );
 
       } catch (error) {
 
         console.error(
-          "Could not load saved data:",
+          "Storage load failed:",
           error
         );
 
@@ -1191,6 +1759,10 @@
       }
     }
 
+
+    /* =========================================
+       SAVE STORAGE
+    ========================================= */
 
     function savePasswords() {
 
@@ -1201,14 +1773,26 @@
           JSON.stringify(passwords)
         );
 
+
+        updateStorageStatus(
+          true
+        );
+
+
         return true;
 
       } catch (error) {
 
         console.error(
-          "Could not save data:",
+          "Storage save failed:",
           error
         );
+
+
+        updateStorageStatus(
+          false
+        );
+
 
         return false;
       }
@@ -1216,11 +1800,32 @@
 
 
     /* =========================================
-       ADD PASSWORD
+       STORAGE STATUS
+    ========================================= */
+
+    function updateStorageStatus(
+      saved
+    ) {
+
+      const text =
+        document.getElementById(
+          "storageText"
+        );
+
+
+      text.textContent =
+        saved
+          ? "Saved locally in this browser"
+          : "Could not save to browser storage";
+    }
+
+
+    /* =========================================
+       ADD
        
        IMPORTANT:
-       unshift() puts the newest password
-       at the TOP of the list.
+       NO trim().
+       The exact input is preserved.
     ========================================= */
 
     function addPassword() {
@@ -1231,11 +1836,29 @@
         );
 
 
+      /*
+        DO NOT trim this.
+
+        If user enters:
+
+          "  my pass  "
+
+        those spaces are intentionally
+        preserved.
+      */
+
       const value =
-        input.value.trim();
+        input.value;
 
 
-      if (!value) {
+      /*
+        Only reject a completely empty input.
+
+        Spaces-only input is technically valid
+        and will therefore be preserved.
+      */
+
+      if (value.length === 0) {
 
         input.focus();
 
@@ -1243,12 +1866,59 @@
       }
 
 
-      passwords.unshift({
+      /* =====================================
+         EXACT DUPLICATE CHECK
+         
+         No trim.
+         No lowercase.
+         No normalization.
+         
+         "Pass"
+         "pass"
+         "Pass "
+         " Pass"
+         
+         are all different.
+      ===================================== */
+
+      const duplicate =
+        passwords.find(
+          password =>
+            password.text === value
+        );
+
+
+      if (duplicate) {
+
+        showToast(
+          "Already exists",
+          "This exact combination is already in your list.",
+          "error"
+        );
+
+
+        input.focus();
+
+        input.select();
+
+
+        return;
+      }
+
+
+      /* =====================================
+         NEW ENTRY
+         
+         unshift = TOP
+      ===================================== */
+
+      const newPassword = {
 
         id:
           Date.now() +
+          "_" +
           Math.random()
-            .toString(16)
+            .toString(36)
             .slice(2),
 
         text:
@@ -1260,7 +1930,12 @@
         createdAt:
           new Date().toISOString()
 
-      });
+      };
+
+
+      passwords.unshift(
+        newPassword
+      );
 
 
       savePasswords();
@@ -1274,6 +1949,13 @@
 
 
       input.focus();
+
+
+      showToast(
+        "Added",
+        "New combination added to the top of your list.",
+        "success"
+      );
     }
 
 
@@ -1292,7 +1974,7 @@
 
 
     /* =========================================
-       ENTER TO ADD
+       ENTER KEY
     ========================================= */
 
     document
@@ -1301,7 +1983,7 @@
       )
       .addEventListener(
         "keydown",
-        function (event) {
+        function(event) {
 
           if (
             event.key ===
@@ -1318,7 +2000,7 @@
 
 
     /* =========================================
-       MARK STATUS
+       STATUS
     ========================================= */
 
     function markStatus(
@@ -1326,10 +2008,7 @@
       status
     ) {
 
-      if (
-        !passwords[index]
-      ) {
-
+      if (!passwords[index]) {
         return;
       }
 
@@ -1351,7 +2030,6 @@
 
       savePasswords();
 
-
       render();
     }
 
@@ -1364,12 +2042,35 @@
       index
     ) {
 
-      if (
-        !passwords[index]
-      ) {
-
+      if (!passwords[index]) {
         return;
       }
+
+
+      const item =
+        passwords[index];
+
+
+      const confirmed =
+        confirm(
+          "Delete this password attempt?"
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      deletedBackup = {
+
+        item:
+          item,
+
+        index:
+          index
+
+      };
 
 
       passwords.splice(
@@ -1380,19 +2081,64 @@
 
       savePasswords();
 
-
       render();
+
+
+      showUndoToast(
+        "Deleted",
+        "The password attempt was removed."
+      );
     }
 
 
     /* =========================================
-       COPY PASSWORD
-       
-       Method 1:
-       Clipboard API
+       UNDO DELETE
+    ========================================= */
 
-       Method 2:
-       Mobile/browser fallback
+    function undoDelete() {
+
+      if (!deletedBackup) {
+        return;
+      }
+
+
+      passwords.splice(
+        deletedBackup.index,
+        0,
+        deletedBackup.item
+      );
+
+
+      savePasswords();
+
+      render();
+
+
+      deletedBackup =
+        null;
+
+
+      if (undoTimeout) {
+
+        clearTimeout(
+          undoTimeout
+        );
+
+        undoTimeout =
+          null;
+      }
+
+
+      showToast(
+        "Restored",
+        "The deleted attempt was restored.",
+        "success"
+      );
+    }
+
+
+    /* =========================================
+       COPY
     ========================================= */
 
     async function copyText(
@@ -1404,9 +2150,7 @@
         false;
 
 
-      /* -----------------------------------------
-         METHOD 1
-      ----------------------------------------- */
+      /* Modern API */
 
       try {
 
@@ -1415,8 +2159,9 @@
           window.isSecureContext
         ) {
 
-          await navigator.clipboard
-            .writeText(text);
+          await navigator.clipboard.writeText(
+            text
+          );
 
           copied =
             true;
@@ -1425,15 +2170,12 @@
       } catch (error) {
 
         console.log(
-          "Clipboard API failed:",
-          error
+          "Clipboard API failed"
         );
       }
 
 
-      /* -----------------------------------------
-         METHOD 2
-      ----------------------------------------- */
+      /* Fallback */
 
       if (!copied) {
 
@@ -1467,9 +2209,6 @@
           textarea.style.opacity =
             "0";
 
-          textarea.style.pointerEvents =
-            "none";
-
 
           document.body.appendChild(
             textarea
@@ -1500,16 +2239,12 @@
         } catch (error) {
 
           console.error(
-            "Fallback copy failed:",
+            "Copy failed:",
             error
           );
         }
       }
 
-
-      /* -----------------------------------------
-         COPY SUCCESS
-      ----------------------------------------- */
 
       if (copied) {
 
@@ -1540,7 +2275,7 @@
 
 
         setTimeout(
-          function () {
+          function() {
 
             button.innerHTML =
               original;
@@ -1556,10 +2291,607 @@
 
       } else {
 
-        alert(
-          "Copy failed. Please copy the password manually."
+        showToast(
+          "Copy failed",
+          "Please copy the combination manually.",
+          "error"
         );
       }
+    }
+
+
+    /* =========================================
+       SEARCH
+    ========================================= */
+
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .addEventListener(
+        "input",
+        function(event) {
+
+          searchQuery =
+            event.target.value;
+
+          render();
+
+        }
+      );
+
+
+    /* =========================================
+       FILTER
+    ========================================= */
+
+    document
+      .querySelectorAll(
+        ".filter"
+      )
+      .forEach(
+        function(button) {
+
+          button.addEventListener(
+            "click",
+            function() {
+
+              document
+                .querySelectorAll(
+                  ".filter"
+                )
+                .forEach(
+                  btn =>
+                    btn.classList.remove(
+                      "active"
+                    )
+                );
+
+
+              this.classList.add(
+                "active"
+              );
+
+
+              currentFilter =
+                this.dataset.filter;
+
+
+              render();
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =========================================
+       EXPORT
+    ========================================= */
+
+    document
+      .getElementById(
+        "exportBtn"
+      )
+      .addEventListener(
+        "click",
+        exportBackup
+      );
+
+
+    function exportBackup() {
+
+      if (
+        passwords.length === 0
+      ) {
+
+        showToast(
+          "Nothing to export",
+          "There are no password attempts yet.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      const backup = {
+
+        app:
+          "Get Back My Key",
+
+        version:
+          3,
+
+        exportedAt:
+          new Date().toISOString(),
+
+        passwords:
+          passwords
+
+      };
+
+
+      const json =
+        JSON.stringify(
+          backup,
+          null,
+          2
+        );
+
+
+      const blob =
+        new Blob(
+          [json],
+          {
+            type:
+              "application/json"
+          }
+        );
+
+
+      const url =
+        URL.createObjectURL(
+          blob
+        );
+
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+
+      const date =
+        new Date()
+          .toISOString()
+          .slice(
+            0,
+            10
+          );
+
+
+      link.href =
+        url;
+
+
+      link.download =
+        `get-back-my-key-${date}.json`;
+
+
+      document.body.appendChild(
+        link
+      );
+
+
+      link.click();
+
+
+      link.remove();
+
+
+      URL.revokeObjectURL(
+        url
+      );
+
+
+      showToast(
+        "Backup exported",
+        "Your local backup file has been created.",
+        "success"
+      );
+    }
+
+
+    /* =========================================
+       IMPORT
+    ========================================= */
+
+    document
+      .getElementById(
+        "importBtn"
+      )
+      .addEventListener(
+        "click",
+        function() {
+
+          document
+            .getElementById(
+              "fileInput"
+            )
+            .click();
+
+        }
+      );
+
+
+    document
+      .getElementById(
+        "fileInput"
+      )
+      .addEventListener(
+        "change",
+        importBackup
+      );
+
+
+    function importBackup(
+      event
+    ) {
+
+      const file =
+        event.target.files[0];
+
+
+      if (!file) {
+        return;
+      }
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function() {
+
+          try {
+
+            const data =
+              JSON.parse(
+                reader.result
+              );
+
+
+            let imported;
+
+
+            /*
+              Support both:
+
+              {
+                passwords: [...]
+              }
+
+              and directly:
+              [...]
+            */
+
+            if (
+              Array.isArray(data)
+            ) {
+
+              imported =
+                data;
+
+            } else if (
+              Array.isArray(
+                data.passwords
+              )
+            ) {
+
+              imported =
+                data.passwords;
+
+            } else {
+
+              throw new Error(
+                "Invalid backup format"
+              );
+            }
+
+
+            /*
+              Only accept valid entries.
+            */
+
+            imported =
+              imported.filter(
+                item =>
+                  item &&
+                  typeof item.text ===
+                    "string"
+              );
+
+
+            if (
+              imported.length === 0
+            ) {
+
+              throw new Error(
+                "No valid entries found"
+              );
+            }
+
+
+            /*
+              Merge while preserving exact
+              password strings.
+            */
+
+            let added =
+              0;
+
+
+            imported.forEach(
+              function(item) {
+
+                const exists =
+                  passwords.some(
+                    existing =>
+                      existing.text ===
+                      item.text
+                  );
+
+
+                if (!exists) {
+
+                  passwords.push({
+
+                    id:
+                      item.id ||
+                      Date.now() +
+                      "_" +
+                      Math.random()
+                        .toString(36)
+                        .slice(2),
+
+                    text:
+                      item.text,
+
+                    status:
+                      item.status === "yes" ||
+                      item.status === "no"
+                        ? item.status
+                        : "pending",
+
+                    createdAt:
+                      item.createdAt ||
+                      new Date().toISOString()
+
+                  });
+
+
+                  added++;
+                }
+
+              }
+            );
+
+
+            savePasswords();
+
+            render();
+
+
+            showToast(
+              "Backup imported",
+              `${added} new ${added === 1 ? "entry" : "entries"} added.`,
+              "success"
+            );
+
+
+          } catch (error) {
+
+            console.error(
+              error
+            );
+
+
+            showToast(
+              "Import failed",
+              "The selected file is not a valid backup.",
+              "error"
+            );
+
+          }
+
+
+          event.target.value =
+            "";
+
+        };
+
+
+      reader.readAsText(
+        file
+      );
+    }
+
+
+    /* =========================================
+       TOAST
+    ========================================= */
+
+    function showToast(
+      title,
+      message,
+      type = "success"
+    ) {
+
+      const container =
+        document.getElementById(
+          "toastContainer"
+        );
+
+
+      container.innerHTML =
+        "";
+
+
+      const toast =
+        document.createElement(
+          "div"
+        );
+
+
+      toast.className =
+        "toast " +
+        type;
+
+
+      toast.innerHTML = `
+
+        <div class="toast-content">
+
+          <div class="toast-title">
+            ${escapeHtml(title)}
+          </div>
+
+          <div class="toast-message">
+            ${escapeHtml(message)}
+          </div>
+
+        </div>
+
+      `;
+
+
+      container.appendChild(
+        toast
+      );
+
+
+      setTimeout(
+        function() {
+
+          toast.remove();
+
+        },
+        3000
+      );
+    }
+
+
+    /* =========================================
+       UNDO TOAST
+    ========================================= */
+
+    function showUndoToast(
+      title,
+      message
+    ) {
+
+      const container =
+        document.getElementById(
+          "toastContainer"
+        );
+
+
+      container.innerHTML =
+        "";
+
+
+      const toast =
+        document.createElement(
+          "div"
+        );
+
+
+      toast.className =
+        "toast";
+
+
+      toast.innerHTML = `
+
+        <div class="toast-content">
+
+          <div class="toast-title">
+            ${escapeHtml(title)}
+          </div>
+
+          <div class="toast-message">
+            ${escapeHtml(message)}
+          </div>
+
+        </div>
+
+        <button
+          class="undo-btn"
+          type="button"
+        >
+          Undo
+        </button>
+
+      `;
+
+
+      toast
+        .querySelector(
+          ".undo-btn"
+        )
+        .addEventListener(
+          "click",
+          undoDelete
+        );
+
+
+      container.appendChild(
+        toast
+      );
+
+
+      undoTimeout =
+        setTimeout(
+          function() {
+
+            deletedBackup =
+              null;
+
+            toast.remove();
+
+          },
+          5000
+        );
+    }
+
+
+    /* =========================================
+       FORMAT DATE
+    ========================================= */
+
+    function formatDate(
+      dateString
+    ) {
+
+      if (!dateString) {
+        return "";
+      }
+
+
+      const date =
+        new Date(
+          dateString
+        );
+
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+
+        return "";
+      }
+
+
+      return date.toLocaleString(
+        undefined,
+        {
+          month:
+            "short",
+
+          day:
+            "numeric",
+
+          hour:
+            "2-digit",
+
+          minute:
+            "2-digit"
+        }
+      );
     }
 
 
@@ -1575,7 +2907,7 @@
         );
 
 
-      const emptyMsg =
+      const empty =
         document.getElementById(
           "emptyMsg"
         );
@@ -1585,9 +2917,7 @@
         "";
 
 
-      /* -----------------------------------------
-         STATS
-      ----------------------------------------- */
+      /* Statistics */
 
       const total =
         passwords.length;
@@ -1595,27 +2925,17 @@
 
       const tried =
         passwords.filter(
-          function (password) {
-
-            return (
-              password.status !==
-              "pending"
-            );
-
-          }
+          item =>
+            item.status !==
+            "pending"
         ).length;
 
 
       const success =
         passwords.filter(
-          function (password) {
-
-            return (
-              password.status ===
-              "yes"
-            );
-
-          }
+          item =>
+            item.status ===
+            "yes"
         ).length;
 
 
@@ -1637,36 +2957,150 @@
         success;
 
 
-      /* -----------------------------------------
-         EMPTY STATE
-      ----------------------------------------- */
+      /* Progress */
 
-      emptyMsg.style.display =
-        total === 0
-          ? "block"
-          : "none";
+      const progressWrap =
+        document.getElementById(
+          "progressWrap"
+        );
 
 
-      /* -----------------------------------------
-         ITEMS
-         
-         Array is already ordered:
-         newest -> oldest
-      ----------------------------------------- */
+      if (total > 0) {
 
-      passwords.forEach(
-        function (
-          password,
-          index
+        progressWrap.style.display =
+          "block";
+
+
+        const percentage =
+          Math.round(
+            (
+              success /
+              total
+            ) *
+            100
+          );
+
+
+        document.getElementById(
+          "progressBar"
+        ).style.width =
+          percentage +
+          "%";
+
+
+        document.getElementById(
+          "progressText"
+        ).textContent =
+          percentage +
+          "%";
+
+      } else {
+
+        progressWrap.style.display =
+          "none";
+      }
+
+
+      /* Filter */
+
+      const filtered =
+        passwords.filter(
+          function(password) {
+
+            const filterMatch =
+              currentFilter ===
+                "all" ||
+              password.status ===
+                currentFilter;
+
+
+            const searchMatch =
+              password.text
+                .toLowerCase()
+                .includes(
+                  searchQuery
+                    .toLowerCase()
+                );
+
+
+            return (
+              filterMatch &&
+              searchMatch
+            );
+
+          }
+        );
+
+
+      /* Empty state */
+
+      if (
+        filtered.length === 0
+      ) {
+
+        if (
+          passwords.length === 0
         ) {
+
+          empty.querySelector(
+            ".empty-title"
+          ).textContent =
+            "No password attempts yet";
+
+
+          empty.querySelector(
+            ".empty-text"
+          ).textContent =
+            "Add your first combination above to start tracking.";
+
+        } else {
+
+          empty.querySelector(
+            ".empty-title"
+          ).textContent =
+            "No matching attempts";
+
+
+          empty.querySelector(
+            ".empty-text"
+          ).textContent =
+            "Try a different search or filter.";
+
+        }
+
+
+        empty.style.display =
+          "block";
+
+      } else {
+
+        empty.style.display =
+          "none";
+      }
+
+
+      /* Render cards */
+
+      filtered.forEach(
+        function(password) {
+
+          /*
+            Find original index.
+            This is important because filtered
+            arrays have different indexes.
+          */
+
+          const originalIndex =
+            passwords.indexOf(
+              password
+            );
+
 
           const item =
             document.createElement(
               "div"
             );
 
-
-          /* Card status */
 
           item.className =
             "item " +
@@ -1684,10 +3118,6 @@
                   : "pending"
             );
 
-
-          /* -----------------------------------------
-             STATUS
-          ----------------------------------------- */
 
           let statusClass =
             "pending";
@@ -1731,10 +3161,7 @@
 
             `;
 
-          }
-
-
-          else if (
+          } else if (
             password.status ===
             "no"
           ) {
@@ -1772,24 +3199,23 @@
           }
 
 
-          /* -----------------------------------------
-             CARD
-          ----------------------------------------- */
-
           item.innerHTML = `
 
-            <div
-              class="password-content"
-            >
+            <div class="password-content">
 
-              <span
-                class="pw-text"
-              >
+              <div class="attempt-line">
+
+                <span class="attempt-number">
+                  #${originalIndex + 1}
+                </span>
+
+              </div>
+
+              <span class="pw-text">
                 ${escapeHtml(
                   password.text
                 )}
               </span>
-
 
               <span
                 class="
@@ -1804,30 +3230,30 @@
 
               </span>
 
+              <div class="date">
+                ${escapeHtml(
+                  formatDate(
+                    password.createdAt
+                  )
+                )}
+              </div>
+
             </div>
 
 
-            <div
-              class="actions"
-            >
-
+            <div class="actions">
 
               <!-- COPY -->
 
               <button
-                class="
-                  action-btn
-                "
+                class="action-btn copy"
                 type="button"
-                title="Copy password"
-                aria-label="Copy password"
+                title="Copy"
+                aria-label="Copy"
               >
 
                 <svg
-                  class="
-                    icon
-                    icon-sm
-                  "
+                  class="icon icon-sm"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
@@ -1868,15 +3294,12 @@
                   }
                 "
                 type="button"
-                title="Mark as successful"
-                aria-label="Mark as successful"
+                title="Mark successful"
+                aria-label="Mark successful"
               >
 
                 <svg
-                  class="
-                    icon
-                    icon-sm
-                  "
+                  class="icon icon-sm"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
@@ -1904,15 +3327,12 @@
                   }
                 "
                 type="button"
-                title="Mark as failed"
-                aria-label="Mark as failed"
+                title="Mark failed"
+                aria-label="Mark failed"
               >
 
                 <svg
-                  class="
-                    icon
-                    icon-sm
-                  "
+                  class="icon icon-sm"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
@@ -1943,10 +3363,7 @@
               >
 
                 <svg
-                  class="
-                    icon
-                    icon-sm
-                  "
+                  class="icon icon-sm"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
@@ -1976,26 +3393,18 @@
               </button>
 
             </div>
-
           `;
-
-
-          /* -----------------------------------------
-             BUTTONS
-          ----------------------------------------- */
-
-          const buttons =
-            item.querySelectorAll(
-              ".action-btn"
-            );
 
 
           /* Copy */
 
-          buttons[0]
+          item
+            .querySelector(
+              ".copy"
+            )
             .addEventListener(
               "click",
-              function () {
+              function() {
 
                 copyText(
                   password.text,
@@ -2008,13 +3417,16 @@
 
           /* Success */
 
-          buttons[1]
+          item
+            .querySelector(
+              ".success"
+            )
             .addEventListener(
               "click",
-              function () {
+              function() {
 
                 markStatus(
-                  index,
+                  originalIndex,
                   "yes"
                 );
 
@@ -2024,13 +3436,16 @@
 
           /* Failed */
 
-          buttons[2]
+          item
+            .querySelector(
+              ".failed"
+            )
             .addEventListener(
               "click",
-              function () {
+              function() {
 
                 markStatus(
-                  index,
+                  originalIndex,
                   "no"
                 );
 
@@ -2040,13 +3455,16 @@
 
           /* Delete */
 
-          buttons[3]
+          item
+            .querySelector(
+              ".delete"
+            )
             .addEventListener(
               "click",
-              function () {
+              function() {
 
                 deleteItem(
-                  index
+                  originalIndex
                 );
 
               }
@@ -2063,12 +3481,14 @@
 
 
     /* =========================================
-       HTML ESCAPE
+       ESCAPE HTML
     ========================================= */
 
-    function escapeHtml(str) {
+    function escapeHtml(
+      value
+    ) {
 
-      return String(str)
+      return String(value)
 
         .replace(
           /&/g,
@@ -2106,4 +3526,5 @@
   </script>
 
 </body>
+
 </html>
