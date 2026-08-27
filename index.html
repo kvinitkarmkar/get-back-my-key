@@ -2,30 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#09090b" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <meta
+    name="theme-color"
+    content="#09090b"
+  />
 
   <title>Password Recovery Tracker</title>
 
   <style>
+    /* =========================================
+       RESET
+    ========================================= */
+
     * {
       box-sizing: border-box;
-    }
-
-    :root {
-      --bg: #09090b;
-      --surface: #111113;
-      --surface-2: #18181b;
-      --surface-3: #202023;
-      --border: #27272a;
-
-      --text: #fafafa;
-      --muted: #a1a1aa;
-      --muted-2: #71717a;
-
-      --blue: #3b82f6;
-      --green: #22c55e;
-      --red: #ef4444;
     }
 
     html {
@@ -42,9 +37,9 @@
           rgba(59, 130, 246, 0.12),
           transparent 38%
         ),
-        var(--bg);
+        #09090b;
 
-      color: var(--text);
+      color: #fafafa;
 
       font-family:
         Inter,
@@ -65,15 +60,33 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .container {
-      width: min(720px, 100%);
-      margin: 0 auto;
-      padding: 28px 16px 40px;
+
+    /* =========================================
+       VARIABLES
+    ========================================= */
+
+    :root {
+      --bg: #09090b;
+
+      --surface: #111113;
+      --surface-2: #18181b;
+      --surface-3: #202023;
+
+      --border: #27272a;
+
+      --text: #fafafa;
+      --muted: #a1a1aa;
+      --muted-2: #71717a;
+
+      --blue: #3b82f6;
+      --green: #22c55e;
+      --red: #ef4444;
     }
 
-    /* =========================
-       ICON
-    ========================= */
+
+    /* =========================================
+       COMMON ICON
+    ========================================= */
 
     .icon {
       width: 18px;
@@ -83,6 +96,7 @@
 
       fill: none;
       stroke: currentColor;
+
       stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -94,16 +108,34 @@
     }
 
     .icon-lg {
-      width: 24px;
-      height: 24px;
+      width: 25px;
+      height: 25px;
     }
 
-    /* =========================
+
+    /* =========================================
+       CONTAINER
+    ========================================= */
+
+    .container {
+      width: min(720px, 100%);
+
+      margin: 0 auto;
+
+      padding:
+        28px
+        16px
+        40px;
+    }
+
+
+    /* =========================================
        HEADER
-    ========================= */
+    ========================================= */
 
     .header {
       text-align: center;
+
       margin-bottom: 28px;
     }
 
@@ -117,12 +149,12 @@
       align-items: center;
       justify-content: center;
 
-      border-radius: 16px;
+      color: #d4d4d8;
 
       background: var(--surface-2);
-      border: 1px solid var(--border);
 
-      color: #d4d4d8;
+      border: 1px solid var(--border);
+      border-radius: 16px;
 
       box-shadow:
         0 12px 35px rgba(0, 0, 0, 0.28),
@@ -134,13 +166,17 @@
 
       font-size: 24px;
       font-weight: 700;
+
       letter-spacing: -0.6px;
     }
 
     .subtitle {
       max-width: 500px;
 
-      margin: 8px auto 0;
+      margin:
+        8px
+        auto
+        0;
 
       color: var(--muted);
 
@@ -148,19 +184,24 @@
       line-height: 1.55;
     }
 
-    /* =========================
+
+    /* =========================================
        ADD CARD
-    ========================= */
+    ========================================= */
 
     .add-card {
       display: flex;
+
       gap: 10px;
 
       padding: 10px;
 
-      background: rgba(17, 17, 19, 0.88);
+      background:
+        rgba(17, 17, 19, 0.88);
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-radius: 17px;
 
       box-shadow:
@@ -169,8 +210,8 @@
     }
 
     .input-wrapper {
-      position: relative;
       flex: 1;
+
       min-width: 0;
     }
 
@@ -178,13 +219,17 @@
       width: 100%;
       height: 48px;
 
-      padding: 0 14px;
+      padding:
+        0
+        14px;
 
       background: var(--surface-2);
 
       color: var(--text);
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-radius: 12px;
 
       outline: none;
@@ -201,10 +246,12 @@
     }
 
     .add-card input:focus {
-      border-color: rgba(59, 130, 246, 0.65);
+      border-color:
+        rgba(59, 130, 246, 0.65);
 
       box-shadow:
-        0 0 0 3px rgba(59, 130, 246, 0.10);
+        0 0 0 3px
+        rgba(59, 130, 246, 0.10);
     }
 
     .add-btn {
@@ -213,11 +260,15 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+
       gap: 7px;
 
-      padding: 0 18px;
+      padding:
+        0
+        18px;
 
       background: var(--blue);
+
       color: white;
 
       border: 0;
@@ -241,27 +292,36 @@
       transform: scale(0.97);
     }
 
-    /* =========================
+
+    /* =========================================
        STATS
-    ========================= */
+    ========================================= */
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
 
       gap: 10px;
 
-      margin: 18px 0;
+      margin:
+        18px
+        0;
     }
 
     .stat {
-      padding: 14px 10px;
+      padding:
+        14px
+        10px;
 
       text-align: center;
 
       background: var(--surface);
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-radius: 14px;
     }
 
@@ -270,6 +330,7 @@
 
       font-size: 19px;
       font-weight: 700;
+
       letter-spacing: -0.3px;
     }
 
@@ -284,22 +345,28 @@
       font-weight: 600;
 
       text-transform: uppercase;
+
       letter-spacing: 0.6px;
     }
 
-    /* =========================
+
+    /* =========================================
        LIST
-    ========================= */
+    ========================================= */
 
     #list {
       display: flex;
+
       flex-direction: column;
+
       gap: 9px;
     }
 
     .item {
       display: flex;
+
       align-items: center;
+
       gap: 10px;
 
       min-width: 0;
@@ -308,20 +375,23 @@
 
       background: var(--surface);
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-left-width: 3px;
 
       border-radius: 15px;
 
       transition:
         background 0.2s ease,
-        transform 0.2s ease,
-        border-color 0.2s ease;
+        transform 0.2s ease;
     }
 
     .item:hover {
       background: #141416;
-      transform: translateY(-1px);
+
+      transform:
+        translateY(-1px);
     }
 
     .item.pending {
@@ -336,12 +406,14 @@
       border-left-color: var(--red);
     }
 
-    /* =========================
-       PASSWORD CONTENT
-    ========================= */
+
+    /* =========================================
+       PASSWORD
+    ========================================= */
 
     .password-content {
       flex: 1;
+
       min-width: 0;
     }
 
@@ -357,23 +429,29 @@
         monospace;
 
       font-size: 14px;
+
       line-height: 1.5;
 
       word-break: break-all;
     }
 
-    /* =========================
+
+    /* =========================================
        STATUS
-    ========================= */
+    ========================================= */
 
     .status {
       display: inline-flex;
+
       align-items: center;
+
       gap: 5px;
 
       margin-top: 6px;
 
-      padding: 3px 8px;
+      padding:
+        3px
+        8px;
 
       border-radius: 999px;
 
@@ -381,31 +459,40 @@
       font-weight: 600;
 
       text-transform: uppercase;
+
       letter-spacing: 0.45px;
     }
 
     .status.pending {
-      background: #27272a;
       color: #a1a1aa;
+
+      background: #27272a;
     }
 
     .status.success {
-      background: rgba(34, 197, 94, 0.12);
       color: #86efac;
+
+      background:
+        rgba(34, 197, 94, 0.12);
     }
 
     .status.failed {
-      background: rgba(239, 68, 68, 0.12);
       color: #fca5a5;
+
+      background:
+        rgba(239, 68, 68, 0.12);
     }
 
-    /* =========================
+
+    /* =========================================
        ACTIONS
-    ========================= */
+    ========================================= */
 
     .actions {
       display: flex;
+
       align-items: center;
+
       gap: 5px;
 
       flex-shrink: 0;
@@ -416,15 +503,19 @@
       height: 36px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
       padding: 0;
 
       background: var(--surface-2);
+
       color: #a1a1aa;
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-radius: 10px;
 
       cursor: pointer;
@@ -438,6 +529,7 @@
 
     .action-btn:hover {
       background: var(--surface-3);
+
       color: var(--text);
     }
 
@@ -445,17 +537,50 @@
       transform: scale(0.93);
     }
 
+
+    /* =========================================
+       SUCCESS / FAILED BUTTON
+    ========================================= */
+
     .action-btn.success.active {
-      background: rgba(34, 197, 94, 0.12);
-      border-color: rgba(34, 197, 94, 0.40);
+      background:
+        rgba(34, 197, 94, 0.12);
+
+      border-color:
+        rgba(34, 197, 94, 0.40);
+
       color: var(--green);
     }
 
     .action-btn.failed.active {
-      background: rgba(239, 68, 68, 0.12);
-      border-color: rgba(239, 68, 68, 0.40);
+      background:
+        rgba(239, 68, 68, 0.12);
+
+      border-color:
+        rgba(239, 68, 68, 0.40);
+
       color: var(--red);
     }
+
+
+    /* =========================================
+       COPY SUCCESS
+    ========================================= */
+
+    .action-btn.copied {
+      background:
+        rgba(34, 197, 94, 0.12);
+
+      border-color:
+        rgba(34, 197, 94, 0.40);
+
+      color: var(--green);
+    }
+
+
+    /* =========================================
+       DELETE
+    ========================================= */
 
     .action-btn.delete {
       color: #71717a;
@@ -463,31 +588,28 @@
 
     .action-btn.delete:hover {
       color: var(--red);
-      border-color: rgba(239, 68, 68, 0.35);
+
+      border-color:
+        rgba(239, 68, 68, 0.35);
     }
 
-    /* =========================
-       COPY STATE
-    ========================= */
 
-    .action-btn.copied {
-      background: rgba(34, 197, 94, 0.12);
-      border-color: rgba(34, 197, 94, 0.4);
-      color: var(--green);
-    }
-
-    /* =========================
+    /* =========================================
        EMPTY STATE
-    ========================= */
+    ========================================= */
 
     .empty {
-      padding: 52px 20px;
+      padding:
+        52px
+        20px;
 
       text-align: center;
 
       background: var(--surface);
 
-      border: 1px dashed var(--border);
+      border:
+        1px dashed var(--border);
+
       border-radius: 16px;
     }
 
@@ -495,15 +617,21 @@
       width: 46px;
       height: 46px;
 
-      margin: 0 auto 13px;
+      margin:
+        0
+        auto
+        13px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
       background: var(--surface-2);
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-radius: 14px;
 
       color: var(--muted);
@@ -519,39 +647,52 @@
     .empty-text {
       max-width: 300px;
 
-      margin: 6px auto 0;
+      margin:
+        6px
+        auto
+        0;
 
       color: var(--muted);
 
       font-size: 12px;
+
       line-height: 1.5;
     }
 
-    /* =========================
+
+    /* =========================================
        FOOTER
-    ========================= */
+    ========================================= */
 
     .footer {
       margin-top: 24px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
+
       gap: 5px;
 
       color: #52525b;
 
       font-size: 11px;
+
+      text-align: center;
     }
 
-    /* =========================
+
+    /* =========================================
        MOBILE
-    ========================= */
+    ========================================= */
 
     @media (max-width: 560px) {
 
       .container {
-        padding: 22px 12px 30px;
+        padding:
+          22px
+          12px
+          30px;
       }
 
       .header {
@@ -571,6 +712,7 @@
 
       .subtitle {
         margin-top: 7px;
+
         font-size: 12px;
       }
 
@@ -584,16 +726,23 @@
       }
 
       .add-btn {
-        padding: 0 15px;
+        padding:
+          0
+          15px;
       }
 
       .stats {
         gap: 7px;
-        margin: 14px 0;
+
+        margin:
+          14px
+          0;
       }
 
       .stat {
-        padding: 11px 6px;
+        padding:
+          11px
+          6px;
       }
 
       .stat-number {
@@ -606,6 +755,7 @@
 
       .item {
         align-items: flex-start;
+
         padding: 11px;
       }
 
@@ -616,6 +766,7 @@
       .action-btn {
         width: 33px;
         height: 33px;
+
         border-radius: 9px;
       }
 
@@ -624,9 +775,10 @@
       }
     }
 
-    /* =========================
+
+    /* =========================================
        SMALL PHONES
-    ========================= */
+    ========================================= */
 
     @media (max-width: 380px) {
 
@@ -654,29 +806,53 @@
   </style>
 </head>
 
+
 <body>
 
   <main class="container">
 
-    <!-- HEADER -->
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
 
     <header class="header">
 
       <div class="logo">
-        <!-- Key -->
+
+        <!-- KEY ICON -->
+
         <svg
           class="icon icon-lg"
           viewBox="0 0 24 24"
           aria-hidden="true"
         >
-          <circle cx="8" cy="15" r="4"></circle>
-          <path d="M10.8 12.2 20 3"></path>
-          <path d="m16 7 2 2"></path>
-          <path d="m18 5 2 2"></path>
+          <circle
+            cx="8"
+            cy="15"
+            r="4"
+          ></circle>
+
+          <path
+            d="M10.8 12.2 20 3"
+          ></path>
+
+          <path
+            d="m16 7 2 2"
+          ></path>
+
+          <path
+            d="m18 5 2 2"
+          ></path>
         </svg>
+
       </div>
 
-      <h1>Password Recovery Tracker</h1>
+
+      <h1>
+        Password Recovery Tracker
+      </h1>
+
 
       <p class="subtitle">
         Keep track of password combinations you've tried.
@@ -686,7 +862,9 @@
     </header>
 
 
-    <!-- ADD PASSWORD -->
+    <!-- =====================================
+         ADD PASSWORD
+    ====================================== -->
 
     <section class="add-card">
 
@@ -696,39 +874,52 @@
           type="text"
           id="pwInput"
           autocomplete="off"
+          spellcheck="false"
           placeholder="Enter password combination..."
         />
 
       </div>
 
+
       <button
         class="add-btn"
-        onclick="addPassword()"
+        id="addBtn"
         type="button"
       >
 
-        <!-- Plus -->
+        <!-- PLUS ICON -->
+
         <svg
           class="icon icon-sm"
           viewBox="0 0 24 24"
           aria-hidden="true"
         >
-          <path d="M12 5v14"></path>
-          <path d="M5 12h14"></path>
+          <path
+            d="M12 5v14"
+          ></path>
+
+          <path
+            d="M5 12h14"
+          ></path>
         </svg>
 
-        <span>Add</span>
+        <span>
+          Add
+        </span>
 
       </button>
 
     </section>
 
 
-    <!-- STATS -->
+    <!-- =====================================
+         STATS
+    ====================================== -->
 
     <section class="stats">
 
       <div class="stat">
+
         <span
           class="stat-number"
           id="totalCount"
@@ -739,10 +930,12 @@
         <span class="stat-label">
           Total
         </span>
+
       </div>
 
 
       <div class="stat">
+
         <span
           class="stat-number"
           id="triedCount"
@@ -753,10 +946,12 @@
         <span class="stat-label">
           Tried
         </span>
+
       </div>
 
 
       <div class="stat">
+
         <span
           class="stat-number"
           id="successCount"
@@ -767,17 +962,22 @@
         <span class="stat-label">
           Success
         </span>
+
       </div>
 
     </section>
 
 
-    <!-- PASSWORD LIST -->
+    <!-- =====================================
+         PASSWORD LIST
+    ====================================== -->
 
     <section id="list"></section>
 
 
-    <!-- EMPTY STATE -->
+    <!-- =====================================
+         EMPTY STATE
+    ====================================== -->
 
     <div
       class="empty"
@@ -786,12 +986,14 @@
 
       <div class="empty-icon">
 
-        <!-- Lock -->
+        <!-- LOCK ICON -->
+
         <svg
           class="icon icon-lg"
           viewBox="0 0 24 24"
           aria-hidden="true"
         >
+
           <rect
             x="4"
             y="10"
@@ -800,14 +1002,19 @@
             rx="2"
           ></rect>
 
-          <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+          <path
+            d="M8 10V7a4 4 0 0 1 8 0v3"
+          ></path>
+
         </svg>
 
       </div>
 
+
       <div class="empty-title">
         No password attempts yet
       </div>
+
 
       <div class="empty-text">
         Add your first combination above to start tracking.
@@ -816,20 +1023,26 @@
     </div>
 
 
-    <!-- FOOTER -->
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
 
     <footer class="footer">
 
-      <!-- Shield -->
+      <!-- SHIELD ICON -->
+
       <svg
         class="icon"
         viewBox="0 0 24 24"
         aria-hidden="true"
       >
+
         <path
           d="M12 3 20 6v5c0 5-3.4 8.7-8 10-4.6-1.3-8-5-8-10V6l8-3Z"
         ></path>
+
       </svg>
+
 
       <span>
         Data is stored locally in this browser.
@@ -842,14 +1055,16 @@
 
   <script>
 
-    /* =========================
+    /* =========================================
        STORAGE
-    ========================= */
+    ========================================= */
 
     const STORAGE_KEY =
       "password_recovery_tracker";
 
-    let passwords = loadPasswords();
+
+    let passwords =
+      loadPasswords();
 
 
     function loadPasswords() {
@@ -857,17 +1072,26 @@
       try {
 
         const saved =
-          localStorage.getItem(STORAGE_KEY);
+          localStorage.getItem(
+            STORAGE_KEY
+          );
+
 
         if (!saved) {
           return [];
         }
 
-        const parsed = JSON.parse(saved);
 
-        return Array.isArray(parsed)
-          ? parsed
-          : [];
+        const parsed =
+          JSON.parse(saved);
+
+
+        if (!Array.isArray(parsed)) {
+          return [];
+        }
+
+
+        return parsed;
 
       } catch (error) {
 
@@ -890,27 +1114,35 @@
           JSON.stringify(passwords)
         );
 
+        return true;
+
       } catch (error) {
 
         console.error(
           "Could not save data:",
           error
         );
+
+        return false;
       }
     }
 
 
-    /* =========================
-       ADD
-    ========================= */
+    /* =========================================
+       ADD PASSWORD
+    ========================================= */
 
     function addPassword() {
 
       const input =
-        document.getElementById("pwInput");
+        document.getElementById(
+          "pwInput"
+        );
+
 
       const value =
         input.value.trim();
+
 
       if (!value) {
 
@@ -930,7 +1162,8 @@
 
         text: value,
 
-        status: "pending",
+        status:
+          "pending",
 
         createdAt:
           new Date().toISOString()
@@ -940,15 +1173,32 @@
 
       savePasswords();
 
+
       input.value = "";
 
+
       render();
+
 
       input.focus();
     }
 
 
-    /* ENTER TO ADD */
+    /* =========================================
+       ADD BUTTON
+    ========================================= */
+
+    document
+      .getElementById("addBtn")
+      .addEventListener(
+        "click",
+        addPassword
+      );
+
+
+    /* =========================================
+       ENTER KEY
+    ========================================= */
 
     document
       .getElementById("pwInput")
@@ -967,11 +1217,14 @@
       );
 
 
-    /* =========================
-       STATUS
-    ========================= */
+    /* =========================================
+       MARK STATUS
+    ========================================= */
 
-    function markStatus(index, status) {
+    function markStatus(
+      index,
+      status
+    ) {
 
       if (!passwords[index]) {
         return;
@@ -979,7 +1232,8 @@
 
 
       if (
-        passwords[index].status === status
+        passwords[index].status ===
+        status
       ) {
 
         passwords[index].status =
@@ -994,13 +1248,14 @@
 
       savePasswords();
 
+
       render();
     }
 
 
-    /* =========================
+    /* =========================================
        DELETE
-    ========================= */
+    ========================================= */
 
     function deleteItem(index) {
 
@@ -1009,51 +1264,174 @@
       }
 
 
-      passwords.splice(index, 1);
+      passwords.splice(
+        index,
+        1
+      );
+
 
       savePasswords();
+
 
       render();
     }
 
 
-    /* =========================
-       COPY
-    ========================= */
+    /* =========================================
+       COPY PASSWORD
+       
+       Primary:
+       navigator.clipboard
+
+       Fallback:
+       textarea + execCommand
+    ========================================= */
 
     async function copyText(
       text,
       button
     ) {
 
+      let copied = false;
+
+
+      /* -----------------------------------------
+         METHOD 1
+         Modern Clipboard API
+      ----------------------------------------- */
+
       try {
 
-        await navigator.clipboard
-          .writeText(text);
+        if (
+          navigator.clipboard &&
+          window.isSecureContext
+        ) {
 
+          await navigator.clipboard
+            .writeText(text);
+
+          copied = true;
+        }
+
+      } catch (error) {
+
+        console.log(
+          "Clipboard API failed:",
+          error
+        );
+      }
+
+
+      /* -----------------------------------------
+         METHOD 2
+         Mobile / Browser fallback
+      ----------------------------------------- */
+
+      if (!copied) {
+
+        try {
+
+          const textarea =
+            document.createElement(
+              "textarea"
+            );
+
+
+          textarea.value = text;
+
+
+          textarea.setAttribute(
+            "readonly",
+            ""
+          );
+
+
+          textarea.style.position =
+            "fixed";
+
+          textarea.style.left =
+            "-9999px";
+
+          textarea.style.top =
+            "0";
+
+          textarea.style.opacity =
+            "0";
+
+          textarea.style.pointerEvents =
+            "none";
+
+
+          document.body.appendChild(
+            textarea
+          );
+
+
+          textarea.focus();
+
+          textarea.select();
+
+
+          textarea.setSelectionRange(
+            0,
+            textarea.value.length
+          );
+
+
+          copied =
+            document.execCommand(
+              "copy"
+            );
+
+
+          document.body.removeChild(
+            textarea
+          );
+
+        } catch (error) {
+
+          console.error(
+            "Fallback copy failed:",
+            error
+          );
+        }
+      }
+
+
+      /* -----------------------------------------
+         SUCCESS
+      ----------------------------------------- */
+
+      if (copied) {
 
         const original =
           button.innerHTML;
 
 
-        /* Check icon */
-
         button.innerHTML = `
+
           <svg
             class="icon icon-sm"
             viewBox="0 0 24 24"
             aria-hidden="true"
           >
-            <path d="m5 12 4 4L19 6"></path>
+
+            <path
+              d="m5 12 4 4L19 6"
+            ></path>
+
           </svg>
+
         `;
 
 
-        button.classList.add("copied");
+        button.classList.add(
+          "copied"
+        );
 
 
         setTimeout(
-          () => {
+          function () {
 
             button.innerHTML =
               original;
@@ -1067,28 +1445,26 @@
         );
 
 
-      } catch (error) {
-
-        console.error(
-          "Copy failed:",
-          error
-        );
+      } else {
 
         alert(
-          "Unable to copy. Please copy it manually."
+          "Copy failed. Please copy the password manually."
         );
       }
     }
 
 
-    /* =========================
+    /* =========================================
        RENDER
-    ========================= */
+    ========================================= */
 
     function render() {
 
       const list =
-        document.getElementById("list");
+        document.getElementById(
+          "list"
+        );
+
 
       const emptyMsg =
         document.getElementById(
@@ -1099,7 +1475,9 @@
       list.innerHTML = "";
 
 
-      /* Stats */
+      /* -----------------------------------------
+         STATS
+      ----------------------------------------- */
 
       const total =
         passwords.length;
@@ -1107,36 +1485,51 @@
 
       const tried =
         passwords.filter(
-          password =>
-            password.status !==
-            "pending"
+          function (password) {
+
+            return (
+              password.status !==
+              "pending"
+            );
+
+          }
         ).length;
 
 
       const success =
         passwords.filter(
-          password =>
-            password.status ===
-            "yes"
+          function (password) {
+
+            return (
+              password.status ===
+              "yes"
+            );
+
+          }
         ).length;
 
 
       document.getElementById(
         "totalCount"
-      ).textContent = total;
+      ).textContent =
+        total;
 
 
       document.getElementById(
         "triedCount"
-      ).textContent = tried;
+      ).textContent =
+        tried;
 
 
       document.getElementById(
         "successCount"
-      ).textContent = success;
+      ).textContent =
+        success;
 
 
-      /* Empty state */
+      /* -----------------------------------------
+         EMPTY STATE
+      ----------------------------------------- */
 
       emptyMsg.style.display =
         total === 0
@@ -1144,10 +1537,15 @@
           : "none";
 
 
-      /* Items */
+      /* -----------------------------------------
+         ITEMS
+      ----------------------------------------- */
 
       passwords.forEach(
-        (password, index) => {
+        function (
+          password,
+          index
+        ) {
 
           const item =
             document.createElement(
@@ -1155,20 +1553,34 @@
             );
 
 
+          /* Card status */
+
           item.className =
             "item " +
             (
-              password.status === "yes"
+              password.status ===
+              "yes"
+
                 ? "done-yes"
-                : password.status === "no"
+
+                : password.status ===
+                  "no"
+
                   ? "done-no"
+
                   : "pending"
             );
 
 
-          let statusClass;
-          let statusText;
-          let statusIcon;
+          /* Status */
+
+          let statusClass =
+            "pending";
+
+          let statusText =
+            "Pending";
+
+          let statusIcon = "";
 
 
           if (
@@ -1182,18 +1594,31 @@
             statusText =
               "Success";
 
+
             statusIcon = `
+
               <svg
                 class="icon"
-                style="width:11px;height:11px"
+                style="
+                  width:11px;
+                  height:11px;
+                "
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
-                <path d="m5 12 4 4L19 6"></path>
+
+                <path
+                  d="m5 12 4 4L19 6"
+                ></path>
+
               </svg>
+
             `;
 
-          } else if (
+          }
+
+
+          else if (
             password.status ===
             "no"
           ) {
@@ -1204,39 +1629,51 @@
             statusText =
               "Failed";
 
+
             statusIcon = `
+
               <svg
                 class="icon"
-                style="width:11px;height:11px"
+                style="
+                  width:11px;
+                  height:11px;
+                "
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
-                <path d="M6 6l12 12"></path>
-                <path d="m18 6-12 12"></path>
+
+                <path
+                  d="M6 6l12 12"
+                ></path>
+
+                <path
+                  d="m18 6-12 12"
+                ></path>
+
               </svg>
+
             `;
-
-          } else {
-
-            statusClass =
-              "pending";
-
-            statusText =
-              "Pending";
-
-            statusIcon = "";
           }
 
 
+          /* -----------------------------------------
+             CARD HTML
+          ----------------------------------------- */
+
           item.innerHTML = `
 
-            <div class="password-content">
+            <div
+              class="password-content"
+            >
 
-              <span class="pw-text">
+              <span
+                class="pw-text"
+              >
                 ${escapeHtml(
                   password.text
                 )}
               </span>
+
 
               <span
                 class="status ${statusClass}"
@@ -1251,21 +1688,18 @@
             </div>
 
 
-            <div class="actions">
+            <div
+              class="actions"
+            >
+
 
               <!-- COPY -->
 
               <button
                 class="action-btn"
+                type="button"
                 title="Copy password"
                 aria-label="Copy password"
-                type="button"
-                onclick="copyText(
-                  ${JSON.stringify(
-                    password.text
-                  )},
-                  this
-                )"
               >
 
                 <svg
@@ -1273,6 +1707,7 @@
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
+
                   <rect
                     x="9"
                     y="9"
@@ -1282,8 +1717,14 @@
                   ></rect>
 
                   <path
-                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    d="
+                      M5 15H4
+                      a2 2 0 0 1-2-2V4
+                      a2 2 0 0 1 2-2h9
+                      a2 2 0 0 1 2 2v1
+                    "
                   ></path>
+
                 </svg>
 
               </button>
@@ -1292,18 +1733,19 @@
               <!-- SUCCESS -->
 
               <button
-                class="action-btn success ${
-                  password.status === "yes"
-                    ? "active"
-                    : ""
-                }"
+                class="
+                  action-btn
+                  success
+                  ${
+                    password.status ===
+                    "yes"
+                      ? "active"
+                      : ""
+                  }
+                "
+                type="button"
                 title="Mark as successful"
                 aria-label="Mark as successful"
-                type="button"
-                onclick="markStatus(
-                  ${index},
-                  'yes'
-                )"
               >
 
                 <svg
@@ -1311,7 +1753,11 @@
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
-                  <path d="m5 12 4 4L19 6"></path>
+
+                  <path
+                    d="m5 12 4 4L19 6"
+                  ></path>
+
                 </svg>
 
               </button>
@@ -1320,18 +1766,19 @@
               <!-- FAILED -->
 
               <button
-                class="action-btn failed ${
-                  password.status === "no"
-                    ? "active"
-                    : ""
-                }"
+                class="
+                  action-btn
+                  failed
+                  ${
+                    password.status ===
+                    "no"
+                      ? "active"
+                      : ""
+                  }
+                "
+                type="button"
                 title="Mark as failed"
                 aria-label="Mark as failed"
-                type="button"
-                onclick="markStatus(
-                  ${index},
-                  'no'
-                )"
               >
 
                 <svg
@@ -1339,8 +1786,15 @@
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
-                  <path d="M6 6l12 12"></path>
-                  <path d="m18 6-12 12"></path>
+
+                  <path
+                    d="M6 6l12 12"
+                  ></path>
+
+                  <path
+                    d="m18 6-12 12"
+                  ></path>
+
                 </svg>
 
               </button>
@@ -1349,13 +1803,13 @@
               <!-- DELETE -->
 
               <button
-                class="action-btn delete"
+                class="
+                  action-btn
+                  delete
+                "
+                type="button"
                 title="Delete"
                 aria-label="Delete"
-                type="button"
-                onclick="deleteItem(
-                  ${index}
-                )"
               >
 
                 <svg
@@ -1363,6 +1817,7 @@
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
+
                   <path
                     d="M3 6h18"
                   ></path>
@@ -1372,7 +1827,9 @@
                   ></path>
 
                   <path
-                    d="M19 6l-1 15H6L5 6"
+                    d="
+                      M19 6l-1 15H6L5 6
+                    "
                   ></path>
 
                   <path
@@ -1382,24 +1839,101 @@
                   <path
                     d="M14 11v6"
                   ></path>
+
                 </svg>
 
               </button>
 
             </div>
+
           `;
 
 
-          list.appendChild(item);
+          /* -----------------------------------------
+             BUTTON EVENTS
+          ----------------------------------------- */
+
+          const buttons =
+            item.querySelectorAll(
+              ".action-btn"
+            );
+
+
+          /* Copy */
+
+          buttons[0]
+            .addEventListener(
+              "click",
+              function () {
+
+                copyText(
+                  password.text,
+                  this
+                );
+
+              }
+            );
+
+
+          /* Success */
+
+          buttons[1]
+            .addEventListener(
+              "click",
+              function () {
+
+                markStatus(
+                  index,
+                  "yes"
+                );
+
+              }
+            );
+
+
+          /* Failed */
+
+          buttons[2]
+            .addEventListener(
+              "click",
+              function () {
+
+                markStatus(
+                  index,
+                  "no"
+                );
+
+              }
+            );
+
+
+          /* Delete */
+
+          buttons[3]
+            .addEventListener(
+              "click",
+              function () {
+
+                deleteItem(
+                  index
+                );
+
+              }
+            );
+
+
+          list.appendChild(
+            item
+          );
 
         }
       );
     }
 
 
-    /* =========================
+    /* =========================================
        HTML ESCAPE
-    ========================= */
+    ========================================= */
 
     function escapeHtml(str) {
 
@@ -1432,9 +1966,9 @@
     }
 
 
-    /* =========================
+    /* =========================================
        INITIAL RENDER
-    ========================= */
+    ========================================= */
 
     render();
 
