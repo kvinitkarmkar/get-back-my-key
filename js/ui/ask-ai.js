@@ -1,15 +1,6 @@
 // js/ui/ask-ai.js
 
 import {
-  isAIEnabled,
-} from "./enable-ai.js";
-
-import {
-  showError,
-  showInfo,
-} from "./notifications.js";
-
-import {
   buildAIContext,
 } from "../ai/context.js";
 
@@ -17,8 +8,38 @@ import {
   generateAIResponse,
 } from "../ai/gemini.js";
 
-let askButton = null;
-let isProcessing = false;
+import {
+  normalizeResponse,
+} from "../ai/response.js";
+
+import {
+  getCurrentConversationId,
+} from "./chat.js";
+
+import {
+  showError,
+  showInfo,
+} from "./notifications.js";
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let askAIButton = null;
+
+let isGenerating = false;
+
+/*
+ * Optional provider for current application data.
+ *
+ * Another part of the application can register
+ * a function here.
+ */
+let currentDataProvider = null;
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
 
 /**
  * Initialize Ask AI functionality.
@@ -30,12 +51,12 @@ let isProcessing = false;
  * </button>
  */
 export function initializeAskAI() {
-  askButton =
+  askAIButton =
     document.getElementById(
       "ask-ai-btn"
     );
 
-  if (!askButton) {
+  if (!askAIButton) {
     console.warn(
       "Ask AI button not found."
     );
@@ -43,7 +64,7 @@ export function initializeAskAI() {
     return;
   }
 
-  askButton.addEventListener(
+  askAIButton.addEventListener(
     "click",
     handleAskAI
   );
@@ -51,14 +72,24 @@ export function initializeAskAI() {
   updateButtonState();
 }
 
+/* =========================================================
+   ASK AI
+   ========================================================= */
+
 /**
- * Handle Ask AI button.
+ * Handle Ask AI button click.
  */
-async function handleAskAI() {
-  if (isProcessing) {
+export async function handleAskAI() {
+  if (isGenerating) {
     return;
   }
 
+  /*
+   * Make sure AI is enabled.
+   *
+   * enable-ai.js can expose the current
+   * AI state through this event/state.
+   */
   if (!isAIEnabled()) {
     showInfo(
       "Please enable AI first."
@@ -67,37 +98,97 @@ async function handleAskAI() {
     return;
   }
 
-  try {
-    isProcessing = true;
+  /*
+   * Get current conversation.
+   */
+  const conversationId =
+    getCurrentConversationId();
 
-    setLoadingState();
+  if (!conversationId) {
+    showInfo(
+      "Start a conversation first."
+    );
+
+    return;
+  }
+
+  /*
+   * The context layer needs the current
+   * user request.
+   *
+   * We use the latest user message from
+   * the chat context.
+   */
+  const userMessage =
+    getCurrentUserRequest();
+
+  if (!userMessage) {
+    showInfo(
+      "Write a message first."
+    );
+
+    return;
+  }
+
+  try {
+    isGenerating = true;
+
+    setLoadingState(true);
 
     /*
-     * Build the complete context.
-     *
-     * This will eventually contain:
-     *
-     * - Current user data
-     * - Recent conversation
-     * - Relevant memories
+     * Get current application/page data.
+     */
+    const currentData =
+      await getCurrentData();
+
+    /*
+     * Build memory + conversation context.
      */
     const context =
-      await buildAIContext();
+      await buildAIContext({
+        conversationId,
+
+        userMessage,
+
+        currentData,
+      });
 
     /*
-     * Send context to Gemini.
+     * Call Gemini.
      */
-    const response =
+    const rawResponse =
       await generateAIResponse(
         context
       );
 
     /*
-     * Send the response to the chat UI.
+     * Normalize provider response.
      */
-    dispatchAIResponse(
-      response
+    const response =
+      normalizeResponse(
+        rawResponse
+      );
+
+    /*
+     * Send response to chat.js.
+     *
+     * chat.js will:
+     * - save it to IndexedDB
+     * - render it
+     */
+    document.dispatchEvent(
+      new CustomEvent(
+        "ai:response",
+        {
+          detail: {
+            response,
+            conversationId,
+          },
+        }
+      )
     );
+
+    return response;
 
   } catch (error) {
     console.error(
@@ -105,128 +196,297 @@ async function handleAskAI() {
       error
     );
 
-    showError(
-      getReadableError(error)
-    );
+    handleAIError(error);
 
   } finally {
-    isProcessing = false;
+    isGenerating = false;
 
-    setReadyState();
+    setLoadingState(false);
   }
 }
 
+/* =========================================================
+   CURRENT DATA
+   ========================================================= */
+
 /**
- * Set loading UI.
+ * Register a provider that returns the
+ * current application data.
+ *
+ * Example:
+ *
+ * registerCurrentDataProvider(
+ *   () => getCurrentFormData()
+ * );
  */
-function setLoadingState() {
-  if (!askButton) {
-    return;
+export function registerCurrentDataProvider(
+  provider
+) {
+  if (
+    typeof provider !==
+    "function"
+  ) {
+    throw new Error(
+      "Current data provider must be a function."
+    );
   }
 
-  askButton.disabled = true;
-
-  askButton.dataset.loading =
-    "true";
-
-  askButton.textContent =
-    "Thinking...";
+  currentDataProvider =
+    provider;
 }
 
 /**
- * Restore normal button UI.
+ * Get current application data.
  */
-function setReadyState() {
-  if (!askButton) {
-    return;
+async function getCurrentData() {
+  if (
+    typeof currentDataProvider !==
+    "function"
+  ) {
+    return null;
   }
 
-  askButton.disabled = false;
+  try {
+    const data =
+      await currentDataProvider();
 
-  delete askButton.dataset.loading;
+    return data ?? null;
 
-  askButton.textContent =
-    "Ask AI";
+  } catch (error) {
+    console.error(
+      "Failed to get current data:",
+      error
+    );
+
+    return null;
+  }
+}
+
+/* =========================================================
+   CURRENT USER REQUEST
+   ========================================================= */
+
+/**
+ * Get the latest user message from
+ * the active chat.
+ *
+ * We listen to the same message event
+ * emitted by chat.js.
+ */
+let latestUserMessage = "";
+
+document.addEventListener(
+  "chat:user-message",
+  (event) => {
+    const message =
+      event.detail?.message;
+
+    if (
+      message?.role ===
+      "user"
+    ) {
+      latestUserMessage =
+        message.content;
+    }
+  }
+);
+
+/**
+ * Return latest user request.
+ */
+function getCurrentUserRequest() {
+  return latestUserMessage.trim();
+}
+
+/* =========================================================
+   AI STATE
+   ========================================================= */
+
+/**
+ * Determine whether AI is enabled.
+ *
+ * enable-ai.js should dispatch:
+ *
+ * ai:enabled
+ *
+ * when AI becomes enabled.
+ */
+let aiEnabled = false;
+
+document.addEventListener(
+  "ai:enabled",
+  () => {
+    aiEnabled = true;
+
+    updateButtonState();
+  }
+);
+
+document.addEventListener(
+  "ai:disabled",
+  () => {
+    aiEnabled = false;
+
+    updateButtonState();
+  }
+);
+
+function isAIEnabled() {
+  return aiEnabled;
 }
 
 /**
- * Update button according to
- * current AI state.
+ * Allow other modules to set AI state
+ * directly if needed.
+ */
+export function setAIEnabled(
+  enabled
+) {
+  aiEnabled =
+    Boolean(enabled);
+
+  updateButtonState();
+}
+
+/**
+ * Get current AI state.
+ */
+export function isAIActive() {
+  return aiEnabled;
+}
+
+/* =========================================================
+   BUTTON UI
+   ========================================================= */
+
+/**
+ * Update Ask AI button.
  */
 function updateButtonState() {
-  if (!askButton) {
+  if (!askAIButton) {
     return;
   }
 
-  askButton.disabled =
-    !isAIEnabled();
+  askAIButton.disabled =
+    isGenerating;
+
+  askAIButton.dataset.enabled =
+    String(aiEnabled);
+
+  if (!aiEnabled) {
+    askAIButton.setAttribute(
+      "aria-disabled",
+      "true"
+    );
+  } else {
+    askAIButton.removeAttribute(
+      "aria-disabled"
+    );
+  }
 }
 
 /**
- * Send AI response to chat UI
- * through a custom event.
+ * Loading state.
  */
-function dispatchAIResponse(
-  response
+function setLoadingState(
+  loading
 ) {
-  document.dispatchEvent(
-    new CustomEvent(
-      "ai:response",
-      {
-        detail: {
-          response,
-        },
-      }
-    )
-  );
+  if (!askAIButton) {
+    return;
+  }
+
+  if (loading) {
+    askAIButton.disabled =
+      true;
+
+    askAIButton.dataset.loading =
+      "true";
+
+    askAIButton.setAttribute(
+      "aria-busy",
+      "true"
+    );
+
+    /*
+     * Don't permanently replace the
+     * original text.
+     */
+    if (
+      !askAIButton.dataset
+        .originalText
+    ) {
+      askAIButton.dataset
+        .originalText =
+        askAIButton.textContent;
+    }
+
+    askAIButton.textContent =
+      "Thinking…";
+
+  } else {
+    askAIButton.disabled =
+      false;
+
+    delete askAIButton.dataset
+      .loading;
+
+    askAIButton.removeAttribute(
+      "aria-busy"
+    );
+
+    askAIButton.textContent =
+      askAIButton.dataset
+        .originalText ||
+      "Ask AI";
+  }
 }
 
+/* =========================================================
+   ERROR HANDLING
+   ========================================================= */
+
 /**
- * Convert technical errors into
- * user-friendly messages.
+ * Handle known AI errors.
  */
-function getReadableError(
+function handleAIError(
   error
 ) {
-  if (!error) {
-    return "Something went wrong.";
-  }
+  switch (error?.message) {
+    case "API_KEY_MISSING":
+      showError(
+        "Gemini API key is not configured."
+      );
+      break;
 
-  if (
-    error.message?.includes(
-      "API_KEY"
-    )
-  ) {
-    return "Your Gemini API key is invalid or missing.";
-  }
+    case "USER_MESSAGE_REQUIRED":
+      showError(
+        "Please enter a message."
+      );
+      break;
 
-  if (
-    error.message?.includes(
-      "429"
-    )
-  ) {
-    return "AI request limit reached. Please try again later.";
+    default:
+      showError(
+        error?.message ||
+          "Something went wrong while contacting AI."
+      );
   }
+}
 
-  if (
-    error.message?.includes(
-      "network"
-    )
-  ) {
-    return "Network error. Please check your internet connection.";
-  }
+/* =========================================================
+   PUBLIC HELPERS
+   ========================================================= */
 
-  return (
-    error.message ||
-    "Unable to get a response from AI."
-  );
+/**
+ * Check whether an AI request is
+ * currently running.
+ */
+export function isAIRequestRunning() {
+  return isGenerating;
 }
 
 /**
- * Manually refresh the Ask AI button.
- *
- * Call this after AI is enabled/disabled.
+ * Reset latest user message.
  */
-export function refreshAskAIState() {
-  updateButtonState();
+export function resetAIRequestState() {
+  latestUserMessage = "";
 }
