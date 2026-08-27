@@ -197,39 +197,41 @@
     }
 
     .add-btn {
-      width: 100%;
-      height: 56px;
+    .add-btn {
+  position: absolute;
+  right: 6px;
+  top: 6px;
 
-      margin-top: 10px;
+  width: 44px;
+  height: 44px;
 
-      border: 0;
-      border-radius: 14px;
+  border: 0;
+  border-radius: 11px;
 
-      background: var(--blue);
-      color: white;
+  background: var(--blue);
+  color: white;
 
-      font-size: 17px;
-      font-weight: 700;
+  font-size: 17px;
+  font-weight: 700;
 
-      cursor: pointer;
+  cursor: pointer;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-      transition:
-        transform 0.12s ease,
-        background 0.15s ease;
-    }
+  transition:
+    transform 0.12s ease,
+    background 0.15s ease;
+}
 
-    .add-btn:hover {
-      background: var(--blue-hover);
-    }
+.add-btn:hover {
+  background: var(--blue-hover);
+}
 
-    .add-btn:active {
-      transform: scale(0.985);
-    }
+.add-btn:active {
+  transform: scale(0.94);
+}
 
     .icon {
       width: 21px;
@@ -1107,13 +1109,15 @@
         border-radius: 16px;
       }
 
-      .password-input,
-      .add-btn {
+      .password-input{
         height: 52px;
       }
 
       .add-btn {
-        margin-top: 8px;
+        width: 40px;
+  height: 40px;
+  right: 6px;
+  top: 6px;
       }
 
       .stats {
@@ -1333,49 +1337,47 @@
     </header>
 
 
-    <!-- =========================
-         ADD PASSWORD
-    ========================= -->
+<!-- =========================
+     ADD PASSWORD
+========================= -->
 
-    <section class="add-box">
+<section class="add-box">
 
-      <div class="input-wrap">
+  <div class="input-wrap">
 
-        <input
-          id="passwordInput"
-          class="password-input"
-          type="text"
-          autocomplete="off"
-          autocapitalize="off"
-          spellcheck="false"
-          placeholder="Enter password combination..."
-        />
+    <input
+      id="passwordInput"
+      class="password-input"
+      type="text"
+      autocomplete="off"
+      autocapitalize="off"
+      spellcheck="false"
+      placeholder="Enter password combination..."
+    />
 
-      </div>
-
-      <button
-        id="addButton"
-        class="add-btn"
-        type="button"
+    <button
+      id="addButton"
+      class="add-btn"
+      type="button"
+      aria-label="Add password"
+      title="Add password"
+    >
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
       >
+        <path d="M12 5V19" />
+        <path d="M5 12H19" />
+      </svg>
+    </button>
 
-        <svg
-          class="icon"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-        >
-          <path d="M12 5V19" />
-          <path d="M5 12H19" />
-        </svg>
+  </div>
 
-        <span>Add</span>
-
-      </button>
-
-    </section>
+</section>
 
 
     <!-- =========================
