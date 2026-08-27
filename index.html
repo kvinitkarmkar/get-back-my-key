@@ -1,2978 +1,2603 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
+  <meta charset="UTF-8" />
 
-<meta
+  <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
->
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
 
-<meta name="theme-color" content="#08090c">
-
-<meta
+  <meta
     name="description"
-    content="Get Back My Key — local password recovery attempt tracker."
->
+    content="Get Back My Key - Local password attempt tracker"
+  />
 
-<link
+  <meta name="theme-color" content="#08090d" />
+
+  <title>Get Back My Key</title>
+
+  <!-- Favicon -->
+  <link
     rel="icon"
     type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect width='64' height='64' rx='16' fill='%23101114'/%3E%3Ccircle cx='23' cy='35' r='10' stroke='%23F5F5F7' stroke-width='5'/%3E%3Cpath d='M30 28L48 10' stroke='%23F5F5F7' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M42 16L48 22' stroke='%23F5F5F7' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M36 22L42 28' stroke='%23F5F5F7' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M17 23A15 15 0 0 1 38 18' stroke='%233B82F6' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M16 17L16 24L23 24' stroke='%233B82F6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
->
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2315181f'/%3E%3Cpath d='M37 11a13 13 0 0 0-8.7 22.65L12 50l5 5 4-4 4 4 5-5-4-4 5.2-5.2A13 13 0 1 0 37 11Zm0 7a6 6 0 1 1 0 12 6 6 0 0 1 0-12Z' fill='none' stroke='%23f2f3f5' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='m44 14 7-7M45 21l10-10' stroke='%233b82f6' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E"
+  />
 
-<title>Get Back My Key</title>
+  <style>
+    /* =========================================================
+       RESET
+    ========================================================= */
 
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-<style>
+    html {
+      min-height: 100%;
+      background: #08090d;
+    }
 
-/* =========================================
-   BASE
-========================================= */
-
-:root {
-    --bg: #08090c;
-    --surface: #101114;
-    --surface-2: #151619;
-    --border: #24252a;
-    --border-hover: #33343a;
-
-    --text: #f5f5f7;
-    --muted: #858790;
-    --muted-2: #60626a;
-
-    --blue: #3b82f6;
-    --green: #22c55e;
-    --red: #ef4444;
-}
-
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    min-height: 100vh;
-
-    background:
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
         radial-gradient(
-            circle at 50% -15%,
-            rgba(59,130,246,.07),
-            transparent 35%
+          circle at 50% -10%,
+          rgba(36, 54, 86, 0.18),
+          transparent 38%
         ),
-        var(--bg);
-
-    color: var(--text);
-
-    font-family:
+        #08090d;
+      color: #f5f5f7;
+      font-family:
         Inter,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         Roboto,
+        Helvetica,
         Arial,
         sans-serif;
-}
-
-button,
-input {
-    font: inherit;
-}
-
-button {
-    user-select: none;
-}
-
-
-/* =========================================
-   APP
-========================================= */
-
-.app {
-    width: min(100% - 18px, 680px);
-
-    margin: 0 auto;
-
-    padding:
-        22px
-        0
-        20px;
-}
-
-
-/* =========================================
-   HEADER
-========================================= */
-
-.header {
-    text-align: center;
-
-    margin-bottom: 16px;
-}
-
-.logo {
-    width: 48px;
-    height: 48px;
-
-    margin: 0 auto 10px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #141519;
-
-    border: 1px solid #27282d;
-
-    border-radius: 14px;
-}
-
-.logo svg {
-    width: 27px;
-    height: 27px;
-}
-
-.header h1 {
-    margin: 0;
-
-    font-size: 24px;
-    line-height: 1.15;
-
-    font-weight: 750;
-
-    letter-spacing: -.6px;
-}
-
-.header p {
-    max-width: 470px;
-
-    margin:
-        6px auto
-        0;
-
-    color: var(--muted);
-
-    font-size: 12px;
-
-    line-height: 1.35;
-}
-
-
-/* =========================================
-   ADD AREA
-========================================= */
-
-.add-box {
-    padding: 8px;
-
-    margin-bottom: 10px;
-
-    background: var(--surface);
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 12px;
-}
-
-.password-input {
-    width: 100%;
-    height: 43px;
-
-    padding:
-        0 11px;
-
-    background: var(--surface-2);
-
-    color: var(--text);
-
-    border:
-        1px solid #28292e;
-
-    border-radius: 9px;
-
-    outline: none;
-
-    font-size: 13px;
-
-    transition: .2s;
-}
-
-.password-input::placeholder {
-    color: #656770;
-}
-
-.password-input:focus {
-    border-color:
-        rgba(59,130,246,.65);
-
-    box-shadow:
-        0 0 0 2px
-        rgba(59,130,246,.08);
-}
-
-.add-button {
-    width: 100%;
-    height: 42px;
-
-    margin-top: 6px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 7px;
-
-    border: 0;
-    border-radius: 9px;
-
-    background: var(--blue);
-
-    color: white;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    cursor: pointer;
-}
-
-.add-button:active {
-    transform: scale(.985);
-}
-
-.add-button svg {
-    width: 16px;
-    height: 16px;
-}
-
-
-/* =========================================
-   STATS
-========================================= */
-
-.stats {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 5px;
-
-    margin-bottom: 9px;
-}
-
-.stat {
-    padding: 8px 5px;
-
-    background: var(--surface);
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 10px;
-
-    text-align: center;
-}
-
-.stat-value {
-    display: block;
-
-    font-size: 18px;
-
-    line-height: 1;
-
-    font-weight: 750;
-}
-
-.stat-label {
-    display: block;
-
-    margin-top: 4px;
-
-    color: var(--muted);
-
-    font-size: 8px;
-
-    font-weight: 750;
-
-    letter-spacing: .6px;
-}
-
-
-/* =========================================
-   SEARCH
-========================================= */
-
-.search-box {
-    position: relative;
-
-    margin-bottom: 7px;
-}
-
-.search-box > svg {
-    position: absolute;
-
-    left: 11px;
-    top: 50%;
-
-    width: 15px;
-    height: 15px;
-
-    transform:
-        translateY(-50%);
-
-    color: #6d6f78;
-
-    pointer-events: none;
-}
-
-.search-input {
-    width: 100%;
-    height: 39px;
-
-    padding:
-        0 10px
-        0 35px;
-
-    background: var(--surface);
-
-    color: var(--text);
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 9px;
-
-    outline: none;
-
-    font-size: 12px;
-}
-
-.search-input::placeholder {
-    color: #62646d;
-}
-
-.search-input:focus {
-    border-color:
-        var(--border-hover);
-}
-
-
-/* =========================================
-   FILTERS
-========================================= */
-
-.filters {
-    display: flex;
-
-    gap: 3px;
-
-    overflow-x: auto;
-
-    margin-bottom: 7px;
-
-    scrollbar-width: none;
-}
-
-.filters::-webkit-scrollbar {
-    display: none;
-}
-
-.filter-btn {
-    flex: 0 0 auto;
-
-    padding:
-        5px 10px;
-
-    background: transparent;
-
-    color: var(--muted);
-
-    border:
-        1px solid transparent;
-
-    border-radius: 99px;
-
-    font-size: 11px;
-
-    font-weight: 650;
-
-    cursor: pointer;
-}
-
-.filter-btn.active {
-    background: #18191d;
-
-    color: #ededf0;
-
-    border-color:
-        #292a2f;
-}
-
-
-/* =========================================
-   LIST
-========================================= */
-
-#list {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 5px;
-}
-
-
-/* =========================================
-   COMPACT CARD
-========================================= */
-
-.item {
-    min-width: 0;
-
-    padding:
-        6px
-        7px
-        6px
-        9px;
-
-    background: var(--surface);
-
-    border:
-        1px solid var(--border);
-
-    border-left:
-        2px solid #3d3e44;
-
-    border-radius: 9px;
-
-    transition:
-        border-color .15s;
-}
-
-.item.success {
-    border-left-color:
-        var(--green);
-}
-
-.item.failed {
-    border-left-color:
-        var(--red);
-}
-
-
-/* =========================================
-   CARD MAIN ROW
-========================================= */
-
-.card-row {
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    min-width: 0;
-}
-
-
-/* =========================================
-   ATTEMPT
-========================================= */
-
-.attempt-number {
-    flex: 0 0 auto;
-
-    min-width: 22px;
-
-    color: #656770;
-
-    font-size: 9px;
-
-    font-weight: 750;
-}
-
-
-/* =========================================
-   PASSWORD
-========================================= */
-
-.password-text {
-    flex: 1;
-
-    min-width: 0;
-
-    color: #eeeeF1;
-
-    font-family:
-        "SFMono-Regular",
-        Consolas,
-        "Liberation Mono",
-        Menlo,
-        monospace;
-
-    font-size: 12px;
-
-    line-height: 1.25;
-
-    word-break: break-word;
-
-    overflow-wrap: anywhere;
-
-    white-space: pre-wrap;
-}
-
-
-/* =========================================
-   ACTIONS
-========================================= */
-
-.actions {
-    flex: 0 0 auto;
-
-    display: flex;
-
-    gap: 2px;
-}
-
-.icon-btn {
-    width: 26px;
-    height: 26px;
-
-    padding: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: var(--surface-2);
-
-    color: #777982;
-
-    border:
-        1px solid #292a2f;
-
-    border-radius: 7px;
-
-    cursor: pointer;
-
-    transition:
-        background .12s,
-        color .12s,
-        transform .1s;
-}
-
-.icon-btn:active {
-    transform: scale(.91);
-}
-
-.icon-btn:hover {
-    background: #1d1e22;
-
-    color: #e3e4e7;
-}
-
-.icon-btn svg {
-    width: 13px;
-    height: 13px;
-
-    stroke-width: 1.8;
-}
-
-.icon-btn.success-active {
-    color: #86efac;
-
-    background:
-        rgba(34,197,94,.09);
-
-    border-color:
-        rgba(34,197,94,.28);
-}
-
-.icon-btn.failed-active {
-    color: #fca5a5;
-
-    background:
-        rgba(239,68,68,.09);
-
-    border-color:
-        rgba(239,68,68,.28);
-}
-
-
-/* =========================================
-   CARD META
-========================================= */
-
-.item-meta {
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    margin:
-        3px 0
-        0
-        29px;
-}
-
-.status {
-    display: inline-flex;
-
-    align-items: center;
-
-    padding:
-        2px 6px;
-
-    background: #202126;
-
-    color: #8f9199;
-
-    border-radius: 99px;
-
-    font-size: 7px;
-
-    font-weight: 800;
-
-    letter-spacing: .4px;
-}
-
-.status.success {
-    background:
-        rgba(34,197,94,.11);
-
-    color: #86efac;
-}
-
-.status.failed {
-    background:
-        rgba(239,68,68,.11);
-
-    color: #fca5a5;
-}
-
-.date {
-    color: #55575f;
-
-    font-size: 8px;
-}
-
-
-/* =========================================
-   EMPTY
-========================================= */
-
-.empty {
-    padding:
-        28px 14px;
-
-    text-align: center;
-
-    border:
-        1px dashed #292a2f;
-
-    border-radius: 10px;
-
-    color: var(--muted-2);
-}
-
-.empty svg {
-    width: 24px;
-    height: 24px;
-
-    margin-bottom: 6px;
-}
-
-.empty-title {
-    color: #888a92;
-
-    font-size: 12px;
-
-    font-weight: 650;
-}
-
-.empty-subtitle {
-    margin-top: 3px;
-
-    font-size: 10px;
-}
-
-
-/* =========================================
-   BACKUP
-========================================= */
-
-.backup {
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 5px;
-
-    margin-top: 9px;
-}
-
-.backup-btn {
-    height: 36px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 6px;
-
-    background: var(--surface);
-
-    color: #aaaab1;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 8px;
-
-    font-size: 10px;
-
-    font-weight: 650;
-
-    cursor: pointer;
-}
-
-.backup-btn:hover {
-    background: #15161a;
-}
-
-.backup-btn svg {
-    width: 14px;
-    height: 14px;
-}
-
-.backup-btn input {
-    display: none;
-}
-
-
-/* =========================================
-   LOCAL STORAGE
-========================================= */
-
-.local-notice {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 5px;
-
-    margin-top: 9px;
-
-    color: #55575f;
-
-    font-size: 9px;
-}
-
-.local-dot {
-    width: 5px;
-    height: 5px;
-
-    background: var(--green);
-
-    border-radius: 50%;
-
-    box-shadow:
-        0 0 6px
-        rgba(34,197,94,.5);
-}
-
-
-/* =========================================
-   TOAST
-========================================= */
-
-.toast {
-    position: fixed;
-
-    left: 50%;
-    bottom: 15px;
-
-    max-width:
-        calc(100% - 24px);
-
-    padding:
-        8px 11px;
-
-    transform:
-        translate(-50%, 15px);
-
-    background: #191a1e;
-
-    color: #ededf0;
-
-    border:
-        1px solid #303137;
-
-    border-radius: 8px;
-
-    box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.4);
-
-    font-size: 10px;
-
-    font-weight: 600;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition:
-        opacity .18s,
-        transform .18s;
-
-    z-index: 100;
-
-    text-align: center;
-}
-
-.toast.show {
-    opacity: 1;
-
-    transform:
-        translate(-50%, 0);
-}
-
-.toast.error {
-    border-color:
-        rgba(239,68,68,.35);
-}
-
-.toast.success {
-    border-color:
-        rgba(34,197,94,.35);
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 600px) {
-
-    .app {
-        width:
-            calc(100% - 12px);
-
-        padding:
-            16px
-            0
-            15px;
+      -webkit-font-smoothing: antialiased;
     }
 
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* =========================================================
+       APP
+    ========================================================= */
+
+    .app {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      padding: 28px 16px 34px;
+    }
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
     .header {
-        margin-bottom: 12px;
+      text-align: center;
+      margin-bottom: 26px;
     }
 
     .logo {
-        width: 43px;
-        height: 43px;
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 16px;
 
-        margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-        border-radius: 12px;
+      background: #15171c;
+      border: 1px solid #292c33;
+      border-radius: 21px;
+
+      box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
     }
 
     .logo svg {
-        width: 24px;
-        height: 24px;
+      width: 39px;
+      height: 39px;
     }
 
-    .header h1 {
-        font-size: 21px;
+    .title {
+      margin: 0;
+      font-size: clamp(28px, 7vw, 40px);
+      line-height: 1.12;
+      font-weight: 750;
+      letter-spacing: -1.3px;
     }
 
-    .header p {
-        font-size: 10px;
-
-        max-width: 340px;
+    .subtitle {
+      max-width: 650px;
+      margin: 12px auto 0;
+      color: #8d8f98;
+      font-size: 15px;
+      line-height: 1.55;
     }
+
+    /* =========================================================
+       ADD BOX
+    ========================================================= */
 
     .add-box {
-        padding: 6px;
+      padding: 10px;
+      margin-bottom: 18px;
 
-        border-radius: 10px;
+      background: #101116;
+      border: 1px solid #292b31;
+      border-radius: 18px;
+
+      box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.015);
     }
 
-    .password-input {
-        height: 39px;
-
-        font-size: 12px;
-
-        border-radius: 8px;
+    .input-wrap {
+      position: relative;
     }
 
-    .add-button {
-        height: 38px;
+    #passwordInput {
+      width: 100%;
+      height: 54px;
 
-        margin-top: 5px;
+      padding: 0 16px;
 
-        border-radius: 8px;
+      color: #f4f4f6;
+      background: #17181d;
 
-        font-size: 12px;
+      border: 1px solid #292c33;
+      border-radius: 14px;
+
+      outline: none;
+
+      font-size: 16px;
+      transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
     }
+
+    #passwordInput::placeholder {
+      color: #696b75;
+    }
+
+    #passwordInput:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.13);
+    }
+
+    .add-btn {
+      width: 100%;
+      height: 52px;
+
+      margin-top: 8px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      border: 0;
+      border-radius: 14px;
+
+      background: #3b82f6;
+      color: #fff;
+
+      font-size: 16px;
+      font-weight: 650;
+
+      transition:
+        transform 0.12s ease,
+        background 0.15s ease;
+    }
+
+    .add-btn:hover {
+      background: #3478e5;
+    }
+
+    .add-btn:active {
+      transform: scale(0.985);
+    }
+
+    .add-btn svg {
+      width: 21px;
+      height: 21px;
+    }
+
+    /* =========================================================
+       STATS
+    ========================================================= */
 
     .stats {
-        gap: 4px;
-
-        margin-bottom: 7px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
     }
 
     .stat {
-        padding: 7px 3px;
+      min-height: 76px;
 
-        border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      background: #101116;
+      border: 1px solid #292b31;
+      border-radius: 15px;
     }
 
-    .stat-value {
-        font-size: 16px;
+    .stat-number {
+      font-size: 25px;
+      line-height: 1;
+      font-weight: 750;
+      letter-spacing: -0.5px;
     }
 
     .stat-label {
-        font-size: 7px;
+      margin-top: 7px;
 
-        margin-top: 3px;
+      color: #888a94;
+
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
     }
 
-    .search-input {
-        height: 36px;
+    /* =========================================================
+       SEARCH
+    ========================================================= */
 
-        font-size: 11px;
+    .search-wrap {
+      position: relative;
+      margin-bottom: 9px;
     }
 
-    .search-box > svg {
-        left: 10px;
-
-        width: 14px;
-        height: 14px;
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      width: 19px;
+      height: 19px;
+      transform: translateY(-50%);
+      color: #737680;
+      pointer-events: none;
     }
 
-    .search-input {
-        padding-left: 32px;
+    #searchInput {
+      width: 100%;
+      height: 50px;
+
+      padding: 0 15px 0 44px;
+
+      color: #f4f4f6;
+      background: #101116;
+
+      border: 1px solid #292b31;
+      border-radius: 14px;
+
+      outline: none;
+
+      font-size: 15px;
+
+      transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+    }
+
+    #searchInput::placeholder {
+      color: #696b75;
+    }
+
+    #searchInput:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+    }
+
+    /* =========================================================
+       FILTERS
+    ========================================================= */
+
+    .filters {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+
+      margin-bottom: 12px;
+      padding: 2px 0;
+
+      scrollbar-width: none;
+    }
+
+    .filters::-webkit-scrollbar {
+      display: none;
     }
 
     .filter-btn {
-        padding:
-            4px 9px;
+      flex: 0 0 auto;
 
-        font-size: 10px;
+      min-height: 38px;
+      padding: 0 17px;
+
+      border: 1px solid transparent;
+      border-radius: 999px;
+
+      background: transparent;
+      color: #8d8f98;
+
+      font-size: 13px;
+      font-weight: 650;
+
+      transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease;
     }
 
-    #list {
-        gap: 4px;
+    .filter-btn:hover {
+      color: #d9d9de;
     }
 
-    .item {
-        padding:
-            5px
-            6px
-            5px
-            7px;
-
-        border-radius: 8px;
+    .filter-btn.active {
+      background: #191a20;
+      border-color: #30323a;
+      color: #f3f3f5;
     }
 
-    .card-row {
-        gap: 5px;
+    /* =========================================================
+       PASSWORD LIST
+    ========================================================= */
+
+    #passwordList {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .attempt-number {
-        min-width: 18px;
+    /* =========================================================
+       COMPACT PASSWORD CARD
+    ========================================================= */
 
-        font-size: 8px;
+    .password-card {
+      position: relative;
+
+      min-height: 82px;
+
+      display: flex;
+      align-items: center;
+
+      padding: 12px 10px 12px 14px;
+
+      background: #101116;
+
+      border: 1px solid #292b31;
+      border-left: 4px solid #464850;
+
+      border-radius: 16px;
+
+      transition:
+        border-color 0.15s ease,
+        background 0.15s ease;
+    }
+
+    .password-card:hover {
+      background: #121319;
+    }
+
+    .password-card.status-success {
+      border-left-color: #35c759;
+    }
+
+    .password-card.status-failed {
+      border-left-color: #ff453a;
+    }
+
+    .password-content {
+      min-width: 0;
+      flex: 1;
+      padding-right: 8px;
     }
 
     .password-text {
-        font-size: 11px;
+      margin: 0;
+
+      color: #f1f1f3;
+
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+      font-size: 16px;
+      line-height: 1.3;
+
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      margin-top: 8px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+
+      min-height: 25px;
+      padding: 0 10px;
+
+      border-radius: 999px;
+
+      background: #24252a;
+      color: #a7a8b0;
+
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 750;
+      letter-spacing: 0.5px;
+    }
+
+    .status-badge.success {
+      background: rgba(53, 199, 89, 0.12);
+      color: #65d985;
+    }
+
+    .status-badge.failed {
+      background: rgba(255, 69, 58, 0.12);
+      color: #ff7a72;
+    }
+
+    /* =========================================================
+       ACTION BUTTONS
+    ========================================================= */
+
     .actions {
-        gap: 2px;
+      flex: 0 0 auto;
+
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
 
     .icon-btn {
-        width: 24px;
-        height: 24px;
+      width: 42px;
+      height: 42px;
 
-        border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #15161b;
+      color: #9698a1;
+
+      border: 1px solid #292b31;
+      border-radius: 12px;
+
+      transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        transform 0.12s ease;
+    }
+
+    .icon-btn:hover {
+      background: #1b1c22;
+      color: #e5e5e8;
+      border-color: #363841;
+    }
+
+    .icon-btn:active {
+      transform: scale(0.94);
     }
 
     .icon-btn svg {
-        width: 12px;
-        height: 12px;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
     }
 
-    .item-meta {
-        margin-top: 2px;
-        margin-left: 23px;
+    .icon-btn.success-active {
+      color: #65d985;
+      border-color: rgba(53, 199, 89, 0.28);
+      background: rgba(53, 199, 89, 0.08);
     }
 
-    .status {
-        padding:
-            2px 5px;
-
-        font-size: 6px;
+    .icon-btn.failed-active {
+      color: #ff7a72;
+      border-color: rgba(255, 69, 58, 0.28);
+      background: rgba(255, 69, 58, 0.08);
     }
 
-    .date {
-        font-size: 7px;
+    /* =========================================================
+       EMPTY STATE
+    ========================================================= */
+
+    .empty-state {
+      display: none;
+
+      padding: 38px 16px;
+
+      text-align: center;
+
+      color: #686a73;
     }
+
+    .empty-icon {
+      width: 38px;
+      height: 38px;
+      margin: 0 auto 10px;
+
+      color: #52545d;
+    }
+
+    .empty-title {
+      margin: 0;
+
+      color: #999ba4;
+
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .empty-description {
+      margin: 5px 0 0;
+
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       BACKUP
+    ========================================================= */
 
     .backup {
-        margin-top: 8px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+
+      margin-top: 12px;
     }
 
     .backup-btn {
-        height: 34px;
+      height: 54px;
 
-        font-size: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      background: #101116;
+      color: #a7a8b0;
+
+      border: 1px solid #292b31;
+      border-radius: 14px;
+
+      font-size: 13px;
+      font-weight: 650;
+
+      transition:
+        background 0.15s ease,
+        color 0.15s ease;
     }
 
-    .local-notice {
+    .backup-btn:hover {
+      background: #15161b;
+      color: #ededf0;
+    }
+
+    .backup-btn svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    /* =========================================================
+       LOCAL STORAGE NOTE
+    ========================================================= */
+
+    .storage-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      margin-top: 16px;
+
+      color: #60626b;
+
+      font-size: 12px;
+    }
+
+    .storage-dot {
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+      background: #35c759;
+
+      box-shadow: 0 0 8px rgba(53, 199, 89, 0.45);
+    }
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+
+    .toast-container {
+      position: fixed;
+
+      left: 50%;
+      bottom: 22px;
+
+      z-index: 1000;
+
+      width: min(calc(100% - 30px), 430px);
+
+      transform: translateX(-50%);
+
+      pointer-events: none;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 12px 14px;
+
+      background: #191a20;
+      color: #ededf0;
+
+      border: 1px solid #33353d;
+      border-radius: 13px;
+
+      box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.45);
+
+      font-size: 13px;
+      font-weight: 550;
+
+      opacity: 0;
+      transform: translateY(10px);
+
+      transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast-icon {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .toast.success .toast-icon {
+      color: #65d985;
+    }
+
+    .toast.error .toast-icon {
+      color: #ff7a72;
+    }
+
+    .toast.info .toast-icon {
+      color: #65a1ff;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 600px) {
+      .app {
+        padding: 22px 8px 28px;
+      }
+
+      .header {
+        margin-bottom: 20px;
+      }
+
+      .logo {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 13px;
+        border-radius: 19px;
+      }
+
+      .logo svg {
+        width: 35px;
+        height: 35px;
+      }
+
+      .title {
+        font-size: 29px;
+        letter-spacing: -1px;
+      }
+
+      .subtitle {
         margin-top: 8px;
+        padding: 0 8px;
 
-        font-size: 8px;
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .add-box {
+        padding: 8px;
+        border-radius: 16px;
+      }
+
+      #passwordInput {
+        height: 52px;
+        font-size: 15px;
+      }
+
+      .add-btn {
+        height: 50px;
+      }
+
+      .stat {
+        min-height: 72px;
+        border-radius: 14px;
+      }
+
+      .stat-number {
+        font-size: 23px;
+      }
+
+      .stat-label {
+        font-size: 9px;
+      }
+
+      .password-card {
+        min-height: 76px;
+        padding: 10px 8px 10px 12px;
+        border-radius: 15px;
+      }
+
+      .password-text {
+        font-size: 15px;
+      }
+
+      .card-bottom {
+        margin-top: 6px;
+      }
+
+      .status-badge {
+        min-height: 23px;
+        padding: 0 9px;
+        font-size: 9px;
+      }
+
+      .actions {
+        gap: 4px;
+      }
+
+      .icon-btn {
+        width: 39px;
+        height: 39px;
+        border-radius: 11px;
+      }
+
+      .icon-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .backup-btn {
+        height: 50px;
+        font-size: 12px;
+      }
     }
-}
 
+    @media (max-width: 390px) {
+      .password-card {
+        align-items: center;
+      }
 
-/* =========================================
-   EXTRA SMALL DEVICES
-========================================= */
+      .password-content {
+        padding-right: 5px;
+      }
 
-@media (max-width: 360px) {
+      .password-text {
+        font-size: 14px;
+      }
 
-    .app {
-        width:
-            calc(100% - 8px);
+      .icon-btn {
+        width: 36px;
+        height: 36px;
+      }
+
+      .icon-btn svg {
+        width: 17px;
+        height: 17px;
+      }
+
+      .actions {
+        gap: 3px;
+      }
     }
-
-    .password-text {
-        font-size: 10px;
-    }
-
-    .icon-btn {
-        width: 22px;
-        height: 22px;
-    }
-
-    .icon-btn svg {
-        width: 11px;
-        height: 11px;
-    }
-
-    .attempt-number {
-        min-width: 16px;
-    }
-}
-
-</style>
+  </style>
 </head>
-
 
 <body>
 
+  <main class="app">
 
-<div class="app">
+    <!-- =======================================================
+         HEADER
+    ======================================================== -->
 
+    <header class="header">
 
-<!-- =========================================
-     HEADER
-========================================= -->
-
-<header class="header">
-
-    <div class="logo">
-
+      <div class="logo" aria-hidden="true">
         <svg
-            viewBox="0 0 64 64"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
+          viewBox="0 0 64 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
+          <circle
+            cx="30"
+            cy="34"
+            r="11"
+            stroke="#F2F3F5"
+            stroke-width="4"
+          />
 
-            <!-- Key -->
-
-            <circle
-                cx="23"
-                cy="35"
-                r="10"
-                stroke="#F5F5F7"
-                stroke-width="5"
-            />
-
-            <path
-                d="M30 28L48 10"
-                stroke="#F5F5F7"
-                stroke-width="5"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M42 16L48 22"
-                stroke="#F5F5F7"
-                stroke-width="5"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M36 22L42 28"
-                stroke="#F5F5F7"
-                stroke-width="5"
-                stroke-linecap="round"
-            />
-
-            <!-- Recovery -->
-
-            <path
-                d="M17 23A15 15 0 0 1 38 18"
-                stroke="#3B82F6"
-                stroke-width="4"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M16 17L16 24L23 24"
-                stroke="#3B82F6"
-                stroke-width="4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            />
-
-        </svg>
-
-    </div>
-
-
-    <h1>
-        Get Back My Key
-    </h1>
-
-
-    <p>
-        Track password combinations locally.
-        Copy, test and mark each attempt.
-    </p>
-
-</header>
-
-
-<!-- =========================================
-     ADD
-========================================= -->
-
-<section class="add-box">
-
-    <input
-        id="pwInput"
-        class="password-input"
-        type="text"
-        autocomplete="off"
-        placeholder="Enter password combination..."
-        aria-label="Password combination"
-    >
-
-
-    <button
-        id="addButton"
-        class="add-button"
-        type="button"
-    >
-
-        <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
+          <path
+            d="M38 26L53 11"
+            stroke="#F2F3F5"
+            stroke-width="4"
             stroke-linecap="round"
+          />
+
+          <path
+            d="M47 17L53 23"
+            stroke="#F2F3F5"
+            stroke-width="4"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M42 22L48 28"
+            stroke="#3B82F6"
+            stroke-width="4"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+
+      <h1 class="title">Get Back My Key</h1>
+
+      <p class="subtitle">
+        Track password combinations locally. Copy, test and mark each attempt.
+      </p>
+
+    </header>
+
+
+    <!-- =======================================================
+         ADD PASSWORD
+    ======================================================== -->
+
+    <section class="add-box">
+
+      <div class="input-wrap">
+        <input
+          id="passwordInput"
+          type="text"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          placeholder="Enter password combination..."
+          aria-label="Password combination"
+        />
+      </div>
+
+      <button
+        type="button"
+        class="add-btn"
+        id="addButton"
+      >
+        <!-- Plus icon -->
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
         >
-
-            <path d="M12 5v14"/>
-            <path d="M5 12h14"/>
-
+          <path d="M12 5V19" />
+          <path d="M5 12H19" />
         </svg>
 
-        Add
+        <span>Add</span>
+      </button>
 
-    </button>
-
-</section>
-
-
-<!-- =========================================
-     STATS
-========================================= -->
-
-<section class="stats">
-
-    <div class="stat">
-
-        <span
-            id="totalCount"
-            class="stat-value"
-        >
-            0
-        </span>
-
-        <span class="stat-label">
-            TOTAL
-        </span>
-
-    </div>
+    </section>
 
 
-    <div class="stat">
+    <!-- =======================================================
+         STATS
+    ======================================================== -->
 
-        <span
-            id="triedCount"
-            class="stat-value"
-        >
-            0
-        </span>
+    <section class="stats">
 
-        <span class="stat-label">
-            TRIED
-        </span>
+      <div class="stat">
+        <div class="stat-number" id="totalCount">0</div>
+        <div class="stat-label">Total</div>
+      </div>
 
-    </div>
+      <div class="stat">
+        <div class="stat-number" id="triedCount">0</div>
+        <div class="stat-label">Tried</div>
+      </div>
 
+      <div class="stat">
+        <div class="stat-number" id="successCount">0</div>
+        <div class="stat-label">Success</div>
+      </div>
 
-    <div class="stat">
-
-        <span
-            id="successCount"
-            class="stat-value"
-        >
-            0
-        </span>
-
-        <span class="stat-label">
-            SUCCESS
-        </span>
-
-    </div>
-
-</section>
+    </section>
 
 
-<!-- =========================================
-     SEARCH
-========================================= -->
+    <!-- =======================================================
+         SEARCH
+    ======================================================== -->
 
-<div class="search-box">
+    <div class="search-wrap">
 
-    <svg
+      <!-- Search icon -->
+      <svg
+        class="search-icon"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
         stroke-width="2"
         stroke-linecap="round"
-    >
+      >
+        <circle cx="11" cy="11" r="7" />
+        <path d="M20 20L16.2 16.2" />
+      </svg>
 
-        <circle
-            cx="11"
-            cy="11"
-            r="7"
-        />
-
-        <path
-            d="M20 20l-4-4"
-        />
-
-    </svg>
-
-
-    <input
+      <input
         id="searchInput"
-        class="search-input"
         type="text"
         autocomplete="off"
+        spellcheck="false"
         placeholder="Search attempts..."
-    >
+        aria-label="Search attempts"
+      />
 
-</div>
+    </div>
 
 
-<!-- =========================================
-     FILTERS
-========================================= -->
+    <!-- =======================================================
+         FILTERS
+    ======================================================== -->
 
-<div class="filters">
+    <div class="filters">
 
-    <button
+      <button
+        type="button"
         class="filter-btn active"
         data-filter="all"
-        type="button"
-    >
+      >
         All
-    </button>
+      </button>
 
-    <button
+      <button
+        type="button"
         class="filter-btn"
         data-filter="pending"
-        type="button"
-    >
+      >
         Pending
-    </button>
+      </button>
 
-    <button
+      <button
+        type="button"
         class="filter-btn"
         data-filter="failed"
-        type="button"
-    >
+      >
         Failed
-    </button>
+      </button>
 
-    <button
+      <button
+        type="button"
         class="filter-btn"
         data-filter="success"
-        type="button"
-    >
+      >
         Success
-    </button>
+      </button>
 
-</div>
-
-
-<!-- =========================================
-     LIST
-========================================= -->
-
-<div id="list"></div>
+    </div>
 
 
-<!-- =========================================
-     BACKUP
-========================================= -->
+    <!-- =======================================================
+         PASSWORD LIST
+    ======================================================== -->
 
-<section class="backup">
+    <section id="passwordList"></section>
 
-    <button
-        id="exportButton"
-        class="backup-btn"
-        type="button"
+
+    <!-- =======================================================
+         EMPTY STATE
+    ======================================================== -->
+
+    <section
+      class="empty-state"
+      id="emptyState"
     >
 
+      <svg
+        class="empty-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="7.5" cy="15.5" r="3.5" />
+        <path d="M10 13L20 3" />
+        <path d="M17 6L20 9" />
+        <path d="M14 9L17 12" />
+      </svg>
+
+      <p
+        class="empty-title"
+        id="emptyTitle"
+      >
+        No password attempts yet
+      </p>
+
+      <p
+        class="empty-description"
+        id="emptyDescription"
+      >
+        Add your first combination above.
+      </p>
+
+    </section>
+
+
+    <!-- =======================================================
+         BACKUP
+    ======================================================== -->
+
+    <section class="backup">
+
+      <button
+        type="button"
+        class="backup-btn"
+        id="exportButton"
+      >
+        <!-- Download icon -->
         <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
         >
-
-            <path d="M12 3v12"/>
-            <path d="M7 10l5 5 5-5"/>
-            <path d="M4 21h16"/>
-
+          <path d="M12 3V15" />
+          <path d="M7 10L12 15L17 10" />
+          <path d="M5 21H19" />
         </svg>
 
-        Export Backup
+        <span>Export Backup</span>
+      </button>
 
-    </button>
 
-
-    <label class="backup-btn">
-
+      <button
+        type="button"
+        class="backup-btn"
+        id="importButton"
+      >
+        <!-- Upload icon -->
         <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
         >
-
-            <path d="M12 16V4"/>
-            <path d="M7 9l5-5 5 5"/>
-            <path d="M4 20h16"/>
-
+          <path d="M12 21V9" />
+          <path d="M7 14L12 9L17 14" />
+          <path d="M5 3H19" />
         </svg>
 
-        Import Backup
+        <span>Import Backup</span>
+      </button>
 
-        <input
-            id="importInput"
-            type="file"
-            accept=".json,application/json"
+      <input
+        type="file"
+        id="importFile"
+        accept=".json,application/json"
+        hidden
+      />
+
+    </section>
+
+
+    <!-- =======================================================
+         STORAGE STATUS
+    ======================================================== -->
+
+    <div class="storage-note">
+
+      <span class="storage-dot"></span>
+
+      <span>Saved locally in this browser</span>
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================================================
+       TOAST
+  ========================================================== -->
+
+  <div class="toast-container">
+
+    <div
+      class="toast"
+      id="toast"
+      role="status"
+      aria-live="polite"
+    >
+      <svg
+        class="toast-icon"
+        id="toastIcon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></svg>
+
+      <span id="toastMessage"></span>
+    </div>
+
+  </div>
+
+
+  <script>
+    "use strict";
+
+    /* =========================================================
+       STORAGE
+    ========================================================= */
+
+    const STORAGE_KEY = "getBackMyKey_passwords_v1";
+
+
+    /* =========================================================
+       STATE
+    ========================================================= */
+
+    let passwords = [];
+    let currentFilter = "all";
+    let searchQuery = "";
+
+
+    /* =========================================================
+       DOM
+    ========================================================= */
+
+    const passwordInput = document.getElementById("passwordInput");
+    const addButton = document.getElementById("addButton");
+
+    const passwordList = document.getElementById("passwordList");
+
+    const totalCount = document.getElementById("totalCount");
+    const triedCount = document.getElementById("triedCount");
+    const successCount = document.getElementById("successCount");
+
+    const searchInput = document.getElementById("searchInput");
+
+    const emptyState = document.getElementById("emptyState");
+    const emptyTitle = document.getElementById("emptyTitle");
+    const emptyDescription = document.getElementById("emptyDescription");
+
+    const exportButton = document.getElementById("exportButton");
+    const importButton = document.getElementById("importButton");
+    const importFile = document.getElementById("importFile");
+
+    const toast = document.getElementById("toast");
+    const toastMessage = document.getElementById("toastMessage");
+    const toastIcon = document.getElementById("toastIcon");
+
+
+    /* =========================================================
+       SVG ICONS
+    ========================================================= */
+
+    const ICONS = {
+
+      copy: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
         >
+          <rect x="8" y="8" width="11" height="11" rx="2"/>
+          <path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4H6.5A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"/>
+        </svg>
+      `,
 
-    </label>
+      check: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12.5L10 17L19 7"/>
+        </svg>
+      `,
 
-</section>
+      close: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <path d="M6 6L18 18"/>
+          <path d="M18 6L6 18"/>
+        </svg>
+      `,
+
+      trash: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M4 7H20"/>
+          <path d="M9 7V4H15V7"/>
+          <path d="M7 7L8 20H16L17 7"/>
+          <path d="M10 11V17"/>
+          <path d="M14 11V17"/>
+        </svg>
+      `,
+
+      success: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M8 12L11 15L16 9"/>
+        </svg>
+      `,
+
+      error: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="9"
+          />
+          <path d="M9 9L15 15"/>
+          <path d="M15 9L9 15"/>
+        </svg>
+      `,
+
+      info: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 11V16"/>
+          <path d="M12 8H12.01"/>
+        </svg>
+      `,
+
+      empty: `
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="7.5" cy="15.5" r="3.5"/>
+          <path d="M10 13L20 3"/>
+          <path d="M17 6L20 9"/>
+          <path d="M14 9L17 12"/>
+        </svg>
+      `
+    };
 
 
-<!-- =========================================
-     LOCAL STORAGE
-========================================= -->
+    /* =========================================================
+       LOAD DATA
+    ========================================================= */
 
-<div class="local-notice">
-
-    <span class="local-dot"></span>
-
-    Saved locally in this browser
-
-</div>
-
-
-</div>
-
-
-<!-- =========================================
-     TOAST
-========================================= -->
-
-<div
-    id="toast"
-    class="toast"
-></div>
-
-
-<script>
-
-"use strict";
-
-
-/* =========================================
-   STORAGE
-========================================= */
-
-const STORAGE_KEY =
-    "get_back_my_key_attempts_v1";
-
-
-/* =========================================
-   STATE
-========================================= */
-
-let passwords = [];
-
-let currentFilter = "all";
-
-let searchQuery = "";
-
-
-/* =========================================
-   DOM
-========================================= */
-
-const pwInput =
-    document.getElementById("pwInput");
-
-const addButton =
-    document.getElementById("addButton");
-
-const list =
-    document.getElementById("list");
-
-const totalCount =
-    document.getElementById("totalCount");
-
-const triedCount =
-    document.getElementById("triedCount");
-
-const successCount =
-    document.getElementById("successCount");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const toast =
-    document.getElementById("toast");
-
-const exportButton =
-    document.getElementById("exportButton");
-
-const importInput =
-    document.getElementById("importInput");
-
-
-/* =========================================
-   LOAD
-========================================= */
-
-function loadData() {
-
-    try {
-
-        const saved =
-            localStorage.getItem(
-                STORAGE_KEY
-            );
+    function loadPasswords() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
 
         if (!saved) {
-
-            passwords = [];
-
-            return;
+          passwords = [];
+          return;
         }
 
-        const parsed =
-            JSON.parse(saved);
+        const parsed = JSON.parse(saved);
 
-        passwords =
-            Array.isArray(parsed)
-                ? parsed
-                : [];
+        if (!Array.isArray(parsed)) {
+          passwords = [];
+          return;
+        }
 
-    } catch (error) {
+        passwords = parsed
+          .filter(item =>
+            item &&
+            typeof item.text === "string" &&
+            typeof item.status === "string"
+          )
+          .map(item => ({
+            id:
+              typeof item.id === "string"
+                ? item.id
+                : createId(),
 
-        console.error(
-            "Load error:",
-            error
-        );
+            text: item.text,
 
+            status:
+              ["pending", "success", "failed"].includes(item.status)
+                ? item.status
+                : "pending",
+
+            createdAt:
+              typeof item.createdAt === "number"
+                ? item.createdAt
+                : Date.now()
+          }));
+
+      } catch (error) {
+        console.error("Failed to load local data:", error);
         passwords = [];
+      }
     }
-}
 
 
-/* =========================================
-   SAVE
-========================================= */
+    /* =========================================================
+       SAVE DATA
+    ========================================================= */
 
-function saveData() {
-
-    try {
-
+    function savePasswords() {
+      try {
         localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(passwords)
+          STORAGE_KEY,
+          JSON.stringify(passwords)
         );
-
-    } catch (error) {
-
-        console.error(
-            "Save error:",
-            error
-        );
+      } catch (error) {
+        console.error("Failed to save local data:", error);
 
         showToast(
-            "Could not save data locally.",
-            "error"
+          "Could not save data to this browser.",
+          "error"
         );
+      }
     }
-}
 
 
-/* =========================================
-   ID
-========================================= */
+    /* =========================================================
+       CREATE ID
+    ========================================================= */
 
-function createId() {
-
-    if (
-        window.crypto &&
-        typeof crypto.randomUUID ===
-            "function"
-    ) {
-
+    function createId() {
+      if (
+        typeof crypto !== "undefined" &&
+        typeof crypto.randomUUID === "function"
+      ) {
         return crypto.randomUUID();
-    }
+      }
 
-    return (
+      return (
         Date.now().toString(36) +
-        Math.random()
-            .toString(36)
-            .slice(2)
-    );
-}
-
-
-/* =========================================
-   TOAST
-========================================= */
-
-let toastTimer = null;
-
-function showToast(
-    message,
-    type = ""
-) {
-
-    clearTimeout(
-        toastTimer
-    );
-
-    toast.textContent =
-        message;
-
-    toast.className =
-        "toast";
-
-    if (type) {
-
-        toast.classList.add(
-            type
-        );
+        Math.random().toString(36).slice(2)
+      );
     }
 
-    requestAnimationFrame(
-        () => {
 
-            toast.classList.add(
-                "show"
-            );
+    /* =========================================================
+       ADD PASSWORD
+       
+       IMPORTANT:
+       The password is stored EXACTLY as entered.
+       No trim, no lowercase, no modification.
+    ========================================================= */
 
-        }
-    );
+    function addPassword() {
 
-    toastTimer =
-        setTimeout(
-            () => {
+      const value = passwordInput.value;
 
-                toast.classList.remove(
-                    "show"
-                );
+      /*
+        Only an actually empty input is rejected.
 
-            },
-            2200
+        We intentionally DO NOT use trim()
+        because the user's password must remain
+        exactly as entered, including spaces.
+      */
+
+      if (value.length === 0) {
+        showToast(
+          "Enter a password combination first.",
+          "error"
         );
-}
+
+        passwordInput.focus();
+        return;
+      }
 
 
-/* =========================================
-   ADD
-========================================= */
+      /*
+        Exact duplicate check.
 
-function addPassword() {
+        "Password"
+        "password"
+        " Password"
+        "Password "
 
-    /*
-     * Do NOT trim the actual value.
-     *
-     * This means spaces and case
-     * remain exactly as entered.
-     */
+        are treated as DIFFERENT entries.
 
-    const value =
-        pwInput.value;
+        This preserves the password exactly as entered.
+      */
+
+      const duplicateIndex = passwords.findIndex(
+        item => item.text === value
+      );
 
 
-    if (!value.trim()) {
+      if (duplicateIndex !== -1) {
+
+        /*
+          Existing attempt number is based on its
+          position in the stored list.
+
+          Since newest entries are at the top,
+          position + 1 represents its visible number.
+        */
+
+        const attemptNumber = duplicateIndex + 1;
 
         showToast(
-            "Please enter a password combination.",
-            "error"
+          `This combination already exists as attempt #${attemptNumber}.`,
+          "error"
         );
 
-        pwInput.focus();
+        passwordInput.focus();
 
         return;
-    }
+      }
 
 
-    /*
-     * Exact duplicate check.
-     *
-     * Case-sensitive.
-     * Space-sensitive.
-     */
+      /*
+        unshift() puts the newest password
+        at the TOP of the list.
+      */
 
-    const existingIndex =
-        passwords.findIndex(
-            item =>
-                item.text === value
-        );
-
-
-    if (
-        existingIndex !== -1
-    ) {
-
-        showToast(
-            `This combination already exists as attempt #${existingIndex + 1}.`,
-            "error"
-        );
-
-        pwInput.select();
-
-        return;
-    }
+      passwords.unshift({
+        id: createId(),
+        text: value,
+        status: "pending",
+        createdAt: Date.now()
+      });
 
 
-    /*
-     * unshift = new item at TOP.
-     */
+      passwordInput.value = "";
 
-    passwords.unshift({
+      savePasswords();
 
-        id:
-            createId(),
+      currentFilter = "all";
+      searchQuery = "";
+      searchInput.value = "";
 
-        text:
-            value,
+      updateFilterButtons();
+      render();
 
-        status:
-            "pending",
-
-        createdAt:
-            new Date().toISOString()
-
-    });
-
-
-    saveData();
-
-    pwInput.value = "";
-
-    render();
-
-    showToast(
+      showToast(
         "Password combination added.",
         "success"
-    );
-
-    pwInput.focus();
-}
-
-
-/* =========================================
-   STATUS
-========================================= */
-
-function markStatus(
-    index,
-    status
-) {
-
-    const item =
-        passwords[index];
-
-
-    if (!item) {
-
-        return;
+      );
     }
 
 
-    item.status =
-        item.status === status
-            ? "pending"
-            : status;
+    /* =========================================================
+       COPY PASSWORD
+    ========================================================= */
+
+    async function copyPassword(id, button) {
+
+      const item = passwords.find(
+        password => password.id === id
+      );
+
+      if (!item) return;
 
 
-    saveData();
+      try {
 
-    render();
-}
-
-
-/* =========================================
-   DELETE
-========================================= */
-
-function deleteItem(
-    index
-) {
-
-    const item =
-        passwords[index];
-
-
-    if (!item) {
-
-        return;
-    }
-
-
-    if (
-        !confirm(
-            "Delete this password attempt?"
-        )
-    ) {
-
-        return;
-    }
-
-
-    passwords.splice(
-        index,
-        1
-    );
-
-
-    saveData();
-
-    render();
-
-    showToast(
-        "Attempt deleted.",
-        "success"
-    );
-}
-
-
-/* =========================================
-   COPY
-========================================= */
-
-async function copyText(
-    text
-) {
-
-    try {
+        /*
+          Modern Clipboard API
+        */
 
         if (
-            navigator.clipboard &&
-            window.isSecureContext
+          navigator.clipboard &&
+          window.isSecureContext
         ) {
-
-            await navigator.clipboard.writeText(
-                text
-            );
+          await navigator.clipboard.writeText(item.text);
 
         } else {
 
-            fallbackCopy(text);
+          /*
+            Fallback for older/mobile browsers.
+          */
+
+          const textarea =
+            document.createElement("textarea");
+
+          textarea.value = item.text;
+
+          textarea.style.position = "fixed";
+          textarea.style.opacity = "0";
+          textarea.style.pointerEvents = "none";
+
+          document.body.appendChild(textarea);
+
+          textarea.focus();
+          textarea.select();
+
+          const successful =
+            document.execCommand("copy");
+
+          textarea.remove();
+
+          if (!successful) {
+            throw new Error("Copy failed");
+          }
         }
 
+
+        const oldHTML = button.innerHTML;
+
+        button.innerHTML = ICONS.check;
+        button.style.color = "#65d985";
+        button.style.borderColor =
+          "rgba(53, 199, 89, 0.28)";
+
+        setTimeout(() => {
+
+          if (button.isConnected) {
+            button.innerHTML = oldHTML;
+            button.style.color = "";
+            button.style.borderColor = "";
+          }
+
+        }, 1000);
+
+
         showToast(
-            "Password copied to clipboard.",
-            "success"
+          "Password copied to clipboard.",
+          "success"
         );
 
-    } catch (error) {
+      } catch (error) {
+
+        console.error("Copy failed:", error);
+
+        showToast(
+          "Could not copy this password.",
+          "error"
+        );
+      }
+    }
+
+
+    /* =========================================================
+       CHANGE STATUS
+    ========================================================= */
+
+    function changeStatus(id, status) {
+
+      const item = passwords.find(
+        password => password.id === id
+      );
+
+      if (!item) return;
+
+
+      /*
+        Clicking the currently active status
+        returns it to pending.
+      */
+
+      if (item.status === status) {
+        item.status = "pending";
+
+      } else {
+        item.status = status;
+      }
+
+
+      savePasswords();
+      render();
+
+      if (item.status === "success") {
+
+        showToast(
+          "Marked as successful.",
+          "success"
+        );
+
+      } else if (item.status === "failed") {
+
+        showToast(
+          "Marked as failed.",
+          "info"
+        );
+
+      } else {
+
+        showToast(
+          "Reset to pending.",
+          "info"
+        );
+      }
+    }
+
+
+    /* =========================================================
+       DELETE
+    ========================================================= */
+
+    function deletePassword(id) {
+
+      const index = passwords.findIndex(
+        item => item.id === id
+      );
+
+      if (index === -1) return;
+
+
+      const shouldDelete = window.confirm(
+        "Delete this password attempt?"
+      );
+
+      if (!shouldDelete) return;
+
+
+      passwords.splice(index, 1);
+
+      savePasswords();
+      render();
+
+      showToast(
+        "Password attempt deleted.",
+        "success"
+      );
+    }
+
+
+    /* =========================================================
+       FILTER
+    ========================================================= */
+
+    function setFilter(filter) {
+
+      currentFilter = filter;
+
+      updateFilterButtons();
+      render();
+    }
+
+
+    function updateFilterButtons() {
+
+      document
+        .querySelectorAll(".filter-btn")
+        .forEach(button => {
+
+          button.classList.toggle(
+            "active",
+            button.dataset.filter === currentFilter
+          );
+
+        });
+    }
+
+
+    /* =========================================================
+       SEARCH
+    ========================================================= */
+
+    function setSearch(value) {
+
+      searchQuery = value;
+
+      render();
+    }
+
+
+    /* =========================================================
+       GET FILTERED DATA
+    ========================================================= */
+
+    function getVisiblePasswords() {
+
+      const query =
+        searchQuery.toLocaleLowerCase();
+
+      return passwords.filter(item => {
+
+        const matchesSearch =
+          item.text
+            .toLocaleLowerCase()
+            .includes(query);
+
+
+        const matchesFilter =
+          currentFilter === "all" ||
+          item.status === currentFilter;
+
+
+        return matchesSearch && matchesFilter;
+      });
+    }
+
+
+    /* =========================================================
+       RENDER
+    ========================================================= */
+
+    function render() {
+
+      updateStats();
+
+      passwordList.innerHTML = "";
+
+      const visiblePasswords =
+        getVisiblePasswords();
+
+
+      if (visiblePasswords.length === 0) {
+
+        passwordList.style.display = "none";
+        emptyState.style.display = "block";
+
+
+        if (passwords.length === 0) {
+
+          emptyTitle.textContent =
+            "No password attempts yet";
+
+          emptyDescription.textContent =
+            "Add your first combination above.";
+
+        } else {
+
+          emptyTitle.textContent =
+            "No matching attempts";
+
+          emptyDescription.textContent =
+            "Try a different search or filter.";
+        }
+
+        return;
+      }
+
+
+      passwordList.style.display = "flex";
+      emptyState.style.display = "none";
+
+
+      visiblePasswords.forEach(item => {
+
+        const card =
+          createPasswordCard(item);
+
+        passwordList.appendChild(card);
+      });
+    }
+
+
+    /* =========================================================
+       CREATE PASSWORD CARD
+    ========================================================= */
+
+    function createPasswordCard(item) {
+
+      const card =
+        document.createElement("article");
+
+      card.className =
+        "password-card";
+
+
+      if (item.status === "success") {
+        card.classList.add("status-success");
+      }
+
+      if (item.status === "failed") {
+        card.classList.add("status-failed");
+      }
+
+
+      /* -------------------------------------------------------
+         CONTENT
+      ------------------------------------------------------- */
+
+      const content =
+        document.createElement("div");
+
+      content.className =
+        "password-content";
+
+
+      const passwordText =
+        document.createElement("p");
+
+      passwordText.className =
+        "password-text";
+
+      /*
+        textContent is intentionally used here
+        so special characters are displayed safely.
+      */
+
+      passwordText.textContent =
+        item.text;
+
+
+      /* -------------------------------------------------------
+         BOTTOM / STATUS
+      ------------------------------------------------------- */
+
+      const bottom =
+        document.createElement("div");
+
+      bottom.className =
+        "card-bottom";
+
+
+      const badge =
+        document.createElement("span");
+
+      badge.className =
+        "status-badge";
+
+
+      if (item.status === "success") {
+
+        badge.classList.add("success");
+        badge.textContent = "SUCCESS";
+
+      } else if (item.status === "failed") {
+
+        badge.classList.add("failed");
+        badge.textContent = "FAILED";
+
+      } else {
+
+        badge.textContent = "PENDING";
+      }
+
+
+      bottom.appendChild(badge);
+
+      content.appendChild(passwordText);
+      content.appendChild(bottom);
+
+
+      /* -------------------------------------------------------
+         ACTIONS
+      ------------------------------------------------------- */
+
+      const actions =
+        document.createElement("div");
+
+      actions.className =
+        "actions";
+
+
+      /*
+        COPY
+      */
+
+      const copyButton =
+        document.createElement("button");
+
+      copyButton.type = "button";
+
+      copyButton.className =
+        "icon-btn";
+
+      copyButton.innerHTML =
+        ICONS.copy;
+
+      copyButton.title =
+        "Copy password";
+
+      copyButton.setAttribute(
+        "aria-label",
+        "Copy password"
+      );
+
+      copyButton.addEventListener(
+        "click",
+        () => copyPassword(item.id, copyButton)
+      );
+
+
+      /*
+        SUCCESS
+      */
+
+      const successButton =
+        document.createElement("button");
+
+      successButton.type = "button";
+
+      successButton.className =
+        "icon-btn";
+
+      if (item.status === "success") {
+        successButton.classList.add(
+          "success-active"
+        );
+      }
+
+      successButton.innerHTML =
+        ICONS.check;
+
+      successButton.title =
+        "Mark as success";
+
+      successButton.setAttribute(
+        "aria-label",
+        "Mark as success"
+      );
+
+      successButton.addEventListener(
+        "click",
+        () => changeStatus(item.id, "success")
+      );
+
+
+      /*
+        FAILED
+      */
+
+      const failedButton =
+        document.createElement("button");
+
+      failedButton.type = "button";
+
+      failedButton.className =
+        "icon-btn";
+
+      if (item.status === "failed") {
+        failedButton.classList.add(
+          "failed-active"
+        );
+      }
+
+      failedButton.innerHTML =
+        ICONS.close;
+
+      failedButton.title =
+        "Mark as failed";
+
+      failedButton.setAttribute(
+        "aria-label",
+        "Mark as failed"
+      );
+
+      failedButton.addEventListener(
+        "click",
+        () => changeStatus(item.id, "failed")
+      );
+
+
+      /*
+        DELETE
+      */
+
+      const deleteButton =
+        document.createElement("button");
+
+      deleteButton.type = "button";
+
+      deleteButton.className =
+        "icon-btn";
+
+      deleteButton.innerHTML =
+        ICONS.trash;
+
+      deleteButton.title =
+        "Delete attempt";
+
+      deleteButton.setAttribute(
+        "aria-label",
+        "Delete attempt"
+      );
+
+      deleteButton.addEventListener(
+        "click",
+        () => deletePassword(item.id)
+      );
+
+
+      actions.appendChild(copyButton);
+      actions.appendChild(successButton);
+      actions.appendChild(failedButton);
+      actions.appendChild(deleteButton);
+
+
+      /*
+        FINAL CARD
+      */
+
+      card.appendChild(content);
+      card.appendChild(actions);
+
+
+      return card;
+    }
+
+
+    /* =========================================================
+       UPDATE STATS
+    ========================================================= */
+
+    function updateStats() {
+
+      const total =
+        passwords.length;
+
+      const tried =
+        passwords.filter(
+          item => item.status !== "pending"
+        ).length;
+
+      const success =
+        passwords.filter(
+          item => item.status === "success"
+        ).length;
+
+
+      totalCount.textContent =
+        total;
+
+      triedCount.textContent =
+        tried;
+
+      successCount.textContent =
+        success;
+    }
+
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+
+    let toastTimer = null;
+
+
+    function showToast(message, type = "info") {
+
+      clearTimeout(toastTimer);
+
+
+      toast.className =
+        `toast ${type}`;
+
+
+      toastMessage.textContent =
+        message;
+
+
+      if (type === "success") {
+        toastIcon.innerHTML =
+          ICONS.success;
+
+      } else if (type === "error") {
+        toastIcon.innerHTML =
+          ICONS.error;
+
+      } else {
+        toastIcon.innerHTML =
+          ICONS.info;
+      }
+
+
+      /*
+        Force animation restart.
+      */
+
+      requestAnimationFrame(() => {
+
+        toast.classList.add("show");
+
+      });
+
+
+      toastTimer =
+        setTimeout(() => {
+
+          toast.classList.remove("show");
+
+        }, 2400);
+    }
+
+
+    /* =========================================================
+       EXPORT BACKUP
+    ========================================================= */
+
+    function exportBackup() {
+
+      const backup = {
+        app: "Get Back My Key",
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        passwords: passwords
+      };
+
+
+      const json =
+        JSON.stringify(
+          backup,
+          null,
+          2
+        );
+
+
+      const blob =
+        new Blob(
+          [json],
+          {
+            type: "application/json"
+          }
+        );
+
+
+      const url =
+        URL.createObjectURL(blob);
+
+
+      const link =
+        document.createElement("a");
+
+      link.href = url;
+
+      link.download =
+        `get-back-my-key-backup-${formatDateForFile()}.json`;
+
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      link.remove();
+
+      URL.revokeObjectURL(url);
+
+
+      showToast(
+        "Backup exported successfully.",
+        "success"
+      );
+    }
+
+
+    /* =========================================================
+       FORMAT BACKUP FILE DATE
+    ========================================================= */
+
+    function formatDateForFile() {
+
+      const now =
+        new Date();
+
+      const year =
+        now.getFullYear();
+
+      const month =
+        String(now.getMonth() + 1)
+          .padStart(2, "0");
+
+      const day =
+        String(now.getDate())
+          .padStart(2, "0");
+
+      const hours =
+        String(now.getHours())
+          .padStart(2, "0");
+
+      const minutes =
+        String(now.getMinutes())
+          .padStart(2, "0");
+
+
+      return `${year}-${month}-${day}-${hours}${minutes}`;
+    }
+
+
+    /* =========================================================
+       IMPORT BACKUP
+    ========================================================= */
+
+    function importBackup() {
+
+      importFile.value = "";
+
+      importFile.click();
+    }
+
+
+    /* =========================================================
+       PROCESS IMPORT
+    ========================================================= */
+
+    function processImport(file) {
+
+      if (!file) return;
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload = function(event) {
 
         try {
 
-            fallbackCopy(text);
+          const parsed =
+            JSON.parse(event.target.result);
+
+
+          /*
+            Support our backup format.
+          */
+
+          const imported =
+            Array.isArray(parsed)
+              ? parsed
+              : parsed.passwords;
+
+
+          if (!Array.isArray(imported)) {
+            throw new Error(
+              "Invalid backup format"
+            );
+          }
+
+
+          const validItems =
+            imported
+              .filter(item =>
+                item &&
+                typeof item.text === "string"
+              )
+              .map(item => ({
+
+                id:
+                  typeof item.id === "string"
+                    ? item.id
+                    : createId(),
+
+                text:
+                  item.text,
+
+                status:
+                  ["pending", "success", "failed"]
+                    .includes(item.status)
+                    ? item.status
+                    : "pending",
+
+                createdAt:
+                  typeof item.createdAt === "number"
+                    ? item.createdAt
+                    : Date.now()
+
+              }));
+
+
+          /*
+            Remove exact duplicates INSIDE
+            the imported backup while preserving
+            the first occurrence.
+          */
+
+          const uniqueImported = [];
+
+          for (const item of validItems) {
+
+            const exists =
+              uniqueImported.some(
+                existing =>
+                  existing.text === item.text
+              );
+
+            if (!exists) {
+              uniqueImported.push(item);
+            }
+          }
+
+
+          if (uniqueImported.length === 0) {
 
             showToast(
-                "Password copied to clipboard.",
-                "success"
-            );
-
-        } catch (fallbackError) {
-
-            console.error(
-                fallbackError
-            );
-
-            showToast(
-                "Could not copy password.",
-                "error"
-            );
-        }
-    }
-}
-
-
-/* =========================================
-   COPY FALLBACK
-========================================= */
-
-function fallbackCopy(
-    text
-) {
-
-    const textarea =
-        document.createElement(
-            "textarea"
-        );
-
-
-    textarea.value =
-        text;
-
-
-    textarea.style.position =
-        "fixed";
-
-    textarea.style.left =
-        "-9999px";
-
-    textarea.style.top =
-        "0";
-
-    textarea.style.opacity =
-        "0";
-
-
-    document.body.appendChild(
-        textarea
-    );
-
-
-    textarea.focus();
-
-    textarea.select();
-
-    textarea.setSelectionRange(
-        0,
-        textarea.value.length
-    );
-
-
-    const successful =
-        document.execCommand(
-            "copy"
-        );
-
-
-    textarea.remove();
-
-
-    if (!successful) {
-
-        throw new Error(
-            "Copy failed"
-        );
-    }
-}
-
-
-/* =========================================
-   SEARCH
-========================================= */
-
-searchInput.addEventListener(
-    "input",
-    function() {
-
-        searchQuery =
-            this.value;
-
-        render();
-    }
-);
-
-
-/* =========================================
-   FILTER
-========================================= */
-
-document
-    .querySelectorAll(
-        ".filter-btn"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                function() {
-
-                    currentFilter =
-                        this.dataset.filter;
-
-
-                    document
-                        .querySelectorAll(
-                            ".filter-btn"
-                        )
-                        .forEach(
-                            btn => {
-
-                                btn.classList.toggle(
-                                    "active",
-                                    btn.dataset.filter ===
-                                        currentFilter
-                                );
-
-                            }
-                        );
-
-
-                    render();
-                }
-            );
-
-        }
-    );
-
-
-/* =========================================
-   VISIBLE ITEMS
-========================================= */
-
-function getVisibleItems() {
-
-    return passwords.filter(
-        item => {
-
-            const matchesSearch =
-                item.text
-                    .toLowerCase()
-                    .includes(
-                        searchQuery.toLowerCase()
-                    );
-
-
-            let matchesFilter =
-                true;
-
-
-            if (
-                currentFilter ===
-                "pending"
-            ) {
-
-                matchesFilter =
-                    item.status ===
-                    "pending";
-            }
-
-
-            if (
-                currentFilter ===
-                "failed"
-            ) {
-
-                matchesFilter =
-                    item.status ===
-                    "no";
-            }
-
-
-            if (
-                currentFilter ===
-                "success"
-            ) {
-
-                matchesFilter =
-                    item.status ===
-                    "yes";
-            }
-
-
-            return (
-                matchesSearch &&
-                matchesFilter
-            );
-        }
-    );
-}
-
-
-/* =========================================
-   ESCAPE HTML
-========================================= */
-
-function escapeHtml(
-    value
-) {
-
-    return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-}
-
-
-/* =========================================
-   ICONS
-========================================= */
-
-const icons = {
-
-    copy: `
-        <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        >
-            <rect
-                x="9"
-                y="9"
-                width="11"
-                height="11"
-                rx="2"
-            />
-
-            <path
-                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-            />
-        </svg>
-    `,
-
-    check: `
-        <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        >
-            <path
-                d="M5 12l4 4L19 6"
-            />
-        </svg>
-    `,
-
-    close: `
-        <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        >
-            <path d="M6 6l12 12"/>
-            <path d="M18 6L6 18"/>
-        </svg>
-    `,
-
-    trash: `
-        <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        >
-            <path d="M4 7h16"/>
-            <path d="M10 11v6"/>
-            <path d="M14 11v6"/>
-            <path d="M6 7l1 14h10l1-14"/>
-            <path d="M9 7V4h6v3"/>
-        </svg>
-    `
-};
-
-
-/* =========================================
-   RENDER
-========================================= */
-
-function render() {
-
-    updateStats();
-
-
-    const visibleItems =
-        getVisibleItems();
-
-
-    list.innerHTML = "";
-
-
-    if (
-        visibleItems.length === 0
-    ) {
-
-        const noData =
-            passwords.length === 0;
-
-
-        list.innerHTML = `
-
-            <div class="empty">
-
-                <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.7"
-                    stroke-linecap="round"
-                >
-
-                    <circle
-                        cx="12"
-                        cy="12"
-                        r="8"
-                    />
-
-                    <path
-                        d="M8 12h8"
-                    />
-
-                </svg>
-
-
-                <div class="empty-title">
-
-                    ${
-                        noData
-                            ? "No password attempts yet."
-                            : "No matching attempts found."
-                    }
-
-                </div>
-
-
-                <div class="empty-subtitle">
-
-                    ${
-                        noData
-                            ? "Add your first combination above."
-                            : "Try another search or filter."
-                    }
-
-                </div>
-
-            </div>
-
-        `;
-
-
-        return;
-    }
-
-
-    visibleItems.forEach(
-        item => {
-
-            const originalIndex =
-                passwords.indexOf(
-                    item
-                );
-
-
-            const attemptNumber =
-                originalIndex + 1;
-
-
-            const success =
-                item.status === "yes";
-
-
-            const failed =
-                item.status === "no";
-
-
-            const card =
-                document.createElement(
-                    "article"
-                );
-
-
-            card.className =
-                "item " +
-                (
-                    success
-                        ? "success"
-                        : failed
-                            ? "failed"
-                            : ""
-                );
-
-
-            card.innerHTML = `
-
-                <div class="card-row">
-
-
-                    <span class="attempt-number">
-                        #${attemptNumber}
-                    </span>
-
-
-                    <div class="password-text">
-                        ${escapeHtml(item.text)}
-                    </div>
-
-
-                    <div class="actions">
-
-
-                        <!-- Copy -->
-
-                        <button
-                            type="button"
-                            class="icon-btn"
-                            data-action="copy"
-                            data-index="${originalIndex}"
-                            aria-label="Copy password"
-                            title="Copy"
-                        >
-
-                            ${icons.copy}
-
-                        </button>
-
-
-                        <!-- Success -->
-
-                        <button
-                            type="button"
-                            class="icon-btn ${
-                                success
-                                    ? "success-active"
-                                    : ""
-                            }"
-                            data-action="success"
-                            data-index="${originalIndex}"
-                            aria-label="Mark successful"
-                            title="Success"
-                        >
-
-                            ${icons.check}
-
-                        </button>
-
-
-                        <!-- Failed -->
-
-                        <button
-                            type="button"
-                            class="icon-btn ${
-                                failed
-                                    ? "failed-active"
-                                    : ""
-                            }"
-                            data-action="failed"
-                            data-index="${originalIndex}"
-                            aria-label="Mark failed"
-                            title="Failed"
-                        >
-
-                            ${icons.close}
-
-                        </button>
-
-
-                        <!-- Delete -->
-
-                        <button
-                            type="button"
-                            class="icon-btn"
-                            data-action="delete"
-                            data-index="${originalIndex}"
-                            aria-label="Delete"
-                            title="Delete"
-                        >
-
-                            ${icons.trash}
-
-                        </button>
-
-
-                    </div>
-
-                </div>
-
-
-                <div class="item-meta">
-
-
-                    <span
-                        class="status ${
-                            success
-                                ? "success"
-                                : failed
-                                    ? "failed"
-                                    : ""
-                        }"
-                    >
-
-                        ${
-                            success
-                                ? "SUCCESS"
-                                : failed
-                                    ? "FAILED"
-                                    : "PENDING"
-                        }
-
-                    </span>
-
-
-                    <span class="date">
-
-                        ${formatDate(
-                            item.createdAt
-                        )}
-
-                    </span>
-
-
-                </div>
-
-            `;
-
-
-            list.appendChild(
-                card
-            );
-
-        }
-    );
-}
-
-
-/* =========================================
-   STATS
-========================================= */
-
-function updateStats() {
-
-    const total =
-        passwords.length;
-
-
-    const tried =
-        passwords.filter(
-            item =>
-                item.status !==
-                "pending"
-        ).length;
-
-
-    const success =
-        passwords.filter(
-            item =>
-                item.status ===
-                "yes"
-        ).length;
-
-
-    totalCount.textContent =
-        total;
-
-    triedCount.textContent =
-        tried;
-
-    successCount.textContent =
-        success;
-}
-
-
-/* =========================================
-   DATE
-========================================= */
-
-function formatDate(
-    dateString
-) {
-
-    if (!dateString) {
-
-        return "";
-    }
-
-
-    const date =
-        new Date(
-            dateString
-        );
-
-
-    if (
-        Number.isNaN(
-            date.getTime()
-        )
-    ) {
-
-        return "";
-    }
-
-
-    return date.toLocaleString(
-        undefined,
-        {
-            day: "2-digit",
-            month: "short",
-            hour: "2-digit",
-            minute: "2-digit"
-        }
-    );
-}
-
-
-/* =========================================
-   ACTION HANDLER
-========================================= */
-
-list.addEventListener(
-    "click",
-    function(event) {
-
-        const button =
-            event.target.closest(
-                "[data-action]"
-            );
-
-
-        if (!button) {
-
-            return;
-        }
-
-
-        const index =
-            Number(
-                button.dataset.index
-            );
-
-
-        const action =
-            button.dataset.action;
-
-
-        if (
-            !Number.isInteger(index)
-        ) {
-
-            return;
-        }
-
-
-        if (
-            action === "copy"
-        ) {
-
-            const item =
-                passwords[index];
-
-
-            if (item) {
-
-                copyText(
-                    item.text
-                );
-            }
-
-        }
-
-        else if (
-            action === "success"
-        ) {
-
-            markStatus(
-                index,
-                "yes"
-            );
-
-        }
-
-        else if (
-            action === "failed"
-        ) {
-
-            markStatus(
-                index,
-                "no"
-            );
-
-        }
-
-        else if (
-            action === "delete"
-        ) {
-
-            deleteItem(
-                index
-            );
-        }
-
-    }
-);
-
-
-/* =========================================
-   ADD EVENTS
-========================================= */
-
-addButton.addEventListener(
-    "click",
-    addPassword
-);
-
-
-pwInput.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key ===
-            "Enter"
-        ) {
-
-            event.preventDefault();
-
-            addPassword();
-        }
-
-    }
-);
-
-
-/* =========================================
-   EXPORT
-========================================= */
-
-exportButton.addEventListener(
-    "click",
-    function() {
-
-        if (
-            passwords.length === 0
-        ) {
-
-            showToast(
-                "There is no data to export.",
-                "error"
+              "No valid password attempts found in backup.",
+              "error"
             );
 
             return;
+          }
+
+
+          const replaceExisting =
+            window.confirm(
+              "Replace current data with this backup?\n\nPress Cancel to merge it with your current data."
+            );
+
+
+          if (replaceExisting) {
+
+            /*
+              Reverse because the newest item
+              should remain at the top.
+            */
+
+            passwords =
+              [...uniqueImported];
+
+          } else {
+
+            /*
+              Merge without exact duplicates.
+              Imported entries are added to the top.
+            */
+
+            const existingTexts =
+              new Set(
+                passwords.map(
+                  item => item.text
+                )
+              );
+
+
+            const newItems =
+              uniqueImported.filter(
+                item =>
+                  !existingTexts.has(item.text)
+              );
+
+
+            passwords =
+              [
+                ...newItems,
+                ...passwords
+              ];
+
+
+            if (newItems.length === 0) {
+
+              showToast(
+                "No new attempts were found in the backup.",
+                "info"
+              );
+
+              return;
+            }
+          }
+
+
+          savePasswords();
+
+          render();
+
+
+          showToast(
+            "Backup imported successfully.",
+            "success"
+          );
+
+        } catch (error) {
+
+          console.error(
+            "Import failed:",
+            error
+          );
+
+          showToast(
+            "Invalid or corrupted backup file.",
+            "error"
+          );
         }
+      };
 
 
-        const backup = {
-
-            app:
-                "Get Back My Key",
-
-            version:
-                1,
-
-            exportedAt:
-                new Date().toISOString(),
-
-            attempts:
-                passwords
-        };
-
-
-        const blob =
-            new Blob(
-                [
-                    JSON.stringify(
-                        backup,
-                        null,
-                        2
-                    )
-                ],
-                {
-                    type:
-                        "application/json"
-                }
-            );
-
-
-        const url =
-            URL.createObjectURL(
-                blob
-            );
-
-
-        const link =
-            document.createElement(
-                "a"
-            );
-
-
-        link.href =
-            url;
-
-
-        link.download =
-            `get-back-my-key-backup-${formatFileDate()}.json`;
-
-
-        document.body.appendChild(
-            link
-        );
-
-
-        link.click();
-
-
-        link.remove();
-
-
-        URL.revokeObjectURL(
-            url
-        );
-
+      reader.onerror = function() {
 
         showToast(
-            "Backup exported successfully.",
-            "success"
+          "Could not read the backup file.",
+          "error"
+        );
+      };
+
+
+      reader.readAsText(file);
+    }
+
+
+    /* =========================================================
+       EVENT LISTENERS
+    ========================================================= */
+
+    addButton.addEventListener(
+      "click",
+      addPassword
+    );
+
+
+    /*
+      Enter = Add password.
+    */
+
+    passwordInput.addEventListener(
+      "keydown",
+      event => {
+
+        if (event.key === "Enter") {
+
+          event.preventDefault();
+
+          addPassword();
+        }
+      }
+    );
+
+
+    /*
+      Search.
+    */
+
+    searchInput.addEventListener(
+      "input",
+      event => {
+
+        setSearch(
+          event.target.value
+        );
+      }
+    );
+
+
+    /*
+      Filters.
+    */
+
+    document
+      .querySelectorAll(".filter-btn")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            setFilter(
+              button.dataset.filter
+            );
+          }
         );
 
-    }
-);
+      });
 
 
-/* =========================================
-   IMPORT
-========================================= */
+    /*
+      Export.
+    */
 
-importInput.addEventListener(
-    "change",
-    function(event) {
+    exportButton.addEventListener(
+      "click",
+      exportBackup
+    );
+
+
+    /*
+      Import.
+    */
+
+    importButton.addEventListener(
+      "click",
+      importBackup
+    );
+
+
+    importFile.addEventListener(
+      "change",
+      event => {
 
         const file =
-            event.target.files[0];
+          event.target.files &&
+          event.target.files[0];
 
+        processImport(file);
+      }
+    );
 
-        if (!file) {
 
-            return;
-        }
+    /* =========================================================
+       INITIALIZE
+    ========================================================= */
 
+    loadPasswords();
 
-        const reader =
-            new FileReader();
+    updateFilterButtons();
 
+    render();
 
-        reader.onload =
-            function() {
-
-                try {
-
-                    const data =
-                        JSON.parse(
-                            reader.result
-                        );
-
-
-                    let imported =
-                        null;
-
-
-                    if (
-                        data &&
-                        Array.isArray(
-                            data.attempts
-                        )
-                    ) {
-
-                        imported =
-                            data.attempts;
-
-                    } else if (
-                        Array.isArray(
-                            data
-                        )
-                    ) {
-
-                        imported =
-                            data;
-                    }
-
-
-                    if (!imported) {
-
-                        throw new Error(
-                            "Invalid backup"
-                        );
-                    }
-
-
-                    const cleaned =
-                        imported
-
-                            .filter(
-                                item =>
-                                    item &&
-                                    typeof item.text ===
-                                        "string"
-                            )
-
-                            .map(
-                                item => ({
-
-                                    id:
-                                        item.id ||
-                                        createId(),
-
-                                    text:
-                                        item.text,
-
-                                    status:
-                                        [
-                                            "pending",
-                                            "yes",
-                                            "no"
-                                        ].includes(
-                                            item.status
-                                        )
-                                            ? item.status
-                                            : "pending",
-
-                                    createdAt:
-                                        item.createdAt ||
-                                        new Date()
-                                            .toISOString()
-
-                                })
-                            );
-
-
-                    const seen =
-                        new Set();
-
-
-                    const unique =
-                        cleaned.filter(
-                            item => {
-
-                                if (
-                                    seen.has(
-                                        item.text
-                                    )
-                                ) {
-
-                                    return false;
-                                }
-
-
-                                seen.add(
-                                    item.text
-                                );
-
-
-                                return true;
-                            }
-                        );
-
-
-                    const replace =
-                        confirm(
-                            `Import ${unique.length} attempts?\n\n` +
-                            "OK = Replace current data\n" +
-                            "Cancel = Merge with current data"
-                        );
-
-
-                    if (replace) {
-
-                        passwords =
-                            unique;
-
-                    } else {
-
-                        const existing =
-                            new Set(
-                                passwords.map(
-                                    item =>
-                                        item.text
-                                )
-                            );
-
-
-                        const newItems =
-                            unique.filter(
-                                item =>
-                                    !existing.has(
-                                        item.text
-                                    )
-                            );
-
-
-                        passwords = [
-                            ...passwords,
-                            ...newItems
-                        ];
-                    }
-
-
-                    saveData();
-
-                    render();
-
-
-                    showToast(
-                        "Backup imported successfully.",
-                        "success"
-                    );
-
-
-                } catch (error) {
-
-                    console.error(
-                        "Import error:",
-                        error
-                    );
-
-
-                    showToast(
-                        "Invalid backup file.",
-                        "error"
-                    );
-                }
-
-
-                importInput.value =
-                    "";
-            };
-
-
-        reader.readAsText(
-            file
-        );
-
-    }
-);
-
-
-/* =========================================
-   FILE DATE
-========================================= */
-
-function formatFileDate() {
-
-    const now =
-        new Date();
-
-
-    return [
-
-        now.getFullYear(),
-
-        String(
-            now.getMonth() + 1
-        ).padStart(2, "0"),
-
-        String(
-            now.getDate()
-        ).padStart(2, "0")
-
-    ].join("-");
-}
-
-
-/* =========================================
-   START
-========================================= */
-
-loadData();
-
-render();
-
-</script>
+  </script>
 
 </body>
 </html>
