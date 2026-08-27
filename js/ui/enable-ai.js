@@ -1,48 +1,40 @@
 // js/ui/enable-ai.js
 
 import {
-  hasApiKey,
-  getMaskedApiKey,
+  getApiKey,
 } from "../storage/api-key.js";
+
+import {
+  generateAIResponse,
+} from "../ai/gemini.js";
+
+import {
+  showError,
+  showInfo,
+  showSuccess,
+} from "./notifications.js";
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let enableButton = null;
 
 let aiEnabled = false;
 
-let elements = {
-  enableButton: null,
-  status: null,
-  indicator: null,
-};
+let isEnabling = false;
 
-/**
- * Initialize Enable AI UI.
- *
- * Expected HTML:
- *
- * <button id="enable-ai-btn">
- *   Enable AI
- * </button>
- *
- * <span id="ai-status"></span>
- *
- * <span id="ai-indicator"></span>
- */
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
 export function initializeAI() {
-  elements.enableButton =
+  enableButton =
     document.getElementById(
       "enable-ai-btn"
     );
 
-  elements.status =
-    document.getElementById(
-      "ai-status"
-    );
-
-  elements.indicator =
-    document.getElementById(
-      "ai-indicator"
-    );
-
-  if (!elements.enableButton) {
+  if (!enableButton) {
     console.warn(
       "Enable AI button not found."
     );
@@ -50,41 +42,71 @@ export function initializeAI() {
     return;
   }
 
-  elements.enableButton.addEventListener(
+  enableButton.addEventListener(
     "click",
     handleEnableAI
   );
 
-  // Restore AI state when page loads.
-  restoreAIState();
+  updateUI();
 }
 
-/**
- * Handle Enable AI button click.
- */
-async function handleEnableAI() {
-  setLoadingState();
+/* =========================================================
+   ENABLE AI
+   ========================================================= */
+
+export async function handleEnableAI() {
+  if (
+    aiEnabled ||
+    isEnabling
+  ) {
+    return;
+  }
 
   try {
-    const configured =
-      await hasApiKey();
+    isEnabling = true;
 
-    if (!configured) {
-      setNotConfiguredState();
+    updateUI();
 
-      showMessage(
-        "Add your Gemini API key to enable AI."
+    /*
+     * 1. Check whether user has
+     *    configured their Gemini key.
+     */
+    const apiKey =
+      await getApiKey();
+
+    if (!apiKey) {
+      showInfo(
+        "Add your Gemini API key first."
       );
 
       return;
     }
 
     /*
-     * The API key already exists locally.
+     * 2. Small test request.
      *
-     * No request is sent to our backend.
+     * This verifies that the key
+     * actually works.
      */
-    setEnabledState();
+    await testGeminiConnection();
+
+    /*
+     * 3. Mark AI as enabled.
+     */
+    aiEnabled = true;
+
+    /*
+     * 4. Tell the rest of the UI.
+     */
+    document.dispatchEvent(
+      new CustomEvent(
+        "ai:enabled"
+      )
+    );
+
+    showSuccess(
+      "AI enabled successfully."
+    );
 
   } catch (error) {
     console.error(
@@ -92,200 +114,158 @@ async function handleEnableAI() {
       error
     );
 
-    setErrorState();
+    handleEnableError(error);
 
-    showMessage(
-      "Unable to enable AI."
+  } finally {
+    isEnabling = false;
+
+    updateUI();
+  }
+}
+
+/* =========================================================
+   GEMINI CONNECTION TEST
+   ========================================================= */
+
+async function testGeminiConnection() {
+  /*
+   * We intentionally use a tiny request.
+   *
+   * The actual user conversation is NOT
+   * sent during AI enable.
+   */
+  const response =
+    await generateAIResponse(
+      {
+        request: {
+          userMessage:
+            "Respond with OK.",
+        },
+
+        conversation: null,
+
+        messages: [],
+
+        memories: [],
+
+        currentData: null,
+      },
+      {
+        temperature: 0,
+
+        maxOutputTokens: 10,
+      }
+    );
+
+  if (
+    !response ||
+    !response.text
+  ) {
+    throw new Error(
+      "AI_CONNECTION_FAILED"
     );
   }
 }
 
-/**
- * Restore AI state from local storage.
- */
-async function restoreAIState() {
-  try {
-    const configured =
-      await hasApiKey();
+/* =========================================================
+   DISABLE AI
+   ========================================================= */
 
-    if (configured) {
-      setEnabledState();
-    } else {
-      setNotConfiguredState();
-    }
-  } catch (error) {
-    console.error(
-      "Failed to restore AI state:",
-      error
-    );
-
-    setNotConfiguredState();
+export function disableAI() {
+  if (!aiEnabled) {
+    return;
   }
-}
 
-/**
- * Set loading state.
- */
-function setLoadingState() {
   aiEnabled = false;
-
-  if (elements.enableButton) {
-    elements.enableButton.disabled =
-      true;
-
-    elements.enableButton.textContent =
-      "Enabling AI...";
-  }
-
-  if (elements.status) {
-    elements.status.textContent =
-      "Checking AI configuration...";
-  }
-
-  if (elements.indicator) {
-    elements.indicator.textContent =
-      "●";
-    elements.indicator.className =
-      "ai-indicator loading";
-  }
-}
-
-/**
- * Set enabled state.
- */
-async function setEnabledState() {
-  aiEnabled = true;
-
-  if (elements.enableButton) {
-    elements.enableButton.disabled =
-      false;
-
-    elements.enableButton.textContent =
-      "✓ AI Enabled";
-  }
-
-  if (elements.status) {
-    const maskedKey =
-      await getMaskedApiKey();
-
-    elements.status.textContent =
-      maskedKey
-        ? `AI is ready · ${maskedKey}`
-        : "AI is ready";
-  }
-
-  if (elements.indicator) {
-    elements.indicator.textContent =
-      "●";
-
-    elements.indicator.className =
-      "ai-indicator enabled";
-  }
 
   document.dispatchEvent(
     new CustomEvent(
-      "ai:enabled"
+      "ai:disabled"
     )
+  );
+
+  updateUI();
+
+  showInfo(
+    "AI disabled."
   );
 }
 
-/**
- * Set not-configured state.
- */
-function setNotConfiguredState() {
-  aiEnabled = false;
+/* =========================================================
+   STATE
+   ========================================================= */
 
-  if (elements.enableButton) {
-    elements.enableButton.disabled =
-      false;
-
-    elements.enableButton.textContent =
-      "Enable AI";
-  }
-
-  if (elements.status) {
-    elements.status.textContent =
-      "AI is not configured";
-  }
-
-  if (elements.indicator) {
-    elements.indicator.textContent =
-      "●";
-
-    elements.indicator.className =
-      "ai-indicator disabled";
-  }
-
-  document.dispatchEvent(
-    new CustomEvent(
-      "ai:not-configured"
-    )
-  );
-}
-
-/**
- * Set error state.
- */
-function setErrorState() {
-  aiEnabled = false;
-
-  if (elements.enableButton) {
-    elements.enableButton.disabled =
-      false;
-
-    elements.enableButton.textContent =
-      "Enable AI";
-  }
-
-  if (elements.status) {
-    elements.status.textContent =
-      "AI unavailable";
-  }
-
-  if (elements.indicator) {
-    elements.indicator.textContent =
-      "●";
-
-    elements.indicator.className =
-      "ai-indicator error";
-  }
-}
-
-/**
- * Check whether AI is currently enabled.
- *
- * @returns {boolean}
- */
 export function isAIEnabled() {
   return aiEnabled;
 }
 
-/**
- * Show a temporary UI message.
- */
-function showMessage(message) {
-  console.info(
-    `[AI] ${message}`
+/* =========================================================
+   UI
+   ========================================================= */
+
+function updateUI() {
+  if (!enableButton) {
+    return;
+  }
+
+  enableButton.dataset.enabled =
+    String(aiEnabled);
+
+  enableButton.dataset.loading =
+    String(isEnabling);
+
+  enableButton.disabled =
+    isEnabling;
+
+  if (isEnabling) {
+    enableButton.textContent =
+      "Enabling AI…";
+
+    enableButton.setAttribute(
+      "aria-busy",
+      "true"
+    );
+
+    return;
+  }
+
+  enableButton.removeAttribute(
+    "aria-busy"
   );
 
-  document.dispatchEvent(
-    new CustomEvent(
-      "ai:message",
-      {
-        detail: {
-          message,
-        },
-      }
-    )
-  );
+  if (aiEnabled) {
+    enableButton.textContent =
+      "AI Enabled";
+  } else {
+    enableButton.textContent =
+      "Enable AI";
+  }
 }
 
-/**
- * Manually refresh AI state.
- *
- * Useful after saving/removing
- * an API key.
- */
-export async function refreshAIState() {
-  await restoreAIState();
+/* =========================================================
+   ERROR HANDLING
+   ========================================================= */
+
+function handleEnableError(
+  error
+) {
+  switch (error?.message) {
+    case "API_KEY_MISSING":
+      showError(
+        "Gemini API key is missing."
+      );
+      break;
+
+    case "AI_CONNECTION_FAILED":
+      showError(
+        "Could not connect to Gemini."
+      );
+      break;
+
+    default:
+      showError(
+        error?.message ||
+          "Unable to enable AI."
+      );
+  }
 }
