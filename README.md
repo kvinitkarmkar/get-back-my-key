@@ -1,5 +1,11 @@
 # 🔑 Get Back My Key
 
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+![No dependencies](https://img.shields.io/badge/dependencies-none-brightgreen.svg)
+![Privacy: local only](https://img.shields.io/badge/privacy-local--only-informational.svg)
+
+[Live demo](https://YOUR-USERNAME.github.io/get-back-my-key/) · [Report a bug](../../issues/new/choose) · [Request a feature](../../issues/new/choose)
+
 A private, local-only tracker for password attempts. If you forgot a password and are trying different combinations, this app helps you remember **what you already tried**, so you never test the same combination twice.
 
 Everything runs in your browser. There is no server, no account, and no network request. Your data never leaves your device.
@@ -52,6 +58,14 @@ Then visit `http://localhost:8000`.
 get-back-my-key/
 ├── index.html            HTML structure, links CSS and loads scripts in order
 ├── README.md
+├── LICENSE
+├── CONTRIBUTING.md
+├── SECURITY.md
+├── CODE_OF_CONDUCT.md
+├── CHANGELOG.md
+├── .gitignore
+├── .editorconfig
+├── .github/              Issue templates, PR template, Pages deploy workflow
 ├── css/
 │   └── style.css         All styling (layout, components, modals, animations, responsive, reduced-motion)
 └── js/
@@ -153,3 +167,22 @@ Import accepts this format (or a plain array of attempts), validates each entry,
 ## Browser support
 
 Any modern browser (Chrome, Edge, Firefox, Safari) with `localStorage` and Web Audio support.
+
+---
+
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md) first. For security issues, see [SECURITY.md](SECURITY.md).
+
+## Roadmap ideas
+
+- Optional passphrase encryption of stored data (Web Crypto API)
+- PWA support for offline install
+- Light / dark theme toggle
+- Convert to ES modules
+- Automated tests
+- Multi-language support
+
+## License
+
+Released under the [MIT License](LICENSE).
