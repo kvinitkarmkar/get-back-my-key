@@ -16,8 +16,7 @@ Please keep these limits in mind when using the app, and use it only on devices 
 
 If you find a security issue (for example XSS, unsafe handling of imported files, or any way data could leak), please report it **privately**:
 
-- Use GitHub's **Report a vulnerability** option under the repository's **Security** tab, or
-- Email: **[YOUR EMAIL]**
+- Use GitHub's **Report a vulnerability** option under the repository's **Security** tab
 
 Please include:
 
