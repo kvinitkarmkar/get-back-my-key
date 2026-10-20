@@ -17,7 +17,6 @@ There is no build step and there are no dependencies.
 ```bash
 git clone https://github.com/kvinitkarmkar/get-back-my-key.git
 cd get-back-my-key
-python3 -m http.server 8000   # or: npx serve .
 ```
 
 Open `http://localhost:8000` in your browser.
