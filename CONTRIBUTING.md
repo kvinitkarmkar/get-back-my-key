@@ -15,7 +15,7 @@ Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before participating.
 There is no build step and there are no dependencies.
 
 ```bash
-git clone https://github.com/<your-username>/get-back-my-key.git
+git clone https://github.com/kvinitkarmkar/get-back-my-key.git
 cd get-back-my-key
 python3 -m http.server 8000   # or: npx serve .
 ```
