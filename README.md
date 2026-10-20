@@ -1,4 +1,6 @@
-# 🔑 Get Back My Key
+<p align="center">
+  <img src="get-back-my-key-banner.png" alt="Get Back My Key Banner" width="100%">
+</p>
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 ![No dependencies](https://img.shields.io/badge/dependencies-none-brightgreen.svg)
