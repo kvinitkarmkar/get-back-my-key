@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="get-back-my-key-banner.png" alt="Get Back My Key Banner" width="100%">
+  <img src="assets/get-back-my-key-banner.png" alt="Get Back My Key Banner" width="100%">
 </p>
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
