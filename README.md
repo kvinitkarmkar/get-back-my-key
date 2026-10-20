@@ -4,7 +4,7 @@
 ![No dependencies](https://img.shields.io/badge/dependencies-none-brightgreen.svg)
 ![Privacy: local only](https://img.shields.io/badge/privacy-local--only-informational.svg)
 
-[Live demo](https://YOUR-USERNAME.github.io/get-back-my-key/) · [Report a bug](../../issues/new/choose) · [Request a feature](../../issues/new/choose)
+[Live demo](get-back-my-key.vercel.app) · [Report a bug](../../issues/new/choose) · [Request a feature](../../issues/new/choose)
 
 A private, local-only tracker for password attempts. If you forgot a password and are trying different combinations, this app helps you remember **what you already tried**, so you never test the same combination twice.
 
